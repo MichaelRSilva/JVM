@@ -14,7 +14,6 @@ util.h: definicoes das funcoes utilitarias
 	/*definicoes*/
 		#define JVMCMDARGCOUNT 1
 		#define LEITOREXIBIDORCMDARGCOUNT 1
-		#define EXTENSION ".fgk"
 
 	// encapsulamento das funcoes do modulo util
 	// simulando assim uma falsa orientacao a objetos

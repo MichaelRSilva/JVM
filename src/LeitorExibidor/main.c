@@ -10,7 +10,7 @@ main.c: entry point do Leitor/Exibidor de bytecode
 
 #include "../util/util.h"
 
-int main (int argc, char **argv) {
+int main(int argc, char **argv) {
 	int flag;
 	UTIL util = getUTILInstance();
 
