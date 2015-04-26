@@ -111,6 +111,9 @@ $(document).ready(function(){initNavTree('common_8h.html','');});
 <div class="title">Referência ao ficheiro common.h</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>Definicoes de funcoes e inicializadores comuns a todos os modulos.  
+<a href="#details">Mais...</a></p>
 <div class="textblock"><code>#include &lt;stdio.h&gt;</code><br />
 <code>#include &lt;stdlib.h&gt;</code><br />
 <code>#include &lt;stdint.h&gt;</code><br />
@@ -122,8 +125,10 @@ $(document).ready(function(){initNavTree('common_8h.html','');});
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Estruturas de Dados</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_e_r_r_o_r_s.html">ERRORS</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Associa uma mensagem de erro a um código.  <a href="struct_e_r_r_o_r_s.html#details">Mais...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_d_a_d_o_s.html">DADOS</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Estrutura para representação de dados como array de bytes.  <a href="struct_d_a_d_o_s.html#details">Mais...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
@@ -132,19 +137,30 @@ Enumerações</h2></td></tr>
 <a class="el" href="common_8h.html#a34753b0bbe7e878508c8338f40433fe4a1b7ea43957a152b7b32d7d21a6fb8ad1">E_INVALID_NUM_ARGS</a> = -1, 
 <a class="el" href="common_8h.html#a34753b0bbe7e878508c8338f40433fe4aebee5a6b3088571da0adece036d7f46f">E_ARGV1_FILE_NOT_EXISTENT</a> = -2
  }</td></tr>
+<tr class="memdesc:a34753b0bbe7e878508c8338f40433fe4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Associa inteiros com macros para melhor legibilidade dos erros.  <a href="common_8h.html#a34753b0bbe7e878508c8338f40433fe4">Mais...</a><br /></td></tr>
 <tr class="separator:a34753b0bbe7e878508c8338f40433fe4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Funções</h2></td></tr>
 <tr class="memitem:a49a635a07acdf10dadb8fc132b070d65"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_d_a_d_o_s.html">DADOS</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="common_8h.html#a49a635a07acdf10dadb8fc132b070d65">initDADOS</a> ()</td></tr>
+<tr class="memdesc:a49a635a07acdf10dadb8fc132b070d65"><td class="mdescLeft">&#160;</td><td class="mdescRight">inicializa uma estrutura do tipo <a class="el" href="struct_d_a_d_o_s.html" title="Estrutura para representação de dados como array de bytes. ">DADOS</a>.  <a href="#a49a635a07acdf10dadb8fc132b070d65">Mais...</a><br /></td></tr>
 <tr class="separator:a49a635a07acdf10dadb8fc132b070d65"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 Variáveis</h2></td></tr>
-<tr class="memitem:a0ca627d7a38ae9be85949ed12c25f49b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_e_r_r_o_r_s.html">ERRORS</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="common_8h.html#a0ca627d7a38ae9be85949ed12c25f49b">errordesc</a> []</td></tr>
-<tr class="separator:a0ca627d7a38ae9be85949ed12c25f49b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a689f73905e587e3f0ec800857c9f7499"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="struct_e_r_r_o_r_s.html">ERRORS</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="common_8h.html#a689f73905e587e3f0ec800857c9f7499">errordesc</a> []</td></tr>
+<tr class="memdesc:a689f73905e587e3f0ec800857c9f7499"><td class="mdescLeft">&#160;</td><td class="mdescRight">Variável global para acessar as mensagens de erro dado um código.  <a href="#a689f73905e587e3f0ec800857c9f7499">Mais...</a><br /></td></tr>
+<tr class="separator:a689f73905e587e3f0ec800857c9f7499"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Documentação dos valores da enumeração</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Descrição detalhada</h2>
+<div class="textblock"><p>Definicoes de funcoes e inicializadores comuns a todos os modulos. </p>
+<p>Autores:</p><ul>
+<li>Abilio Esteves Calegario de Oliveira - 10/0006132</li>
+<li>Marcus da Silva Ferreira - 10/0056881</li>
+<li>Michael Rodrigues - 09/0126432</li>
+</ul>
+<p>JVM - Software Basico 1/2015 </p>
+</div><h2 class="groupheader">Documentação dos valores da enumeração</h2>
 <a class="anchor" id="a34753b0bbe7e878508c8338f40433fe4"></a>
 <div class="memitem">
 <div class="memproto">
@@ -154,6 +170,8 @@ Variáveis</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Associa inteiros com macros para melhor legibilidade dos erros. </p>
 <table class="fieldtable">
 <tr><th colspan="2">Valores de enumerações</th></tr><tr><td class="fieldname"><a class="anchor" id="a34753b0bbe7e878508c8338f40433fe4ac3121e429a129b2ccb51a92b7c78c4b4"></a>E_SUCCESS&#160;</td><td class="fielddoc">
 </td></tr>
@@ -179,18 +197,22 @@ Variáveis</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>inicializa uma estrutura do tipo <a class="el" href="struct_d_a_d_o_s.html" title="Estrutura para representação de dados como array de bytes. ">DADOS</a>. </p>
+
 </div>
 </div>
 <h2 class="groupheader">Documentação das variáveis</h2>
-<a class="anchor" id="a0ca627d7a38ae9be85949ed12c25f49b"></a>
+<a class="anchor" id="a689f73905e587e3f0ec800857c9f7499"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="struct_e_r_r_o_r_s.html">ERRORS</a> errordesc[]</td>
+          <td class="memname">const <a class="el" href="struct_e_r_r_o_r_s.html">ERRORS</a> errordesc[]</td>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Variável global para acessar as mensagens de erro dado um código. </p>
 
 </div>
 </div>
@@ -200,7 +222,7 @@ Variáveis</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_ba210d1fa67db7bee1bb22e0a3c11d9f.html">Common</a></li><li class="navelem"><a class="el" href="common_8h.html">common.h</a></li>
-    <li class="footer">Gerado em Sábado, 25 de Abril de 2015 22:10:59 para JVM por
+    <li class="footer">Gerado em Sábado, 25 de Abril de 2015 23:36:08 para JVM por
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.9.1 </li>
   </ul>

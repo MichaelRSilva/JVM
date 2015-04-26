@@ -1,15 +1,16 @@
-/*
-Abilio Esteves Calegario de Oliveira - 10/0006132
-Marcus da Silva Ferreira - 10/0056881
-Michael Rodrigues - 09/0126432
+/*! \file 
+	\brief Implementação das Funções Utilitárias para IO
+	
+	Autores:
+		- Abilio Esteves Calegario de Oliveira - 10/0006132
+		- Marcus da Silva Ferreira - 10/0056881
+		- Michael Rodrigues - 09/0126432
 
-JVM - Software Basico 1/2015
-
-util.c: funcoes utilitarias
+	JVM - Software Basico 1/2015
 */
 #include "util.h"
 
-int VerificaLeitorExibidorCMDArgs(int argc, char **argv){
+static int VerificaLeitorExibidorCMDArgs(int argc, char **argv){
 	FILE *fp;
     char *arq1name;
     int i;
@@ -25,7 +26,7 @@ int VerificaLeitorExibidorCMDArgs(int argc, char **argv){
 	return E_SUCCESS;
 }
 
-int VerificaJVMCMDArgs(int argc, char** argv){
+static int VerificaJVMCMDArgs(int argc, char** argv){
 	FILE *fp;
     char *arq1name;
     int i;
@@ -42,7 +43,7 @@ int VerificaJVMCMDArgs(int argc, char** argv){
 }
 
 // le o arquivo passado por linha de comando e retorna um array de bytes
-DADOS LeArquivo(char* arqNome) {
+static DADOS LeArquivo(char* arqNome) {
 	// inicializacoes
 	unsigned long int i=0l;
 	DADOS d = initDADOS();
@@ -62,7 +63,7 @@ DADOS LeArquivo(char* arqNome) {
 }
 
 // escreve um array de bytes em um arquivo
-int EscreveArquivo(DADOS d, char *arqName){
+static int EscreveArquivo(DADOS d, char *arqName){
 	// inicializacoes
 	FILE *fp = fopen(arqName,"wb");
 

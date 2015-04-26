@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['initdados',['initDADOS',['../common_8c.html#a368fb9efed5ef43d13ba17d8bcc75357',1,'initDADOS(char *arqNome):&#160;common.c'],['../common_8h.html#a49a635a07acdf10dadb8fc132b070d65',1,'initDADOS():&#160;common.h']]]
+  ['main',['main',['../_j_v_m_2main_8c.html#a3c04138a5bfe5d72780bb7e82a18e627',1,'main(int argc, char **argv):&#160;main.c'],['../_leitor_exibidor_2main_8c.html#a3c04138a5bfe5d72780bb7e82a18e627',1,'main(int argc, char **argv):&#160;main.c']]]
 ];

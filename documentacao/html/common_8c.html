@@ -109,42 +109,56 @@ $(document).ready(function(){initNavTree('common_8c.html','');});
 <div class="title">Referência ao ficheiro common.c</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>Implementação das funções comuns a todos os modulos.  
+<a href="#details">Mais...</a></p>
 <div class="textblock"><code>#include &quot;<a class="el" href="common_8h_source.html">common.h</a>&quot;</code><br />
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Funções</h2></td></tr>
-<tr class="memitem:a368fb9efed5ef43d13ba17d8bcc75357"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_d_a_d_o_s.html">DADOS</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="common_8c.html#a368fb9efed5ef43d13ba17d8bcc75357">initDADOS</a> (char *arqNome)</td></tr>
-<tr class="separator:a368fb9efed5ef43d13ba17d8bcc75357"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a49a635a07acdf10dadb8fc132b070d65"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_d_a_d_o_s.html">DADOS</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="common_8c.html#a49a635a07acdf10dadb8fc132b070d65">initDADOS</a> ()</td></tr>
+<tr class="memdesc:a49a635a07acdf10dadb8fc132b070d65"><td class="mdescLeft">&#160;</td><td class="mdescRight">inicializa uma estrutura do tipo <a class="el" href="struct_d_a_d_o_s.html" title="Estrutura para representação de dados como array de bytes. ">DADOS</a>.  <a href="#a49a635a07acdf10dadb8fc132b070d65">Mais...</a><br /></td></tr>
+<tr class="separator:a49a635a07acdf10dadb8fc132b070d65"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 Variáveis</h2></td></tr>
-<tr class="memitem:a0ca627d7a38ae9be85949ed12c25f49b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_e_r_r_o_r_s.html">ERRORS</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="common_8c.html#a0ca627d7a38ae9be85949ed12c25f49b">errordesc</a> []</td></tr>
-<tr class="separator:a0ca627d7a38ae9be85949ed12c25f49b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a689f73905e587e3f0ec800857c9f7499"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="struct_e_r_r_o_r_s.html">ERRORS</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="common_8c.html#a689f73905e587e3f0ec800857c9f7499">errordesc</a> []</td></tr>
+<tr class="memdesc:a689f73905e587e3f0ec800857c9f7499"><td class="mdescLeft">&#160;</td><td class="mdescRight">Variável global para acessar as mensagens de erro dado um código.  <a href="#a689f73905e587e3f0ec800857c9f7499">Mais...</a><br /></td></tr>
+<tr class="separator:a689f73905e587e3f0ec800857c9f7499"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Documentação das funções</h2>
-<a class="anchor" id="a368fb9efed5ef43d13ba17d8bcc75357"></a>
+<a name="details" id="details"></a><h2 class="groupheader">Descrição detalhada</h2>
+<div class="textblock"><p>Implementação das funções comuns a todos os modulos. </p>
+<p>Autores:</p><ul>
+<li>Abilio Esteves Calegario de Oliveira - 10/0006132</li>
+<li>Marcus da Silva Ferreira - 10/0056881</li>
+<li>Michael Rodrigues - 09/0126432</li>
+</ul>
+<p>JVM - Software Basico 1/2015 </p>
+</div><h2 class="groupheader">Documentação das funções</h2>
+<a class="anchor" id="a49a635a07acdf10dadb8fc132b070d65"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname"><a class="el" href="struct_d_a_d_o_s.html">DADOS</a> initDADOS </td>
           <td>(</td>
-          <td class="paramtype">char *&#160;</td>
-          <td class="paramname"><em>arqNome</em></td><td>)</td>
+          <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
+<p>inicializa uma estrutura do tipo <a class="el" href="struct_d_a_d_o_s.html" title="Estrutura para representação de dados como array de bytes. ">DADOS</a>. </p>
+
 </div>
 </div>
 <h2 class="groupheader">Documentação das variáveis</h2>
-<a class="anchor" id="a0ca627d7a38ae9be85949ed12c25f49b"></a>
+<a class="anchor" id="a689f73905e587e3f0ec800857c9f7499"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="struct_e_r_r_o_r_s.html">ERRORS</a> errordesc[]</td>
+          <td class="memname">const <a class="el" href="struct_e_r_r_o_r_s.html">ERRORS</a> errordesc[]</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -153,10 +167,12 @@ Variáveis</h2></td></tr>
 <div class="line">    { <a class="code" href="common_8h.html#a34753b0bbe7e878508c8338f40433fe4a1b7ea43957a152b7b32d7d21a6fb8ad1">E_INVALID_NUM_ARGS</a>, <span class="stringliteral">&quot;ERRO: numero de argumentos invalido&quot;</span>},</div>
 <div class="line">    { <a class="code" href="common_8h.html#a34753b0bbe7e878508c8338f40433fe4aebee5a6b3088571da0adece036d7f46f">E_ARGV1_FILE_NOT_EXISTENT</a>, <span class="stringliteral">&quot;ERRO: arquivo nao existente&quot;</span>}</div>
 <div class="line">}</div>
-<div class="ttc" id="common_8h_html_a34753b0bbe7e878508c8338f40433fe4a1b7ea43957a152b7b32d7d21a6fb8ad1"><div class="ttname"><a href="common_8h.html#a34753b0bbe7e878508c8338f40433fe4a1b7ea43957a152b7b32d7d21a6fb8ad1">E_INVALID_NUM_ARGS</a></div><div class="ttdef"><b>Definition:</b> common.h:21</div></div>
-<div class="ttc" id="common_8h_html_a34753b0bbe7e878508c8338f40433fe4ac3121e429a129b2ccb51a92b7c78c4b4"><div class="ttname"><a href="common_8h.html#a34753b0bbe7e878508c8338f40433fe4ac3121e429a129b2ccb51a92b7c78c4b4">E_SUCCESS</a></div><div class="ttdef"><b>Definition:</b> common.h:20</div></div>
-<div class="ttc" id="common_8h_html_a34753b0bbe7e878508c8338f40433fe4aebee5a6b3088571da0adece036d7f46f"><div class="ttname"><a href="common_8h.html#a34753b0bbe7e878508c8338f40433fe4aebee5a6b3088571da0adece036d7f46f">E_ARGV1_FILE_NOT_EXISTENT</a></div><div class="ttdef"><b>Definition:</b> common.h:22</div></div>
+<div class="ttc" id="common_8h_html_a34753b0bbe7e878508c8338f40433fe4a1b7ea43957a152b7b32d7d21a6fb8ad1"><div class="ttname"><a href="common_8h.html#a34753b0bbe7e878508c8338f40433fe4a1b7ea43957a152b7b32d7d21a6fb8ad1">E_INVALID_NUM_ARGS</a></div><div class="ttdef"><b>Definition:</b> common.h:24</div></div>
+<div class="ttc" id="common_8h_html_a34753b0bbe7e878508c8338f40433fe4ac3121e429a129b2ccb51a92b7c78c4b4"><div class="ttname"><a href="common_8h.html#a34753b0bbe7e878508c8338f40433fe4ac3121e429a129b2ccb51a92b7c78c4b4">E_SUCCESS</a></div><div class="ttdef"><b>Definition:</b> common.h:23</div></div>
+<div class="ttc" id="common_8h_html_a34753b0bbe7e878508c8338f40433fe4aebee5a6b3088571da0adece036d7f46f"><div class="ttname"><a href="common_8h.html#a34753b0bbe7e878508c8338f40433fe4aebee5a6b3088571da0adece036d7f46f">E_ARGV1_FILE_NOT_EXISTENT</a></div><div class="ttdef"><b>Definition:</b> common.h:25</div></div>
 </div><!-- fragment -->
+<p>Variável global para acessar as mensagens de erro dado um código. </p>
+
 </div>
 </div>
 </div><!-- contents -->
@@ -165,7 +181,7 @@ Variáveis</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_ba210d1fa67db7bee1bb22e0a3c11d9f.html">Common</a></li><li class="navelem"><a class="el" href="common_8c.html">common.c</a></li>
-    <li class="footer">Gerado em Sábado, 25 de Abril de 2015 22:10:59 para JVM por
+    <li class="footer">Gerado em Sábado, 25 de Abril de 2015 23:36:08 para JVM por
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.9.1 </li>
   </ul>

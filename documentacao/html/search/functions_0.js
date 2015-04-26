@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['escrevearquivo',['EscreveArquivo',['../util_8c.html#a8ea35841ecb7fa637269b37b9d4908cc',1,'util.c']]]
+  ['getutilinstance',['getUTILInstance',['../util_8c.html#aa05fefa6ab1368f03d5623fa652c8905',1,'getUTILInstance(void):&#160;util.c'],['../util_8h.html#aa05fefa6ab1368f03d5623fa652c8905',1,'getUTILInstance(void):&#160;util.c']]]
 ];
