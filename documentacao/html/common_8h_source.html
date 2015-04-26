@@ -1,0 +1,173 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.9.1"/>
+<title>JVM: Código-Fonte de src/Common/common.h</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript">
+  $(document).ready(initResizable);
+  $(window).load(resizeHeight);
+</script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(document).ready(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td style="padding-left: 0.5em;">
+   <div id="projectname">JVM
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Gerado por Doxygen 1.8.9.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search",false,'Localizar');
+</script>
+  <div id="navrow1" class="tabs">
+    <ul class="tablist">
+      <li><a href="index.html"><span>Página&#160;principal</span></a></li>
+      <li><a href="annotated.html"><span>Estruturas&#160;de&#160;dados</span></a></li>
+      <li class="current"><a href="files.html"><span>Ficheiros</span></a></li>
+      <li>
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <img id="MSearchSelect" src="search/mag_sel.png"
+               onmouseover="return searchBox.OnSearchSelectShow()"
+               onmouseout="return searchBox.OnSearchSelectHide()"
+               alt=""/>
+          <input type="text" id="MSearchField" value="Localizar" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="search/close.png" alt=""/></a>
+          </span>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div id="navrow2" class="tabs2">
+    <ul class="tablist">
+      <li><a href="files.html"><span>Lista&#160;de&#160;ficheiros</span></a></li>
+      <li><a href="globals.html"><span>Globais</span></a></li>
+    </ul>
+  </div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(document).ready(function(){initNavTree('common_8h_source.html','');});
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="headertitle">
+<div class="title">common.h</div>  </div>
+</div><!--header-->
+<div class="contents">
+<a href="common_8h.html">Ir para a documentação deste ficheiro.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="comment">/*</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment">Abilio Esteves Calegario de Oliveira - 10/0006132</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="comment">Marcus da Silva Ferreira - 10/0056881</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="comment">Michael Rodrigues - 09/0126432</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="comment"></span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="comment">JVM - Software Basico 1/2015</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="comment"></span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="comment">common.h: definicoes de funcoes e inicializadores comuns a todos os modulos</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="comment">*/</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#ifndef MODULE_COMMON</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">    #define MODULE_COMMON</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">    #include &lt;stdio.h&gt;</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">    #include &lt;stdlib.h&gt;</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor">    #include &lt;stdint.h&gt;</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">    #include &lt;inttypes.h&gt;</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="preprocessor">    #include &lt;string.h&gt;</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    <span class="comment">/*estruturas de erros*/</span></div>
+<div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="common_8h.html#a34753b0bbe7e878508c8338f40433fe4">   19</a></span>&#160;        <span class="keyword">enum</span> <a class="code" href="common_8h.html#a34753b0bbe7e878508c8338f40433fe4">_config_error</a> {</div>
+<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="common_8h.html#a34753b0bbe7e878508c8338f40433fe4ac3121e429a129b2ccb51a92b7c78c4b4">   20</a></span>&#160;            <a class="code" href="common_8h.html#a34753b0bbe7e878508c8338f40433fe4ac3121e429a129b2ccb51a92b7c78c4b4">E_SUCCESS</a> = 0,</div>
+<div class="line"><a name="l00021"></a><span class="lineno"><a class="line" href="common_8h.html#a34753b0bbe7e878508c8338f40433fe4a1b7ea43957a152b7b32d7d21a6fb8ad1">   21</a></span>&#160;            <a class="code" href="common_8h.html#a34753b0bbe7e878508c8338f40433fe4a1b7ea43957a152b7b32d7d21a6fb8ad1">E_INVALID_NUM_ARGS</a> = -1,</div>
+<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="common_8h.html#a34753b0bbe7e878508c8338f40433fe4aebee5a6b3088571da0adece036d7f46f">   22</a></span>&#160;            <a class="code" href="common_8h.html#a34753b0bbe7e878508c8338f40433fe4aebee5a6b3088571da0adece036d7f46f">E_ARGV1_FILE_NOT_EXISTENT</a> = -2</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;        };</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;</div>
+<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="struct_e_r_r_o_r_s.html">   25</a></span>&#160;        <span class="keyword">typedef</span> <span class="keyword">struct </span>_errordesc {</div>
+<div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="struct_e_r_r_o_r_s.html#a93ab59701dec0e3e587f426e6322bfa7">   26</a></span>&#160;            <span class="keywordtype">int</span> <a class="code" href="struct_e_r_r_o_r_s.html#a93ab59701dec0e3e587f426e6322bfa7">code</a>;</div>
+<div class="line"><a name="l00027"></a><span class="lineno"><a class="line" href="struct_e_r_r_o_r_s.html#a2db230ecb811414cd5efae1a88431345">   27</a></span>&#160;            <span class="keywordtype">char</span> *<a class="code" href="struct_e_r_r_o_r_s.html#a2db230ecb811414cd5efae1a88431345">message</a>;</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;        } <a class="code" href="struct_e_r_r_o_r_s.html">ERRORS</a>;</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;        <span class="keyword">extern</span> <a class="code" href="struct_e_r_r_o_r_s.html">ERRORS</a> <a class="code" href="common_8h.html#a0ca627d7a38ae9be85949ed12c25f49b">errordesc</a>[];</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <span class="comment">/*estrutura para dados de arquivos*/</span></div>
+<div class="line"><a name="l00033"></a><span class="lineno"><a class="line" href="struct_d_a_d_o_s.html">   33</a></span>&#160;        <span class="keyword">typedef</span> <span class="keyword">struct </span>_dados {</div>
+<div class="line"><a name="l00034"></a><span class="lineno"><a class="line" href="struct_d_a_d_o_s.html#a2190be53636429b2eb2175c83b060585">   34</a></span>&#160;            <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> <span class="keywordtype">int</span> <a class="code" href="struct_d_a_d_o_s.html#a2190be53636429b2eb2175c83b060585">tamanho</a>;</div>
+<div class="line"><a name="l00035"></a><span class="lineno"><a class="line" href="struct_d_a_d_o_s.html#a86588100ae86c214c599c32a171741c6">   35</a></span>&#160;            uint8_t *<a class="code" href="struct_d_a_d_o_s.html#a86588100ae86c214c599c32a171741c6">bytes</a>;</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;        } <a class="code" href="struct_d_a_d_o_s.html">DADOS</a>;</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    <span class="comment">/*funcoes comuns a todos os modulos*/</span></div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;        <a class="code" href="struct_d_a_d_o_s.html">DADOS</a> <a class="code" href="common_8h.html#a49a635a07acdf10dadb8fc132b070d65">initDADOS</a>(); <span class="comment">// initDADOS(nome do arquivo) retorna uma estrutura DADOS</span></div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="struct_e_r_r_o_r_s_html"><div class="ttname"><a href="struct_e_r_r_o_r_s.html">ERRORS</a></div><div class="ttdef"><b>Definition:</b> common.h:25</div></div>
+<div class="ttc" id="common_8h_html_a34753b0bbe7e878508c8338f40433fe4a1b7ea43957a152b7b32d7d21a6fb8ad1"><div class="ttname"><a href="common_8h.html#a34753b0bbe7e878508c8338f40433fe4a1b7ea43957a152b7b32d7d21a6fb8ad1">E_INVALID_NUM_ARGS</a></div><div class="ttdef"><b>Definition:</b> common.h:21</div></div>
+<div class="ttc" id="struct_d_a_d_o_s_html_a2190be53636429b2eb2175c83b060585"><div class="ttname"><a href="struct_d_a_d_o_s.html#a2190be53636429b2eb2175c83b060585">DADOS::tamanho</a></div><div class="ttdeci">unsigned long int tamanho</div><div class="ttdef"><b>Definition:</b> common.h:34</div></div>
+<div class="ttc" id="struct_e_r_r_o_r_s_html_a93ab59701dec0e3e587f426e6322bfa7"><div class="ttname"><a href="struct_e_r_r_o_r_s.html#a93ab59701dec0e3e587f426e6322bfa7">ERRORS::code</a></div><div class="ttdeci">int code</div><div class="ttdef"><b>Definition:</b> common.h:26</div></div>
+<div class="ttc" id="common_8h_html_a34753b0bbe7e878508c8338f40433fe4"><div class="ttname"><a href="common_8h.html#a34753b0bbe7e878508c8338f40433fe4">_config_error</a></div><div class="ttdeci">_config_error</div><div class="ttdef"><b>Definition:</b> common.h:19</div></div>
+<div class="ttc" id="common_8h_html_a0ca627d7a38ae9be85949ed12c25f49b"><div class="ttname"><a href="common_8h.html#a0ca627d7a38ae9be85949ed12c25f49b">errordesc</a></div><div class="ttdeci">ERRORS errordesc[]</div><div class="ttdef"><b>Definition:</b> common.c:13</div></div>
+<div class="ttc" id="common_8h_html_a49a635a07acdf10dadb8fc132b070d65"><div class="ttname"><a href="common_8h.html#a49a635a07acdf10dadb8fc132b070d65">initDADOS</a></div><div class="ttdeci">DADOS initDADOS()</div></div>
+<div class="ttc" id="struct_e_r_r_o_r_s_html_a2db230ecb811414cd5efae1a88431345"><div class="ttname"><a href="struct_e_r_r_o_r_s.html#a2db230ecb811414cd5efae1a88431345">ERRORS::message</a></div><div class="ttdeci">char * message</div><div class="ttdef"><b>Definition:</b> common.h:27</div></div>
+<div class="ttc" id="common_8h_html_a34753b0bbe7e878508c8338f40433fe4ac3121e429a129b2ccb51a92b7c78c4b4"><div class="ttname"><a href="common_8h.html#a34753b0bbe7e878508c8338f40433fe4ac3121e429a129b2ccb51a92b7c78c4b4">E_SUCCESS</a></div><div class="ttdef"><b>Definition:</b> common.h:20</div></div>
+<div class="ttc" id="common_8h_html_a34753b0bbe7e878508c8338f40433fe4aebee5a6b3088571da0adece036d7f46f"><div class="ttname"><a href="common_8h.html#a34753b0bbe7e878508c8338f40433fe4aebee5a6b3088571da0adece036d7f46f">E_ARGV1_FILE_NOT_EXISTENT</a></div><div class="ttdef"><b>Definition:</b> common.h:22</div></div>
+<div class="ttc" id="struct_d_a_d_o_s_html"><div class="ttname"><a href="struct_d_a_d_o_s.html">DADOS</a></div><div class="ttdef"><b>Definition:</b> common.h:33</div></div>
+<div class="ttc" id="struct_d_a_d_o_s_html_a86588100ae86c214c599c32a171741c6"><div class="ttname"><a href="struct_d_a_d_o_s.html#a86588100ae86c214c599c32a171741c6">DADOS::bytes</a></div><div class="ttdeci">uint8_t * bytes</div><div class="ttdef"><b>Definition:</b> common.h:35</div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_ba210d1fa67db7bee1bb22e0a3c11d9f.html">Common</a></li><li class="navelem"><a class="el" href="common_8h.html">common.h</a></li>
+    <li class="footer">Gerado em Sábado, 25 de Abril de 2015 22:10:59 para JVM por
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.9.1 </li>
+  </ul>
+</div>
+</body>
+</html>
