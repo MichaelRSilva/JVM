@@ -17,7 +17,7 @@
 	typedef struct _class_loader {
 		CLASS* class;
 
-		int (*load)();
+		int (*load)(struct _class_loader*, DADOS);
 	} CLASS_LOADER;
 
 	CLASS_LOADER* initCLASS_LOADER();

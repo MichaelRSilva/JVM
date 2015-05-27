@@ -1,8 +1,12 @@
 #include "class.h"
 
 // funcoes somente acessiveis pela struct _dot_class
-static CLASS* parseDotClass(CLASS* this, DADOS* dot_class_file) {
+static CLASS* parseDotClass(CLASS* this, DADOS d) {
 	
+	for (int i = 0; i < 4; i++) {
+		printf("%x", d.bytes[i]);
+	}
+
 	return NULL;
 }
 
@@ -28,7 +32,7 @@ CLASS* initCLASS() {
 
 		toReturn->constant_pool = initCONSTANT_POOL();
 		toReturn->fields = initFIELD_INFO(); 
-		// toReturn->methods = initMETHOD_INFO();
+		toReturn->methods = initMETHOD_INFO();
 		toReturn->attributes = initATTRIBUTE_INFO();
 
 	// inicializacao das funcoes

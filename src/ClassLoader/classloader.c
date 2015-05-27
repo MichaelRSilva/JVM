@@ -1,7 +1,8 @@
 #include "classloader.h"
 
 // funcoes somente visiveis a struct classloader
-static int load() {
+static int load(CLASS_LOADER* this, DADOS d) {
+	this->class->parseDotClass(this->class, d);
 	return 0;
 }
 

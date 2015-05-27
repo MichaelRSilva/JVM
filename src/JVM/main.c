@@ -9,13 +9,19 @@
 	JVM - Software Basico 1/2015
 */
 #include "../util/util.h"
+#include "../ClassLoader/classloader.h"
 
 int main(int argc, char **argv) {
 	int flag;
 	UTIL util = getUTILInstance();
 
 	if(!(flag = util.VerificaJVMCMDArgs(argc, argv))) {
-		// TODO
+		DADOS d = util.LeArquivo(argv[1]);
+		CLASS_LOADER* cl = initCLASS_LOADER();
+		cl->load(cl, d);
+
+
+
 	} else {
 		printf("%s", errordesc[abs(flag)].message);
 	}
