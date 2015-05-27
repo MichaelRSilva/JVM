@@ -36,7 +36,7 @@
 
 	/// Estrutura para representação de dados como array de bytes.
 	/*!
-		DADOS define uma estrutura para representacao de dados provenientes de qualquer meio, onde
+		DADOS define uma estrutura para representacao de dados provenientes de qualquer meio;
 		geralmente utilizado para representar um arquivo.
 		
 		A ideia por traz disso eh de facilitar o acesso as informacoes representadas pelos bytes, pois
