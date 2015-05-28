@@ -45,7 +45,7 @@
 			ATTRIBUTE_INFO** attributes;
 
 		// funcoes somente visiveis a estrutura _dot_class
-			struct _class* (*parseDotClass)(struct _class*, DADOS);
+			int (*parseDotClass)(struct _class*, DADOS);
 
 	} CLASS;
 

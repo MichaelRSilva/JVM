@@ -1,13 +1,18 @@
 #include "class.h"
+#include "private.c"
 
 // funcoes somente acessiveis pela struct _dot_class
-static CLASS* parseDotClass(CLASS* this, DADOS d) {
-	
-	for (int i = 0; i < 4; i++) {
-		printf("%x", d.bytes[i]);
-	}
+static int parseDotClass(CLASS* this, DADOS d) {
+	int flag = 0, contador = 0;
 
-	return NULL;
+	if (!(flag = verifyCAFEBABE(d, &contador))) {
+		for(; contador < d.tamanho; contador++) {
+			// if (d[contador] == 0x20) {
+			// 	monta_metodo(this->class, d, &contador);
+			// }
+		}
+	}
+	return flag;
 }
 
 // funcoes acessiveis publicamente

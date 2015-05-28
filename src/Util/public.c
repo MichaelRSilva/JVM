@@ -9,6 +9,7 @@
 	JVM - Software Basico 1/2015
 */
 #include "util.h"
+#include "private.c"
 
 static int VerificaLeitorExibidorCMDArgs(int argc, char **argv){
 	FILE *fp;

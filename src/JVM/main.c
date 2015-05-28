@@ -14,17 +14,15 @@
 int main(int argc, char **argv) {
 	int flag;
 	UTIL util = getUTILInstance();
+	CLASS_LOADER* cl = initCLASS_LOADER();
 
-	if(!(flag = util.VerificaJVMCMDArgs(argc, argv))) {
-		DADOS d = util.LeArquivo(argv[1]);
-		CLASS_LOADER* cl = initCLASS_LOADER();
-		cl->load(cl, d);
+	if(!(flag = util.VerificaLeitorExibidorCMDArgs(argc, argv)) && !(flag = cl->load(cl, util.LeArquivo(argv[1])))) {
+		cl->print(cl);
 
+		// TODO
 
-
-	} else {
-		printf("%s", errordesc[abs(flag)].message);
 	}
-
+	
+	printf("%s", errordesc[abs(flag)].message);
 	return 0;
 }

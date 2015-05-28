@@ -12,29 +12,29 @@ JVM.o: src/JVM/main.c
 LeitorExibidor.o: src/LeitorExibidor/main.c
 	gcc -std=c99 -c src/LeitorExibidor/main.c -o leitorexibidor.o
 
-ClassLoader.o: src/ClassLoader/classloader.c Class.o AttributeInfo.o ConstantPool.o FieldInfo.o MethodInfo.o
-	gcc -std=c99 -c src/ClassLoader/classloader.c
+ClassLoader.o: src/ClassLoader/public.c Class.o AttributeInfo.o ConstantPool.o FieldInfo.o MethodInfo.o
+	gcc -std=c99 -c src/ClassLoader/public.c -o classloader.o
 
-Class.o: src/ClassLoader/Class/class.c
-	gcc -std=c99 -c src/ClassLoader/Class/class.c
+Class.o: src/ClassLoader/Class/public.c
+	gcc -std=c99 -c src/ClassLoader/Class/public.c -o class.o
 
-AttributeInfo.o: src/ClassLoader/Class/AttributeInfo/attributeinfo.c
-	gcc -std=c99 -c src/ClassLoader/Class/AttributeInfo/attributeinfo.c
+AttributeInfo.o: src/ClassLoader/Class/AttributeInfo/public.c
+	gcc -std=c99 -c src/ClassLoader/Class/AttributeInfo/public.c -o attributeinfo.o
 
-ConstantPool.o: src/ClassLoader/Class/ConstantPool/constantpool.c
-	gcc -std=c99 -c src/ClassLoader/Class/ConstantPool/constantpool.c
+ConstantPool.o: src/ClassLoader/Class/ConstantPool/public.c
+	gcc -std=c99 -c src/ClassLoader/Class/ConstantPool/public.c -o constantpool.o
 
-FieldInfo.o: src/ClassLoader/Class/FieldInfo/fieldinfo.c
-	gcc -std=c99 -c src/ClassLoader/Class/FieldInfo/fieldinfo.c
+FieldInfo.o: src/ClassLoader/Class/FieldInfo/public.c
+	gcc -std=c99 -c src/ClassLoader/Class/FieldInfo/public.c -o fieldinfo.o
 
-MethodInfo.o: src/ClassLoader/Class/MethodInfo/methodinfo.c
-	gcc -std=c99 -c src/ClassLoader/Class/MethodInfo/methodinfo.c
+MethodInfo.o: src/ClassLoader/Class/MethodInfo/public.c
+	gcc -std=c99 -c src/ClassLoader/Class/MethodInfo/public.c -o methodinfo.o
 
-Common.o: src/Common/common.c
-	gcc -std=c99 -c src/Common/common.c
+Common.o: src/Common/public.c
+	gcc -std=c99 -c src/Common/public.c -o common.o
 
-Util.o: src/util/util.c
-	gcc -std=c99 -c src/util/util.c
+Util.o: src/util/public.c
+	gcc -std=c99 -c src/util/public.c -o util.o
 
 limpa: 
 	rm *.o

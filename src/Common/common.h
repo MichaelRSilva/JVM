@@ -22,7 +22,8 @@
 		enum _config_error {
 			E_SUCCESS = 0,
 			E_INVALID_NUM_ARGS = -1,
-			E_ARGV1_FILE_NOT_EXISTENT = -2
+			E_ARGV1_FILE_NOT_EXISTENT = -2,
+			E_CAFEBABE = -3
 		};
 
 		/// Associa uma mensagem de erro a um código.

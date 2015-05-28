@@ -1,8 +1,13 @@
 #include "classloader.h"
+#include "private.c"
 
 // funcoes somente visiveis a struct classloader
 static int load(CLASS_LOADER* this, DADOS d) {
-	this->class->parseDotClass(this->class, d);
+	return this->class->parseDotClass(this->class, d);
+}
+
+static int print(CLASS_LOADER* this) {
+
 	return 0;
 }
 
@@ -15,6 +20,7 @@ CLASS_LOADER* initCLASS_LOADER() {
 
 	// inicializacao dos metodos
 		toReturn->load = load;
+		toReturn->print = print;
 
 	return toReturn;
 }
