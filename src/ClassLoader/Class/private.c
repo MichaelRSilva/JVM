@@ -1,12 +1,11 @@
 #include "class.h"
 
-static int verifyCAFEBABE(DADOS d, int* contador) {
+static int verifyCAFEBABE(DADOS d) {
 	int cafebabe = 0xCAFEBABE, buffer = 0, i;
 	for (i = 0; i < 4; i++) {
 		buffer = (buffer << 8) | d.bytes[i];
 	}
 
-	*contador = 3;
 	return (cafebabe == buffer) ? E_SUCCESS : E_CAFEBABE;
 }
 
@@ -16,7 +15,7 @@ static int getMagicNumber(DADOS d, int* contador) {
 		buffer = (buffer << 8) | d.bytes[i];
 	}
 
-	*contador = 3;
+	*contador = i;
 	
 	return buffer;
 }

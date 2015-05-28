@@ -5,13 +5,12 @@
 static int parseDotClass(CLASS* this, DADOS d) {
 	int flag = 0, contador = 0;
 
-	if (!(flag = verifyCAFEBABE(d, &contador))) {
+	if (!(flag = verifyCAFEBABE(d))) {
 
 		//Add first informations to class struct
 		this->magic = getMagicNumber(d,&contador);
 		this->minor_version = getMinorVersion(d,&contador);
 		this->major_version = getMajorVersion(d,&contador);
-
 
 
 		for(; contador < d.tamanho; contador++) {
