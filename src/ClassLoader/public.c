@@ -8,7 +8,7 @@ static int load(CLASS_LOADER* this, DADOS d) {
 
 static int print(CLASS_LOADER* this) {
 
-	return 0;
+	return E_SUCCESS;
 }
 
 // funcoes visiveis publicamente

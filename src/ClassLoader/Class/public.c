@@ -7,9 +7,12 @@ static int parseDotClass(CLASS* this, DADOS d) {
 
 	if (!(flag = verifyCAFEBABE(d, &contador))) {
 		for(; contador < d.tamanho; contador++) {
+
 			// if (d[contador] == 0x20) {
+			// this->methodinfo->funcao(this->methodinfo, d, &contador);
 			// 	monta_metodo(this->class, d, &contador);
 			// }
+
 		}
 	}
 	return flag;

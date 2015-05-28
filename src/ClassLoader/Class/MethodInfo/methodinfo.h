@@ -14,6 +14,8 @@
 
 	typedef struct _method_info {
 		// TODO
+
+		// (*funcao)(struct _method_info*, DADOS, int*);
 	} METHOD_INFO;
 
 	METHOD_INFO** initMETHOD_INFO();
