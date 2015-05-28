@@ -9,7 +9,6 @@
 	JVM - Software Basico 1/2015
 */
 #include "common.h"
-#include "private.c"
 
 // inicialização dos erros
 const ERRORS errordesc[] = {
