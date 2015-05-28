@@ -9,7 +9,6 @@
 	JVM - Software Basico 1/2015
 */
 #include "../util/util.h"
-#include "../ClassLoader/classloader.h"
 
 int main(int argc, char **argv) {
 	int flag;
@@ -17,7 +16,7 @@ int main(int argc, char **argv) {
 	CLASS_LOADER* cl = initCLASS_LOADER();
 
 	if(!(flag = util.VerificaLeitorExibidorCMDArgs(argc, argv)) && !(flag = cl->load(cl, util.LeArquivo(argv[1])))) {
-		cl->print(cl);
+		util.PrintScreen(cl);
 
 		// TODO
 

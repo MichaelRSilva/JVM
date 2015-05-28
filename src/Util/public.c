@@ -77,6 +77,36 @@ static int EscreveArquivo(DADOS d, char *arqName){
 	return E_SUCCESS;
 }
 
+//imprime os dados da classe na tela
+static int PrintScreen(CLASS_LOADER* this) {
+
+	printf("\nINFORMACOES DA CLASSE\n");
+	printf("-------------------------------------------------------------------\n\n");
+
+	printf("Magic Number: \t\t0x%x \n",this->class->magic);
+	printf("Minor Version: \t\t0x%x \n",this->class->minor_version);
+	printf("Major Version: \t\t0x%x \n",this->class->major_version);
+
+	printf("\n-------------------------------------------------------------------");
+
+
+	printf("\n\n");
+
+	return 0;
+}
+
+//imprime os dados da classe no arquivo
+static int PrintFile(CLASS_LOADER* this) {
+
+	return 0;
+}
+
+//imprime os dados da classe em html
+static int PrintHTML(CLASS_LOADER* this) {
+
+	return 0;
+}
+
 // inicializa uma estrutura do tipo UTIL
 UTIL getUTILInstance(void){
 	UTIL util;
@@ -84,13 +114,12 @@ UTIL getUTILInstance(void){
 	util.VerificaLeitorExibidorCMDArgs = VerificaLeitorExibidorCMDArgs;
 	util.LeArquivo = LeArquivo;
 	util.EscreveArquivo = EscreveArquivo;
+	util.PrintScreen = PrintScreen;
+	util.PrintFile = PrintFile;
+	util.PrintHTML = PrintHTML;
 
 	return util;
 }
-
-
-
-
 
 
 

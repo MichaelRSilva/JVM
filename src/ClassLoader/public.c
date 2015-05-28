@@ -6,22 +6,6 @@ static int load(CLASS_LOADER* this, DADOS d) {
 	return this->class->parseDotClass(this->class, d);
 }
 
-static int print(CLASS_LOADER* this) {
-
-	printf("\nINFORMACOES DA CLASSE\n");
-	printf("-------------------------------------------------------------------\n\n");
-
-	printf("Magic Number: \t\t0x%x \n",this->class->magic);
-	printf("Minor Version: \t\t0x%x \n",this->class->minor_version);
-	printf("Major Version: \t\t0x%x \n",this->class->major_version);
-
-	printf("\n-------------------------------------------------------------------");
-
-
-	printf("\n\n");
-
-	return 0;
-}
 
 // funcoes visiveis publicamente
 CLASS_LOADER* initCLASS_LOADER() {
@@ -32,7 +16,6 @@ CLASS_LOADER* initCLASS_LOADER() {
 
 	// inicializacao dos metodos
 		toReturn->load = load;
-		toReturn->print = print;
 
 	return toReturn;
 }

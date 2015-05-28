@@ -11,6 +11,7 @@
 #ifndef MODULE_UTIL
 	#define MODULE_UTIL
 	#include "../common/common.h"
+	#include "../ClassLoader/classloader.h"
 	
 	// Macros
 		#define JVMCMDARGCOUNT 1 /// Quantidade de argumentos que a JVM aceita.
@@ -54,6 +55,29 @@
 			@return Código de erro, onde sucesso é representado por E_SUCCESS
 		*/
 		int (*EscreveArquivo)(DADOS, char*); // escreverArquivo(dados, nome do arquivo) retorna codigo de erro ou sucesso
+
+		//Imprime conteudo do .class na tela
+		/*!
+			@param %1 a struct que representa a classe do java
+			@return 0
+		*/
+		int (*PrintScreen)(CLASS_LOADER*);
+
+		//Imprime conteudo do .class no arquivo
+		/*!
+			@param %1 a struct que representa a classe do java
+			@return 0
+		*/
+		int (*PrintFile)(CLASS_LOADER*);
+
+		//Imprime conteudo do .class em html
+		/*!
+			@param %1 a struct que representa a classe do java
+			@return 0
+		*/
+		int (*PrintHTML)(CLASS_LOADER*);
+
+
 	} UTIL;
 
 	/// "instancia" uma nova "classe" util
