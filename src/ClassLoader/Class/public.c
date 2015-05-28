@@ -6,10 +6,19 @@ static int parseDotClass(CLASS* this, DADOS d) {
 	int flag = 0, contador = 0;
 
 	if (!(flag = verifyCAFEBABE(d, &contador))) {
+
+		//Add first informations to class struct
+		this->magic = getMagicNumber(d,&contador);
+		this->minor_version = getMinorVersion(d,&contador);
+		this->major_version = getMajorVersion(d,&contador);
+
+
+
 		for(; contador < d.tamanho; contador++) {
 			// if (d[contador] == 0x20) {
 			// 	monta_metodo(this->class, d, &contador);
 			// }
+
 		}
 	}
 	return flag;

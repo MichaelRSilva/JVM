@@ -8,6 +8,16 @@ static int load(CLASS_LOADER* this, DADOS d) {
 
 static int print(CLASS_LOADER* this) {
 
+	printf("\nINFORMACOES DA CLASSE\n");
+	printf("-------------------------------------------------------------------\n");
+
+	printf("Magic Number: \t\t0x%x \n",this->class->magic);
+	printf("Minor Version: \t\t0x%x \n",this->class->minor_version);
+	printf("Major Version: \t\t0x%x \n",this->class->major_version);
+
+
+	printf("\n\n");
+
 	return 0;
 }
 
