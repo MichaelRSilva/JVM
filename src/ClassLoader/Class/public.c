@@ -3,7 +3,7 @@
 
 // funcoes somente acessiveis pela struct _dot_class
 static int parseDotClass(CLASS* this, DADOS d) {
-	int flag = 0, contador = 0;
+	int flag = 0, contador = 0, cp_size = 0;
 
 	if (!(flag = verifyCAFEBABE(d))) {
 
@@ -11,6 +11,7 @@ static int parseDotClass(CLASS* this, DADOS d) {
 		this->magic = getMagicNumber(d,&contador);
 		this->minor_version = getMinorVersion(d,&contador);
 		this->major_version = getMajorVersion(d,&contador);
+		this->constant_pool_count = getConstantPoolCount(d,&contador);
 
 
 		for(; contador < d.tamanho; contador++) {

@@ -35,7 +35,19 @@ static int getMinorVersion(DADOS d, int* contador) {
 static int getMajorVersion(DADOS d, int* contador) {
 	int buffer = 0, i=0, qtdBitsRead = 2;
 
-	for (i = *contador; i < (*contador+2); i++) {
+	for (i = *contador; i < (*contador+qtdBitsRead); i++) {
+		buffer = (buffer << 8) | d.bytes[i];
+	}
+
+	*contador = *contador+qtdBitsRead;
+	
+	return buffer;
+}
+
+static int getConstantPoolCount(DADOS d, int* contador) {
+	int buffer = 0, i=0, qtdBitsRead = 2;
+
+	for (i = *contador; i < (*contador+qtdBitsRead); i++) {
 		buffer = (buffer << 8) | d.bytes[i];
 	}
 

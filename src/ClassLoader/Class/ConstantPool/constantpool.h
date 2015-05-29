@@ -13,7 +13,9 @@
 	#include "../../../Common/common.h"
 
 	typedef struct _constant_pool {
+
 		// TODO
+
 	} CONSTANT_POOL;
 	
 	CONSTANT_POOL* initCONSTANT_POOL();

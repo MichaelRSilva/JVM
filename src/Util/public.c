@@ -83,9 +83,10 @@ static int PrintScreen(CLASS_LOADER* this) {
 	printf("\nINFORMACOES DA CLASSE\n");
 	printf("-------------------------------------------------------------------\n\n");
 
-	printf("Magic Number: \t\t0x%x \n",this->class->magic);
-	printf("Minor Version: \t\t0x%x \n",this->class->minor_version);
-	printf("Major Version: \t\t0x%x \n",this->class->major_version);
+	printf("Magic Number: \t\t\t0x%x \n",this->class->magic);
+	printf("Minor Version: \t\t\t%d \n",this->class->minor_version);
+	printf("Major Version: \t\t\t%d \n",this->class->major_version);
+	printf("Constant pool count: \t\t%d \n",this->class->constant_pool_count);
 
 	printf("\n-------------------------------------------------------------------");
 
