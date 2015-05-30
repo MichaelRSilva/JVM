@@ -89,6 +89,7 @@ static int PrintScreen(CLASS_LOADER* this) {
 	printf("Constant pool count: \t\t%d \n",this->class->constant_pool_count);
 	printf("Constant Pool: \n");
 
+
 	for (int i = 0; i < this->class->constant_pool_count - 1; i++) {
 		switch (this->class->constant_pool->constants[i].tag) {
 			case tUtf8:
@@ -120,13 +121,27 @@ static int PrintScreen(CLASS_LOADER* this) {
 				printf("\t[%d]CONSTANT_Double_info:\n", i + 1);
 				printf("\t\tHigh Bytes: %x\n", this->class->constant_pool->constants[i].type.Long.highBytes);
 				printf("\t\tLow Bytes: %x\n", this->class->constant_pool->constants[i].type.Long.lowBytes);
-				long var = this->class->constant_pool->constants[i].type.Double.highBytes;
-				var = var << 32 | this->class->constant_pool->constants[i].type.Double.lowBytes;
-				printf("\t\tDouble: %f\n", (double)var);
+				
+				uint64_t var = 0;
+				int s = 0, e = 0;
+
+				var = var | (uint64_t)this->class->constant_pool->constants[i].type.Long.highBytes;
+				var = var << 32;
+				var = var | (uint64_t)this->class->constant_pool->constants[i].type.Long.lowBytes;
+
+				s = ((var >> 63) == 0) ? 1 : -1;
+				e = ((var >> 52) & 0x7ffL);
+
+				long m = (e == 0) ? (var & 0xfffffffffffffL) << 1 : (var & 0xfffffffffffffL) | 0x10000000000000L;
+				double valorDouble = s*m*(pow(2,(e-1075)));
+
+
+				printf("\t\tDouble: %f\n", valorDouble);
+
 				break;
 			}
 			case tContinued:
-				printf("\t[%d]%s", i+1, this->class->constant_pool->constants[i].type.Continued.bytes);
+				printf("\t[%d]%s\n", i+1, this->class->constant_pool->constants[i].type.Continued.bytes);
 				break;
 			case tClass:
 				printf("\t[%1d]CONSTANT_Class_info:\n", i + 1);
@@ -157,6 +172,7 @@ static int PrintScreen(CLASS_LOADER* this) {
 				printf("\t\tDescriptor Index: %d\n", this->class->constant_pool->constants[i].type.NameType.descriptorIndex);
 				break;
 			default:
+				printf("\t[%d]\tERROR: %x\n",(i+1),this->class->constant_pool->constants[i].tag );
 				break;	
 		}
 	}

@@ -56,12 +56,25 @@ static int getConstantPoolCount(DADOS d, int* contador) {
 	return buffer;
 }
 
+static void addContinued(CONSTANT_POOL* this, int ordem, int *contador) {
+
+    this->constants[ordem].tag = 0;
+    strcpy (this->constants[ordem].type.Continued.bytes, "(large numeric continued)");
+}
+
+
 static CONSTANT_POOL* populateConstantPool(CLASS* this, DADOS d, int* contador){
 	CONSTANT_POOL* toReturn = initCONSTANT_POOL((int*)&(this->constant_pool_count));
-	int i = 0;
+	int i = 0, returnContinued = 0;
 	
 	for (; i < this->constant_pool_count - 1; i++) {
-		toReturn->addConstant(toReturn, i, d, contador);
+		toReturn->addConstant(toReturn, i, d, contador,&returnContinued);
+
+		if(returnContinued == 1){
+			i++;
+			addContinued(toReturn,i,contador);
+		}
+
 	}
 
 	return toReturn;
