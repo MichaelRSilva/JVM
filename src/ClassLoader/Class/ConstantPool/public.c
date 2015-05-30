@@ -22,17 +22,22 @@ static void addConstant(CONSTANT_POOL* this, int ordem, DADOS d, int* contador) 
 			addContinued(this, ordem);
 			break;
 		case tClass:
+			populateClassRef(this->constants, ordem, d, contador);
 			break;		
 		case tString:
+			populateStringRef(this->constants, ordem, d, contador);
 			break;		
 		case tFieldRef:
+			populateFieldRef(this->constants, ordem, d, contador);
 			break;		
 		case tMethodRef:
 			populateMethodRef(this->constants, ordem, d, contador);
 			break;		
 		case tInterfaceMethodRef:
+			populateInterfaceMehodRef(this->constants, ordem, d, contador);
 			break;		
 		case tNameType:
+			populateNameType(this->constants, ordem, d, contador);
 			break;
 		default:
 			break;	
