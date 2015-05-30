@@ -87,6 +87,21 @@ static int PrintScreen(CLASS_LOADER* this) {
 	printf("Minor Version: \t\t\t%d \n",this->class->minor_version);
 	printf("Major Version: \t\t\t%d \n",this->class->major_version);
 	printf("Constant pool count: \t\t%d \n",this->class->constant_pool_count);
+	printf("Constant Pool: \n");
+	for (int i = 0; i < this->class->constant_pool_count - 1; i++) {
+		if (this->class->constant_pool->constants[i].tag == 10) {
+			printf("\t[%1d]CONSTANT_Methodref_info:\n", i);
+			printf("\t\tClass index: %d\n", this->class->constant_pool->constants[i].type.MethodRef.classIndex);
+			printf("\t\tName and type index: %d\n", this->class->constant_pool->constants[i].type.MethodRef.nameTypeIndex);
+		}
+		// printf("\ttag: %d", this->class->constant_pool->constants[0].tag);
+		// if (this->class->constant_pool->constants[i].tag == 1) {
+		// 	printf("\t[%d]CONSTANT_Utf8_info:\n", i);
+		// 	printf("\t\tLength of byte array: %d", this->class->constant_pool->constants[i].type.Utf8.tam);
+		// 	printf("\t\tLength of string: %d", this->class->constant_pool->constants[i].type.Utf8.tam);
+		// 	printf("\t\tString: %s", (char*)this->class->constant_pool->constants[i].type.Utf8.bytes);
+		// }
+	}
 
 	printf("\n-------------------------------------------------------------------");
 

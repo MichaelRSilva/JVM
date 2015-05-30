@@ -11,9 +11,12 @@ static int parseDotClass(CLASS* this, DADOS d) {
 		this->magic = getMagicNumber(d,&contador);
 		this->minor_version = getMinorVersion(d,&contador);
 		this->major_version = getMajorVersion(d,&contador);
+
+		// TODO: verificar coerencia entre minor e major versions
 		this->constant_pool_count = getConstantPoolCount(d,&contador);
-
-
+		
+		this->constant_pool = populateConstantPool(this, d, &contador);
+		
 		for(; contador < d.tamanho; contador++) {
 			// if (d[contador] == 0x20) {
 			// 	monta_metodo(this->class, d, &contador);
@@ -44,10 +47,10 @@ CLASS* initCLASS() {
 		toReturn->methods_count = 0;
 		toReturn->attributes_count = 0;
 
-		toReturn->constant_pool = initCONSTANT_POOL();
-		toReturn->fields = initFIELD_INFO(); 
-		toReturn->methods = initMETHOD_INFO();
-		toReturn->attributes = initATTRIBUTE_INFO();
+		toReturn->constant_pool = NULL;
+		toReturn->fields = NULL; 
+		toReturn->methods = NULL;
+		toReturn->attributes = NULL;
 
 	// inicializacao das funcoes
 		toReturn->parseDotClass = parseDotClass;

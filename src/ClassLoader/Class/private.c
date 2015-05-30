@@ -55,3 +55,14 @@ static int getConstantPoolCount(DADOS d, int* contador) {
 	
 	return buffer;
 }
+
+static CONSTANT_POOL* populateConstantPool(CLASS* this, DADOS d, int* contador){
+	CONSTANT_POOL* toReturn = initCONSTANT_POOL(this->constant_pool_count);
+	int i = 0;
+	
+	for (; i < this->constant_pool_count - 1; i++) {
+		toReturn->addConstant(toReturn, i, d, contador);
+	}
+
+	return toReturn;
+}
