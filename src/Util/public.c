@@ -88,19 +88,77 @@ static int PrintScreen(CLASS_LOADER* this) {
 	printf("Major Version: \t\t\t%d \n",this->class->major_version);
 	printf("Constant pool count: \t\t%d \n",this->class->constant_pool_count);
 	printf("Constant Pool: \n");
+
 	for (int i = 0; i < this->class->constant_pool_count - 1; i++) {
-		if (this->class->constant_pool->constants[i].tag == 10) {
-			printf("\t[%1d]CONSTANT_Methodref_info:\n", i);
-			printf("\t\tClass index: %d\n", this->class->constant_pool->constants[i].type.MethodRef.classIndex);
-			printf("\t\tName and type index: %d\n", this->class->constant_pool->constants[i].type.MethodRef.nameTypeIndex);
+		switch (this->class->constant_pool->constants[i].tag) {
+			case tUtf8:
+				printf("\t[%d]CONSTANT_Utf8_info:\n", i + 1);
+				printf("\t\tLength of byte array: %d\n", this->class->constant_pool->constants[i].type.Utf8.tam);
+				printf("\t\tLength of string: %d\n", this->class->constant_pool->constants[i].type.Utf8.tam);
+				printf("\t\tString: %s\n", (char*)this->class->constant_pool->constants[i].type.Utf8.bytes);
+				break;
+			case tInteger:
+				printf("\t[%d]CONSTANT_Integer_info:\n", i + 1);
+				printf("\t\tBytes: %x\n", this->class->constant_pool->constants[i].type.Integer.bytes);
+				printf("\t\tInteger: %d\n", this->class->constant_pool->constants[i].type.Integer.bytes);
+				break;
+			case tFloat:
+				printf("\t[%d]CONSTANT_Float_info:\n", i + 1);
+				printf("\t\tBytes: %x\n", this->class->constant_pool->constants[i].type.Float.bytes);
+				printf("\tFloat: %f\n", (float)this->class->constant_pool->constants[i].type.Float.bytes);
+				break;
+			case tLong: {
+				printf("\t[%d]CONSTANT_Long_info:\n", i + 1);
+				printf("\t\tHigh Bytes: %x\n", this->class->constant_pool->constants[i].type.Long.highBytes);
+				printf("\t\tLow Bytes: %x\n", this->class->constant_pool->constants[i].type.Long.lowBytes);
+				long var = this->class->constant_pool->constants[i].type.Long.highBytes;
+				var = var << 32 | this->class->constant_pool->constants[i].type.Long.lowBytes;
+				printf("\t\tLong: %lu\n", var);
+				break;
+			}
+			case tDouble: {
+				printf("\t[%d]CONSTANT_Double_info:\n", i + 1);
+				printf("\t\tHigh Bytes: %x\n", this->class->constant_pool->constants[i].type.Long.highBytes);
+				printf("\t\tLow Bytes: %x\n", this->class->constant_pool->constants[i].type.Long.lowBytes);
+				long var = this->class->constant_pool->constants[i].type.Double.highBytes;
+				var = var << 32 | this->class->constant_pool->constants[i].type.Double.lowBytes;
+				printf("\t\tDouble: %f\n", (double)var);
+				break;
+			}
+			case tContinued:
+				printf("\t[%d]%s", i+1, this->class->constant_pool->constants[i].type.Continued.bytes);
+				break;
+			case tClass:
+				printf("\t[%1d]CONSTANT_Class_info:\n", i + 1);
+				printf("\t\tClass name: %d\n", this->class->constant_pool->constants[i].type.Class.nameIndex);
+				break;		
+			case tString:
+				printf("\t[%1d]CONSTANT_String_info:\n", i + 1);
+				printf("\t\tString: %d\n", this->class->constant_pool->constants[i].type.String.stringIndex);
+				break;		
+			case tFieldRef:
+				printf("\t[%1d]CONSTANT_FieldRef_info:\n", i + 1);
+				printf("\t\tClass name: %d\n", this->class->constant_pool->constants[i].type.FieldRef.classIndex);
+				printf("\t\tName and type: %d\n", this->class->constant_pool->constants[i].type.FieldRef.nameTypeIndex);
+				break;		
+			case tMethodRef:
+				printf("\t[%1d]CONSTANT_Methodref_info:\n", i + 1);
+				printf("\t\tClass index: %d\n", this->class->constant_pool->constants[i].type.MethodRef.classIndex);
+				printf("\t\tName and type index: %d\n", this->class->constant_pool->constants[i].type.MethodRef.nameTypeIndex);
+				break;		
+			case tInterfaceMethodRef:
+				printf("\t[%1d]CONSTANT_InterfaceMethodref_info:\n", i + 1);
+				printf("\t\tClass index: %d\n", this->class->constant_pool->constants[i].type.InterfaceMethodRef.classIndex);
+				printf("\t\tName and type index: %d\n", this->class->constant_pool->constants[i].type.InterfaceMethodRef.nameTypeIndex);
+				break;		
+			case tNameType:
+				printf("\t[%1d]CONSTANT_NameAndType_info:\n", i + 1);
+				printf("\t\tName Index: %d\n", this->class->constant_pool->constants[i].type.NameType.nameIndex);
+				printf("\t\tDescriptor Index: %d\n", this->class->constant_pool->constants[i].type.NameType.descriptorIndex);
+				break;
+			default:
+				break;	
 		}
-		// printf("\ttag: %d", this->class->constant_pool->constants[0].tag);
-		// if (this->class->constant_pool->constants[i].tag == 1) {
-		// 	printf("\t[%d]CONSTANT_Utf8_info:\n", i);
-		// 	printf("\t\tLength of byte array: %d", this->class->constant_pool->constants[i].type.Utf8.tam);
-		// 	printf("\t\tLength of string: %d", this->class->constant_pool->constants[i].type.Utf8.tam);
-		// 	printf("\t\tString: %s", (char*)this->class->constant_pool->constants[i].type.Utf8.bytes);
-		// }
 	}
 
 	printf("\n-------------------------------------------------------------------");

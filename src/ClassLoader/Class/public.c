@@ -12,7 +12,6 @@ static int parseDotClass(CLASS* this, DADOS d) {
 		this->minor_version = getMinorVersion(d,&contador);
 		this->major_version = getMajorVersion(d,&contador); // TODO: verificar minorversion <= majorversion
 		this->constant_pool_count = getConstantPoolCount(d,&contador);
-
 		this->constant_pool = populateConstantPool(this, d, &contador);
 
 		// for(; contador < d.tamanho; contador++) {

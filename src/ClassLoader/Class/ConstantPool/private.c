@@ -50,20 +50,19 @@ static void populateLong(struct _constant_info* constants, int ordem, DADOS d, i
 
 	constants[ordem].type.Long.lowBytes = d.bytes[(*contador)++];
 	for (int i = 0; i < 4; i ++) {
-		constants[ordem].type.Long.highBytes = constants[ordem].type.Long.highBytes << 8 | d.bytes[(*contador)++]; 
+		constants[ordem].type.Long.lowBytes = constants[ordem].type.Long.lowBytes << 8 | d.bytes[(*contador)++]; 
 	}	
 }
 
 static void populateDouble(struct _constant_info* constants, int ordem, DADOS d, int* contador){
 	constants[ordem].type.Double.highBytes = d.bytes[(*contador)++];
-
-	for (int i = 0; i < 4; i ++) {
+	for (int i = 0; i < 4; i++) {
 		constants[ordem].type.Double.highBytes = constants[ordem].type.Double.highBytes << 8 | d.bytes[(*contador)++]; 
 	}
-
+	printf("highBytes: %x", constants[ordem].type.Double.highBytes);
 	constants[ordem].type.Double.lowBytes = d.bytes[(*contador)++];
-	for (int i = 0; i < 4; i ++) {
-		constants[ordem].type.Double.highBytes = constants[ordem].type.Double.highBytes << 8 | d.bytes[(*contador)++]; 
+	for (int i = 0; i < 4; i++) {
+		constants[ordem].type.Double.lowBytes = constants[ordem].type.Double.lowBytes << 8 | d.bytes[(*contador)++]; 
 	}	
 }
 
