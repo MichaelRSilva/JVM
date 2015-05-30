@@ -26,9 +26,7 @@ static void populateMethodRef(struct _constant_info* constants, int ordem, DADOS
 }
 
 static void populateInteger(struct _constant_info* constants, int ordem, DADOS d, int* contador) {
-	constants[ordem].type.Integer.bytes = d.bytes[(*contador)++];
-
-	for (int i = 0; i < 3; i ++) {
+	for (int i = 0; i < 4; i ++) {
 		constants[ordem].type.Integer.bytes = constants[ordem].type.Integer.bytes << 8 | d.bytes[(*contador)++];	
 	}
 }
@@ -36,44 +34,37 @@ static void populateInteger(struct _constant_info* constants, int ordem, DADOS d
 static void populateFloat(struct _constant_info* constants, int ordem, DADOS d, int* contador) {
 	constants[ordem].type.Float.bytes = d.bytes[(*contador)++];
 
-	for (int i = 0; i < 3; i ++) {
+	for (int i = 0; i < 4; i ++) {
 		constants[ordem].type.Float.bytes = constants[ordem].type.Float.bytes << 8 | d.bytes[(*contador)++];	
 	}
 }
 
 static void populateLong(struct _constant_info* constants, int ordem, DADOS d, int* contador){
-	constants[ordem].type.Long.highBytes = d.bytes[(*contador)++];
-
-	for (int i = 0; i < 3; i ++) {
+	
+	for (int i = 0; i < 4; i ++) {
 		constants[ordem].type.Long.highBytes = constants[ordem].type.Long.highBytes << 8 | d.bytes[(*contador)++]; 
 	}
 
-	constants[ordem].type.Long.lowBytes = d.bytes[(*contador)++];
-	for (int i = 0; i < 3; i ++) {
+	for (int i = 0; i < 4; i ++) {
 		constants[ordem].type.Long.lowBytes = constants[ordem].type.Long.lowBytes << 8 | d.bytes[(*contador)++]; 
-	}	
+	}
+
 }
 
 static void populateDouble(struct _constant_info* constants, int ordem, DADOS d, int* contador){
-	constants[ordem].type.Double.highBytes = d.bytes[(*contador)++];
-	for (int i = 0; i < 3; i++) {
+
+	for (int i = 0; i < 4; i ++) {
 		constants[ordem].type.Double.highBytes = constants[ordem].type.Double.highBytes << 8 | d.bytes[(*contador)++]; 
 	}
-	printf("highBytes: %x", constants[ordem].type.Double.highBytes);
-	constants[ordem].type.Double.lowBytes = d.bytes[(*contador)++];
-	for (int i = 0; i < 3; i++) {
+
+
+	for (int i = 0; i < 4; i ++) {
 		constants[ordem].type.Double.lowBytes = constants[ordem].type.Double.lowBytes << 8 | d.bytes[(*contador)++]; 
-	}	
+	}
+
 }
 
-static void addContinued(CONSTANT_POOL* this, int ordem) {
-	this->constants = realloc(this->constants, ((*this->constant_pool_count)+1)*sizeof(struct _constant_info));
-	ordem++;
-	(*this->constant_pool_count)++;
 
-    this->constants[ordem].tag = 0;
-    strcpy (this->constants[ordem].type.Continued.bytes, "(large numeric continued)");
-}
 
 static void populateNameType(struct _constant_info* constants, int ordem, DADOS d, int* contador) {
 	uint16_t nameIndex = d.bytes[(*contador)++], descriptorIndex = 0;

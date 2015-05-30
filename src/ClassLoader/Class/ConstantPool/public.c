@@ -1,8 +1,12 @@
 #include "constantpool.h"
 #include "private.c"
 
-static void addConstant(CONSTANT_POOL* this, int ordem, DADOS d, int* contador) {
+static void addConstant(CONSTANT_POOL* this, int ordem, DADOS d, int* contador, int* returnContinued) {
+
+	*returnContinued = 0;
+	
 	this->constants[ordem].tag = d.bytes[(*contador)++];
+
 	switch(this->constants[ordem].tag) {
 		case tUtf8:
 			populateUtf8(this->constants, ordem, d, contador);
@@ -15,11 +19,11 @@ static void addConstant(CONSTANT_POOL* this, int ordem, DADOS d, int* contador) 
 			break;
 		case tLong:
 			populateLong(this->constants, ordem, d, contador);
-			addContinued(this, ordem);
+			*returnContinued = 1;
 			break;
 		case tDouble:
 			populateDouble(this->constants, ordem, d, contador);
-			addContinued(this, ordem);
+			*returnContinued = 1;
 			break;
 		case tClass:
 			populateClassRef(this->constants, ordem, d, contador);

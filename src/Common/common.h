@@ -15,6 +15,7 @@
 	#include <stdint.h>
 	#include <inttypes.h>
 	#include <string.h>
+	#include <math.h>
 
 	// estruturas para propagacao de erros ao usuario.
 		
