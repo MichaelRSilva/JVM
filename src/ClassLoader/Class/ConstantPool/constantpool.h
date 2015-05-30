@@ -31,6 +31,10 @@
 		uint8_t tag;
 		union {
 			struct {
+				char bytes[26]; /*"(large numeric continued)"*/
+			} Continued;
+
+			struct {
 				uint16_t tam;
 				uint8_t* bytes;
 			} Utf8;
@@ -65,9 +69,10 @@
 	};
 
 	typedef struct _constant_pool {
+		int* constant_pool_count;
 		struct _constant_info* constants;
 		void (*addConstant)(struct _constant_pool*, int, DADOS d, int* contador);
 	} CONSTANT_POOL;
 	
-	CONSTANT_POOL* initCONSTANT_POOL(int);
+	CONSTANT_POOL* initCONSTANT_POOL(int*);
 #endif

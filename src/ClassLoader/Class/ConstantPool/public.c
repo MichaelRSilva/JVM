@@ -8,12 +8,18 @@ static void addConstant(CONSTANT_POOL* this, int ordem, DADOS d, int* contador) 
 			populateUtf8(this->constants, ordem, d, contador);
 			break;
 		case tInteger:
+			populateInteger(this->constants, ordem, d, contador);
 			break;
 		case tFloat:
+			populateFloat(this->constants, ordem, d, contador);
 			break;
 		case tLong:
+			populateLong(this->constants, ordem, d, contador);
+			addContinued(this, ordem);
 			break;
 		case tDouble:
+			populateDouble(this->constants, ordem, d, contador);
+			addContinued(this, ordem);
 			break;
 		case tClass:
 			break;		
@@ -33,11 +39,12 @@ static void addConstant(CONSTANT_POOL* this, int ordem, DADOS d, int* contador) 
 	}
 }
 
-CONSTANT_POOL* initCONSTANT_POOL(int count) {
+CONSTANT_POOL* initCONSTANT_POOL(int* count) {
 	CONSTANT_POOL* toReturn = (CONSTANT_POOL*)malloc(sizeof(CONSTANT_POOL));
 
-	toReturn->constants = (struct _constant_info*)malloc(count*sizeof(struct _constant_info));
+	toReturn->constants = (struct _constant_info*)malloc((*count)*sizeof(struct _constant_info));
 	toReturn->addConstant = addConstant;
+	toReturn->constant_pool_count = count;
 
 	return toReturn;
 }
