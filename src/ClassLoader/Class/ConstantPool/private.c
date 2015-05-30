@@ -2,9 +2,9 @@
 
 static void populateUtf8(struct _constant_info* constants, int ordem, DADOS d, int* contador) {
 	int i = 0;
-	uint16_t tam = d.bytes[*contador++];
+	uint16_t tam = d.bytes[(*contador)++];
 
-	tam = tam << 8 | d.bytes[*contador++];
+	tam = tam << 8 | d.bytes[(*contador)++];
 	constants[ordem].type.Utf8.tam = tam;
 	constants[ordem].type.Utf8.bytes = (uint8_t*)malloc((tam+1)*sizeof(uint8_t));
 
