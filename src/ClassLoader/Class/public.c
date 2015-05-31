@@ -13,6 +13,10 @@ static int parseDotClass(CLASS* this, DADOS d) {
 		if (!(flag = verifyVersion(this->minor_version, this->major_version))) {
 			this->constant_pool_count = getConstantPoolCount(&d);
 			this->constant_pool = populateConstantPool(this, &d);
+			this->access_flags = getAccessFlags(&d);
+			this->this_class = getThisClass(&d);
+			this->super_class = getSuperClass(&d);
+			this->interfaces_count = getInterfacesCount(&d);
 		}
 
 	}

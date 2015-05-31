@@ -50,9 +50,8 @@ static int addConstant(CONSTANT_POOL* this, int ordem, DADOS* d) {
 CONSTANT_POOL* initCONSTANT_POOL(int* count) {
 	CONSTANT_POOL* toReturn = (CONSTANT_POOL*)malloc(sizeof(CONSTANT_POOL));
 
-	toReturn->constants = (struct _constant_info*)malloc((*count)*sizeof(struct _constant_info));
+	toReturn->constants = (struct _constant_info*)malloc((*count - 1)*sizeof(struct _constant_info));
 	toReturn->addConstant = addConstant;
-	toReturn->constant_pool_count = count;
 
 	return toReturn;
 }

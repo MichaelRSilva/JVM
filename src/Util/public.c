@@ -87,6 +87,10 @@ static int PrintScreen(CLASS_LOADER* this) {
 	printf("Minor Version: \t\t\t%d \n",this->class->minor_version);
 	printf("Major Version: \t\t\t%d \n",this->class->major_version);
 	printf("Constant pool count: \t\t%d \n",this->class->constant_pool_count);
+	printf("Access flags: \t\t\t0x%04x \n", this->class->access_flags);
+	printf("This class: \t\t\t%d \n", this->class->this_class);
+	printf("Super class: \t\t\t%d \n", this->class->super_class);
+	printf("Interfaces count: \t\t%d \n", this->class->interfaces_count);
 	printf("Constant Pool: \n");
 
 
