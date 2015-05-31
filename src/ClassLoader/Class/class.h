@@ -42,7 +42,7 @@
 
 			// quantidade e conteudo dos methods
 			uint16_t attributes_count;
-			ATTRIBUTE_INFO** attributes;
+			ATTRIBUTE_POOL* attribute_pool;
 
 		// funcoes somente visiveis a estrutura _dot_class
 			int (*parseDotClass)(struct _class*, DADOS);

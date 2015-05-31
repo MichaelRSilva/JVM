@@ -49,7 +49,7 @@ CLASS* initCLASS() {
 		toReturn->constant_pool = NULL;
 		toReturn->fields = NULL; 
 		toReturn->methods = NULL;
-		toReturn->attributes = NULL;
+		toReturn->attribute_pool = NULL;
 
 	// inicializacao das funcoes
 		toReturn->parseDotClass = parseDotClass;
