@@ -37,6 +37,10 @@
 		/// Variável global para acessar as mensagens de erro dado um código.
 		extern const ERRORS errordesc[];
 
+	// funcoes globais
+		long getLong(uint32_t highBytes, uint32_t lowBytes);
+		double getDouble(uint32_t highBytes, uint32_t lowBytes);
+
 	/// Estrutura para representação de dados como array de bytes.
 	/*!
 		DADOS define uma estrutura para representacao de dados provenientes de qualquer meio;

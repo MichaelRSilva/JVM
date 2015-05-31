@@ -112,32 +112,14 @@ static int PrintScreen(CLASS_LOADER* this) {
 				printf("\t[%d]CONSTANT_Long_info:\n", i + 1);
 				printf("\t\tHigh Bytes: %x\n", this->class->constant_pool->constants[i].type.Long.highBytes);
 				printf("\t\tLow Bytes: %x\n", this->class->constant_pool->constants[i].type.Long.lowBytes);
-				long var = this->class->constant_pool->constants[i].type.Long.highBytes;
-				var = var << 32 | this->class->constant_pool->constants[i].type.Long.lowBytes;
-				printf("\t\tLong: %lu\n", var);
+				printf("\t\tLong: %lu\n", getLong(this->class->constant_pool->constants[i].type.Long.highBytes, this->class->constant_pool->constants[i].type.Long.lowBytes));
 				break;
 			}
 			case tDouble: {
 				printf("\t[%d]CONSTANT_Double_info:\n", i + 1);
 				printf("\t\tHigh Bytes: %x\n", this->class->constant_pool->constants[i].type.Long.highBytes);
 				printf("\t\tLow Bytes: %x\n", this->class->constant_pool->constants[i].type.Long.lowBytes);
-				
-				uint64_t var = 0;
-				int s = 0, e = 0;
-
-				var = var | (uint64_t)this->class->constant_pool->constants[i].type.Long.highBytes;
-				var = var << 32;
-				var = var | (uint64_t)this->class->constant_pool->constants[i].type.Long.lowBytes;
-
-				s = ((var >> 63) == 0) ? 1 : -1;
-				e = ((var >> 52) & 0x7ffL);
-
-				long m = (e == 0) ? (var & 0xfffffffffffffL) << 1 : (var & 0xfffffffffffffL) | 0x10000000000000L;
-				double valorDouble = s*m*(pow(2,(e-1075)));
-
-
-				printf("\t\tDouble: %f\n", valorDouble);
-
+				printf("\t\tDouble: %f\n", getDouble(this->class->constant_pool->constants[i].type.Long.highBytes, this->class->constant_pool->constants[i].type.Long.lowBytes));
 				break;
 			}
 			case tContinued:

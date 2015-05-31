@@ -4,7 +4,7 @@ static int verifyCAFEBABE(uint32_t magic) {
 	return (0xCAFEBABE == magic) ? E_SUCCESS : E_CAFEBABE;
 }
 
-static int verifyVersion(uint16_t major_version, uint16_t minor_version) {
+static int verifyVersion(uint16_t minor_version, uint16_t major_version) {
 	return (minor_version <= major_version) ? E_SUCCESS : E_VERSION;
 }
 

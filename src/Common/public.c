@@ -19,6 +19,28 @@ const ERRORS errordesc[] = {
 	{ E_VERSION, "ERRO: minor_version precisa ser menor que major_version"}
 };
 
+// funcoes globais
+long getLong(uint32_t highBytes, uint32_t lowBytes) {
+	return ((long)highBytes) << 32 | lowBytes;
+}
+
+double getDouble(uint32_t highBytes, uint32_t lowBytes) {
+	uint64_t var = 0;
+	int s = 0, e = 0;
+
+	var = var | (uint64_t)highBytes;
+	var = var << 32;
+	var = var | (uint64_t)lowBytes;
+
+	s = ((var >> 63) == 0) ? 1 : -1;
+	e = ((var >> 52) & 0x7ffL);
+
+	long m = (e == 0) ? (var & 0xfffffffffffffL) << 1 : (var & 0xfffffffffffffL) | 0x10000000000000L;
+	
+	return s*m*(pow(2,(e-1075)));
+}
+
+// funcoes do objeto DADOS
 static uint8_t le1Byte(DADOS* this) {
 	return *(this->bytes++);
 }
