@@ -7,6 +7,12 @@ public class ClassicSingleton implements InterfaceTeste {
 	public final static double notANumber = Double.POSITIVE_INFINITY/Double.POSITIVE_INFINITY;
 	public final static double infP = Double.POSITIVE_INFINITY;
 	public final static double infN = -Double.POSITIVE_INFINITY;
+
+
+	public final static boolean[][] boliSample = {{ false, false }, { true, true } };
+
+	public final static Exception e = new Exception("Deu Merda.!");
+
 	protected ClassicSingleton() {
 
 	}
@@ -15,6 +21,7 @@ public class ClassicSingleton implements InterfaceTeste {
 		if (instance == null) {
 			return new ClassicSingleton();
 		}
+
 		return instance;
 	}
 

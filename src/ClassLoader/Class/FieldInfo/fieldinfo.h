@@ -3,7 +3,12 @@
 	#include "../../../Common/common.h"
 	
 	typedef struct _field_info {
-		// TODO
+		
+		uint16_t access_flags;
+		uint16_t name_index;
+		uint16_t descriptor_index;
+		uint16_t attributes_count;
+
 	} FIELD_INFO;
 
 	FIELD_INFO** initFIELD_INFO();
