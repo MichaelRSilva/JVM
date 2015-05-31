@@ -100,26 +100,35 @@ static int PrintScreen(CLASS_LOADER* this) {
 				break;
 			case tInteger:
 				printf("\t[%d]CONSTANT_Integer_info:\n", i + 1);
-				printf("\t\tBytes: %x\n", this->class->constant_pool->constants[i].type.Integer.bytes);
+				printf("\t\tBytes: 0x%08x\n", this->class->constant_pool->constants[i].type.Integer.bytes);
 				printf("\t\tInteger: %d\n", this->class->constant_pool->constants[i].type.Integer.bytes);
 				break;
 			case tFloat:
 				printf("\t[%d]CONSTANT_Float_info:\n", i + 1);
-				printf("\t\tBytes: %x\n", this->class->constant_pool->constants[i].type.Float.bytes);
+				printf("\t\tBytes: 0x%08x\n", this->class->constant_pool->constants[i].type.Float.bytes);
 				printf("\tFloat: %f\n", (float)this->class->constant_pool->constants[i].type.Float.bytes);
 				break;
 			case tLong: {
 				printf("\t[%d]CONSTANT_Long_info:\n", i + 1);
-				printf("\t\tHigh Bytes: %x\n", this->class->constant_pool->constants[i].type.Long.highBytes);
-				printf("\t\tLow Bytes: %x\n", this->class->constant_pool->constants[i].type.Long.lowBytes);
+				printf("\t\tHigh Bytes: 0x%08x\n", this->class->constant_pool->constants[i].type.Long.highBytes);
+				printf("\t\tLow Bytes: 0x%08x\n", this->class->constant_pool->constants[i].type.Long.lowBytes);
 				printf("\t\tLong: %lu\n", getLong(this->class->constant_pool->constants[i].type.Long.highBytes, this->class->constant_pool->constants[i].type.Long.lowBytes));
 				break;
 			}
 			case tDouble: {
 				printf("\t[%d]CONSTANT_Double_info:\n", i + 1);
-				printf("\t\tHigh Bytes: %x\n", this->class->constant_pool->constants[i].type.Long.highBytes);
-				printf("\t\tLow Bytes: %x\n", this->class->constant_pool->constants[i].type.Long.lowBytes);
-				printf("\t\tDouble: %f\n", getDouble(this->class->constant_pool->constants[i].type.Long.highBytes, this->class->constant_pool->constants[i].type.Long.lowBytes));
+				printf("\t\tHigh Bytes: 0x%08x\n", this->class->constant_pool->constants[i].type.Long.highBytes);
+				printf("\t\tLow Bytes: 0x%08x\n", this->class->constant_pool->constants[i].type.Long.lowBytes);
+				long var = getLong(this->class->constant_pool->constants[i].type.Long.highBytes, this->class->constant_pool->constants[i].type.Long.lowBytes);
+				if (var == 0x7ff0000000000000L) {
+					printf("\t\tDouble: infinito positivo\n");
+				} else if (var == 0xfff0000000000000L) {
+					printf("\t\tDouble: infinito negativo\n");
+				} else if ((var >= 0x7ff0000000000001L && var <= 0x7fffffffffffffffL) || (var <= 0xfff0000000000001L && var >= 0xffffffffffffffffL) ) {
+					printf("\t\tDouble: NaN\n");
+				} else {
+					printf("\t\tDouble: %f\n", getDouble(this->class->constant_pool->constants[i].type.Long.highBytes, this->class->constant_pool->constants[i].type.Long.lowBytes));
+				}
 				break;
 			}
 			case tContinued:
