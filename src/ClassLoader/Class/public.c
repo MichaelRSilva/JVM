@@ -20,8 +20,7 @@ static int parseDotClass(CLASS* this, DADOS d) {
 			if (!(flag = populateInterfaces(this, &d))) {
 
 				this->fields_count = getFieldsCount(&d);
-
-
+				this->fields = populateFieldPool(this,&d);
 				
 			}
 		}

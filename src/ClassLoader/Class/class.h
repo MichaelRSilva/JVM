@@ -34,7 +34,7 @@
 
 			// quantidade e conteudo dos fields
 			uint16_t fields_count;
-			FIELD_INFO** fields;
+			FIELD_POOL* fields;
 
 			// quantidade e conteudo dos methods
 			uint16_t methods_count;
