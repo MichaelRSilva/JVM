@@ -57,3 +57,13 @@ static CONSTANT_POOL* populateConstantPool(CLASS* this, DADOS* d){
 
 	return toReturn;
 }
+
+static int populateInterfaces(CLASS* this, DADOS* d) {
+	this->interfaces = (uint16_t*)malloc(this->interfaces_count*sizeof(uint16_t));
+	for (int i = 0; i < this->interfaces_count; i++) {
+		this->interfaces[i] = d->le2Bytes(d); 
+		// TODO: verificar validade do indice
+	}
+	return E_SUCCESS;
+}
+

@@ -91,6 +91,11 @@ static int PrintScreen(CLASS_LOADER* this) {
 	printf("This class: \t\t\t%d \n", this->class->this_class);
 	printf("Super class: \t\t\t%d \n", this->class->super_class);
 	printf("Interfaces count: \t\t%d \n", this->class->interfaces_count);
+	printf("Interfaces: \n");
+	for (int i = 0; i < this->class->interfaces_count; i++) {
+		printf("\tInterface %d: \n", i);
+		printf("\t\tInterface index: %d\n", this->class->interfaces[i]);
+	}
 	printf("Constant Pool: \n");
 
 

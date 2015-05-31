@@ -17,6 +17,9 @@ static int parseDotClass(CLASS* this, DADOS d) {
 			this->this_class = getThisClass(&d);
 			this->super_class = getSuperClass(&d);
 			this->interfaces_count = getInterfacesCount(&d);
+			if (!(flag = populateInterfaces(this, &d))) {
+				
+			}
 		}
 
 	}
