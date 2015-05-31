@@ -11,7 +11,7 @@ static void addAttribute(ATTRIBUTE_POOL* this, CONSTANT_POOL* cp, int ordem, DAD
 	if (strcmp(tipoNome, "ConstantValue") == 0) {
 		populateConstantValueAttribute(&this->attributes[ordem], d);
 	} else if (strcmp(tipoNome, "Code") == 0) {
-		populateCodeAttribute(&this->attributes[ordem], d);
+		populateCodeAttribute(&this->attributes[ordem], cp, d);
 	} else if (strcmp(tipoNome, "Exceptions") == 0) {
 		populateExceptions(&this->attributes[ordem], d);
 	} else if (strcmp(tipoNome, "InnerClasses") == 0) {

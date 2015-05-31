@@ -13,9 +13,7 @@ static void populateConstantValueAttribute(struct _attribute_info* a, DADOS* d) 
 	a->info.ConstantValueAttribute.constantvalue_index = d->le2Bytes(d);
 }
 
-static void populateCodeAttribute(ATTRIBUTE_POOL* this, CONSTANT_POOL* cp, int ordem, DADOS* d) {
-	struct _attribute_info* a = &this->attributes[ordem];
-
+static void populateCodeAttribute(struct _attribute_info* a, CONSTANT_POOL* cp, DADOS* d) {
 	a->info.CodeAttribute.max_stack = d->le2Bytes(d);
 	a->info.CodeAttribute.max_locals = d->le2Bytes(d);
 	a->info.CodeAttribute.code_length = d->le4Bytes(d);
