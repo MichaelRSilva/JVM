@@ -1,80 +1,42 @@
 #include "class.h"
 
-static int verifyCAFEBABE(DADOS d) {
-	int cafebabe = 0xCAFEBABE, buffer = 0, i;
-	for (i = 0; i < 4; i++) {
-		buffer = (buffer << 8) | d.bytes[i];
-	}
-
-	return (cafebabe == buffer) ? E_SUCCESS : E_CAFEBABE;
+static int verifyCAFEBABE(uint32_t magic) {
+	return (0xCAFEBABE == magic) ? E_SUCCESS : E_CAFEBABE;
 }
 
-static int getMagicNumber(DADOS d, int* contador) {
-	int buffer = 0, i;
-	for (i = 0; i < 4; i++) {
-		buffer = (buffer << 8) | d.bytes[i];
-	}
-
-	*contador = i;
-	
-	return buffer;
+static int verifyVersion(uint16_t major_version, uint16_t minor_version) {
+	return (minor_version <= major_version) ? E_SUCCESS : E_VERSION;
 }
 
-static int getMinorVersion(DADOS d, int* contador) {
-	int buffer = 0, i = 0, qtdBitsRead = 2;
-
-	for (i = *contador; i < (*contador+qtdBitsRead); i++) {
-		buffer = (buffer << 8) | d.bytes[i];
-	}
-
-	*contador = *contador+qtdBitsRead;
-	
-	return buffer;
+static uint32_t getMagicNumber(DADOS* d) {
+	return (int)d->le4Bytes(d);
 }
 
-static int getMajorVersion(DADOS d, int* contador) {
-	int buffer = 0, i=0, qtdBitsRead = 2;
-
-	for (i = *contador; i < (*contador+qtdBitsRead); i++) {
-		buffer = (buffer << 8) | d.bytes[i];
-	}
-
-	*contador = *contador+qtdBitsRead;
-	
-	return buffer;
+static uint16_t getMinorVersion(DADOS* d) {
+	return d->le2Bytes(d);
 }
 
-static int getConstantPoolCount(DADOS d, int* contador) {
-	int buffer = 0, i=0, qtdBitsRead = 2;
-
-	for (i = *contador; i < (*contador+qtdBitsRead); i++) {
-		buffer = (buffer << 8) | d.bytes[i];
-	}
-
-	*contador = *contador+qtdBitsRead;
-	
-	return buffer;
+static uint16_t getMajorVersion(DADOS* d) {
+	return d->le2Bytes(d);
 }
 
-static void addContinued(CONSTANT_POOL* this, int ordem, int *contador) {
-
-    this->constants[ordem].tag = 0;
-    strcpy (this->constants[ordem].type.Continued.bytes, "(large numeric continued)");
+static uint16_t getConstantPoolCount(DADOS* d) {
+	return d->le2Bytes(d);
 }
 
+static void addContinued(CONSTANT_POOL* cp, int ordem) {
+    cp->constants[ordem].tag = 0;
+    strcpy (cp->constants[ordem].type.Continued.bytes, "(large numeric continued)");
+}
 
-static CONSTANT_POOL* populateConstantPool(CLASS* this, DADOS d, int* contador){
+static CONSTANT_POOL* populateConstantPool(CLASS* this, DADOS* d){
 	CONSTANT_POOL* toReturn = initCONSTANT_POOL((int*)&(this->constant_pool_count));
-	int i = 0, returnContinued = 0;
+	int returnContinued = 0;
 	
-	for (; i < this->constant_pool_count - 1; i++) {
-		toReturn->addConstant(toReturn, i, d, contador,&returnContinued);
-
-		if(returnContinued == 1){
-			i++;
-			addContinued(toReturn,i,contador);
+	for (int i = 0; i < this->constant_pool_count - 1; i++) {
+		if(toReturn->addConstant(toReturn, i, d) == 1){
+			addContinued(toReturn,++i);
 		}
-
 	}
 
 	return toReturn;

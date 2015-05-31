@@ -5,20 +5,16 @@
 static int parseDotClass(CLASS* this, DADOS d) {
 	int flag = 0, contador = 0, cp_size = 0;
 
-	if (!(flag = verifyCAFEBABE(d))) {
+	this->magic = getMagicNumber(&d);
+	if (!(flag = verifyCAFEBABE(this->magic))) {
 
-		//Add first informations to class struct
-		this->magic = getMagicNumber(d,&contador);
-		this->minor_version = getMinorVersion(d,&contador);
-		this->major_version = getMajorVersion(d,&contador); // TODO: verificar minorversion <= majorversion
-		this->constant_pool_count = getConstantPoolCount(d,&contador);
-		this->constant_pool = populateConstantPool(this, d, &contador);
+		this->minor_version = getMinorVersion(&d);
+		this->major_version = getMajorVersion(&d);
+		if (!(flag = verifyVersion(this->minor_version, this->major_version))) {
+			this->constant_pool_count = getConstantPoolCount(&d);
+			this->constant_pool = populateConstantPool(this, &d);
+		}
 
-		// for(; contador < d.tamanho; contador++) {
-			// if (d[contador] == 0x20) {
-			// 	monta_metodo(this->class, d, &contador); 
-			// }
-		// }
 	}
 	return flag;
 }

@@ -71,7 +71,7 @@
 	typedef struct _constant_pool {
 		int* constant_pool_count;
 		struct _constant_info* constants;
-		void (*addConstant)(struct _constant_pool*, int, DADOS d, int* contador, int* returnContinued);
+		int (*addConstant)(struct _constant_pool*, int, DADOS* d);
 	} CONSTANT_POOL;
 	
 	CONSTANT_POOL* initCONSTANT_POOL(int*);

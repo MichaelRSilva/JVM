@@ -1,51 +1,50 @@
 #include "constantpool.h"
 #include "private.c"
 
-static void addConstant(CONSTANT_POOL* this, int ordem, DADOS d, int* contador, int* returnContinued) {
-
-	*returnContinued = 0;
+static int addConstant(CONSTANT_POOL* this, int ordem, DADOS* d) {
+	int toReturn = 0;
 	
-	this->constants[ordem].tag = d.bytes[(*contador)++];
-
+	this->constants[ordem].tag = d->le1Byte(d);
 	switch(this->constants[ordem].tag) {
 		case tUtf8:
-			populateUtf8(this->constants, ordem, d, contador);
+			populateUtf8(this->constants, ordem, d);
 			break;
 		case tInteger:
-			populateInteger(this->constants, ordem, d, contador);
+			populateInteger(this->constants, ordem, d);
 			break;
 		case tFloat:
-			populateFloat(this->constants, ordem, d, contador);
+			populateFloat(this->constants, ordem, d);
 			break;
 		case tLong:
-			populateLong(this->constants, ordem, d, contador);
-			*returnContinued = 1;
+			populateLong(this->constants, ordem, d);
+			toReturn = 1;
 			break;
 		case tDouble:
-			populateDouble(this->constants, ordem, d, contador);
-			*returnContinued = 1;
+			populateDouble(this->constants, ordem, d);
+			toReturn = 1;
 			break;
 		case tClass:
-			populateClassRef(this->constants, ordem, d, contador);
+			populateClassRef(this->constants, ordem, d);
 			break;		
 		case tString:
-			populateStringRef(this->constants, ordem, d, contador);
+			populateStringRef(this->constants, ordem, d);
 			break;		
 		case tFieldRef:
-			populateFieldRef(this->constants, ordem, d, contador);
+			populateFieldRef(this->constants, ordem, d);
 			break;		
 		case tMethodRef:
-			populateMethodRef(this->constants, ordem, d, contador);
+			populateMethodRef(this->constants, ordem, d);
 			break;		
 		case tInterfaceMethodRef:
-			populateInterfaceMehodRef(this->constants, ordem, d, contador);
+			populateInterfaceMehodRef(this->constants, ordem, d);
 			break;		
 		case tNameType:
-			populateNameType(this->constants, ordem, d, contador);
+			populateNameType(this->constants, ordem, d);
 			break;
 		default:
 			break;	
 	}
+	return toReturn;
 }
 
 CONSTANT_POOL* initCONSTANT_POOL(int* count) {
