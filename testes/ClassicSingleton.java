@@ -13,6 +13,8 @@ public class ClassicSingleton implements InterfaceTeste {
 
 	public final static Exception e = new Exception("Deu Merda.!");
 
+
+
 	protected ClassicSingleton() {
 
 	}

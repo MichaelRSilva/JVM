@@ -1,11 +1,20 @@
 #include "fieldinfo.h"
 #include "private.c"
 
-FIELD_INFO** initFIELD_INFO() {
-	FIELD_INFO** toReturn = (FIELD_INFO**)malloc(sizeof(FIELD_INFO));
-	*(toReturn) = (FIELD_INFO*)malloc(sizeof(FIELD_INFO));
+FIELD_POOL* initFIELD_POOL() {
+	FIELD_POOL* toReturn = (FIELD_POOL*)malloc(sizeof(FIELD_POOL));
 
 	// TODO
 
 	return toReturn;
 }
+
+
+/*CONSTANT_POOL* initCONSTANT_POOL(int* count) {
+	CONSTANT_POOL* toReturn = (CONSTANT_POOL*)malloc(sizeof(CONSTANT_POOL));
+
+	toReturn->constants = (struct _constant_info*)malloc((*count - 1)*sizeof(struct _constant_info));
+	toReturn->addConstant = addConstant;
+
+	return toReturn;
+}*/
