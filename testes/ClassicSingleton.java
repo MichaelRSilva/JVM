@@ -9,9 +9,11 @@ public class ClassicSingleton implements InterfaceTeste {
 	public final static double infN = -Double.POSITIVE_INFINITY;
 
 
+	public final static Exception e = new Exception("Deu Merda.!");
+	
 	public final static boolean[][] boliSample = {{ false, false }, { true, true } };
 
-	public final static Exception e = new Exception("Deu Merda.!");
+	
 
 
 
