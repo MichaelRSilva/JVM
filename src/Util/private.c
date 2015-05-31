@@ -1,1 +1,64 @@
 #include "util.h"
+
+
+static void printScreenConstantValue(struct _attribute_info attr, char *tab) {
+	printf("%sConstantValueIndex: %d\n", tab, attr.info.ConstantValueAttribute.constantvalue_index);	
+}
+
+static void printScreenCode(struct _attribute_info attr, CONSTANT_POOL* cp, char *tab) {
+
+}
+
+static void printScreenExceptions(struct _attribute_info attr, char *tab) {
+
+}
+
+static void printScreenInnerClasses(struct _attribute_info attr, char *tab) {
+
+}
+
+static void printScreenSynthetic(struct _attribute_info attr, char *tab) {
+
+}
+
+static void printScreenSourceFile(struct _attribute_info attr, char *tab) {
+
+}
+
+static void printScreenLineNumberTable(struct _attribute_info attr, char *tab) {
+
+}
+
+static void printScreenLocalVariableTable(struct _attribute_info attr, char *tab) {
+
+}
+
+static void printScreenDeprecated(struct _attribute_info attr, char *tab) {
+
+}
+
+static void printScreenAttribute(struct _attribute_info attr, CONSTANT_POOL* cp, char* tab){
+
+	char* tipoNome = (char*)malloc(cp->constants[attr.attributeNameIndex - 1].type.Utf8.tam * sizeof(char));
+	strcpy(tipoNome, (char*)cp->constants[attr.attributeNameIndex - 1].type.Utf8.bytes);
+	
+	if (strcmp(tipoNome, "ConstantValue") == 0) {
+		printScreenConstantValue(attr, tab);
+	} else if (strcmp(tipoNome, "Code") == 0) {
+		printScreenCode(attr, cp, tab);
+	} else if (strcmp(tipoNome, "Exceptions") == 0) {
+		printScreenExceptions(attr, tab);
+	} else if (strcmp(tipoNome, "InnerClasses") == 0) {
+		printScreenInnerClasses(attr, tab);
+	} else if (strcmp(tipoNome, "Synthetic") == 0) {
+		printScreenSynthetic(attr, tab);
+	} else if (strcmp(tipoNome, "SourceFile") == 0) {
+		printScreenSourceFile(attr, tab);
+	} else if (strcmp(tipoNome, "LineNumberTable") == 0) {
+		printScreenLineNumberTable(attr, tab);
+	} else if (strcmp(tipoNome, "LocalVariableTable") == 0) {
+		printScreenLocalVariableTable(attr, tab);
+	} else { // Deprecated
+		printScreenDeprecated(attr, tab);
+	}
+}

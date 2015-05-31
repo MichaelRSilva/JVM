@@ -92,14 +92,12 @@ static int PrintScreen(CLASS_LOADER* this) {
 	printf("Super class: \t\t\t%d \n", this->class->super_class);
 	printf("Interfaces count: \t\t%d \n", this->class->interfaces_count);
 	printf("Fields count: \t\t\t%d \n\n", this->class->fields_count);
+	
 	printf("Interfaces: \n");
 	for (int i = 0; i < this->class->interfaces_count; i++) {
 		printf("\tInterface %d: \n", i);
 		printf("\t\tInterface index: %d\n", this->class->interfaces[i]);
 	}
-
-
-
 
 	printf("Constant Pool: \n");
 	for (int i = 0; i < this->class->constant_pool_count - 1; i++) {
@@ -180,22 +178,14 @@ static int PrintScreen(CLASS_LOADER* this) {
 		}
 	}
 
-
 	printf("Fields: \n");
 	for (int i = 0; i < this->class->fields_count; i++) {
-
 		printf("\t[%d]%s\n", i,this->class->constant_pool->constants[this->class->fields_pool->fields[i].name_index - 1].type.Utf8.bytes);
 		
-		for(int j=0; j<this->class->fields_pool->fields[i].attributes_count  ;j++){
-
-			if(true){
-				//printf("\t\t[%d]\n",j);
-			}
-
+		for(int j=0; j < this->class->fields_pool->fields[i].attributes_count; j++){
+			printScreenAttribute(this->class->fields_pool->fields[i].attributes[j], this->class->constant_pool, "\t\t");
 		}
-
 	}
-
 
 	printf("\n-------------------------------------------------------------------");
 	printf("\n\n");
