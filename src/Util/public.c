@@ -185,10 +185,14 @@ static int PrintScreen(CLASS_LOADER* this) {
 	for (int i = 0; i < this->class->fields_count; i++) {
 
 		printf("\t[%d]%s\n", i,this->class->constant_pool->constants[this->class->fields_pool->fields[i].name_index - 1].type.Utf8.bytes);
-		//printf("\t\tLength of byte array: %d\n", this->class->constant_pool->constants[i].type.Utf8.tam);
-		//printf("\t\tLength of string: %d\n", this->class->constant_pool->constants[i].type.Utf8.tam);
-		//printf("\t\tString: %s\n", (char*)this->class->constant_pool->constants[i].type.Utf8.bytes);
+		
+		for(int j=0; j<this->class->fields_pool->fields[i].attributes_count  ;j++){
 
+			if(true){
+				//printf("\t\t[%d]\n",j);
+			}
+
+		}
 
 	}
 
