@@ -97,8 +97,11 @@ static int PrintScreen(CLASS_LOADER* this) {
 		printf("\tInterface %d: \n", i);
 		printf("\t\tInterface index: %d\n", this->class->interfaces[i]);
 	}
-	printf("Constant Pool: \n");
 
+
+
+
+	printf("Constant Pool: \n");
 	for (int i = 0; i < this->class->constant_pool_count - 1; i++) {
 		switch (this->class->constant_pool->constants[i].tag) {
 			case tUtf8:
@@ -177,9 +180,20 @@ static int PrintScreen(CLASS_LOADER* this) {
 		}
 	}
 
+
+	printf("Fields: \n");
+	for (int i = 0; i < this->class->fields_count; i++) {
+
+		printf("\t[%d]%s\n", i,this->class->constant_pool->constants[this->class->fields_pool->fields[i].name_index - 1].type.Utf8.bytes);
+		//printf("\t\tLength of byte array: %d\n", this->class->constant_pool->constants[i].type.Utf8.tam);
+		//printf("\t\tLength of string: %d\n", this->class->constant_pool->constants[i].type.Utf8.tam);
+		//printf("\t\tString: %s\n", (char*)this->class->constant_pool->constants[i].type.Utf8.bytes);
+
+
+	}
+
+
 	printf("\n-------------------------------------------------------------------");
-
-
 	printf("\n\n");
 
 	return 0;

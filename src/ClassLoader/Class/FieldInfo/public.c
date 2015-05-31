@@ -2,25 +2,20 @@
 #include "private.c"
 
 
-static int addField(FIELD_POOL* this, int ordem, DADOS* d) {
-	int toReturn = 0, count = 0;
+static int addField(FIELD_POOL* this, CONSTANT_POOL* cp, int ordem, DADOS* d) {
 	
-	//TODO: 
-	printf("Access: (((%x)))\n", d->le2Bytes(d));
-	printf("Name Index: (((%x)))\n", d->le2Bytes(d));
-	printf("Descriptor Index: (((%x)))\n", d->le2Bytes(d));
-	count = d->le2Bytes(d);
-	printf("Attribute Count: (((%x)))\n", count);
+	this->fields[ordem].access_flags = getAccessFlags(d);
+	this->fields[ordem].name_index = getNameIndex(d);
+	this->fields[ordem].descriptor_index = getDescriptorIndex(d);
+	this->fields[ordem].attributes_count = getAttributesCount(d);
 
-	for(int i =0; i<count; i++){
-
-		d->le4Bytes(d);
-		d->le4Bytes(d);
-
+	ATTRIBUTE_POOL* field_attributes = initATTRIBUTE_POOL(this->fields[ordem].attributes_count);
+	for(int i =0; i<this->fields[ordem].attributes_count; i++){
+		field_attributes->addAttribute(field_attributes, cp, i, d);
 	}
+	this->fields[ordem].attributes = field_attributes->attributes;
 
-
-	return toReturn;
+	return E_SUCCESS;
 }
 
 FIELD_POOL* initFIELD_POOL(int *count) {

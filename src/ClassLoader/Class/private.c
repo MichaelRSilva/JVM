@@ -76,7 +76,7 @@ static FIELD_POOL* populateFieldPool(CLASS* this, DADOS* d){
 	FIELD_POOL* toReturn = initFIELD_POOL((int*)&(this->fields_count));
 	
 	for (int i = 0; i < this->fields_count; i++) {
-		toReturn->addField(toReturn, i, d);
+		toReturn->addField(toReturn,this->constant_pool, i, d);
 	}
 
 	return toReturn;

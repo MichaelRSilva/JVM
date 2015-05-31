@@ -20,7 +20,7 @@ static int parseDotClass(CLASS* this, DADOS d) {
 			if (!(flag = populateInterfaces(this, &d))) {
 
 				this->fields_count = getFieldsCount(&d);
-				this->fields = populateFieldPool(this,&d);
+				this->fields_pool = populateFieldPool(this,&d);
 				
 			}
 		}
@@ -50,7 +50,7 @@ CLASS* initCLASS() {
 		toReturn->attributes_count = 0;
 
 		toReturn->constant_pool = NULL;
-		toReturn->fields = NULL; 
+		toReturn->fields_pool = NULL; 
 		toReturn->methods = NULL;
 		toReturn->attribute_pool = NULL;
 
