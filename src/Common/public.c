@@ -42,13 +42,15 @@ double getDouble(uint32_t highBytes, uint32_t lowBytes) {
 
 // funcoes do objeto DADOS
 static uint8_t le1Byte(DADOS* this) {
-	return *(this->bytes++);
+	if (this->bytes)
+		return *(this->bytes++);
+	return 0;
 }
 
 static uint16_t le2Bytes(DADOS* this) {
 	uint16_t buffer = 0;
 
-	for (int i = 0; i < 2; i++) {
+	for (int i = 0; i < 2 && this->bytes; i++) {
 		buffer = buffer << 8 | *(this->bytes++);
 	}
 
@@ -58,7 +60,7 @@ static uint16_t le2Bytes(DADOS* this) {
 static uint32_t le4Bytes(DADOS* this) {
 	uint32_t buffer = 0;
 
-	for (int i = 0; i < 4; i++) {
+	for (int i = 0; i < 4 && this->bytes; i++) {
 		buffer = buffer << 8 | *(this->bytes++);
 	}
 

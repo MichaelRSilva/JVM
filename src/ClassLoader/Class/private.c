@@ -40,6 +40,10 @@ static uint16_t getInterfacesCount(DADOS* d) {
 	return d->le2Bytes(d);
 }
 
+static uint16_t getFieldsCount(DADOS* d) {
+	return d->le2Bytes(d);
+}
+
 static void addContinued(CONSTANT_POOL* cp, int ordem) {
     cp->constants[ordem].tag = 0;
     strcpy (cp->constants[ordem].type.Continued.bytes, "(large numeric continued)");
