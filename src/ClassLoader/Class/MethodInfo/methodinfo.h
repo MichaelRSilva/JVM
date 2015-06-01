@@ -11,12 +11,23 @@
 #ifndef MODULE_METHOD_INFO
 	#define MODULE_METHOD_INFO
 	#include "../../../Common/common.h"
+	#include "../AttributeInfo/attributeinfo.h"
 
-	typedef struct _method_info {
-		// TODO
 
-		// (*funcao)(struct _method_info*, DADOS, int*);
-	} METHOD_INFO;
+	struct _method_info {
+		uint16_t access_flags;
+		uint16_t name_index;
+		uint16_t descriptor_index;
+		uint16_t attributes_count;
+		struct _attribute_info* attributes;
+	};
 
-	METHOD_INFO** initMETHOD_INFO();
+	typedef struct _method {
+		struct _method_info* methods;
+		int (*addMethods)(struct _method*, CONSTANT_POOL*,int, DADOS*);
+	} METHOD_POOL;
+	
+	METHOD_POOL* initMETHOD_POOL();
+
+
 #endif

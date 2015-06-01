@@ -3,17 +3,29 @@
 
 // funcoes somente acessiveis pela struct _dot_class
 static int parseDotClass(CLASS* this, DADOS d) {
-	int flag = 0, contador = 0;
+	int flag = 0, contador = 0, cp_size = 0;
 
-	if (!(flag = verifyCAFEBABE(d, &contador))) {
-		for(; contador < d.tamanho; contador++) {
+	this->magic = getMagicNumber(&d);
+	if (!(flag = verifyCAFEBABE(this->magic))) {
 
-			// if (d[contador] == 0x20) {
-			// this->methodinfo->funcao(this->methodinfo, d, &contador);
-			// 	monta_metodo(this->class, d, &contador);
-			// }
+		this->minor_version = getMinorVersion(&d);
+		this->major_version = getMajorVersion(&d);
+		if (!(flag = verifyVersion(this->minor_version, this->major_version))) {
+			this->constant_pool_count = getConstantPoolCount(&d);
+			this->constant_pool = populateConstantPool(this, &d);
+			this->access_flags = getAccessFlags(&d);
+			this->this_class = getThisClass(&d);
+			this->super_class = getSuperClass(&d);
+			this->interfaces_count = getInterfacesCount(&d);
+			if (!(flag = populateInterfaces(this, &d))) {
 
+				this->fields_count = getFieldsCount(&d);
+				this->fields_pool = populateFieldPool(this,&d);
+				this->methods_count = getMethodsCount(&d);
+				this->methods_pool = populateMethodsPool(this,&d);
+			}
 		}
+
 	}
 	return flag;
 }
@@ -38,10 +50,10 @@ CLASS* initCLASS() {
 		toReturn->methods_count = 0;
 		toReturn->attributes_count = 0;
 
-		toReturn->constant_pool = initCONSTANT_POOL();
-		toReturn->fields = initFIELD_INFO(); 
-		toReturn->methods = initMETHOD_INFO();
-		toReturn->attributes = initATTRIBUTE_INFO();
+		toReturn->constant_pool = NULL;
+		toReturn->fields_pool = NULL; 
+		toReturn->methods_pool = NULL;
+		toReturn->attribute_pool = NULL;
 
 	// inicializacao das funcoes
 		toReturn->parseDotClass = parseDotClass;

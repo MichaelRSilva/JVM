@@ -6,10 +6,6 @@ static int load(CLASS_LOADER* this, DADOS d) {
 	return this->class->parseDotClass(this->class, d);
 }
 
-static int print(CLASS_LOADER* this) {
-
-	return E_SUCCESS;
-}
 
 // funcoes visiveis publicamente
 CLASS_LOADER* initCLASS_LOADER() {
@@ -20,7 +16,6 @@ CLASS_LOADER* initCLASS_LOADER() {
 
 	// inicializacao dos metodos
 		toReturn->load = load;
-		toReturn->print = print;
 
 	return toReturn;
 }

@@ -15,6 +15,7 @@
 	#include <stdint.h>
 	#include <inttypes.h>
 	#include <string.h>
+	#include <math.h>
 
 	// estruturas para propagacao de erros ao usuario.
 		
@@ -23,7 +24,8 @@
 			E_SUCCESS = 0,
 			E_INVALID_NUM_ARGS = -1,
 			E_ARGV1_FILE_NOT_EXISTENT = -2,
-			E_CAFEBABE = -3
+			E_CAFEBABE = -3,
+			E_VERSION = -4
 		};
 
 		/// Associa uma mensagem de erro a um código.
@@ -34,6 +36,10 @@
 
 		/// Variável global para acessar as mensagens de erro dado um código.
 		extern const ERRORS errordesc[];
+
+	// funcoes globais
+		long getLong(uint32_t highBytes, uint32_t lowBytes);
+		double getDouble(uint32_t highBytes, uint32_t lowBytes);
 
 	/// Estrutura para representação de dados como array de bytes.
 	/*!
@@ -46,6 +52,9 @@
 		typedef struct _dados {
 			unsigned long int tamanho;
 			uint8_t *bytes;
+			uint8_t (*le1Byte)(struct _dados*);
+			uint16_t (*le2Bytes)(struct _dados*);
+			uint32_t (*le4Bytes)(struct _dados*);
 		} DADOS;
 
 	// funcoes comuns a todos os modulos

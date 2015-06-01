@@ -1,11 +1,99 @@
 #include "class.h"
 
-static int verifyCAFEBABE(DADOS d, int* contador) {
-	int cafebabe = 0xCAFEBABE, buffer = 0, i;
-	for (i = 0; i < 4; i++) {
-		buffer = (buffer << 8) | d.bytes[i];
+static int verifyCAFEBABE(uint32_t magic) {
+	return (0xCAFEBABE == magic) ? E_SUCCESS : E_CAFEBABE;
+}
+
+static int verifyVersion(uint16_t minor_version, uint16_t major_version) {
+	return (minor_version <= major_version) ? E_SUCCESS : E_VERSION;
+}
+
+static uint32_t getMagicNumber(DADOS* d) {
+	return (int)d->le4Bytes(d);
+}
+
+static uint16_t getMinorVersion(DADOS* d) {
+	return d->le2Bytes(d);
+}
+
+static uint16_t getMajorVersion(DADOS* d) {
+	return d->le2Bytes(d);
+}
+
+static uint16_t getConstantPoolCount(DADOS* d) {
+	return d->le2Bytes(d);
+}
+
+static uint16_t getAccessFlags(DADOS* d) {
+	return d->le2Bytes(d);
+}
+
+static uint16_t getThisClass(DADOS* d) {
+	return d->le2Bytes(d);
+}
+
+static uint16_t getSuperClass(DADOS* d) {
+	return d->le2Bytes(d);
+}
+
+static uint16_t getInterfacesCount(DADOS* d) {
+	return d->le2Bytes(d);
+}
+
+static uint16_t getFieldsCount(DADOS* d) {
+	return d->le2Bytes(d);
+}
+
+static uint16_t getMethodsCount(DADOS* d) {
+	return d->le2Bytes(d);
+}
+
+static void addContinued(CONSTANT_POOL* cp, int ordem) {
+    cp->constants[ordem].tag = 0;
+    strcpy (cp->constants[ordem].type.Continued.bytes, "(large numeric continued)");
+}
+
+static CONSTANT_POOL* populateConstantPool(CLASS* this, DADOS* d){
+	CONSTANT_POOL* toReturn = initCONSTANT_POOL((int*)&(this->constant_pool_count));
+	int returnContinued = 0;
+	
+	for (int i = 0; i < this->constant_pool_count - 1; i++) {
+		if(toReturn->addConstant(toReturn, i, d) == 1){
+			addContinued(toReturn,++i);
+		}
 	}
 
-	*contador = i + 1;
-	return (cafebabe == buffer) ? E_SUCCESS : E_CAFEBABE;
+	return toReturn;
 }
+
+static int populateInterfaces(CLASS* this, DADOS* d) {
+	this->interfaces = (uint16_t*)malloc(this->interfaces_count*sizeof(uint16_t));
+	for (int i = 0; i < this->interfaces_count; i++) {
+		this->interfaces[i] = d->le2Bytes(d); 
+		// TODO: verificar validade do indice
+	}
+	return E_SUCCESS;
+}
+
+
+static FIELD_POOL* populateFieldPool(CLASS* this, DADOS* d){
+	FIELD_POOL* toReturn = initFIELD_POOL((int*)&(this->fields_count));
+	
+	for (int i = 0; i < this->fields_count; i++) {
+		toReturn->addField(toReturn,this->constant_pool, i, d);
+	}
+
+	return toReturn;
+}
+
+
+static METHOD_POOL* populateMethodsPool(CLASS* this, DADOS* d){
+	METHOD_POOL* toReturn = initMETHOD_POOL((int*)&(this->methods_count));
+	
+	for (int i = 0; i < this->methods_count; i++) {
+		toReturn->addMethods(toReturn,this->constant_pool, i, d);
+	}
+
+	return toReturn;
+}
+

@@ -34,15 +34,15 @@
 
 			// quantidade e conteudo dos fields
 			uint16_t fields_count;
-			FIELD_INFO** fields;
+			FIELD_POOL* fields_pool;
 
 			// quantidade e conteudo dos methods
 			uint16_t methods_count;
-			METHOD_INFO** methods;
+			METHOD_POOL* methods_pool;
 
 			// quantidade e conteudo dos methods
 			uint16_t attributes_count;
-			ATTRIBUTE_INFO** attributes;
+			ATTRIBUTE_POOL* attribute_pool;
 
 		// funcoes somente visiveis a estrutura _dot_class
 			int (*parseDotClass)(struct _class*, DADOS);
