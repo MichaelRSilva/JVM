@@ -61,21 +61,21 @@
 			@param %1 a struct que representa a classe do java
 			@return 0
 		*/
-		int (*PrintScreen)(CLASS_LOADER*);
+		int (*PrintScreen)(CLASS*);
 
 		//Imprime conteudo do .class no arquivo
 		/*!
 			@param %1 a struct que representa a classe do java
 			@return 0
 		*/
-		int (*PrintFile)(CLASS_LOADER*);
+		int (*PrintFile)(CLASS*);
 
 		//Imprime conteudo do .class em html
 		/*!
 			@param %1 a struct que representa a classe do java
 			@return 0
 		*/
-		int (*PrintHTML)(CLASS_LOADER*);
+		int (*PrintHTML)(CLASS*);
 
 
 	} UTIL;
