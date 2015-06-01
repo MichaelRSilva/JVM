@@ -77,6 +77,14 @@
 		*/
 		int (*PrintHTML)(CLASS*);
 
+		//Dada uma chave, retorna uma string com o bytecode correspondente
+		/*!
+			@param %1 string de retorno (bytecode)
+			@param %2 chave inteira correspondente
+			@return 0
+		*/
+		void (*BytecodeTable)(char **,int);
+
 
 	} UTIL;
 
