@@ -39,6 +39,8 @@ static void populateCodeAttribute(struct _attribute_info* a, CONSTANT_POOL* cp, 
 }
 
 static void populateExceptions(struct _attribute_info* a, DADOS* d) {
+	a->info.ExeceptionsAttribute.number_of_exceptions = d->le2Bytes(d);
+	a->info.ExeceptionsAttribute.exception_index_table = malloc (a->info.ExeceptionsAttribute.number_of_exceptions * sizeof(struct _exception_table));
 
 }
 
@@ -64,4 +66,6 @@ static void populateLocalVariableTable(struct _attribute_info* a, DADOS* d) {
 
 static void populateDeprecated(struct _attribute_info* a, DADOS* d) {
 
+static void populateDeprecated(struct _attribute_info* a, DADOS* d) {
+	//NOTHING
 }
