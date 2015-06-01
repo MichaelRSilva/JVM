@@ -77,3 +77,12 @@ DADOS initDADOS(){
 	d.le4Bytes = le4Bytes;
 	return d;
 }
+
+const JVM_INSTRUCTIONS instructions[] = {
+	{0, 0, NULL, "nop"}, {1, 0, NULL, "aconst_null"}
+};
+
+
+
+
+

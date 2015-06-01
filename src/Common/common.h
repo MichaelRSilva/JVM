@@ -57,6 +57,14 @@
 			uint32_t (*le4Bytes)(struct _dados*);
 		} DADOS;
 
+	/// Estrutura para representacao de uma instrucao JVM
+		typedef struct _jvminstruction {
+			uint16_t opcode;
+			uint16_t qtd_operandos;
+			uint32_t* operando_cpindex;
+			char *nome;
+		} JVM_INSTRUCTIONS;
+
 	// funcoes comuns a todos os modulos
 
 		DADOS initDADOS();
