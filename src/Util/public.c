@@ -80,6 +80,9 @@ static int EscreveArquivo(DADOS d, char *arqName){
 //imprime os dados da classe na tela
 static int PrintScreen(CLASS_LOADER* this) {
 
+
+	char *retornoBytecode;
+
 	printf("\nINFORMACOES DA CLASSE\n");
 	printf("-------------------------------------------------------------------\n\n");
 
@@ -196,7 +199,6 @@ static int PrintScreen(CLASS_LOADER* this) {
 		printf("\t\tDescriptor Index: %d\n", this->class->methods_pool->methods[i].descriptor_index);
 		printf("\t\tAcess Flags: %x\n", this->class->methods_pool->methods[i].access_flags);
 
-
 		for(int j=0; j < this->class->methods_pool->methods[i].attributes_count; j++){
 			printScreenAttribute(this->class->methods_pool->methods[i].attributes[j], this->class->constant_pool, "\t\t\t", j);
 		}
@@ -230,6 +232,7 @@ UTIL getUTILInstance(void){
 	util.PrintScreen = PrintScreen;
 	util.PrintFile = PrintFile;
 	util.PrintHTML = PrintHTML;
+	util.BytecodeTable = BytecodeTable;
 
 	return util;
 }
