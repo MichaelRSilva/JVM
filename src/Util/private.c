@@ -14,11 +14,11 @@ static void printScreenCode(struct _attribute_info attr, char *tab, CONSTANT_POO
 	printf("%s\tAttribute name index: %d\n", tab,attr.attributeNameIndex);
 	printf("%s\tAttribute length: %d\n", tab,attr.attributeLength);
 	printf("%s\tBytecode: \n", tab);
-	printf("%s\t\tCode Length: %d\n", tab,attr.info.CodeAttribute.code_length);
+	//printf("%s\t\tCode Length: %d\n", tab,attr.info.CodeAttribute.code_length);
 
 	for (int i = 0; i < attr.info.CodeAttribute.code_length; i++)
 	{
-		printf("\t\t\t\t\t\t%x \n", attr.info.CodeAttribute.code[i]);
+		printf("\t\t\t\t\t%x \n", attr.info.CodeAttribute.code[i]);
 	}
 
 
