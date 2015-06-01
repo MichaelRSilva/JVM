@@ -9,35 +9,35 @@ static void printScreenConstantValue(struct _attribute_info attr, char *tab, CON
 }
 
 static void printScreenCode(struct _attribute_info attr, CONSTANT_POOL* cp, char *tab) {
-
+//TODO: MARCUS
 }
 
 static void printScreenExceptions(struct _attribute_info attr, char *tab) {
-
+//TODO: MARCUS
 }
 
 static void printScreenInnerClasses(struct _attribute_info attr, char *tab) {
-
+//NOT PRINT IN JCLASSLIB
 }
 
 static void printScreenSynthetic(struct _attribute_info attr, char *tab) {
-
+//NOTHING
 }
 
 static void printScreenSourceFile(struct _attribute_info attr, char *tab) {
-
+	printf("%s\tSource file index: %d\n", tab,attr.info.SourceFileAttribute.sourcefile_index);
 }
 
 static void printScreenLineNumberTable(struct _attribute_info attr, char *tab) {
-
+//TODO: MARCUS
 }
 
 static void printScreenLocalVariableTable(struct _attribute_info attr, char *tab) {
-
+//NOT PRINT IN JCLASSLIB
 }
-
+A
 static void printScreenDeprecated(struct _attribute_info attr, char *tab) {
-
+//NOTHING
 }
 
 static void printScreenAttribute(struct _attribute_info attr, CONSTANT_POOL* cp, char* tab, int ordem){
