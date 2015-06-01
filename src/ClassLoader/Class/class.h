@@ -38,7 +38,7 @@
 
 			// quantidade e conteudo dos methods
 			uint16_t methods_count;
-			METHOD_INFO** methods;
+			METHOD_POOL* methods;
 
 			// quantidade e conteudo dos methods
 			uint16_t attributes_count;

@@ -55,11 +55,11 @@ static void populateSourceFile(struct _attribute_info* a, DADOS* d) {
 }
 
 static void populateLineNumberTable(struct _attribute_info* a, DADOS* d) {
-
+	//TODO
 }
 
 static void populateLocalVariableTable(struct _attribute_info* a, DADOS* d) {
-
+	//TODO
 }
 
 static void populateDeprecated(struct _attribute_info* a, DADOS* d) {
