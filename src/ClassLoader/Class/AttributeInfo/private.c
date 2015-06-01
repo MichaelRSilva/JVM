@@ -92,8 +92,6 @@ static void populateLocalVariableTable(struct _attribute_info* a, DADOS* d) {
 }
 
 
-}
-
 static void populateDeprecated(struct _attribute_info* a, DADOS* d) {
 	//NOTHING
 }

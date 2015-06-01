@@ -35,7 +35,7 @@ static void printScreenLineNumberTable(struct _attribute_info attr, char *tab) {
 static void printScreenLocalVariableTable(struct _attribute_info attr, char *tab) {
 //NOT PRINT IN JCLASSLIB
 }
-A
+
 static void printScreenDeprecated(struct _attribute_info attr, char *tab) {
 //NOTHING
 }
@@ -62,6 +62,8 @@ static void printScreenAttribute(struct _attribute_info attr, CONSTANT_POOL* cp,
 	} else if (strcmp(tipoNome, "LocalVariableTable") == 0) {
 		printScreenLocalVariableTable(attr, tab);
 	} else { // Deprecated
+		
 		printScreenDeprecated(attr, tab);
+
 	}
 }
