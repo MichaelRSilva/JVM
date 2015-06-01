@@ -183,7 +183,7 @@ static int PrintScreen(CLASS_LOADER* this) {
 		printf("\t[%d]%s\n", i,this->class->constant_pool->constants[this->class->fields_pool->fields[i].name_index - 1].type.Utf8.bytes);
 		
 		for(int j=0; j < this->class->fields_pool->fields[i].attributes_count; j++){
-			printScreenAttribute(this->class->fields_pool->fields[i].attributes[j], this->class->constant_pool, "\t\t");
+			printScreenAttribute(this->class->fields_pool->fields[i].attributes[j], this->class->constant_pool, "\t\t", j);
 		}
 	}
 
