@@ -91,7 +91,8 @@ static int PrintScreen(CLASS_LOADER* this) {
 	printf("This class: \t\t\t%d \n", this->class->this_class);
 	printf("Super class: \t\t\t%d \n", this->class->super_class);
 	printf("Interfaces count: \t\t%d \n", this->class->interfaces_count);
-	printf("Fields count: \t\t\t%d \n\n", this->class->fields_count);
+	printf("Fields count: \t\t\t%d \n", this->class->fields_count);
+	printf("Methods count: \t\t\t%d \n\n", this->class->methods_count);
 	
 	printf("Interfaces: \n");
 	for (int i = 0; i < this->class->interfaces_count; i++) {
@@ -184,6 +185,20 @@ static int PrintScreen(CLASS_LOADER* this) {
 		
 		for(int j=0; j < this->class->fields_pool->fields[i].attributes_count; j++){
 			printScreenAttribute(this->class->fields_pool->fields[i].attributes[j], this->class->constant_pool, "\t\t", j);
+		}
+	}
+
+
+	printf("Methods: \n");
+	for (int i = 0; i < this->class->methods_count; i++) {
+		printf("\t[%d]%s\n", i,this->class->constant_pool->constants[this->class->methods_pool->methods[i].name_index - 1].type.Utf8.bytes);
+		printf("\t\tName Index: %d\n", this->class->methods_pool->methods[i].name_index);
+		printf("\t\tDescriptor Index: %d\n", this->class->methods_pool->methods[i].descriptor_index);
+		printf("\t\tAcess Flags: %x\n", this->class->methods_pool->methods[i].access_flags);
+
+
+		for(int j=0; j < this->class->methods_pool->methods[i].attributes_count; j++){
+			printScreenAttribute(this->class->methods_pool->methods[i].attributes[j], this->class->constant_pool, "\t\t\t", j);
 		}
 	}
 
