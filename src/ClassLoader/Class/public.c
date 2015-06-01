@@ -21,7 +21,8 @@ static int parseDotClass(CLASS* this, DADOS d) {
 
 				this->fields_count = getFieldsCount(&d);
 				this->fields_pool = populateFieldPool(this,&d);
-				
+				this->methods_count = getMethodsCount(&d);
+				this->methods_pool = populateMethodsPool(this,&d);
 			}
 		}
 
@@ -51,7 +52,7 @@ CLASS* initCLASS() {
 
 		toReturn->constant_pool = NULL;
 		toReturn->fields_pool = NULL; 
-		toReturn->methods = NULL;
+		toReturn->methods_pool = NULL;
 		toReturn->attribute_pool = NULL;
 
 	// inicializacao das funcoes

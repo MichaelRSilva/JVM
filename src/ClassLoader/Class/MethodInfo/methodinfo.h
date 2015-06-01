@@ -11,8 +11,10 @@
 #ifndef MODULE_METHOD_INFO
 	#define MODULE_METHOD_INFO
 	#include "../../../Common/common.h"
+	#include "../AttributeInfo/attributeinfo.h"
 
-	typedef struct _method_info {
+
+	struct _method_info {
 		uint16_t access_flags;
 		uint16_t name_index;
 		uint16_t descriptor_index;
@@ -22,7 +24,7 @@
 
 	typedef struct _method {
 		struct _method_info* method;
-		int (*addField)(struct _method*, CONSTANT_POOL*,int, DADOS*);
+		int (*addMethods)(struct _method*, CONSTANT_POOL*,int, DADOS*);
 	} METHOD_POOL;
 	
 	METHOD_POOL* initMETHOD_POOL();
