@@ -26,3 +26,5 @@
 *.i*86
 *.x86_64
 *.hex
+JVM.exe
+LeitorExibidor.exe
