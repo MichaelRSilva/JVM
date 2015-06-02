@@ -69,7 +69,7 @@ static void populateSourceFile(struct _attribute_info* a, DADOS* d) {
 
 static void populateLineNumberTable(struct _attribute_info* a, DADOS* d) {
 	a->info.LineNumberTableAttribute.liner_number_table_length = d->le2Bytes(d);
-	a->info.LineNumberTableAttribute.line_number_table = malloc (a->info.LineNumberTableAttribute.liner_number_table_length * sizeof(struct _line_number_table));
+	a->info.LineNumberTableAttribute.line_number_table = (struct _line_number_table*) malloc (a->info.LineNumberTableAttribute.liner_number_table_length * sizeof(struct _line_number_table));
 
 	for(int i=0; i < a->info.LineNumberTableAttribute.liner_number_table_length ; i++){
 		a->info.LineNumberTableAttribute.line_number_table[i].start_pc = d->le2Bytes(d);
