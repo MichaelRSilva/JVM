@@ -33,10 +33,14 @@ static void printScreenCode(struct _attribute_info attr, char *tab, CONSTANT_POO
 
 	}
 
+	fprintf(output,"%s\tMisc: \n", tab);
+	fprintf(output,"%s\t\tMaximum stack depth: %d\n", tab,attr.info.CodeAttribute.max_stack);
+	fprintf(output,"%s\t\tMaximum local variables: %d\n", tab,attr.info.CodeAttribute.max_locals);
+	fprintf(output,"%s\t\tCode length: %d\n", tab,attr.info.CodeAttribute.code_length);
 
-	//TODO: imprimir tambem: Bytecode,exception , misc e LineNumberTable
 
 }
+
 
 static void printScreenExceptions(struct _attribute_info attr, char *tab, FILE* output) {
 //TODO: MARCUS
