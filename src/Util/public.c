@@ -201,6 +201,12 @@ static int PrintClass(CLASS* this, FILE* output) {
 		}
 	}
 
+	fprintf(output,"Attributes: \n");
+	/*for (int i = 0; i < this->attributes_count; i++) {
+		printf("%d\n", this->attributes_count);
+	}*/
+
+
 	fprintf(output,"\n-------------------------------------------------------------------");
 	fprintf(output,"\n\n");
 
