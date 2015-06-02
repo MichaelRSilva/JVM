@@ -4,10 +4,10 @@
 // funcoes somente acessiveis pela struct _dot_class
 static int parseDotClass(CLASS* this, DADOS d) {
 	int flag = 0, contador = 0, cp_size = 0;
+	uint8_t* base_pointer = d.bytes;
 
 	this->magic = getMagicNumber(&d);
 	if (!(flag = verifyCAFEBABE(this->magic))) {
-
 		this->minor_version = getMinorVersion(&d);
 		this->major_version = getMajorVersion(&d);
 		if (!(flag = verifyVersion(this->minor_version, this->major_version))) {
@@ -18,16 +18,17 @@ static int parseDotClass(CLASS* this, DADOS d) {
 			this->super_class = getSuperClass(&d);
 			this->interfaces_count = getInterfacesCount(&d);
 			if (!(flag = populateInterfaces(this, &d))) {
-
 				this->fields_count = getFieldsCount(&d);
 				this->fields_pool = populateFieldPool(this,&d);
 				this->methods_count = getMethodsCount(&d);
-				this->methods_pool = populateMethodsPool(this,&d);
+				this->methods_pool = populateMethodsPool(this, &d);
+				this->attributes_count = getAttributesCount(&d);
+				this->attribute_pool = populateAttributePool(this, &d);
 			}
 		}
-
 	}
-	return flag;
+
+	return ((int)(d.bytes - base_pointer) != d.tamanho)?W_NAOLIDOINTEIRO:flag;
 }
 
 // funcoes acessiveis publicamente

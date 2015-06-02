@@ -16,7 +16,8 @@ const ERRORS errordesc[] = {
 	{ E_INVALID_NUM_ARGS, "ERRO: numero de argumentos invalido"},
 	{ E_ARGV1_FILE_NOT_EXISTENT, "ERRO: arquivo nao existente"},
 	{ E_CAFEBABE, "ERRO: Isso nao eh uma classe java"},
-	{ E_VERSION, "ERRO: minor_version precisa ser menor que major_version"}
+	{ E_VERSION, "ERRO: minor_version precisa ser menor que major_version"},
+	{ W_NAOLIDOINTEIRO, "WARNING: bytecode nao lido completamente"}
 };
 
 // funcoes globais

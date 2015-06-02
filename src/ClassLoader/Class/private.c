@@ -48,6 +48,10 @@ static uint16_t getMethodsCount(DADOS* d) {
 	return d->le2Bytes(d);
 }
 
+static uint16_t getAttributesCount(DADOS* d) {
+	return d->le2Bytes(d);
+}
+
 static void addContinued(CONSTANT_POOL* cp, int ordem) {
     cp->constants[ordem].tag = 0;
     strcpy (cp->constants[ordem].type.Continued.bytes, "(large numeric continued)");
@@ -92,6 +96,16 @@ static METHOD_POOL* populateMethodsPool(CLASS* this, DADOS* d){
 	
 	for (int i = 0; i < this->methods_count; i++) {
 		toReturn->addMethods(toReturn,this->constant_pool, i, d);
+	}
+
+	return toReturn;
+}
+
+static ATTRIBUTE_POOL* populateAttributePool(CLASS* this, DADOS* d) {
+	ATTRIBUTE_POOL* toReturn = initATTRIBUTE_POOL(this->attributes_count);
+
+	for (int i = 0; i < this->attributes_count; i++) {
+		toReturn->addAttribute(toReturn, this->constant_pool, i, d);
 	}
 
 	return toReturn;
