@@ -275,10 +275,10 @@ const JVM_INSTRUCTIONS instructions[] = {
 	{0, NULL, "monitorenter"},
 	{0, NULL, "monitorexit"},
 	{7, NULL, "wide"},
-	{3, NULL, "multianewarray"}
-	{2, NULL, "ifnull"}
-	{2, NULL, "ifnonnull"}
-	{4, NULL, "goto_w"}
+	{3, NULL, "multianewarray"},
+	{2, NULL, "ifnull"},
+	{2, NULL, "ifnonnull"},
+	{4, NULL, "goto_w"},
 	{4, NULL, "jsr_w"}
 };
 

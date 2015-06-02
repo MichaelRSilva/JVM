@@ -19,6 +19,25 @@ static void printScreenCode(struct _attribute_info attr, char *tab, CONSTANT_POO
 	for (int i = 0; i < attr.info.CodeAttribute.code_length; i++)
 	{
 		fprintf(output,"\t\t\t\t\t%x \n", attr.info.CodeAttribute.code[i]);
+		/*if(instructions[attr.info.CodeAttribute.code[i]].nome != NULL){
+			
+			printf("\t\t\t\t\t%s",instructions[attr.info.CodeAttribute.code[i]].nome);
+
+			if(instructions[attr.info.CodeAttribute.code[i]].qtd_operandos == 0){
+				printf("\n");
+			}else{
+
+				for(int k=0; k<instructions[attr.info.CodeAttribute.code[i]].qtd_operandos; k++){
+
+					printf(" %d",attr.info.CodeAttribute.code[i+k+1]);
+					i++;
+				}
+				printf("\n");
+
+			}
+
+		}*/
+
 	}
 
 

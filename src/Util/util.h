@@ -10,7 +10,7 @@
 */
 #ifndef MODULE_UTIL
 	#define MODULE_UTIL
-	#include "../common/common.h"
+	#include "../Common/common.h"
 	#include "../ClassLoader/classloader.h"
 	
 	// Macros

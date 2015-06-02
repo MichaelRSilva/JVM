@@ -294,11 +294,7 @@ Methods:
 				Attribute name index: 46
 				Attribute length: 33
 				Bytecode: 
-					2a 
-					b7 
-					0 
-					1 
-					b1 
+					Code Length: 5
 	[1]getInstance
 		Name Index: 48
 		Descriptor Index: 49
@@ -307,24 +303,7 @@ Methods:
 				Attribute name index: 46
 				Attribute length: 50
 				Bytecode: 
-					b2 
-					0 
-					2 
-					c7 
-					0 
-					b 
-					bb 
-					0 
-					3 
-					59 
-					b7 
-					0 
-					4 
-					b0 
-					b2 
-					0 
-					2 
-					b0 
+					Code Length: 18
 	[2]soma
 		Name Index: 50
 		Descriptor Index: 51
@@ -333,14 +312,7 @@ Methods:
 				Attribute name index: 46
 				Attribute length: 40
 				Bytecode: 
-					3 
-					3e 
-					1b 
-					1c 
-					60 
-					3e 
-					1d 
-					ac 
+					Code Length: 8
 	[3]<clinit>
 		Name Index: 52
 		Descriptor Index: 45
@@ -349,60 +321,7 @@ Methods:
 				Attribute name index: 46
 				Attribute length: 86
 				Bytecode: 
-					b8 
-					0 
-					5 
-					b3 
-					0 
-					2 
-					bb 
-					0 
-					6 
-					59 
-					12 
-					7 
-					b7 
-					0 
-					8 
-					b3 
-					0 
-					9 
-					5 
-					bd 
-					0 
-					a 
-					59 
-					3 
-					5 
-					bc 
-					4 
-					59 
-					3 
-					3 
-					54 
-					59 
-					4 
-					3 
-					54 
-					53 
-					59 
-					4 
-					5 
-					bc 
-					4 
-					59 
-					3 
-					4 
-					54 
-					59 
-					4 
-					4 
-					54 
-					53 
-					b3 
-					0 
-					b 
-					b1 
+					Code Length: 54
 
 -------------------------------------------------------------------
 

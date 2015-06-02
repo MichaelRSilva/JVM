@@ -37,6 +37,7 @@
 		/// Variável global para acessar as mensagens de erro dado um código.
 		extern const ERRORS errordesc[];
 
+
 	// funcoes globais
 		long getLong(uint32_t highBytes, uint32_t lowBytes);
 		double getDouble(uint32_t highBytes, uint32_t lowBytes);
@@ -63,6 +64,9 @@
 			uint32_t* operando_cpindex;
 			char *nome;
 		} JVM_INSTRUCTIONS;
+
+	/// Variável global para acessar as JVM instructions
+		extern const JVM_INSTRUCTIONS instructions[];
 
 	// funcoes comuns a todos os modulos
 
