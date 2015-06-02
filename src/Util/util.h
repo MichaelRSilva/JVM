@@ -56,19 +56,13 @@
 		*/
 		int (*EscreveArquivo)(DADOS, char*); // escreverArquivo(dados, nome do arquivo) retorna codigo de erro ou sucesso
 
-		//Imprime conteudo do .class na tela
+		//Imprime conteudo do .class no FILE*
 		/*!
 			@param %1 a struct que representa a classe do java
 			@return 0
 		*/
-		int (*PrintScreen)(CLASS*);
+		int (*PrintClass)(CLASS*, FILE*);
 
-		//Imprime conteudo do .class no arquivo
-		/*!
-			@param %1 a struct que representa a classe do java
-			@return 0
-		*/
-		int (*PrintFile)(CLASS*);
 
 		//Imprime conteudo do .class em html
 		/*!
