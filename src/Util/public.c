@@ -201,16 +201,6 @@ static int PrintClass(CLASS* this, FILE* output) {
 		}
 	}
 
-	fprintf(output,"Attributes: \n");
-	for (int i = 0; i < this->attributes_count; i++) {
-		fprintf(output,"\t\t%s[%d]\n", this->constant_pool->constants[this->attribute_pool->attributes[i].attributeNameIndex-1].type.Utf8.bytes,i);
-		fprintf(output,"\t\t\tAttribute name Index: %d\n", this->attribute_pool->attributes[i].attributeNameIndex);
-		fprintf(output,"\t\t\tAttribute length: %d\n", this->attribute_pool->attributes[i].attributeLength);
-		fprintf(output,"\t\t\tSource file name index: %d <%s>\n", this->attribute_pool->attributes[i].attributeNameIndex+1,this->constant_pool->constants[this->attribute_pool->attributes[i].attributeNameIndex].type.Utf8.bytes);
-
-	}
-
-
 	fprintf(output,"\n-------------------------------------------------------------------");
 	fprintf(output,"\n\n");
 
