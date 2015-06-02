@@ -16,10 +16,7 @@ int main(int argc, char **argv) {
 	CLASS_LOADER* cl = initCLASS_LOADER();
 
 	if(!(flag = util.VerificaLeitorExibidorCMDArgs(argc, argv)) && !(flag = cl->load(cl, util.LeArquivo(argv[1])))) {
-		util.PrintScreen(cl);
-
 		// TODO
-
 	}
 	
 	printf("%s", errordesc[abs(flag)].message);

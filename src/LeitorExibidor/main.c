@@ -16,10 +16,10 @@ int main(int argc, char **argv) {
 	CLASS_LOADER* cl = initCLASS_LOADER();
 
 	if(!(flag = util.VerificaLeitorExibidorCMDArgs(argc, argv)) && !(flag = cl->load(cl, util.LeArquivo(argv[1])))) {
-		util.PrintScreen(cl);
-
-		// TODO
-
+		FILE* fp = fopen("output.txt","w");
+		util.PrintClass(cl->class, stdout);
+		util.PrintClass(cl->class, fp);
+		fclose(fp);
 	}
 
 	printf("%s", errordesc[abs(flag)].message);

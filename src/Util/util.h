@@ -10,7 +10,7 @@
 */
 #ifndef MODULE_UTIL
 	#define MODULE_UTIL
-	#include "../common/common.h"
+	#include "../Common/common.h"
 	#include "../ClassLoader/classloader.h"
 	
 	// Macros
@@ -56,26 +56,28 @@
 		*/
 		int (*EscreveArquivo)(DADOS, char*); // escreverArquivo(dados, nome do arquivo) retorna codigo de erro ou sucesso
 
-		//Imprime conteudo do .class na tela
+		//Imprime conteudo do .class no FILE*
 		/*!
 			@param %1 a struct que representa a classe do java
 			@return 0
 		*/
-		int (*PrintScreen)(CLASS_LOADER*);
+		int (*PrintClass)(CLASS*, FILE*);
 
-		//Imprime conteudo do .class no arquivo
-		/*!
-			@param %1 a struct que representa a classe do java
-			@return 0
-		*/
-		int (*PrintFile)(CLASS_LOADER*);
 
 		//Imprime conteudo do .class em html
 		/*!
 			@param %1 a struct que representa a classe do java
 			@return 0
 		*/
-		int (*PrintHTML)(CLASS_LOADER*);
+		int (*PrintHTML)(CLASS*);
+
+		//Dada uma chave, retorna uma string com o bytecode correspondente
+		/*!
+			@param %1 string de retorno (bytecode)
+			@param %2 chave inteira correspondente
+			@return 0
+		*/
+		void (*BytecodeTable)(char **,int);
 
 
 	} UTIL;

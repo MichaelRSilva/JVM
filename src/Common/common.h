@@ -21,11 +21,8 @@
 		
 		/// Associa inteiros com macros para melhor legibilidade dos erros.
 		enum _config_error {
-			E_SUCCESS = 0,
-			E_INVALID_NUM_ARGS = -1,
-			E_ARGV1_FILE_NOT_EXISTENT = -2,
-			E_CAFEBABE = -3,
-			E_VERSION = -4
+			E_SUCCESS = 0, E_INVALID_NUM_ARGS = -1, E_ARGV1_FILE_NOT_EXISTENT = -2, E_CAFEBABE = -3, E_VERSION = -4,
+			W_NAOLIDOINTEIRO = -5
 		};
 
 		/// Associa uma mensagem de erro a um código.
@@ -36,6 +33,7 @@
 
 		/// Variável global para acessar as mensagens de erro dado um código.
 		extern const ERRORS errordesc[];
+
 
 	// funcoes globais
 		long getLong(uint32_t highBytes, uint32_t lowBytes);
@@ -56,6 +54,16 @@
 			uint16_t (*le2Bytes)(struct _dados*);
 			uint32_t (*le4Bytes)(struct _dados*);
 		} DADOS;
+
+	/// Estrutura para representacao de uma instrucao JVM
+		typedef struct _jvminstruction {
+			uint16_t qtd_operandos;
+			uint32_t* operando_cpindex;
+			char *nome;
+		} JVM_INSTRUCTIONS;
+
+	/// Variável global para acessar as JVM instructions
+		extern const JVM_INSTRUCTIONS instructions[];
 
 	// funcoes comuns a todos os modulos
 
