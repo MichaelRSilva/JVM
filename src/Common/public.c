@@ -172,6 +172,7 @@ const JVM_INSTRUCTIONS instructions[] = {
 	{0, NULL, "dup"},
 	{0, NULL, "dup_x1"},
 	{0, NULL, "dup_x2"},
+	{0, NULL, "dup2"},
 	{0, NULL, "dup2_x1"},
 	{0, NULL, "dup2_x2"},
 	{0, NULL, "swap"},

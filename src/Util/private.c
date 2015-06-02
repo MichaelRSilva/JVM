@@ -10,33 +10,26 @@ static void printScreenConstantValue(struct _attribute_info attr, char *tab, CON
 
 static void printScreenCode(struct _attribute_info attr, char *tab, CONSTANT_POOL* cp, int ordem, FILE* output) {
 	
+	int k = 0;
+
 	fprintf(output,"%s[%d]%s\n", tab, ordem,cp->constants[attr.attributeNameIndex-1].type.Utf8.bytes);
 	fprintf(output,"%s\tAttribute name index: %d\n", tab,attr.attributeNameIndex);
 	fprintf(output,"%s\tAttribute length: %d\n", tab,attr.attributeLength);
 	fprintf(output,"%s\tBytecode: \n", tab);
-	//fprintf(output,"%s\t\tCode Length: %d\n", tab,attr.info.CodeAttribute.code_length);
 
 	for (int i = 0; i < attr.info.CodeAttribute.code_length; i++)
 	{
-		fprintf(output,"\t\t\t\t\t%x \n", attr.info.CodeAttribute.code[i]);
-		/*if(instructions[attr.info.CodeAttribute.code[i]].nome != NULL){
-			
-			printf("\t\t\t\t\t%s",instructions[attr.info.CodeAttribute.code[i]].nome);
+		fprintf(output,"\t\t\t\t\t%s",instructions[attr.info.CodeAttribute.code[i]].nome);
 
-			if(instructions[attr.info.CodeAttribute.code[i]].qtd_operandos == 0){
-				printf("\n");
-			}else{
-
-				for(int k=0; k<instructions[attr.info.CodeAttribute.code[i]].qtd_operandos; k++){
-
-					printf(" %d",attr.info.CodeAttribute.code[i+k+1]);
-					i++;
-				}
-				printf("\n");
-
+		for(k = 0; k<instructions[attr.info.CodeAttribute.code[i]].qtd_operandos; k++){
+			if(attr.info.CodeAttribute.code[i+k+1] !=0 ){
+				fprintf(output," %d",attr.info.CodeAttribute.code[i+k+1]);
 			}
+		}
 
-		}*/
+		i = i+k;
+
+		fprintf(output,"\n");
 
 	}
 
