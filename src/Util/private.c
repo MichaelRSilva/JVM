@@ -40,7 +40,12 @@ static void printScreenCode(struct _attribute_info attr, char *tab, CONSTANT_POO
 			fprintf(output, "%s\t\t\t|%d\t|%d\t\t|%d\t\t|\n", tab, j, var[j].start_pc, var[j].line_number);
 		}
 	}
-	//TODO: imprimir tambem: Bytecode,exception , misc e LineNumberTable
+	
+	fprintf(output,"%s\tMisc: \n", tab);
+	fprintf(output,"%s\t\tMaximum stack depth: %d\n", tab,attr.info.CodeAttribute.max_stack);
+	fprintf(output,"%s\t\tMaximum local variables: %d\n", tab,attr.info.CodeAttribute.max_locals);
+	fprintf(output,"%s\t\tCode length: %d\n", tab,attr.info.CodeAttribute.code_length);
+
 
 }
 
