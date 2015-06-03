@@ -26,19 +26,31 @@ long getLong(uint32_t highBytes, uint32_t lowBytes) {
 }
 
 double getDouble(uint32_t highBytes, uint32_t lowBytes) {
-	uint64_t var = 0;
-	int s = 0, e = 0;
+	uint64_t var = 0, auxVar;
+	int sinal = 0, expoente = 0;
+	long mantissa = 0;
 
 	var = var | (uint64_t)highBytes;
 	var = var << 32;
 	var = var | (uint64_t)lowBytes;
 
-	s = ((var >> 63) == 0) ? 1 : -1;
-	e = ((var >> 52) & 0x7ffL);
+	auxVar = var >> 63;
 
-	long m = (e == 0) ? (var & 0xfffffffffffffL) << 1 : (var & 0xfffffffffffffL) | 0x10000000000000L;
+	if(auxVar == 0){
+		sinal = 1;
+	}else{
+		sinal = -1;
+	}
+
+	expoente = ((var >> 52) & 0x7ffL);
+
+	if(expoente == 0){
+		mantissa = (var & 0xfffffffffffffL) << 1;
+	}else{
+		mantissa = (var & 0xfffffffffffffL) | 0x10000000000000L;
+	}
 	
-	return s*m*(pow(2,(e-1075)));
+	return sinal*mantissa*(pow(2,(expoente-1075)));
 }
 
 // funcoes do objeto DADOS
