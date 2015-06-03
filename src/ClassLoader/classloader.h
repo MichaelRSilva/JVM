@@ -18,7 +18,6 @@
 		CLASS* class;
 
 		int (*load)(struct _class_loader*, DADOS);
-		int (*print)(struct _class_loader*);
 	} CLASS_LOADER;
 
 	CLASS_LOADER* initCLASS_LOADER();

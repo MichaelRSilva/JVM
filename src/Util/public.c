@@ -141,8 +141,8 @@ static int PrintClass(CLASS* this, FILE* output) {
 				}
 				break;
 			}
-			case tContinued:
-				fprintf(output,"\t[%d]%s\n", i+1, this->constant_pool->constants[i].type.Continued.bytes);
+			case tExtended:
+				fprintf(output,"\t[%d](large numeric continued)\n", i+1);
 				break;
 			case tClass:
 				fprintf(output,"\t[%1d]CONSTANT_Class_info:\n", i + 1);

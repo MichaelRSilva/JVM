@@ -52,9 +52,8 @@ static uint16_t getAttributesCount(DADOS* d) {
 	return d->le2Bytes(d);
 }
 
-static void addContinued(CONSTANT_POOL* cp, int ordem) {
+static void addExtended(CONSTANT_POOL* cp, int ordem) {
     cp->constants[ordem].tag = 0;
-    strcpy (cp->constants[ordem].type.Continued.bytes, "(large numeric continued)");
 }
 
 static CONSTANT_POOL* populateConstantPool(CLASS* this, DADOS* d){
@@ -63,7 +62,7 @@ static CONSTANT_POOL* populateConstantPool(CLASS* this, DADOS* d){
 	
 	for (int i = 0; i < this->constant_pool_count - 1; i++) {
 		if(toReturn->addConstant(toReturn, i, d) == 1){
-			addContinued(toReturn,++i);
+			addExtended(toReturn,++i);
 		}
 	}
 

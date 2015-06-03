@@ -121,10 +121,16 @@ Campos de Dados</h2></td></tr>
 <tr class="separator:a2190be53636429b2eb2175c83b060585"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a86588100ae86c214c599c32a171741c6"><td class="memItemLeft" align="right" valign="top">uint8_t *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_d_a_d_o_s.html#a86588100ae86c214c599c32a171741c6">bytes</a></td></tr>
 <tr class="separator:a86588100ae86c214c599c32a171741c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a90828def35fd4741440ceff145cc81a2"><td class="memItemLeft" align="right" valign="top">uint8_t(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_d_a_d_o_s.html#a90828def35fd4741440ceff145cc81a2">le1Byte</a> )(struct _dados *)</td></tr>
+<tr class="separator:a90828def35fd4741440ceff145cc81a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a66f5a233163d19e1f4630af0781deb35"><td class="memItemLeft" align="right" valign="top">uint16_t(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_d_a_d_o_s.html#a66f5a233163d19e1f4630af0781deb35">le2Bytes</a> )(struct _dados *)</td></tr>
+<tr class="separator:a66f5a233163d19e1f4630af0781deb35"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad5e767009adc81bc4efd6b6b94929200"><td class="memItemLeft" align="right" valign="top">uint32_t(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_d_a_d_o_s.html#ad5e767009adc81bc4efd6b6b94929200">le4Bytes</a> )(struct _dados *)</td></tr>
+<tr class="separator:ad5e767009adc81bc4efd6b6b94929200"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Descrição detalhada</h2>
 <div class="textblock"><p>Estrutura para representação de dados como array de bytes. </p>
-<p><a class="el" href="struct_d_a_d_o_s.html" title="Estrutura para representação de dados como array de bytes. ">DADOS</a> define uma estrutura para representacao de dados provenientes de qualquer meio, onde geralmente utilizado para representar um arquivo.</p>
+<p><a class="el" href="struct_d_a_d_o_s.html" title="Estrutura para representação de dados como array de bytes. ">DADOS</a> define uma estrutura para representacao de dados provenientes de qualquer meio; geralmente utilizado para representar um arquivo.</p>
 <p>A ideia por traz disso eh de facilitar o acesso as informacoes representadas pelos bytes, pois a manipulacao das mesmas é feita através de um array e não um arquivo (evitando problemas com fseek, etc) </p>
 </div><h2 class="groupheader">Documentação dos campos e atributos</h2>
 <a class="anchor" id="a86588100ae86c214c599c32a171741c6"></a>
@@ -133,6 +139,42 @@ Campos de Dados</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname">uint8_t* DADOS::bytes</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a90828def35fd4741440ceff145cc81a2"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t(* DADOS::le1Byte) (struct _dados *)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a66f5a233163d19e1f4630af0781deb35"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint16_t(* DADOS::le2Bytes) (struct _dados *)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="ad5e767009adc81bc4efd6b6b94929200"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t(* DADOS::le4Bytes) (struct _dados *)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -160,7 +202,7 @@ Campos de Dados</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="struct_d_a_d_o_s.html">DADOS</a></li>
-    <li class="footer">Gerado em Sábado, 25 de Abril de 2015 23:36:08 para JVM por
+    <li class="footer">Gerado em Quarta, 3 de Junho de 2015 08:15:18 para JVM por
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.9.1 </li>
   </ul>
