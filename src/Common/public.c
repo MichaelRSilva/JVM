@@ -79,8 +79,12 @@ DADOS initDADOS(){
 	return d;
 }
 
+static void nop(PILHA* pilha, ...){
+	// TODO
+}
+
 const JVM_INSTRUCTIONS instructions[] = {
-	{0, NULL, "nop"},
+	{0, NULL, "nop", nop},
 	{0, NULL, "aconst_null"},
 	{0, NULL, "iconst_m1"},
 	{0, NULL, "iconst_0"},

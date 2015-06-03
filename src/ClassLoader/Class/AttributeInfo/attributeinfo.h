@@ -77,7 +77,7 @@
 				uint16_t local_variable_table_length;
 				struct _local_variable_table *local_variable_table;
 			} LocalVariableTableAttribute;
-			struct {} Deprecated;
+			struct {} DeprecatedAttribute;
 		} info;
 	};
 
