@@ -27,7 +27,7 @@
 		int (*addMethods)(struct _method*, CONSTANT_POOL*,int, DADOS*);
 	} METHOD_POOL;
 	
-	METHOD_POOL* initMETHOD_POOL();
+	METHOD_POOL* initMETHOD_POOL(int);
 
 
 #endif

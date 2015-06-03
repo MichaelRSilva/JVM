@@ -64,5 +64,5 @@
 		int (*addConstant)(struct _constant_pool*, int, DADOS* d);
 	} CONSTANT_POOL;
 	
-	CONSTANT_POOL* initCONSTANT_POOL(int*);
+	CONSTANT_POOL* initCONSTANT_POOL(int);
 #endif

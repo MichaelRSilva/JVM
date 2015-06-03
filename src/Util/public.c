@@ -187,7 +187,6 @@ static int PrintClass(CLASS* this, FILE* output) {
 		}
 	}
 
-
 	fprintf(output,"Methods: \n");
 	for (int i = 0; i < this->methods_count; i++) {
 		fprintf(output,"\t[%d]%s\n", i,this->constant_pool->constants[this->methods_pool->methods[i].name_index - 1].type.Utf8.bytes);

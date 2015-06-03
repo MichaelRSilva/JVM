@@ -18,10 +18,10 @@ static int addField(FIELD_POOL* this, CONSTANT_POOL* cp, int ordem, DADOS* d) {
 	return E_SUCCESS;
 }
 
-FIELD_POOL* initFIELD_POOL(int *count) {
+FIELD_POOL* initFIELD_POOL(int count) {
 	FIELD_POOL* toReturn = (FIELD_POOL*)malloc(sizeof(FIELD_POOL));
 
-	toReturn->fields = (struct _field_info*)malloc((*count - 1)*sizeof(struct _field_info));
+	toReturn->fields = (struct _field_info*)malloc((count)*sizeof(struct _field_info));
 	toReturn->addField = addField;
 
 	return toReturn;

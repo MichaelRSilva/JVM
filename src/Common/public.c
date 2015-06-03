@@ -22,7 +22,7 @@ const ERRORS errordesc[] = {
 
 // funcoes globais
 long getLong(uint32_t highBytes, uint32_t lowBytes) {
-	return ((long)highBytes) << 32 | lowBytes;
+	return ((uint64_t)highBytes) << 32 | lowBytes;
 }
 
 double getDouble(uint32_t highBytes, uint32_t lowBytes) {
