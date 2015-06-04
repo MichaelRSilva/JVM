@@ -17,7 +17,8 @@ const ERRORS errordesc[] = {
 	{ E_ARGV1_FILE_NOT_EXISTENT, "ERRO: arquivo nao existente"},
 	{ E_CAFEBABE, "ERRO: Isso nao eh uma classe java"},
 	{ E_VERSION, "ERRO: minor_version precisa ser menor que major_version"},
-	{ W_NAOLIDOINTEIRO, "WARNING: bytecode nao lido completamente"}
+	{ W_NAOLIDOINTEIRO, "WARNING: bytecode nao lido completamente"},
+	{ E_OPCAO_NAO_EXISTENTE, "ERRO: opcao nao existente (ou '-tela' ou 'arquivo')"}
 };
 
 const char *returnAccessFlagsName(uint16_t hexadecimal){

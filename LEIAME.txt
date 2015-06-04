@@ -44,6 +44,13 @@ Caso não deseje utilizar o makefile, recomendamos executar a seguinte lista de 
 	gcc -std=c99 common.o util.o attributeinfo.o constantpool.o fieldinfo.o methodinfo.o class.o classloader.o LeitorExibidor.o -o LeitorExibidor.exe
 	rm *.o
 
+Para executar o Leitor/Exibidor, se dirija ao terminal e execute './LeitorExibidor.exe <filename>.class [-teste|-arquivo]'
+
+Por padrão, imprimimos tanto na tela quanto num arquivo chamado 'output.txt'.
+Por meio de argumentos de linha de comando, porem, o usuario pode selecionar qual opcao deseja:
+	
+	- o argumento '-tela' APOS o nome do arquivo faz com que seja impresso as informacoes do bytecode apenas na tela;
+	- o argumento '-arquivo' APOS o nome do arquivo faz com que seja impresso as informacoes do bytecode apenas no arquivo output.txt
 
 Organização
 =======

@@ -5,7 +5,16 @@ static int verifyCAFEBABE(uint32_t magic) {
 }
 
 static int verifyVersion(uint16_t minor_version, uint16_t major_version) {
-	return (minor_version <= major_version) ? E_SUCCESS : E_VERSION;
+	if (!(major_version > 48 || major_version < 45)) {
+		if (major_version == 48) {
+			if (minor_version == 0){
+				return E_SUCCESS;
+			}
+		}else{
+			return E_SUCCESS;
+		}
+	}
+	return E_VERSION;
 }
 
 static uint32_t getMagicNumber(DADOS* d) {
