@@ -34,10 +34,10 @@
 		/// Variável global para acessar as mensagens de erro dado um código.
 		extern const ERRORS errordesc[];
 
-
 	// funcoes globais
 		long getLong(uint32_t highBytes, uint32_t lowBytes);
 		double getDouble(uint32_t highBytes, uint32_t lowBytes);
+		const char *returnAccessFlagsName(uint16_t);
 
 	/// Estrutura para representação de dados como array de bytes.
 	/*!
@@ -56,11 +56,17 @@
 		} DADOS;
 
 	/// Estrutura para representacao de uma instrucao JVM
+		typedef struct _pilha {
+			// TODO
+		} PILHA;
+
 		typedef struct _jvminstruction {
 			uint16_t qtd_operandos;
 			uint32_t* operando_cpindex;
 			char *nome;
+			void (*function)(PILHA*, ...);
 		} JVM_INSTRUCTIONS;
+
 
 	/// Variável global para acessar as JVM instructions
 		extern const JVM_INSTRUCTIONS instructions[];

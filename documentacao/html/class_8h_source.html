@@ -1,0 +1,194 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.9.1"/>
+<title>JVM: Código-Fonte de src/ClassLoader/Class/class.h</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript">
+  $(document).ready(initResizable);
+  $(window).load(resizeHeight);
+</script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(document).ready(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td style="padding-left: 0.5em;">
+   <div id="projectname">JVM
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Gerado por Doxygen 1.8.9.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search",false,'Localizar');
+</script>
+  <div id="navrow1" class="tabs">
+    <ul class="tablist">
+      <li><a href="index.html"><span>Página&#160;principal</span></a></li>
+      <li><a href="annotated.html"><span>Estruturas&#160;de&#160;dados</span></a></li>
+      <li class="current"><a href="files.html"><span>Ficheiros</span></a></li>
+      <li>
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <img id="MSearchSelect" src="search/mag_sel.png"
+               onmouseover="return searchBox.OnSearchSelectShow()"
+               onmouseout="return searchBox.OnSearchSelectHide()"
+               alt=""/>
+          <input type="text" id="MSearchField" value="Localizar" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="search/close.png" alt=""/></a>
+          </span>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div id="navrow2" class="tabs2">
+    <ul class="tablist">
+      <li><a href="files.html"><span>Lista&#160;de&#160;ficheiros</span></a></li>
+      <li><a href="globals.html"><span>Globais</span></a></li>
+    </ul>
+  </div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(document).ready(function(){initNavTree('class_8h_source.html','');});
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="headertitle">
+<div class="title">class.h</div>  </div>
+</div><!--header-->
+<div class="contents">
+<a href="class_8h.html">Ir para a documentação deste ficheiro.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#ifndef MODULE_CLASS</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">    #define MODULE_CLASS</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">    #include &quot;../../Common/common.h&quot;</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor">    #include &quot;<a class="code" href="constantpool_8h.html">ConstantPool/constantpool.h</a>&quot;</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">    #include &quot;<a class="code" href="fieldinfo_8h.html">FieldInfo/fieldinfo.h</a>&quot;</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="preprocessor">    #include &quot;<a class="code" href="methodinfo_8h.html">MethodInfo/methodinfo.h</a>&quot;</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="preprocessor">    #include &quot;<a class="code" href="attributeinfo_8h.html">AttributeInfo/attributeinfo.h</a>&quot;</span></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;</div>
+<div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="struct_c_l_a_s_s.html">   19</a></span>&#160;    <span class="keyword">typedef</span> <span class="keyword">struct </span>_class {</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;        <span class="comment">// estrutura estatica do arquivo .class</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno"><a class="line" href="struct_c_l_a_s_s.html#ae33fbccd20cae2d1e9379a4ee47e0054">   21</a></span>&#160;            <span class="keywordtype">char</span>* <a class="code" href="struct_c_l_a_s_s.html#ae33fbccd20cae2d1e9379a4ee47e0054">class_file</a>;</div>
+<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="struct_c_l_a_s_s.html#a7a1782746495c6d7816e672559f91791">   22</a></span>&#160;            uint32_t <a class="code" href="struct_c_l_a_s_s.html#a7a1782746495c6d7816e672559f91791">magic</a>;</div>
+<div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="struct_c_l_a_s_s.html#a41cd75d7348aa41445f4c6ab91429cdd">   23</a></span>&#160;            uint16_t <a class="code" href="struct_c_l_a_s_s.html#a41cd75d7348aa41445f4c6ab91429cdd">minor_version</a>;</div>
+<div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="struct_c_l_a_s_s.html#a949d5b8f4ea8f506d3baffdff9cdd343">   24</a></span>&#160;            uint16_t <a class="code" href="struct_c_l_a_s_s.html#a949d5b8f4ea8f506d3baffdff9cdd343">major_version</a>;</div>
+<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="struct_c_l_a_s_s.html#a562525337a49b849ecf0c05031e125de">   25</a></span>&#160;            uint16_t <a class="code" href="struct_c_l_a_s_s.html#a562525337a49b849ecf0c05031e125de">access_flags</a>;</div>
+<div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="struct_c_l_a_s_s.html#acd061b6239e06159ad03a963d39a42d2">   26</a></span>&#160;            uint16_t <a class="code" href="struct_c_l_a_s_s.html#acd061b6239e06159ad03a963d39a42d2">this_class</a>;</div>
+<div class="line"><a name="l00027"></a><span class="lineno"><a class="line" href="struct_c_l_a_s_s.html#a689f8cd8b8edd6f8e9f6f59e0a3a7024">   27</a></span>&#160;            uint16_t <a class="code" href="struct_c_l_a_s_s.html#a689f8cd8b8edd6f8e9f6f59e0a3a7024">super_class</a>;</div>
+<div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="struct_c_l_a_s_s.html#aee7bfe7b4d5aa84e0b870c15501323fd">   28</a></span>&#160;            uint16_t <a class="code" href="struct_c_l_a_s_s.html#aee7bfe7b4d5aa84e0b870c15501323fd">interfaces_count</a>;</div>
+<div class="line"><a name="l00029"></a><span class="lineno"><a class="line" href="struct_c_l_a_s_s.html#aa4b5ab59b744a26184a6d4387ed1fcde">   29</a></span>&#160;            uint16_t* <a class="code" href="struct_c_l_a_s_s.html#aa4b5ab59b744a26184a6d4387ed1fcde">interfaces</a>;</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;            <span class="comment">// quantidade e conteudo do pool de constantes</span></div>
+<div class="line"><a name="l00032"></a><span class="lineno"><a class="line" href="struct_c_l_a_s_s.html#a82e6f3d5249cf9e3c6daf3956bcc6589">   32</a></span>&#160;            uint16_t <a class="code" href="struct_c_l_a_s_s.html#a82e6f3d5249cf9e3c6daf3956bcc6589">constant_pool_count</a>;</div>
+<div class="line"><a name="l00033"></a><span class="lineno"><a class="line" href="struct_c_l_a_s_s.html#acce25966e06b937b0b7803eddd8ea226">   33</a></span>&#160;            <a class="code" href="struct_c_o_n_s_t_a_n_t___p_o_o_l.html">CONSTANT_POOL</a>* <a class="code" href="struct_c_l_a_s_s.html#acce25966e06b937b0b7803eddd8ea226">constant_pool</a>;</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;            <span class="comment">// quantidade e conteudo dos fields</span></div>
+<div class="line"><a name="l00036"></a><span class="lineno"><a class="line" href="struct_c_l_a_s_s.html#a3ba43bae21cb38821036611604f8d7e0">   36</a></span>&#160;            uint16_t <a class="code" href="struct_c_l_a_s_s.html#a3ba43bae21cb38821036611604f8d7e0">fields_count</a>;</div>
+<div class="line"><a name="l00037"></a><span class="lineno"><a class="line" href="struct_c_l_a_s_s.html#aa1a5c3a2560d5c42d829e69fda4bc594">   37</a></span>&#160;            <a class="code" href="struct_f_i_e_l_d___p_o_o_l.html">FIELD_POOL</a>* <a class="code" href="struct_c_l_a_s_s.html#aa1a5c3a2560d5c42d829e69fda4bc594">fields_pool</a>;</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;            <span class="comment">// quantidade e conteudo dos methods</span></div>
+<div class="line"><a name="l00040"></a><span class="lineno"><a class="line" href="struct_c_l_a_s_s.html#ac255dba34ea9d30e85eaf801bcf9c9d1">   40</a></span>&#160;            uint16_t <a class="code" href="struct_c_l_a_s_s.html#ac255dba34ea9d30e85eaf801bcf9c9d1">methods_count</a>;</div>
+<div class="line"><a name="l00041"></a><span class="lineno"><a class="line" href="struct_c_l_a_s_s.html#ad8335e49bbd4d014605fc39a555016b6">   41</a></span>&#160;            <a class="code" href="struct_m_e_t_h_o_d___p_o_o_l.html">METHOD_POOL</a>* <a class="code" href="struct_c_l_a_s_s.html#ad8335e49bbd4d014605fc39a555016b6">methods_pool</a>;</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;            <span class="comment">// quantidade e conteudo dos methods</span></div>
+<div class="line"><a name="l00044"></a><span class="lineno"><a class="line" href="struct_c_l_a_s_s.html#a4c9ce24fb4e4c7abab2c9a16b8221b02">   44</a></span>&#160;            uint16_t <a class="code" href="struct_c_l_a_s_s.html#a4c9ce24fb4e4c7abab2c9a16b8221b02">attributes_count</a>;</div>
+<div class="line"><a name="l00045"></a><span class="lineno"><a class="line" href="struct_c_l_a_s_s.html#a1808484084d71f5e0fc80229c1336537">   45</a></span>&#160;            <a class="code" href="struct_a_t_t_r_i_b_u_t_e___p_o_o_l.html">ATTRIBUTE_POOL</a>* <a class="code" href="struct_c_l_a_s_s.html#a1808484084d71f5e0fc80229c1336537">attribute_pool</a>;</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;        <span class="comment">// funcoes somente visiveis a estrutura _dot_class</span></div>
+<div class="line"><a name="l00048"></a><span class="lineno"><a class="line" href="struct_c_l_a_s_s.html#a2e4ff73724dc7e17e3d890e7bb7b85c2">   48</a></span>&#160;            int (*parseDotClass)(<span class="keyword">struct </span>_class*, <a class="code" href="struct_d_a_d_o_s.html">DADOS</a>);</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    } <a class="code" href="struct_c_l_a_s_s.html">CLASS</a>;</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    <a class="code" href="struct_c_l_a_s_s.html">CLASS</a>* <a class="code" href="class_8h.html#abf96fcdf53f62fc6667c5e5303553898">initCLASS</a>();</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="methodinfo_8h_html"><div class="ttname"><a href="methodinfo_8h.html">methodinfo.h</a></div><div class="ttdoc">Definicoes dos campos, funcoes e inicializadores de estruturas do tipo MethodInfo de um arquivo ...</div></div>
+<div class="ttc" id="struct_c_l_a_s_s_html_a562525337a49b849ecf0c05031e125de"><div class="ttname"><a href="struct_c_l_a_s_s.html#a562525337a49b849ecf0c05031e125de">CLASS::access_flags</a></div><div class="ttdeci">uint16_t access_flags</div><div class="ttdef"><b>Definition:</b> class.h:25</div></div>
+<div class="ttc" id="struct_c_l_a_s_s_html_a7a1782746495c6d7816e672559f91791"><div class="ttname"><a href="struct_c_l_a_s_s.html#a7a1782746495c6d7816e672559f91791">CLASS::magic</a></div><div class="ttdeci">uint32_t magic</div><div class="ttdef"><b>Definition:</b> class.h:22</div></div>
+<div class="ttc" id="struct_f_i_e_l_d___p_o_o_l_html"><div class="ttname"><a href="struct_f_i_e_l_d___p_o_o_l.html">FIELD_POOL</a></div><div class="ttdef"><b>Definition:</b> fieldinfo.h:18</div></div>
+<div class="ttc" id="struct_c_l_a_s_s_html_aee7bfe7b4d5aa84e0b870c15501323fd"><div class="ttname"><a href="struct_c_l_a_s_s.html#aee7bfe7b4d5aa84e0b870c15501323fd">CLASS::interfaces_count</a></div><div class="ttdeci">uint16_t interfaces_count</div><div class="ttdef"><b>Definition:</b> class.h:28</div></div>
+<div class="ttc" id="struct_c_l_a_s_s_html_aa1a5c3a2560d5c42d829e69fda4bc594"><div class="ttname"><a href="struct_c_l_a_s_s.html#aa1a5c3a2560d5c42d829e69fda4bc594">CLASS::fields_pool</a></div><div class="ttdeci">FIELD_POOL * fields_pool</div><div class="ttdef"><b>Definition:</b> class.h:37</div></div>
+<div class="ttc" id="fieldinfo_8h_html"><div class="ttname"><a href="fieldinfo_8h.html">fieldinfo.h</a></div></div>
+<div class="ttc" id="struct_c_l_a_s_s_html_a3ba43bae21cb38821036611604f8d7e0"><div class="ttname"><a href="struct_c_l_a_s_s.html#a3ba43bae21cb38821036611604f8d7e0">CLASS::fields_count</a></div><div class="ttdeci">uint16_t fields_count</div><div class="ttdef"><b>Definition:</b> class.h:36</div></div>
+<div class="ttc" id="struct_a_t_t_r_i_b_u_t_e___p_o_o_l_html"><div class="ttname"><a href="struct_a_t_t_r_i_b_u_t_e___p_o_o_l.html">ATTRIBUTE_POOL</a></div><div class="ttdef"><b>Definition:</b> attributeinfo.h:84</div></div>
+<div class="ttc" id="struct_c_l_a_s_s_html_aa4b5ab59b744a26184a6d4387ed1fcde"><div class="ttname"><a href="struct_c_l_a_s_s.html#aa4b5ab59b744a26184a6d4387ed1fcde">CLASS::interfaces</a></div><div class="ttdeci">uint16_t * interfaces</div><div class="ttdef"><b>Definition:</b> class.h:29</div></div>
+<div class="ttc" id="struct_c_l_a_s_s_html_ac255dba34ea9d30e85eaf801bcf9c9d1"><div class="ttname"><a href="struct_c_l_a_s_s.html#ac255dba34ea9d30e85eaf801bcf9c9d1">CLASS::methods_count</a></div><div class="ttdeci">uint16_t methods_count</div><div class="ttdef"><b>Definition:</b> class.h:40</div></div>
+<div class="ttc" id="constantpool_8h_html"><div class="ttname"><a href="constantpool_8h.html">constantpool.h</a></div><div class="ttdoc">Definicoes de campos, funcoes e inicializadores do ConstantPool de um arquivo .class. </div></div>
+<div class="ttc" id="struct_c_l_a_s_s_html_ad8335e49bbd4d014605fc39a555016b6"><div class="ttname"><a href="struct_c_l_a_s_s.html#ad8335e49bbd4d014605fc39a555016b6">CLASS::methods_pool</a></div><div class="ttdeci">METHOD_POOL * methods_pool</div><div class="ttdef"><b>Definition:</b> class.h:41</div></div>
+<div class="ttc" id="struct_c_o_n_s_t_a_n_t___p_o_o_l_html"><div class="ttname"><a href="struct_c_o_n_s_t_a_n_t___p_o_o_l.html">CONSTANT_POOL</a></div><div class="ttdef"><b>Definition:</b> constantpool.h:62</div></div>
+<div class="ttc" id="struct_c_l_a_s_s_html_acce25966e06b937b0b7803eddd8ea226"><div class="ttname"><a href="struct_c_l_a_s_s.html#acce25966e06b937b0b7803eddd8ea226">CLASS::constant_pool</a></div><div class="ttdeci">CONSTANT_POOL * constant_pool</div><div class="ttdef"><b>Definition:</b> class.h:33</div></div>
+<div class="ttc" id="class_8h_html_abf96fcdf53f62fc6667c5e5303553898"><div class="ttname"><a href="class_8h.html#abf96fcdf53f62fc6667c5e5303553898">initCLASS</a></div><div class="ttdeci">CLASS * initCLASS()</div><div class="ttdef"><b>Definition:</b> public.c:35</div></div>
+<div class="ttc" id="struct_c_l_a_s_s_html_a82e6f3d5249cf9e3c6daf3956bcc6589"><div class="ttname"><a href="struct_c_l_a_s_s.html#a82e6f3d5249cf9e3c6daf3956bcc6589">CLASS::constant_pool_count</a></div><div class="ttdeci">uint16_t constant_pool_count</div><div class="ttdef"><b>Definition:</b> class.h:32</div></div>
+<div class="ttc" id="struct_m_e_t_h_o_d___p_o_o_l_html"><div class="ttname"><a href="struct_m_e_t_h_o_d___p_o_o_l.html">METHOD_POOL</a></div><div class="ttdef"><b>Definition:</b> methodinfo.h:25</div></div>
+<div class="ttc" id="struct_c_l_a_s_s_html_a1808484084d71f5e0fc80229c1336537"><div class="ttname"><a href="struct_c_l_a_s_s.html#a1808484084d71f5e0fc80229c1336537">CLASS::attribute_pool</a></div><div class="ttdeci">ATTRIBUTE_POOL * attribute_pool</div><div class="ttdef"><b>Definition:</b> class.h:45</div></div>
+<div class="ttc" id="struct_c_l_a_s_s_html_a689f8cd8b8edd6f8e9f6f59e0a3a7024"><div class="ttname"><a href="struct_c_l_a_s_s.html#a689f8cd8b8edd6f8e9f6f59e0a3a7024">CLASS::super_class</a></div><div class="ttdeci">uint16_t super_class</div><div class="ttdef"><b>Definition:</b> class.h:27</div></div>
+<div class="ttc" id="struct_c_l_a_s_s_html_ae33fbccd20cae2d1e9379a4ee47e0054"><div class="ttname"><a href="struct_c_l_a_s_s.html#ae33fbccd20cae2d1e9379a4ee47e0054">CLASS::class_file</a></div><div class="ttdeci">char * class_file</div><div class="ttdef"><b>Definition:</b> class.h:21</div></div>
+<div class="ttc" id="struct_d_a_d_o_s_html"><div class="ttname"><a href="struct_d_a_d_o_s.html">DADOS</a></div><div class="ttdoc">Estrutura para representação de dados como array de bytes. </div><div class="ttdef"><b>Definition:</b> common.h:50</div></div>
+<div class="ttc" id="struct_c_l_a_s_s_html"><div class="ttname"><a href="struct_c_l_a_s_s.html">CLASS</a></div><div class="ttdef"><b>Definition:</b> class.h:19</div></div>
+<div class="ttc" id="struct_c_l_a_s_s_html_a949d5b8f4ea8f506d3baffdff9cdd343"><div class="ttname"><a href="struct_c_l_a_s_s.html#a949d5b8f4ea8f506d3baffdff9cdd343">CLASS::major_version</a></div><div class="ttdeci">uint16_t major_version</div><div class="ttdef"><b>Definition:</b> class.h:24</div></div>
+<div class="ttc" id="attributeinfo_8h_html"><div class="ttname"><a href="attributeinfo_8h.html">attributeinfo.h</a></div><div class="ttdoc">Definicoes de campos, funcoes e inicializadores de estruturas do tipo AttributeInfo de um arquivo ...</div></div>
+<div class="ttc" id="struct_c_l_a_s_s_html_acd061b6239e06159ad03a963d39a42d2"><div class="ttname"><a href="struct_c_l_a_s_s.html#acd061b6239e06159ad03a963d39a42d2">CLASS::this_class</a></div><div class="ttdeci">uint16_t this_class</div><div class="ttdef"><b>Definition:</b> class.h:26</div></div>
+<div class="ttc" id="struct_c_l_a_s_s_html_a4c9ce24fb4e4c7abab2c9a16b8221b02"><div class="ttname"><a href="struct_c_l_a_s_s.html#a4c9ce24fb4e4c7abab2c9a16b8221b02">CLASS::attributes_count</a></div><div class="ttdeci">uint16_t attributes_count</div><div class="ttdef"><b>Definition:</b> class.h:44</div></div>
+<div class="ttc" id="struct_c_l_a_s_s_html_a41cd75d7348aa41445f4c6ab91429cdd"><div class="ttname"><a href="struct_c_l_a_s_s.html#a41cd75d7348aa41445f4c6ab91429cdd">CLASS::minor_version</a></div><div class="ttdeci">uint16_t minor_version</div><div class="ttdef"><b>Definition:</b> class.h:23</div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_aa427983f6aa32812208aea9bbd13b7a.html">ClassLoader</a></li><li class="navelem"><a class="el" href="dir_cbb3f30743b5621412a339e39082a268.html">Class</a></li><li class="navelem"><a class="el" href="class_8h.html">class.h</a></li>
+    <li class="footer">Gerado em Quarta, 3 de Junho de 2015 08:15:18 para JVM por
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.9.1 </li>
+  </ul>
+</div>
+</body>
+</html>

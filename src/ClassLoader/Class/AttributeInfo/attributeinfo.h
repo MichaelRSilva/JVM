@@ -47,7 +47,6 @@
 			struct {
 				uint16_t constantvalue_index;
 			} ConstantValueAttribute;
-
 			struct {
 				uint16_t max_stack;
 				uint16_t max_locals;
@@ -58,33 +57,27 @@
 				uint16_t attributes_count;
 				struct _attribute_info* attributes; 
 			} CodeAttribute;
-
 			struct {
 				uint16_t number_of_exceptions;
 				uint16_t* exception_index_table;
 			} ExeceptionsAttribute;
-
 			struct {
 				uint16_t number_of_classes;
 				struct _classes *classes;
 			} InnerClassesAttribute;
-
 			struct {} SyntheticAttribute;
-
 			struct {
 				uint16_t sourcefile_index;
 			} SourceFileAttribute;
-
 			struct {
 				uint16_t liner_number_table_length;
 				struct _line_number_table *line_number_table;
 			} LineNumberTableAttribute;
-
 			struct {
 				uint16_t local_variable_table_length;
 				struct _local_variable_table *local_variable_table;
 			} LocalVariableTableAttribute;
-			struct {} Deprecated;
+			struct {} DeprecatedAttribute;
 		} info;
 	};
 

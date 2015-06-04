@@ -109,40 +109,54 @@ $(document).ready(function(){initNavTree('util_8h_source.html','');});
 <a href="util_8h.html">Ir para a documentação deste ficheiro.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;</div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#ifndef MODULE_UTIL</span></div>
 <div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">    #define MODULE_UTIL</span></div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">    #include &quot;../common/common.h&quot;</span></div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    </div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    <span class="comment">// Macros</span></div>
-<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="util_8h.html#a60d0c249562698933e0be3c98d28ad92">   16</a></span>&#160;<span class="preprocessor">        #define JVMCMDARGCOUNT 1 </span></div>
-<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="util_8h.html#a74ea710e5014abec141f3955bd1da161">   17</a></span>&#160;<span class="preprocessor">        #define LEITOREXIBIDORCMDARGCOUNT 1 </span></div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="preprocessor"></span></div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;</div>
-<div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="struct_u_t_i_l.html">   26</a></span>&#160;    <span class="keyword">typedef</span> <span class="keyword">struct </span>_util {</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;</div>
-<div class="line"><a name="l00033"></a><span class="lineno"><a class="line" href="struct_u_t_i_l.html#a127450eab27a32abc1b571cd29721bb6">   33</a></span>&#160;        int (*VerificaJVMCMDArgs)(int, <span class="keywordtype">char</span>**);</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;</div>
-<div class="line"><a name="l00041"></a><span class="lineno"><a class="line" href="struct_u_t_i_l.html#ad69eacad91ae1233d0241be47ab1bfed">   41</a></span>&#160;        int (*VerificaLeitorExibidorCMDArgs)(int, <span class="keywordtype">char</span>**);</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;</div>
-<div class="line"><a name="l00048"></a><span class="lineno"><a class="line" href="struct_u_t_i_l.html#a16725d3171ac05ebf3cc0cb10ddca065">   48</a></span>&#160;        <a class="code" href="struct_d_a_d_o_s.html">DADOS</a> (*LeArquivo)(<span class="keywordtype">char</span>*);</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;</div>
-<div class="line"><a name="l00056"></a><span class="lineno"><a class="line" href="struct_u_t_i_l.html#a02e94628bdc0a65743c2db957c14cadd">   56</a></span>&#160;        int (*EscreveArquivo)(<a class="code" href="struct_d_a_d_o_s.html">DADOS</a>, <span class="keywordtype">char</span>*); <span class="comment">// escreverArquivo(dados, nome do arquivo) retorna codigo de erro ou sucesso</span></div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    } <a class="code" href="struct_u_t_i_l.html">UTIL</a>;</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">    #include &quot;../Common/common.h&quot;</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor">    #include &quot;../ClassLoader/classloader.h&quot;</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    </div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    <span class="comment">// Macros</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="util_8h.html#a60d0c249562698933e0be3c98d28ad92">   17</a></span>&#160;<span class="preprocessor">        #define JVMCMDARGCOUNT 1 </span></div>
+<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="util_8h.html#a74ea710e5014abec141f3955bd1da161">   18</a></span>&#160;<span class="preprocessor">        #define LEITOREXIBIDORCMDARGCOUNT 1 </span></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="preprocessor"></span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;</div>
+<div class="line"><a name="l00027"></a><span class="lineno"><a class="line" href="struct_u_t_i_l.html">   27</a></span>&#160;    <span class="keyword">typedef</span> <span class="keyword">struct </span>_util {</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;</div>
+<div class="line"><a name="l00034"></a><span class="lineno"><a class="line" href="struct_u_t_i_l.html#a127450eab27a32abc1b571cd29721bb6">   34</a></span>&#160;        int (*VerificaJVMCMDArgs)(int, <span class="keywordtype">char</span>**);</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;</div>
+<div class="line"><a name="l00042"></a><span class="lineno"><a class="line" href="struct_u_t_i_l.html#ad69eacad91ae1233d0241be47ab1bfed">   42</a></span>&#160;        int (*VerificaLeitorExibidorCMDArgs)(int, <span class="keywordtype">char</span>**);</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;</div>
+<div class="line"><a name="l00049"></a><span class="lineno"><a class="line" href="struct_u_t_i_l.html#a16725d3171ac05ebf3cc0cb10ddca065">   49</a></span>&#160;        <a class="code" href="struct_d_a_d_o_s.html">DADOS</a> (*LeArquivo)(<span class="keywordtype">char</span>*);</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;</div>
+<div class="line"><a name="l00057"></a><span class="lineno"><a class="line" href="struct_u_t_i_l.html#a02e94628bdc0a65743c2db957c14cadd">   57</a></span>&#160;        int (*EscreveArquivo)(<a class="code" href="struct_d_a_d_o_s.html">DADOS</a>, <span class="keywordtype">char</span>*); <span class="comment">// escreverArquivo(dados, nome do arquivo) retorna codigo de erro ou sucesso</span></div>
 <div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    <a class="code" href="struct_u_t_i_l.html">UTIL</a> <a class="code" href="util_8h.html#aa05fefa6ab1368f03d5623fa652c8905">getUTILInstance</a>(<span class="keywordtype">void</span>);</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="util_8h_html_aa05fefa6ab1368f03d5623fa652c8905"><div class="ttname"><a href="util_8h.html#aa05fefa6ab1368f03d5623fa652c8905">getUTILInstance</a></div><div class="ttdeci">UTIL getUTILInstance(void)</div><div class="ttdoc">"instancia" uma nova "classe" util </div><div class="ttdef"><b>Definition:</b> util.c:80</div></div>
-<div class="ttc" id="struct_u_t_i_l_html"><div class="ttname"><a href="struct_u_t_i_l.html">UTIL</a></div><div class="ttdoc">Encapsulamento das funcoes do modulo util. </div><div class="ttdef"><b>Definition:</b> util.h:26</div></div>
-<div class="ttc" id="struct_d_a_d_o_s_html"><div class="ttname"><a href="struct_d_a_d_o_s.html">DADOS</a></div><div class="ttdoc">Estrutura para representação de dados como array de bytes. </div><div class="ttdef"><b>Definition:</b> common.h:45</div></div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;        <span class="comment">//Imprime conteudo do .class no FILE*</span></div>
+<div class="line"><a name="l00064"></a><span class="lineno"><a class="line" href="struct_u_t_i_l.html#a2b1aec2d613ebf0140c36b7a6501fede">   64</a></span>&#160;<span class="comment"></span>        int (*PrintClass)(<a class="code" href="struct_c_l_a_s_s.html">CLASS</a>*, FILE*);</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;        <span class="comment">//Imprime conteudo do .class em html</span></div>
+<div class="line"><a name="l00072"></a><span class="lineno"><a class="line" href="struct_u_t_i_l.html#a12185f6fe7c1ba31e8ca86c9db6923c5">   72</a></span>&#160;<span class="comment"></span>        int (*PrintHTML)(<a class="code" href="struct_c_l_a_s_s.html">CLASS</a>*);</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;        <span class="comment">//Dada uma chave, retorna uma string com o bytecode correspondente</span></div>
+<div class="line"><a name="l00080"></a><span class="lineno"><a class="line" href="struct_u_t_i_l.html#aa9fd14fe2bd01492973dc1adb08bbbce">   80</a></span>&#160;<span class="comment"></span>        void (*BytecodeTable)(<span class="keywordtype">char</span> **,int);</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    } <a class="code" href="struct_u_t_i_l.html">UTIL</a>;</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    <a class="code" href="struct_u_t_i_l.html">UTIL</a> <a class="code" href="util_8h.html#aa05fefa6ab1368f03d5623fa652c8905">getUTILInstance</a>(<span class="keywordtype">void</span>);</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="util_8h_html_aa05fefa6ab1368f03d5623fa652c8905"><div class="ttname"><a href="util_8h.html#aa05fefa6ab1368f03d5623fa652c8905">getUTILInstance</a></div><div class="ttdeci">UTIL getUTILInstance(void)</div><div class="ttdoc">"instancia" uma nova "classe" util </div><div class="ttdef"><b>Definition:</b> public.c:233</div></div>
+<div class="ttc" id="struct_u_t_i_l_html"><div class="ttname"><a href="struct_u_t_i_l.html">UTIL</a></div><div class="ttdoc">Encapsulamento das funcoes do modulo util. </div><div class="ttdef"><b>Definition:</b> util.h:27</div></div>
+<div class="ttc" id="struct_d_a_d_o_s_html"><div class="ttname"><a href="struct_d_a_d_o_s.html">DADOS</a></div><div class="ttdoc">Estrutura para representação de dados como array de bytes. </div><div class="ttdef"><b>Definition:</b> common.h:50</div></div>
+<div class="ttc" id="struct_c_l_a_s_s_html"><div class="ttname"><a href="struct_c_l_a_s_s.html">CLASS</a></div><div class="ttdef"><b>Definition:</b> class.h:19</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_3e37c3eecdc42aac03248fab5c81cb58.html">Util</a></li><li class="navelem"><a class="el" href="util_8h.html">util.h</a></li>
-    <li class="footer">Gerado em Sábado, 25 de Abril de 2015 23:36:08 para JVM por
+    <li class="footer">Gerado em Quarta, 3 de Junho de 2015 08:15:18 para JVM por
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.9.1 </li>
   </ul>

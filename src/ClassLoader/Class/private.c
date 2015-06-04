@@ -52,18 +52,17 @@ static uint16_t getAttributesCount(DADOS* d) {
 	return d->le2Bytes(d);
 }
 
-static void addContinued(CONSTANT_POOL* cp, int ordem) {
+static void addExtended(CONSTANT_POOL* cp, int ordem) {
     cp->constants[ordem].tag = 0;
-    strcpy (cp->constants[ordem].type.Continued.bytes, "(large numeric continued)");
 }
 
 static CONSTANT_POOL* populateConstantPool(CLASS* this, DADOS* d){
-	CONSTANT_POOL* toReturn = initCONSTANT_POOL((int*)&(this->constant_pool_count));
+	CONSTANT_POOL* toReturn = initCONSTANT_POOL(this->constant_pool_count);
 	int returnContinued = 0;
 	
 	for (int i = 0; i < this->constant_pool_count - 1; i++) {
 		if(toReturn->addConstant(toReturn, i, d) == 1){
-			addContinued(toReturn,++i);
+			addExtended(toReturn,++i);
 		}
 	}
 
@@ -81,7 +80,7 @@ static int populateInterfaces(CLASS* this, DADOS* d) {
 
 
 static FIELD_POOL* populateFieldPool(CLASS* this, DADOS* d){
-	FIELD_POOL* toReturn = initFIELD_POOL((int*)&(this->fields_count));
+	FIELD_POOL* toReturn = initFIELD_POOL(this->fields_count);
 	
 	for (int i = 0; i < this->fields_count; i++) {
 		toReturn->addField(toReturn,this->constant_pool, i, d);
@@ -92,7 +91,7 @@ static FIELD_POOL* populateFieldPool(CLASS* this, DADOS* d){
 
 
 static METHOD_POOL* populateMethodsPool(CLASS* this, DADOS* d){
-	METHOD_POOL* toReturn = initMETHOD_POOL((int*)&(this->methods_count));
+	METHOD_POOL* toReturn = initMETHOD_POOL(this->methods_count);
 	
 	for (int i = 0; i < this->methods_count; i++) {
 		toReturn->addMethods(toReturn,this->constant_pool, i, d);

@@ -20,6 +20,6 @@
 		int (*addField)(struct _fields*, CONSTANT_POOL*,int, DADOS*);
 	} FIELD_POOL;
 	
-	FIELD_POOL* initFIELD_POOL();
+	FIELD_POOL* initFIELD_POOL(int);
 
 #endif

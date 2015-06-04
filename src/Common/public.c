@@ -20,25 +20,86 @@ const ERRORS errordesc[] = {
 	{ W_NAOLIDOINTEIRO, "WARNING: bytecode nao lido completamente"}
 };
 
+const char *returnAccessFlagsName(uint16_t hexadecimal){
+
+	uint16_t mask_public, mask_private, mask_protected, mask_static, mask_final, mask_interface, mask_abstract;
+
+	mask_public = 0x0001;
+	mask_private= 0x0002;
+	mask_protected = 0x0004;
+	mask_static = 0x0008;
+	mask_final = 0x0010;
+	mask_interface = 0x0200;
+	mask_abstract = 0x0400;
+
+	char *retorno = (char *) malloc(sizeof(char) * 50);
+
+	strcpy(retorno, "");
+
+	mask_public = mask_public & hexadecimal;
+	mask_private = mask_private & hexadecimal;
+	mask_protected = mask_protected & hexadecimal;
+	mask_static = mask_static & hexadecimal;
+	mask_final = mask_final & hexadecimal;
+	mask_interface = mask_interface & hexadecimal;
+	mask_abstract = mask_abstract & hexadecimal;
+
+	if(mask_public > 0){
+		strcat(retorno, " public");
+	}
+	if(mask_private > 0){
+		strcat(retorno, " private");
+	}
+	if(mask_protected > 0){
+		strcat(retorno, " protected");
+	}
+	if(mask_static > 0){
+		strcat(retorno, " static");
+	}
+	if(mask_final > 0){
+		strcat(retorno, " final");
+	}
+	if(mask_interface > 0){
+		strcat(retorno, " interface");
+	}
+	if(mask_abstract > 0){
+		strcat(retorno, " abstract");
+	}
+
+	return retorno;
+}
+
 // funcoes globais
 long getLong(uint32_t highBytes, uint32_t lowBytes) {
-	return ((long)highBytes) << 32 | lowBytes;
+	return ((uint64_t)highBytes) << 32 | lowBytes;
 }
 
 double getDouble(uint32_t highBytes, uint32_t lowBytes) {
-	uint64_t var = 0;
-	int s = 0, e = 0;
+	uint64_t var = 0, auxVar;
+	int sinal = 0, expoente = 0;
+	long mantissa = 0;
 
 	var = var | (uint64_t)highBytes;
 	var = var << 32;
 	var = var | (uint64_t)lowBytes;
 
-	s = ((var >> 63) == 0) ? 1 : -1;
-	e = ((var >> 52) & 0x7ffL);
+	auxVar = var >> 63;
 
-	long m = (e == 0) ? (var & 0xfffffffffffffL) << 1 : (var & 0xfffffffffffffL) | 0x10000000000000L;
+	if(auxVar == 0){
+		sinal = 1;
+	}else{
+		sinal = -1;
+	}
+
+	expoente = ((var >> 52) & 0x7ffL);
+
+	if(expoente == 0){
+		mantissa = (var & 0xfffffffffffffL) << 1;
+	}else{
+		mantissa = (var & 0xfffffffffffffL) | 0x10000000000000L;
+	}
 	
-	return s*m*(pow(2,(e-1075)));
+	return sinal*mantissa*(pow(2,(expoente-1075)));
 }
 
 // funcoes do objeto DADOS
@@ -79,8 +140,12 @@ DADOS initDADOS(){
 	return d;
 }
 
+static void nop(PILHA* pilha, ...){
+	// TODO
+}
+
 const JVM_INSTRUCTIONS instructions[] = {
-	{0, NULL, "nop"},
+	{0, NULL, "nop", nop},
 	{0, NULL, "aconst_null"},
 	{0, NULL, "iconst_m1"},
 	{0, NULL, "iconst_0"},
@@ -283,7 +348,6 @@ const JVM_INSTRUCTIONS instructions[] = {
 	{4, NULL, "goto_w"},
 	{4, NULL, "jsr_w"}
 };
-
 
 
 

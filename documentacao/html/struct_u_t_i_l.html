@@ -129,12 +129,38 @@ Campos de Dados</h2></td></tr>
 <tr class="memitem:a02e94628bdc0a65743c2db957c14cadd"><td class="memItemLeft" align="right" valign="top">int(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_u_t_i_l.html#a02e94628bdc0a65743c2db957c14cadd">EscreveArquivo</a> )(<a class="el" href="struct_d_a_d_o_s.html">DADOS</a>, char *)</td></tr>
 <tr class="memdesc:a02e94628bdc0a65743c2db957c14cadd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converte uma estrutura <a class="el" href="struct_d_a_d_o_s.html" title="Estrutura para representação de dados como array de bytes. ">DADOS</a> num arquivo.  <a href="#a02e94628bdc0a65743c2db957c14cadd">Mais...</a><br /></td></tr>
 <tr class="separator:a02e94628bdc0a65743c2db957c14cadd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2b1aec2d613ebf0140c36b7a6501fede"><td class="memItemLeft" align="right" valign="top">int(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_u_t_i_l.html#a2b1aec2d613ebf0140c36b7a6501fede">PrintClass</a> )(<a class="el" href="struct_c_l_a_s_s.html">CLASS</a> *, FILE *)</td></tr>
+<tr class="separator:a2b1aec2d613ebf0140c36b7a6501fede"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a12185f6fe7c1ba31e8ca86c9db6923c5"><td class="memItemLeft" align="right" valign="top">int(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_u_t_i_l.html#a12185f6fe7c1ba31e8ca86c9db6923c5">PrintHTML</a> )(<a class="el" href="struct_c_l_a_s_s.html">CLASS</a> *)</td></tr>
+<tr class="separator:a12185f6fe7c1ba31e8ca86c9db6923c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa9fd14fe2bd01492973dc1adb08bbbce"><td class="memItemLeft" align="right" valign="top">void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_u_t_i_l.html#aa9fd14fe2bd01492973dc1adb08bbbce">BytecodeTable</a> )(char **, int)</td></tr>
+<tr class="separator:aa9fd14fe2bd01492973dc1adb08bbbce"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Descrição detalhada</h2>
 <div class="textblock"><p>Encapsulamento das funcoes do modulo util. </p>
 <p><a class="el" href="struct_u_t_i_l.html" title="Encapsulamento das funcoes do modulo util. ">UTIL</a> é responsável por encapsular as funções auxiliares dentro de uma estrutura, simulando assim uma falsa orientação a objetos.</p>
 <p>Isso traz mais legibilidade ao código. </p>
 </div><h2 class="groupheader">Documentação dos campos e atributos</h2>
+<a class="anchor" id="aa9fd14fe2bd01492973dc1adb08bbbce"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void(* UTIL::BytecodeTable) (char **, int)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="params"><dt>Parâmetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">%1</td><td>string de retorno (bytecode) </td></tr>
+    <tr><td class="paramname">%2</td><td>chave inteira correspondente </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Retorna</dt><dd>0 </dd></dl>
+
+</div>
+</div>
 <a class="anchor" id="a02e94628bdc0a65743c2db957c14cadd"></a>
 <div class="memitem">
 <div class="memproto">
@@ -175,6 +201,44 @@ Campos de Dados</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Retorna</dt><dd>Uma estrutura <a class="el" href="struct_d_a_d_o_s.html" title="Estrutura para representação de dados como array de bytes. ">DADOS</a> representando o arquivo </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a2b1aec2d613ebf0140c36b7a6501fede"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int(* UTIL::PrintClass) (<a class="el" href="struct_c_l_a_s_s.html">CLASS</a> *, FILE *)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="params"><dt>Parâmetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">%1</td><td>a struct que representa a classe do java </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Retorna</dt><dd>0 </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a12185f6fe7c1ba31e8ca86c9db6923c5"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int(* UTIL::PrintHTML) (<a class="el" href="struct_c_l_a_s_s.html">CLASS</a> *)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="params"><dt>Parâmetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">%1</td><td>a struct que representa a classe do java </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Retorna</dt><dd>0 </dd></dl>
 
 </div>
 </div>
@@ -231,7 +295,7 @@ Campos de Dados</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="struct_u_t_i_l.html">UTIL</a></li>
-    <li class="footer">Gerado em Sábado, 25 de Abril de 2015 23:36:08 para JVM por
+    <li class="footer">Gerado em Quarta, 3 de Junho de 2015 08:15:18 para JVM por
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.9.1 </li>
   </ul>

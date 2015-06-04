@@ -1,4 +1,4 @@
-public class ClassicSingleton implements InterfaceTeste {
+public final class ClassicSingleton implements InterfaceTeste {
 	public final static ClassicSingleton instance = getInstance();
 	public final static String teste = "Teste";
 	public final static long valLong= 544213139;
