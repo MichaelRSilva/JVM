@@ -16,10 +16,20 @@ int main(int argc, char **argv) {
 	CLASS_LOADER* cl = initCLASS_LOADER();
 
 	if(!(flag = util.VerificaLeitorExibidorCMDArgs(argc, argv)) && !(flag = cl->load(cl, util.LeArquivo(argv[1])))) {
-		FILE* fp = fopen("output.txt","w");
-		util.PrintClass(cl->class, stdout);
-		util.PrintClass(cl->class, fp);
-		fclose(fp);
+		if (argv[2] != NULL) {
+			if (!strcmp(argv[2],"-tela")){
+				util.PrintClass(cl->class, stdout);
+			} else {
+				FILE* fp = fopen("output.txt","w");
+				util.PrintClass(cl->class, fp);
+				fclose(fp);
+			}
+		} else {
+			FILE* fp = fopen("output.txt","w");
+			util.PrintClass(cl->class, stdout);
+			util.PrintClass(cl->class, fp);
+			fclose(fp);
+		}
 	}
 
 	printf("%s", errordesc[abs(flag)].message);

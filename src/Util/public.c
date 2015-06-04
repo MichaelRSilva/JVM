@@ -16,12 +16,14 @@ static int VerificaLeitorExibidorCMDArgs(int argc, char **argv){
     char *arq1name;
     int i;
 
-    if (argc < LEITOREXIBIDORCMDARGCOUNT + 1 || argc > LEITOREXIBIDORCMDARGCOUNT + 1){
+    if (argc < LEITOREXIBIDORCMDARGCOUNT + 1 || argc > LEITOREXIBIDORCMDARGCOUNT + 2){
         return E_INVALID_NUM_ARGS; /*ERRO 1: invalido numero de argumentos*/
     }
 	if ((fp=fopen(argv[1],"rb"))==NULL) {
 		return E_ARGV1_FILE_NOT_EXISTENT; /*ERRO 2: argv[2] invalido: arquivo nao existente*/
-	}else{
+	}else if (argv[2] != NULL && (strcmp(argv[2],"-tela") && strcmp(argv[2],"-arquivo"))){
+		return E_OPCAO_NAO_EXISTENTE; /*ERRO 6: opcao nao existente*/
+	} else {
 		fclose(fp);
 	}
 	return E_SUCCESS;
