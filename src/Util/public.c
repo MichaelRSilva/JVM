@@ -84,19 +84,25 @@ static int PrintClass(CLASS* this, FILE* output) {
 
 	fprintf(output,"Magic Number: \t\t\t0x%x \n",this->magic);
 	fprintf(output,"Minor Version: \t\t\t%d \n",this->minor_version);
-	fprintf(output,"Major Version: \t\t\t%d \n",this->major_version);
+	fprintf(output,"Major Version: \t\t\t%d ",this->major_version);
+	
+	if(this->major_version  == 46){
+		fprintf(output," [1.2]\n");
+	}
+
 	fprintf(output,"Constant pool count: \t\t%d \n",this->constant_pool_count);
-	fprintf(output,"Access flags: \t\t\t0x%04x \n", this->access_flags);
-	fprintf(output,"This class\t\t\tindice: %d\t=>\t<%s> \n", this->this_class, this->constant_pool->constants[this->constant_pool->constants[this->this_class-1].type.Class.nameIndex - 1].type.Utf8.bytes);
-	fprintf(output,"Super class\t\t\tindice: %d\t=>\t<%s> \n", this->super_class, this->constant_pool->constants[this->constant_pool->constants[this->super_class-1].type.Class.nameIndex - 1].type.Utf8.bytes);
+	fprintf(output,"Access flags: \t\t\t0x%04x \t\t[%s ] \n", this->access_flags,returnAccessFlagsName(this->access_flags));
+	fprintf(output,"This class\t\t\tindice: %d\t<%s> \n", this->this_class, this->constant_pool->constants[this->constant_pool->constants[this->this_class-1].type.Class.nameIndex - 1].type.Utf8.bytes);
+	fprintf(output,"Super class\t\t\tindice: %d\t<%s> \n", this->super_class, this->constant_pool->constants[this->constant_pool->constants[this->super_class-1].type.Class.nameIndex - 1].type.Utf8.bytes);
 	fprintf(output,"Interfaces count: \t\t%d \n", this->interfaces_count);
 	fprintf(output,"Fields count: \t\t\t%d \n", this->fields_count);
-	fprintf(output,"Methods count: \t\t\t%d \n\n", this->methods_count);
+	fprintf(output,"Methods count: \t\t\t%d \n", this->methods_count);
+	fprintf(output,"Attributes count: \t\t%d \n\n", this->attributes_count);
 	
 	fprintf(output,"Interfaces: \n");
 	for (int i = 0; i < this->interfaces_count; i++) {
 		fprintf(output,"\tInterface %d: \n", i);
-		fprintf(output,"\t\tInterface index: %d\t=>\t<%s>\n", this->interfaces[i], this->constant_pool->constants[this->constant_pool->constants[this->interfaces[i]-1].type.Class.nameIndex-1].type.Utf8.bytes);
+		fprintf(output,"\t\tInterface index: %d\t\t<%s>\n", this->interfaces[i], this->constant_pool->constants[this->constant_pool->constants[this->interfaces[i]-1].type.Class.nameIndex-1].type.Utf8.bytes);
 	}
 
 	fprintf(output,"Constant Pool: \n");
@@ -146,31 +152,31 @@ static int PrintClass(CLASS* this, FILE* output) {
 				break;
 			case tClass:
 				fprintf(output,"\t[%1d]CONSTANT_Class_info:\n", i + 1);
-				fprintf(output,"\t\tClass name: %d\n", this->constant_pool->constants[i].type.Class.nameIndex);
+				fprintf(output,"\t\tClass name: %d \t\t\t <%s>\n", this->constant_pool->constants[i].type.Class.nameIndex,(char*)this->constant_pool->constants[(this->constant_pool->constants[i].type.Class.nameIndex-1)].type.Utf8.bytes);
 				break;		
 			case tString:
 				fprintf(output,"\t[%1d]CONSTANT_String_info:\n", i + 1);
-				fprintf(output,"\t\tString: %d\n", this->constant_pool->constants[i].type.String.stringIndex);
+				fprintf(output,"\t\tString: %d \t\t\t <%s>\n", this->constant_pool->constants[i].type.String.stringIndex,(char*)this->constant_pool->constants[(this->constant_pool->constants[i].type.String.stringIndex-1)].type.Utf8.bytes);
 				break;		
 			case tFieldRef:
 				fprintf(output,"\t[%1d]CONSTANT_FieldRef_info:\n", i + 1);
-				fprintf(output,"\t\tClass name: %d\n", this->constant_pool->constants[i].type.FieldRef.classIndex);
-				fprintf(output,"\t\tName and type: %d\n", this->constant_pool->constants[i].type.FieldRef.nameTypeIndex);
+				fprintf(output,"\t\tClass name: %d \t\t\t <%s>\n", this->constant_pool->constants[i].type.FieldRef.classIndex,(char*)this->constant_pool->constants[this->constant_pool->constants[this->constant_pool->constants[i].type.FieldRef.classIndex-1].type.Class.nameIndex - 1].type.Utf8.bytes);
+				fprintf(output,"\t\tName and type index: %d \t<%s%s>\n", this->constant_pool->constants[i].type.FieldRef.nameTypeIndex,(char*)this->constant_pool->constants[(this->constant_pool->constants[this->constant_pool->constants[i].type.FieldRef.nameTypeIndex-1].type.NameType.nameIndex)-1].type.Utf8.bytes,(char*)this->constant_pool->constants[(this->constant_pool->constants[this->constant_pool->constants[i].type.FieldRef.nameTypeIndex-1].type.NameType.descriptorIndex)-1].type.Utf8.bytes);
 				break;		
 			case tMethodRef:
 				fprintf(output,"\t[%1d]CONSTANT_Methodref_info:\n", i + 1);
-				fprintf(output,"\t\tClass index: %d\n", this->constant_pool->constants[i].type.MethodRef.classIndex);
-				fprintf(output,"\t\tName and type index: %d\n", this->constant_pool->constants[i].type.MethodRef.nameTypeIndex);
+				fprintf(output,"\t\tClass name: %d \t\t\t <%s>\n", this->constant_pool->constants[i].type.MethodRef.classIndex,(char*)this->constant_pool->constants[this->constant_pool->constants[this->constant_pool->constants[i].type.MethodRef.classIndex-1].type.Class.nameIndex - 1].type.Utf8.bytes);
+				fprintf(output,"\t\tName and type index: %d \t<%s%s>\n", this->constant_pool->constants[i].type.MethodRef.nameTypeIndex,(char*)this->constant_pool->constants[(this->constant_pool->constants[this->constant_pool->constants[i].type.MethodRef.nameTypeIndex-1].type.NameType.nameIndex)-1].type.Utf8.bytes,(char*)this->constant_pool->constants[(this->constant_pool->constants[this->constant_pool->constants[i].type.MethodRef.nameTypeIndex-1].type.NameType.descriptorIndex)-1].type.Utf8.bytes);
 				break;		
 			case tInterfaceMethodRef:
 				fprintf(output,"\t[%1d]CONSTANT_InterfaceMethodref_info:\n", i + 1);
-				fprintf(output,"\t\tClass index: %d\n", this->constant_pool->constants[i].type.InterfaceMethodRef.classIndex);
-				fprintf(output,"\t\tName and type index: %d\n", this->constant_pool->constants[i].type.InterfaceMethodRef.nameTypeIndex);
+				fprintf(output,"\t\tClass name: %d \t\t\t <%s>\n", this->constant_pool->constants[i].type.InterfaceMethodRef.classIndex,(char*)this->constant_pool->constants[this->constant_pool->constants[this->constant_pool->constants[i].type.InterfaceMethodRef.classIndex-1].type.Class.nameIndex - 1].type.Utf8.bytes);
+				fprintf(output,"\t\tName and type index: %d \t<%s%s>\n", this->constant_pool->constants[i].type.InterfaceMethodRef.nameTypeIndex,(char*)this->constant_pool->constants[(this->constant_pool->constants[this->constant_pool->constants[i].type.InterfaceMethodRef.nameTypeIndex-1].type.NameType.nameIndex)-1].type.Utf8.bytes,(char*)this->constant_pool->constants[(this->constant_pool->constants[this->constant_pool->constants[i].type.InterfaceMethodRef.nameTypeIndex-1].type.NameType.descriptorIndex)-1].type.Utf8.bytes);
 				break;		
 			case tNameType:
 				fprintf(output,"\t[%1d]CONSTANT_NameAndType_info:\n", i + 1);
-				fprintf(output,"\t\tName Index: %d\n", this->constant_pool->constants[i].type.NameType.nameIndex);
-				fprintf(output,"\t\tDescriptor Index: %d\n", this->constant_pool->constants[i].type.NameType.descriptorIndex);
+				fprintf(output,"\t\tName Index: %d\t\t\t %s\n", this->constant_pool->constants[i].type.NameType.nameIndex,(char*)this->constant_pool->constants[this->constant_pool->constants[i].type.NameType.nameIndex-1].type.Utf8.bytes);
+				fprintf(output,"\t\tDescriptor Index: %d\t\t %s\n", this->constant_pool->constants[i].type.NameType.descriptorIndex,(char*)this->constant_pool->constants[this->constant_pool->constants[i].type.NameType.descriptorIndex-1].type.Utf8.bytes);
 				break;
 			default:
 				fprintf(output,"\t[%d]\tERROR: %x\n",(i+1),this->constant_pool->constants[i].tag );
@@ -180,7 +186,7 @@ static int PrintClass(CLASS* this, FILE* output) {
 
 	fprintf(output,"Fields: \n");
 	for (int i = 0; i < this->fields_count; i++) {
-		fprintf(output,"\t[%d]%s\n", i,this->constant_pool->constants[this->fields_pool->fields[i].name_index - 1].type.Utf8.bytes);
+		fprintf(output,"\t[%d]%s [%s]\n", i,this->constant_pool->constants[this->fields_pool->fields[i].name_index - 1].type.Utf8.bytes,returnAccessFlagsName(this->fields_pool->fields[i].access_flags));
 		
 		for(int j=0; j < this->fields_pool->fields[i].attributes_count; j++){
 			printScreenAttribute(this->fields_pool->fields[i].attributes[j], this->constant_pool, "\t\t", j, output);
@@ -192,7 +198,7 @@ static int PrintClass(CLASS* this, FILE* output) {
 		fprintf(output,"\t[%d]%s\n", i,this->constant_pool->constants[this->methods_pool->methods[i].name_index - 1].type.Utf8.bytes);
 		fprintf(output,"\t\tName Index: %d\n", this->methods_pool->methods[i].name_index);
 		fprintf(output,"\t\tDescriptor Index: %d\n", this->methods_pool->methods[i].descriptor_index);
-		fprintf(output,"\t\tAcess Flags: %x\n", this->methods_pool->methods[i].access_flags);
+		fprintf(output,"\t\tAcess Flags: %x \t\t [%s]\n", this->methods_pool->methods[i].access_flags,returnAccessFlagsName(this->methods_pool->methods[i].access_flags));
 
 
 		for(int j=0; j < this->methods_pool->methods[i].attributes_count; j++){
