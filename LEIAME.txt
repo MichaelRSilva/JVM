@@ -1,0 +1,102 @@
+﻿UnB - Software Básico 2/2015 - Leitor/Exibidor
+
+======
+
+Autores:
+
+
+	- Abilio E. C. de Oliveira 	10/0006132
+
+	- Marcus da Silva Ferreira	10/0056881
+
+	- Michael Rodrigues 		09/0126432
+
+
+
+
+
+Compilação e Execução
+
+======
+
+É provido uma makefile para geração dos binários. Pelo terminal, acesse a pasta referente a este LEIAME.txt e execute ‘make’.
+Dois binários serão gerados
+
+ 
+	- LeitorExibidor.exe (aplicação que lê e exibe o .class)
+
+	- JVM.exe (o interpretador de bytecode - não implementado ainda)
+
+
+Caso não deseje utilizar o makefile, recomendamos executar a seguinte lista de comandos 'gcc' para gerar os executáveis:
+	
+	gcc -std=c99 -c src/Common/public.c -o common.o
+	gcc -std=c99 -c src/util/public.c -o util.o
+	gcc -std=c99 -c src/ClassLoader/Class/public.c -o class.o
+	gcc -std=c99 -c src/ClassLoader/Class/AttributeInfo/public.c -o attributeinfo.o
+	gcc -std=c99 -c src/ClassLoader/Class/ConstantPool/public.c -o constantpool.o
+	gcc -std=c99 -c src/ClassLoader/Class/FieldInfo/public.c -o fieldinfo.o
+	gcc -std=c99 -c src/ClassLoader/Class/MethodInfo/public.c -o methodinfo.o
+	gcc -std=c99 -c src/ClassLoader/public.c -o classloader.o
+	gcc -std=c99 -c src/JVM/main.c -o jvm.o
+	gcc -std=c99 common.o util.o attributeinfo.o constantpool.o fieldinfo.o methodinfo.o class.o classloader.o jvm.o -o JVM.exe
+	gcc -std=c99 -c src/LeitorExibidor/main.c -o leitorexibidor.o
+	gcc -std=c99 common.o util.o attributeinfo.o constantpool.o fieldinfo.o methodinfo.o class.o classloader.o LeitorExibidor.o -o LeitorExibidor.exe
+	rm *.o
+
+
+Organização
+=======
+Segue a estrutura de pastas e seus significados
+	
+	./ -> pasta que contem os arquivos do projeto (aqui serão postos os executáveis)
+		
+		./documentação -> documentacao doxygen
+			
+			./html -> arquivos html da documentação doxygen
+		
+		./testes -> contem nossos arquivos java para testes
+		
+		./src -> codigos fonte
+		
+			./Common -> Modulo com estruturas comuns a todos os modulos e variaveis globais
+			
+			./Util   -> Modulo com funcoes e estruturas para lidar com rotinas de I/O
+
+			./JVM    -> Modulo contendo o 'int main(int argc, char** argv)' do interpretador Java (JVM)
+
+			./ClassLoader -> Modulo que lida com o carregamento em memoria de um '.class' de forma estruturada
+			
+				./Class -> Modulo que define a estrutura de um ponto class e fornece a funcionalidade necessaria para carregar um .class para memoria
+				
+					./AttributeInfo -> Modulo que define a estrutura de um AttributeInfo e as funcoes para tratar tal estrutura 
+				
+					./ConstantPool -> Modulo que define a estrutura de um ConstantPool e as funcoes para tratar tal estrutura
+	
+					./FieldInfo -> Modulo que define a estrutura de um FieldInfo e as funcoes para tratar tal estrutura
+
+					./MethodInfo -> Modulo que define a estrutura de um MethodInfo e as funcoes para tratat tal estrutura
+
+Observacoes
+=======
+Observe que cada modulo "X" contem três arquivos e um variável numero de pastas:
+	
+	- X.h -> define as estruturas de tal modulo
+
+	- public.c -> funcoes visiveis a outros modulos, 
+		      porem somente acessiveis via uma variavel do tipo do modulo 
+		      que tenha sido inicializada pela funcao initX() 
+
+	- private.c -> funcoes somente visiveis ao modulo X
+
+	- subpastas -> submodulos
+
+Dessa forma simulamos uma falsa orientacao objeto visando facilitar a manutenibilidade da aplicacao
+e tambem visando uma melhor escalabilidade.
+
+--
+(c)
+
+
+
+	
