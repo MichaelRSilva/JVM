@@ -186,8 +186,13 @@ static int PrintClass(CLASS* this, FILE* output) {
 
 	fprintf(output,"Fields: \n");
 	for (int i = 0; i < this->fields_count; i++) {
-		fprintf(output,"\t[%d]%s [%s]\n", i,this->constant_pool->constants[this->fields_pool->fields[i].name_index - 1].type.Utf8.bytes,returnAccessFlagsName(this->fields_pool->fields[i].access_flags));
 		
+		fprintf(output,"\t[%d]%s [%s]\n", i,this->constant_pool->constants[this->fields_pool->fields[i].name_index - 1].type.Utf8.bytes,returnAccessFlagsName(this->fields_pool->fields[i].access_flags));
+		fprintf(output,"\t\tDescriptor: %d\n",this->fields_pool->fields[i].descriptor_index);	
+		fprintf(output,"\t\tAccess Flags: %d\n",this->fields_pool->fields[i].access_flags);		
+
+
+
 		for(int j=0; j < this->fields_pool->fields[i].attributes_count; j++){
 			printScreenAttribute(this->fields_pool->fields[i].attributes[j], this->constant_pool, "\t\t", j, output);
 		}
