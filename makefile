@@ -1,13 +1,14 @@
 all: JVM LeitorExibidor limpa
 
 JVM: Common.o Util.o ClassLoader.o JVM.o
-	gcc -std=c99 common.o util.o attributeinfo.o constantpool.o fieldinfo.o methodinfo.o class.o classloader.o jvm.o -o JVM.exe
+	gcc -std=c99 common.o util.o attributeinfo.o constantpool.o fieldinfo.o methodinfo.o class.o classloader.o jvm.o main.o -o JVM.exe
 
 LeitorExibidor: Common.o Util.o ClassLoader.o LeitorExibidor.o
 	gcc -std=c99 common.o util.o attributeinfo.o constantpool.o fieldinfo.o methodinfo.o class.o classloader.o LeitorExibidor.o -o LeitorExibidor.exe
 
-JVM.o: src/JVM/main.c
-	gcc -std=c99 -c src/JVM/main.c -o jvm.o
+JVM.o: src/JVM/main.c src/JVM/jvm.c
+	gcc -std=c99 -c src/JVM/main.c -o main.o
+	gcc -std=c99 -c src/JVM/jvm.c -o jvm.o
 
 LeitorExibidor.o: src/LeitorExibidor/main.c
 	gcc -std=c99 -c src/LeitorExibidor/main.c -o leitorexibidor.o

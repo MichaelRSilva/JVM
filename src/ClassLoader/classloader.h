@@ -1,4 +1,3 @@
-
 /*! \file
 	\brief Definicoes de funcoes e inicializadores do Class Loader
 

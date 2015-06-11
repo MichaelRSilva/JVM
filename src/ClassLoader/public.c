@@ -6,7 +6,6 @@ static int load(CLASS_LOADER* this, DADOS d) {
 	return this->class->parseDotClass(this->class, d);
 }
 
-
 // funcoes visiveis publicamente
 CLASS_LOADER* initCLASS_LOADER() {
 	CLASS_LOADER* toReturn = (CLASS_LOADER*)malloc(sizeof(CLASS_LOADER));
