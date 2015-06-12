@@ -14,6 +14,7 @@
 	#include "Class/class.h"
 
 	typedef struct _class_loader {
+		
 		CLASS* class;
 
 		int (*load)(struct _class_loader*, DADOS);
