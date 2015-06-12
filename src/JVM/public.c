@@ -11,28 +11,30 @@
 #include "jvm.h"
 #include "private.c"
 
-int loadParentClasses(JVM* maquina, CLASS* class, UTIL* util) {
+static int loadParentClasses(JVM* maquina, CLASS* class, UTIL* util) {
 	char* parentName = getParentName(class);
 	CLASS_LOADER *cl = initCLASS_LOADER();
-	int flag;
+	int flag = 0;
 
-	if ((flag = classIndex(parentName, maquina->classes)) > -1) {
+	if (classIndex(parentName, maquina->classes) > -1) {
 		// adiciona classe pai a maquina->classes
-		
+		maquina->classes = (CLASS**)realloc(maquina->classes,(maquina->class_array_size+1)*sizeof(CLASS*));
+
 		cl->load(cl, util->LeArquivo(getParentPath(class, parentName)));
 		maquina->classes[maquina->class_array_size++] = cl->class;
+		if (maquina->classes[maquina->class_array_size-1]->super_class != 0) {
+			flag = loadParentClasses(maquina, maquina->classes[maquina->class_array_size], util);
+		}
 	}
 
-	// TODO: chamada recursiva para loadParentClasses
-
-	return E_SUCCESS;
+	return flag;
 }
 
 JVM initJVM() {
 	JVM toReturn;
 
 	toReturn.class_array_size = 0;
-	toReturn.classes = (CLASS**)malloc(sizeof(CLASS));
+	toReturn.classes = (CLASS**)malloc(sizeof(CLASS*));
 	toReturn.classes[0] = (CLASS*)malloc(sizeof(CLASS));
 
 	toReturn.loadParentClasses = loadParentClasses;

@@ -1,4 +1,4 @@
-public final class ClassicSingleton implements InterfaceTeste {
+public final class ClassicSingleton implements InterfaceTeste, InterfaceTeste2 {
 	public final static ClassicSingleton instance = getInstance();
 	public final static String teste = "Teste";
 	public final static long valLong= 544213139;
@@ -38,8 +38,19 @@ public final class ClassicSingleton implements InterfaceTeste {
 		return resultado;
 	}
 
+	public int soma2(int a, int b, int c) {
+		int resultado = 0;
+		resultado = a + b + c;
+
+		return resultado;
+	}
+
 }
 
 interface InterfaceTeste {
 	public int soma(int a, int b);
+}
+
+interface InterfaceTeste2 {
+	int soma2(int a, int b, int c);
 }
