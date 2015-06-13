@@ -1,34 +1,15 @@
 #include "class.h"
 #include "private.c"
 
-// funcoes somente acessiveis pela struct _dot_class
-static int parseDotClass(CLASS* this, DADOS d) {
-	int flag = 0, contador = 0, cp_size = 0;
-	uint8_t* base_pointer = d.bytes;
+static char* getName(CLASS* this) {
+	return this->constant_pool->getClassName(this->constant_pool, this->this_class);
+}
+static char* getParentName(CLASS* this) {
+	return this->constant_pool->getClassName(this->constant_pool, this->super_class);
+}
 
-	this->magic = getMagicNumber(&d);
-	if (!(flag = verifyCAFEBABE(this->magic))) {
-		this->minor_version = getMinorVersion(&d);
-		this->major_version = getMajorVersion(&d);
-		if (!(flag = verifyVersion(this->minor_version, this->major_version))) {
-			this->constant_pool_count = getConstantPoolCount(&d);
-			this->constant_pool = populateConstantPool(this, &d);
-			this->access_flags = getAccessFlags(&d);
-			this->this_class = getThisClass(&d);
-			this->super_class = getSuperClass(&d);
-			this->interfaces_count = getInterfacesCount(&d);
-			if (!(flag = populateInterfaces(this, &d))) {
-				this->fields_count = getFieldsCount(&d);
-				this->fields_pool = populateFieldPool(this,&d);
-				this->methods_count = getMethodsCount(&d);
-				this->methods_pool = populateMethodsPool(this, &d);
-				this->attributes_count = getAttributesCount(&d);
-				this->attribute_pool = populateAttributePool(this, &d);
-			}
-		}
-	}
-
-	return ((int)(d.bytes - base_pointer) != d.tamanho)?W_NAOLIDOINTEIRO:flag;
+static char* getInterfaceName(CLASS* this, int interface_index) {
+	return this->constant_pool->getClassName(this->constant_pool, this->interfaces[interface_index]);
 }
 
 // funcoes acessiveis publicamente
@@ -57,7 +38,9 @@ CLASS* initCLASS() {
 		toReturn->attribute_pool = NULL;
 
 	// inicializacao das funcoes
-		toReturn->parseDotClass = parseDotClass;
+		toReturn->getParentName = getParentName;
+		toReturn->getName = getName;
+		toReturn->getInterfaceName = getInterfaceName;
 
 	return toReturn;
 }

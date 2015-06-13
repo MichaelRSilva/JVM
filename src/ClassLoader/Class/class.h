@@ -45,7 +45,9 @@
 			ATTRIBUTE_POOL* attribute_pool;
 
 		// funcoes somente visiveis a estrutura _dot_class
-			int (*parseDotClass)(struct _class*, DADOS);
+			char* (*getParentName)(struct _class*);
+			char* (*getName)(struct _class*);
+			char* (*getInterfaceName)(struct _class*, int);
 
 	} CLASS;
 

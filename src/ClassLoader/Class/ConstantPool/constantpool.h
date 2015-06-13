@@ -61,7 +61,10 @@
 
 	typedef struct _constant_pool {
 		struct _constant_info* constants;
+
 		int (*addConstant)(struct _constant_pool*, int, DADOS* d);
+		char* (*getUtf8String)(struct _constant_pool*, int);
+		char* (*getClassName)(struct _constant_pool*, int);
 	} CONSTANT_POOL;
 	
 	CONSTANT_POOL* initCONSTANT_POOL(int);

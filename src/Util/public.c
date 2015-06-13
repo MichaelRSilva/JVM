@@ -229,12 +229,6 @@ static int PrintClass(CLASS* this, FILE* output) {
 	return 0;
 }
 
-//imprime os dados da classe no arquivo
-static int PrintFile(CLASS* this) {
-
-	return 0;
-}
-
 //imprime os dados da classe em html
 static int PrintHTML(CLASS* this) {
 

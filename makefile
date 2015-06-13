@@ -1,16 +1,18 @@
 all: JVM LeitorExibidor limpa
 
 JVM: Common.o Util.o ClassLoader.o JVM.o
-	gcc -std=c99 common.o util.o attributeinfo.o constantpool.o fieldinfo.o methodinfo.o class.o classloader.o jvm.o -o JVM.exe
+	gcc -std=c99 common.o util.o attributeinfo.o constantpool.o fieldinfo.o methodinfo.o class.o classloader.o jvm.o main.o -o JVM.exe
 
 LeitorExibidor: Common.o Util.o ClassLoader.o LeitorExibidor.o
-	gcc -std=c99 common.o util.o attributeinfo.o constantpool.o fieldinfo.o methodinfo.o class.o classloader.o LeitorExibidor.o -o LeitorExibidor.exe
+	gcc -std=c99 common.o util.o attributeinfo.o constantpool.o fieldinfo.o methodinfo.o class.o classloader.o main.o -o LeitorExibidor.exe
 
-JVM.o: src/JVM/public.c
-	gcc -std=c99 -c src/JVM/public.c -o jvm.o
+JVM.o: src/JVM/main.c src/JVM/maquina/public.c
+	gcc -std=c99 -c src/JVM/maquina/public.c -o jvm.o
+	gcc -std=c99 -c src/JVM/main.c -o main.o
+
 
 LeitorExibidor.o: src/LeitorExibidor/main.c
-	gcc -std=c99 -c src/LeitorExibidor/main.c -o leitorexibidor.o
+	gcc -std=c99 -c src/LeitorExibidor/main.c -o main.o
 
 ClassLoader.o: src/ClassLoader/public.c Class.o AttributeInfo.o ConstantPool.o FieldInfo.o MethodInfo.o
 	gcc -std=c99 -c src/ClassLoader/public.c -o classloader.o
