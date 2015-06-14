@@ -2,7 +2,7 @@
 #include "private.c"
 
 // funcoes somente visiveis a struct classloader
-static int load(CLASS_LOADER* this, char* fileName) {
+static CLASS* load(CLASS_LOADER* this, char* fileName) {
 	DADOS d = getUTILInstance().LeArquivo(fileName);
 	int flag = 0, contador = 0, cp_size = 0;
 	uint8_t* base_pointer = d.bytes;
@@ -29,7 +29,7 @@ static int load(CLASS_LOADER* this, char* fileName) {
 		}
 	}
 
-	return ((int)(d.bytes - base_pointer) != d.tamanho)?W_NAOLIDOINTEIRO:flag;
+	return ((int)(d.bytes - base_pointer) != d.tamanho)?NULL:this->class;
 }
 
 // funcoes visiveis publicamente

@@ -32,6 +32,9 @@ public final class ClassicSingleton extends AbstractTeste1 implements InterfaceT
 		return resultado;
 	}
 
+	public static void main(char args[]) {
+
+	}
 }
 
 class AbstractTeste1 {

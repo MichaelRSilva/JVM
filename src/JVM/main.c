@@ -15,18 +15,11 @@
 int main(int argc, char **argv) {
 	int flag;
 	UTIL util = getUTILInstance();
-	CLASS_LOADER* cl = initCLASS_LOADER();
 
 	if(!(flag = util.VerificaLeitorExibidorCMDArgs(argc, argv))) {
-		cl->load(cl, argv[1]);
 		JVM maquina = initJVM();
 
-		maquina.classes.array[maquina.classes.size++] = cl->class;
-		flag = maquina.loadParentClasses(&maquina);
-
-		if(!flag){
-			flag = maquina.loadInterfaces(&maquina, cl->class);
-		}
+		maquina.loadClass(&maquina, argv[1]);
 	}
 	
 	printf("%s", errordesc[abs(flag)].message);

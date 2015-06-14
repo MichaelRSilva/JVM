@@ -15,10 +15,9 @@
 	#include "Class/class.h"
 
 	typedef struct _class_loader {
-		
 		CLASS* class;
 
-		int (*load)(struct _class_loader*, char*);
+		CLASS* (*load)(struct _class_loader*, char*);
 	} CLASS_LOADER;
 
 	CLASS_LOADER* initCLASS_LOADER();
