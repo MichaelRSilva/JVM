@@ -1,8 +1,17 @@
 #ifndef MODULE_JVM
 	#define MODULE_JVM
 	#include "../../ClassLoader/classloader.h"
-	#include "../../Util/util.h"
 	
+	typedef struct _jvminstruction {
+		uint16_t qtd_operandos;
+		char *nome;
+		void (*call)();
+	} JVM_INSTRUCTION;
+
+
+	/// Variável global para acessar as JVM instructions
+	extern const JVM_INSTRUCTION instructions[];
+
 	typedef struct _maquina_java {
 		int classes_size;
 		int interfaces_size;

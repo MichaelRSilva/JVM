@@ -8,7 +8,6 @@
 
 	JVM - Software Basico 1/2015
 */
-#include "maquina.h"
 #include "private.c"
 
 JVM maquina;

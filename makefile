@@ -10,7 +10,6 @@ JVM.o: src/JVM/main.c src/JVM/maquina/public.c
 	gcc -std=c99 -c src/JVM/maquina/public.c -o jvm.o
 	gcc -std=c99 -c src/JVM/main.c -o main.o
 
-
 LeitorExibidor.o: src/LeitorExibidor/main.c
 	gcc -std=c99 -c src/LeitorExibidor/main.c -o main.o
 

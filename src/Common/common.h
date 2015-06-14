@@ -55,22 +55,6 @@
 			uint32_t (*le4Bytes)(struct _dados*);
 		} DADOS;
 
-	/// Estrutura para representacao de uma instrucao JVM
-		typedef struct _pilha {
-			// TODO
-		} PILHA;
-
-		typedef struct _jvminstruction {
-			uint16_t qtd_operandos;
-			uint32_t* operando_cpindex;
-			char *nome;
-			void (*function)(PILHA*, ...);
-		} JVM_INSTRUCTION;
-
-
-	/// Variável global para acessar as JVM instructions
-		extern const JVM_INSTRUCTION instructions[];
-
 	// funcoes comuns a todos os modulos
 
 		DADOS initDADOS();

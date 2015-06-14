@@ -55,31 +55,6 @@
 			@return Código de erro, onde sucesso é representado por E_SUCCESS
 		*/
 		int (*EscreveArquivo)(DADOS, char*); // escreverArquivo(dados, nome do arquivo) retorna codigo de erro ou sucesso
-
-		//Imprime conteudo do .class no FILE*
-		/*!
-			@param %1 a struct que representa a classe do java
-			@return 0
-		*/
-		int (*PrintClass)(CLASS*, FILE*);
-
-
-		//Imprime conteudo do .class em html
-		/*!
-			@param %1 a struct que representa a classe do java
-			@return 0
-		*/
-		int (*PrintHTML)(CLASS*);
-
-		//Dada uma chave, retorna uma string com o bytecode correspondente
-		/*!
-			@param %1 string de retorno (bytecode)
-			@param %2 chave inteira correspondente
-			@return 0
-		*/
-		void (*BytecodeTable)(char **,int);
-
-
 	} UTIL;
 
 	/// "instancia" uma nova "classe" util

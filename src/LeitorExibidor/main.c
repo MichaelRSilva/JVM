@@ -8,8 +8,8 @@
 
 	JVM - Software Basico 1/2015
 */
-#include "../ClassLoader/classloader.h"
 #include "../util/util.h"
+#include "misc.c"
 
 int main(int argc, char **argv) {
 	int flag;
@@ -20,16 +20,16 @@ int main(int argc, char **argv) {
 		cl->load(cl, argv[1]);
 		if (argv[2] != NULL) {
 			if (!strcmp(argv[2],"-tela")){
-				util.PrintClass(cl->class, stdout);
+				PrintClass(cl->class, stdout);
 			} else {
 				FILE* fp = fopen("output.txt","w");
-				util.PrintClass(cl->class, fp);
+				PrintClass(cl->class, fp);
 				fclose(fp);
 			}
 		} else {
 			FILE* fp = fopen("output.txt","w");
-			util.PrintClass(cl->class, stdout);
-			util.PrintClass(cl->class, fp);
+			PrintClass(cl->class, stdout);
+			PrintClass(cl->class, fp);
 			fclose(fp);
 		}
 	}

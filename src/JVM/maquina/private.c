@@ -1,4 +1,4 @@
-#include "maquina.h"
+#include "instructions.c"
 
 JVM maquina;
 
