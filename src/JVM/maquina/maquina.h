@@ -12,9 +12,11 @@
 			int size;
 		} classes, interfaces;
 
-		int (*loadClass)(struct _maquina_java*, char*);
+		int (*loadClass)(char*);
 	} JVM;
 	
 	JVM initJVM();
+
+	extern JVM maquina;
 
 #endif

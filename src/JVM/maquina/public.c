@@ -11,21 +11,25 @@
 #include "maquina.h"
 #include "private.c"
 
-static int loadClass(JVM* maquina, char* name) {
-	if (getClassIndex(name, maquina->classes) == -1) {
+JVM maquina;
+
+static int loadClass(char* name) {
+	int toReturn = -1;
+	if ((toReturn = getClassIndex(name, maquina.classes)) == -1) {
 		CLASS_LOADER* cl = initCLASS_LOADER();
 
 		cl->load(cl, getClassPath(name));
-		expandClassArray(maquina);
-		maquina->classes.array[maquina->classes.size++] = cl->class;
+		toReturn = maquina.classes.size;
+		expandClassArray();
+		maquina.classes.array[maquina.classes.size++] = cl->class;
 
- 		loadParentClasses(maquina); // insere em maquina->classes todas as classes pai ainda nao carregadas em maquina->clasess
- 		loadInterfaces(maquina, cl->class); // insere em maquinas->interfaces todas as interfaces ainda nao carregadas em maquina->interfaces
+ 		loadParentClasses(); // insere em maquina.classes todas as classes pai ainda nao carregadas em maquina.clasess
+ 		loadInterfaces(cl->class); // insere em maquinas.interfaces todas as interfaces ainda nao carregadas em maquina.interfaces
 
 		free(cl);
 	}
 
-	return E_SUCCESS;
+	return toReturn;
 }
 
 JVM initJVM() {

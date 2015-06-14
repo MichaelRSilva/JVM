@@ -1,5 +1,7 @@
 #include "maquina.h"
 
+JVM maquina;
+
 static int getClassIndex(char* class_name, struct _class_arr classes) {
 	if (classes.array == NULL) return -1;
 
@@ -20,27 +22,27 @@ static char* getClassPath(char* class_name) {
 	return path;
 }
 
-static void expandClassArray(JVM* maquina) {
-	maquina->classes.array = (CLASS**)realloc(maquina->classes.array,(maquina->classes.size+1)*sizeof(CLASS*));
+static void expandClassArray() {
+	maquina.classes.array = (CLASS**)realloc(maquina.classes.array,(maquina.classes.size+1)*sizeof(CLASS*));
 }
 
-static void expandInterfaceArray(JVM* maquina) {
-	maquina->interfaces.array = (CLASS**)realloc(maquina->interfaces.array,(maquina->interfaces.size+1)*sizeof(CLASS*));
+static void expandInterfaceArray() {
+	maquina.interfaces.array = (CLASS**)realloc(maquina.interfaces.array,(maquina.interfaces.size+1)*sizeof(CLASS*));
 }
 
-static int loadParentClasses(JVM* maquina) {
-	CLASS* class = maquina->classes.array[maquina->classes.size-1];
+static int loadParentClasses() {
+	CLASS* class = maquina.classes.array[maquina.classes.size-1];
 	char* parentName = class->getParentName(class);
 	int flag = 0;
 
-	// insere parent em maquina->classes caso parent ainda nao esteja carregado 
-	if (getClassIndex(parentName, maquina->classes) == -1) {
+	// insere parent em maquina.classes caso parent ainda nao esteja carregado 
+	if (getClassIndex(parentName, maquina.classes) == -1) {
 		CLASS_LOADER *cl = initCLASS_LOADER();
 
-		expandClassArray(maquina);
+		expandClassArray();
 		cl->load(cl, getClassPath(parentName));
-		maquina->classes.array[maquina->classes.size++] = cl->class;
-		if (maquina->classes.array[maquina->classes.size-1]->super_class != 0) {
+		maquina.classes.array[maquina.classes.size++] = cl->class;
+		if (maquina.classes.array[maquina.classes.size-1]->super_class != 0) {
 			flag = loadParentClasses(maquina);
 		}
 
@@ -50,17 +52,17 @@ static int loadParentClasses(JVM* maquina) {
 	return flag;
 }
 
-static int loadInterfaces(JVM* maquina, CLASS* class) {
+static int loadInterfaces(CLASS* class) {
 	int interfacesCount = class->interfaces_count;
 	CLASS_LOADER *cl = initCLASS_LOADER();
 
 	for(int i=0; i<interfacesCount; i++){
 		char* name = class->getInterfaceName(class, i);
 		
-		if (getClassIndex(name, maquina->interfaces) == -1) {
-			expandInterfaceArray(maquina);
+		if (getClassIndex(name, maquina.interfaces) == -1) {
+			expandInterfaceArray();
 			cl->load(cl, getClassPath(name));
-			maquina->interfaces.array[maquina->interfaces.size++] = cl->class;
+			maquina.interfaces.array[maquina.interfaces.size++] = cl->class;
 		}
 		
 	}
