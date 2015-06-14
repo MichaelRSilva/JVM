@@ -7,8 +7,10 @@
 		int classes_size;
 		int interfaces_size;
 
-		CLASS** classes;
-		CLASS** interfaces;
+		struct _class_arr {
+			CLASS** array;
+			int size;
+		} classes, interfaces;
 
 		int (*loadParentClasses)(struct _maquina_java*);
 		int (*loadInterfaces)(struct _maquina_java*, CLASS*);

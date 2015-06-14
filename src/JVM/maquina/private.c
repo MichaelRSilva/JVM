@@ -1,26 +1,11 @@
 #include "maquina.h"
 
-static int getClassIndex(char* class_name, JVM* maquina) {
-	CLASS** array = maquina->classes;
-	if (array == NULL) return -1;
+static int getClassIndex(char* class_name, struct _class_arr classes) {
+	if (classes.array == NULL) return -1;
 
-	for(int i=0; i < maquina->classes_size; i++){
-		char *aux = array[i]->getName(array[i]);
+	for(int i=0; i < classes.size; i++){
+		char *aux = classes.array[i]->getName(classes.array[i]);
 		if(!strcmp(class_name,aux)){
-			return i;
-		}
-	}
-
-	return -1;
-}
-
-static int getInterfaceIndex(char* interface_name, JVM* maquina) {
-	CLASS** array = maquina->classes;
-	if (array == NULL) return -1;
-
-	for(int i=0; i < maquina->classes_size; i++){
-		char *aux = array[i]->getName(array[i]);
-		if(!strcmp(interface_name,aux)){
 			return i;
 		}
 	}
@@ -35,9 +20,9 @@ static char* getClassPath(char* className) {
 }
 
 static void expandClassArray(JVM* maquina) {
-	maquina->classes = (CLASS**)realloc(maquina->classes,(maquina->classes_size+1)*sizeof(CLASS*));
+	maquina->classes.array = (CLASS**)realloc(maquina->classes.array,(maquina->classes.size+1)*sizeof(CLASS*));
 }
 
 static void expandInterfaceArray(JVM* maquina) {
-	maquina->interfaces = (CLASS**)realloc(maquina->interfaces,(maquina->interfaces_size+1)*sizeof(CLASS*));
+	maquina->interfaces.array = (CLASS**)realloc(maquina->interfaces.array,(maquina->interfaces.size+1)*sizeof(CLASS*));
 }

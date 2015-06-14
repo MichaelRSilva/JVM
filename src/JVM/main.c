@@ -21,7 +21,7 @@ int main(int argc, char **argv) {
 		cl->load(cl, argv[1]);
 		JVM maquina = initJVM();
 
-		maquina.classes[maquina.classes_size++] = cl->class;
+		maquina.classes.array[maquina.classes.size++] = cl->class;
 		flag = maquina.loadParentClasses(&maquina);
 
 		if(!flag){

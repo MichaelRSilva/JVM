@@ -12,18 +12,18 @@
 #include "private.c"
 
 static int loadParentClasses(JVM* maquina) {
-	CLASS* class = maquina->classes[maquina->classes_size-1];
+	CLASS* class = maquina->classes.array[maquina->classes.size-1];
 	char* parentName = class->getParentName(class);
 	CLASS_LOADER *cl = initCLASS_LOADER();
 	int flag = 0;
 
 	// insere parent em maquina->classes caso parent ainda nao esteja carregado 
-	if (getClassIndex(parentName, maquina) == -1) {
+	if (getClassIndex(parentName, maquina->classes) == -1) {
 		expandClassArray(maquina);
 		cl->load(cl, getClassPath(parentName));
 
-		maquina->classes[maquina->classes_size++] = cl->class;
-		if (maquina->classes[maquina->classes_size-1]->super_class != 0) {
+		maquina->classes.array[maquina->classes.size++] = cl->class;
+		if (maquina->classes.array[maquina->classes.size-1]->super_class != 0) {
 			flag = loadParentClasses(maquina);
 		}
 	}
@@ -38,10 +38,10 @@ static int loadInterfaces(JVM* maquina, CLASS* class) {
 	for(int i=0; i<interfacesCount; i++){
 		char* name = class->getInterfaceName(class, i);
 		
-		if (getInterfaceIndex(name, maquina) == -1) {
+		if (getClassIndex(name, maquina->interfaces) == -1) {
 			expandInterfaceArray(maquina);
 			cl->load(cl, getClassPath(name));
-			maquina->interfaces[maquina->interfaces_size++] = cl->class;
+			maquina->interfaces.array[maquina->interfaces.size++] = cl->class;
 		}
 		
 	}
@@ -52,11 +52,11 @@ static int loadInterfaces(JVM* maquina, CLASS* class) {
 JVM initJVM() {
 	JVM toReturn;
 
-	toReturn.classes_size = 0;
-	toReturn.interfaces_size = 0;
+	toReturn.classes.size = 0;
+	toReturn.interfaces.size = 0;
 	
-	toReturn.classes = (CLASS**)malloc(sizeof(CLASS*));
-	toReturn.interfaces = NULL;
+	toReturn.classes.array = (CLASS**)malloc(sizeof(CLASS*));
+	toReturn.interfaces.array = NULL;
 
 	toReturn.loadParentClasses = loadParentClasses;
 	toReturn.loadInterfaces = loadInterfaces; 
