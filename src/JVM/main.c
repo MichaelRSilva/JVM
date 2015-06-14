@@ -1,3 +1,13 @@
+/*! \file
+	\brief Define entry point da maquina virtual java
+
+	Autores:
+		- Abilio Esteves Calegario de Oliveira - 10/0006132
+		- Marcus da Silva Ferreira - 10/0056881
+		- Michael Rodrigues - 09/0126432
+
+	JVM - Software Basico 1/2015
+*/
 #include "../Common/common.h"
 #include "../Util/util.h"
 #include "maquina/maquina.h"
@@ -8,16 +18,14 @@ int main(int argc, char **argv) {
 	CLASS_LOADER* cl = initCLASS_LOADER();
 
 	if(!(flag = util.VerificaLeitorExibidorCMDArgs(argc, argv))) {
-		if (!(flag = cl->load(cl, util.LeArquivo(argv[1])))) {
-			JVM maquina = initJVM();
+		cl->load(cl, argv[1]);
+		JVM maquina = initJVM();
 
-			maquina.classes[maquina.classes_size++] = cl->class;
-			flag = maquina.loadParentClasses(&maquina, cl->class, &util);
-			
-			if(!flag){
-				flag = maquina.loadInterfaces(&maquina, cl->class, &util);
-			}
-			
+		maquina.classes[maquina.classes_size++] = cl->class;
+		flag = maquina.loadParentClasses(&maquina);
+
+		if(!flag){
+			flag = maquina.loadInterfaces(&maquina, cl->class);
 		}
 	}
 	

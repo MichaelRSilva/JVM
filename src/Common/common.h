@@ -65,11 +65,11 @@
 			uint32_t* operando_cpindex;
 			char *nome;
 			void (*function)(PILHA*, ...);
-		} JVM_INSTRUCTIONS;
+		} JVM_INSTRUCTION;
 
 
 	/// Variável global para acessar as JVM instructions
-		extern const JVM_INSTRUCTIONS instructions[];
+		extern const JVM_INSTRUCTION instructions[];
 
 	// funcoes comuns a todos os modulos
 

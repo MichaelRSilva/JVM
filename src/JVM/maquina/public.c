@@ -1,5 +1,5 @@
 /*! \file
-	\brief Main entry point da Máquina Virtual
+	\brief Define funcoes associadas a uma "instancia" da maquina virtual java
 
 	Autores:
 		- Abilio Esteves Calegario de Oliveira - 10/0006132
@@ -11,36 +11,36 @@
 #include "maquina.h"
 #include "private.c"
 
-static int loadParentClasses(JVM* maquina, CLASS* class, UTIL* util) {
+static int loadParentClasses(JVM* maquina) {
+	CLASS* class = maquina->classes[maquina->classes_size-1];
 	char* parentName = class->getParentName(class);
 	CLASS_LOADER *cl = initCLASS_LOADER();
 	int flag = 0;
 
-	// adiciona parent a maquina->classes caso parent nao exista 
-	if (getClassIndex(maquina->classes, parentName) == -1) {
-		expandClassArray(maquina->classes, maquina->classes_size);
-		cl->load(cl, util->LeArquivo(getClassPath(parentName)));
+	// insere parent em maquina->classes caso parent ainda nao esteja carregado 
+	if (getClassIndex(parentName, maquina) == -1) {
+		expandClassArray(maquina);
+		cl->load(cl, getClassPath(parentName));
 
 		maquina->classes[maquina->classes_size++] = cl->class;
 		if (maquina->classes[maquina->classes_size-1]->super_class != 0) {
-			flag = loadParentClasses(maquina, maquina->classes[maquina->classes_size-1], util);
+			flag = loadParentClasses(maquina);
 		}
 	}
 
 	return flag;
 }
 
-static int loadInterfaces(JVM* maquina, CLASS* class, UTIL* util) {
+static int loadInterfaces(JVM* maquina, CLASS* class) {
 	int interfacesCount = class->interfaces_count;
 	CLASS_LOADER *cl = initCLASS_LOADER();
 
 	for(int i=0; i<interfacesCount; i++){
-		maquina->interfaces = (CLASS**)realloc(maquina->interfaces,(maquina->interfaces_size+1)*sizeof(CLASS*));
 		char* name = class->getInterfaceName(class, i);
 		
-		if (getClassIndex(maquina->interfaces, name) == -1) {
-			expandClassArray(maquina->interfaces, maquina->interfaces_size);
-			cl->load(cl, util->LeArquivo(getClassPath(name)));
+		if (getInterfaceIndex(name, maquina) == -1) {
+			expandInterfaceArray(maquina);
+			cl->load(cl, getClassPath(name));
 			maquina->interfaces[maquina->interfaces_size++] = cl->class;
 		}
 		

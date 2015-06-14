@@ -11,7 +11,7 @@
 #ifndef MODULE_UTIL
 	#define MODULE_UTIL
 	#include "../Common/common.h"
-	#include "../ClassLoader/classloader.h"
+	#include "../ClassLoader/Class/class.h"
 	
 	// Macros
 		#define JVMCMDARGCOUNT 1 /// Quantidade de argumentos que a JVM aceita.

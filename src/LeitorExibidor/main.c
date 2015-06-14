@@ -8,6 +8,7 @@
 
 	JVM - Software Basico 1/2015
 */
+#include "../ClassLoader/classloader.h"
 #include "../util/util.h"
 
 int main(int argc, char **argv) {
@@ -15,7 +16,8 @@ int main(int argc, char **argv) {
 	UTIL util = getUTILInstance();
 	CLASS_LOADER* cl = initCLASS_LOADER();
 
-	if(!(flag = util.VerificaLeitorExibidorCMDArgs(argc, argv)) && !(flag = cl->load(cl, util.LeArquivo(argv[1])))) {
+	if(!(flag = util.VerificaLeitorExibidorCMDArgs(argc, argv))) {
+		cl->load(cl, argv[1]);
 		if (argv[2] != NULL) {
 			if (!strcmp(argv[2],"-tela")){
 				util.PrintClass(cl->class, stdout);

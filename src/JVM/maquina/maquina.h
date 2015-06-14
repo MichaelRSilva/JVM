@@ -10,8 +10,8 @@
 		CLASS** classes;
 		CLASS** interfaces;
 
-		int (*loadParentClasses)(struct _maquina_java*, CLASS*, UTIL*);
-		int (*loadInterfaces)(struct _maquina_java*, CLASS*, UTIL*);
+		int (*loadParentClasses)(struct _maquina_java*);
+		int (*loadInterfaces)(struct _maquina_java*, CLASS*);
 	} JVM;
 	
 	JVM initJVM();

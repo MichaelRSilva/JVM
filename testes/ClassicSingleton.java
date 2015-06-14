@@ -1,4 +1,4 @@
-public final class ClassicSingleton implements InterfaceTeste, InterfaceTeste2 {
+public final class ClassicSingleton extends AbstractTeste1 implements InterfaceTeste, InterfaceTeste2 {
 	public final static ClassicSingleton instance = getInstance();
 	public final static String teste = "Teste";
 	public final static long valLong= 544213139;
@@ -7,34 +7,21 @@ public final class ClassicSingleton implements InterfaceTeste, InterfaceTeste2 {
 	public final static double notANumber = Double.POSITIVE_INFINITY/Double.POSITIVE_INFINITY;
 	public final static double infP = Double.POSITIVE_INFINITY;
 	public final static double infN = -Double.POSITIVE_INFINITY;
-
-
-	public final static Exception e = new Exception("Deu Merda.!");
-	
+	public final static Exception e = new Exception("Deu Ruim.!");
 	public final static boolean[][] boliSample = {{ false, false }, { true, true } };
 
-	
-
-
-
-	protected ClassicSingleton() {
-
-	}
+	protected ClassicSingleton() { }
 
 	public static ClassicSingleton getInstance() {
 		if (instance == null) {
 			return new ClassicSingleton();
 		}
-
 		return instance;
 	}
 
-
 	public int soma(int a, int b){
-
 		int resultado = 0;
 		resultado = a+b;
-
 		return resultado;
 	}
 
@@ -45,6 +32,12 @@ public final class ClassicSingleton implements InterfaceTeste, InterfaceTeste2 {
 		return resultado;
 	}
 
+}
+
+class AbstractTeste1 {
+	public Integer teste(Object b) {
+		return (Integer)b;
+	}
 }
 
 interface InterfaceTeste {

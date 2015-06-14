@@ -2,7 +2,8 @@
 #include "private.c"
 
 // funcoes somente visiveis a struct classloader
-static int load(CLASS_LOADER* this, DADOS d) {
+static int load(CLASS_LOADER* this, char* fileName) {
+	DADOS d = getUTILInstance().LeArquivo(fileName);
 	int flag = 0, contador = 0, cp_size = 0;
 	uint8_t* base_pointer = d.bytes;
 
