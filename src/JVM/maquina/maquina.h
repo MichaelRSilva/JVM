@@ -4,17 +4,29 @@
 	
 	// heap
 		typedef struct _heap {
-			// TODO
+			struct _object {
+				CLASS* class;
+				struct _object *super;
+			}* Objects;
+			struct _array {
+				uint32_t ref;
+				uint32_t size;
+			}* arrays;
 		} HEAP;
 
 	// stack
 		typedef struct _stack {
-			// TODO	
+			struct _frame* value;
+			struct _stack* proximo;
 		} STACK;
 
-	// frame
+	// frame: capítulo 3, seção 3.6 da especificação
 		typedef struct _frame {
-			// TODO
+			uint32_t* local_variables;
+			uint32_t* operand_stack;
+			CONSTANT_POOL* runtime_constant_pool;
+			struct _method_info* current_method;
+			CLASS* current_class;
 		} FRAME;		
 
 	// instructions
@@ -39,7 +51,7 @@
 
 			HEAP* heap;
 			STACK* stack;
-			FRAME* frame;
+			FRAME* current_frame;
 
 			int (*loadClass)(char*);
 		} JVM;

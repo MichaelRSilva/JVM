@@ -45,7 +45,7 @@ JVM initJVM() {
 
 	toReturn.heap = initHEAP();
 	toReturn.stack = initSTACK();
-	toReturn.frame = initFRAME();
+	toReturn.current_frame = initFRAME();
 
 	toReturn.loadClass = loadClass;
 	return toReturn;
