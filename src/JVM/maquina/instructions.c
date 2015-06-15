@@ -805,7 +805,6 @@ static void jsr_w() {
 	//TODO
 }
 
-
 const JVM_INSTRUCTION instructions[] = {
 	{0, 	"nop", 				nop				},
 	{0, 	"aconst_null", 		aconst_null		},

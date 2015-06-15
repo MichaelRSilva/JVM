@@ -2,30 +2,51 @@
 	#define MODULE_JVM
 	#include "../../ClassLoader/classloader.h"
 	
-	typedef struct _jvminstruction {
-		uint16_t qtd_operandos;
-		char *nome;
-		void (*call)();
-	} JVM_INSTRUCTION;
+	// heap
+		typedef struct _heap {
+			// TODO
+		} HEAP;
 
+	// stack
+		typedef struct _stack {
+			// TODO	
+		} STACK;
 
-	/// Variável global para acessar as JVM instructions
-	extern const JVM_INSTRUCTION instructions[];
+	// frame
+		typedef struct _frame {
+			// TODO
+		} FRAME;		
 
-	typedef struct _maquina_java {
-		int classes_size;
-		int interfaces_size;
+	// instructions
+		typedef struct _jvminstruction {
+			uint16_t qtd_operandos;
+			char *nome;
+			void (*call)();
+		} JVM_INSTRUCTION;
 
-		struct _class_arr {
-			CLASS** array;
-			int size;
-		} classes, interfaces;
+		/// Variável global para acessar as instruções da JVM
+		extern const JVM_INSTRUCTION instructions[];
 
-		int (*loadClass)(char*);
-	} JVM;
+	// JVM
+		typedef struct _maquina_java {
+			int classes_size;
+			int interfaces_size;
+
+			struct _class_arr {
+				CLASS** array;
+				int size;
+			} classes, interfaces;
+
+			HEAP* heap;
+			STACK* stack;
+			FRAME* frame;
+
+			int (*loadClass)(char*);
+		} JVM;
 	
+	HEAP* initHEAP();
+	STACK* initSTACK();
+	FRAME* initFRAME();
 	JVM initJVM();
-
 	extern JVM maquina;
-
 #endif

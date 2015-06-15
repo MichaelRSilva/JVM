@@ -1,5 +1,5 @@
 /*! \file
-	\brief Define funcoes associadas a uma "instancia" da maquina virtual java
+	\brief Define funcoes associadas a maquina virtual java
 
 	Autores:
 		- Abilio Esteves Calegario de Oliveira - 10/0006132
@@ -9,6 +9,9 @@
 	JVM - Software Basico 1/2015
 */
 #include "private.c"
+#include "heap.c"
+#include "stack.c"
+#include "frame.c"
 
 JVM maquina;
 
@@ -39,6 +42,10 @@ JVM initJVM() {
 	
 	toReturn.classes.array = (CLASS**)malloc(sizeof(CLASS*));
 	toReturn.interfaces.array = NULL;
+
+	toReturn.heap = initHEAP();
+	toReturn.stack = initSTACK();
+	toReturn.frame = initFRAME();
 
 	toReturn.loadClass = loadClass;
 	return toReturn;
