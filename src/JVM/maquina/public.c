@@ -42,9 +42,9 @@ JVM initJVM() {
 	toReturn.classes.array = (CLASS**)malloc(sizeof(CLASS*));
 	toReturn.interfaces.array = NULL;
 
-	toReturn.heap = initHEAP();
-	toReturn.stack = initSTACK();
-	toReturn.current_frame = initFRAME();
+	toReturn.heap = NULL;
+	toReturn.stack = NULL;
+	toReturn.current_frame = NULL;
 
 	toReturn.loadClass = loadClass;
 	return toReturn;

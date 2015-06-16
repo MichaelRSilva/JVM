@@ -29,17 +29,18 @@
 			struct _operand_stack {
 				uint32_t array[MAX_OPERAND_STACK];				
 				uint32_t base;
-				uint32_t top;
+				uint32_t topo;
 			} operand_stack;
-			
+
 			CONSTANT_POOL* runtime_constant_pool;
-			struct _method_info* current_method;
+			struct _code_attribute* code_attr;
 			CLASS* current_class;
 			uint32_t pc;
 
-			// metodos
+			// funcoes
 			void (*push)(uint32_t);
 			uint32_t (*pop)();
+			void (*push2)(uint64_t);
 		} FRAME;		
 
 	// instructions
@@ -68,7 +69,7 @@
 	
 	HEAP* initHEAP();
 	STACK* initSTACK();
-	FRAME* initFRAME();
+	FRAME* initFRAME(CLASS*, struct _code_attribute*);
 	JVM initJVM();
 	extern JVM maquina;
 #endif
