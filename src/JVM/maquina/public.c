@@ -8,12 +8,11 @@
 
 	JVM - Software Basico 1/2015
 */
+#include "instructions.c"
 #include "private.c"
 #include "heap.c"
 #include "stack.c"
 #include "frame.c"
-
-JVM maquina;
 
 static int loadClass(char* name) {
 	int toReturn = -1;

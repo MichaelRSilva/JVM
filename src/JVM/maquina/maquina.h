@@ -27,6 +27,7 @@
 			CONSTANT_POOL* runtime_constant_pool;
 			struct _method_info* current_method;
 			CLASS* current_class;
+			uint32_t pc;
 		} FRAME;		
 
 	// instructions
@@ -41,9 +42,6 @@
 
 	// JVM
 		typedef struct _maquina_java {
-			int classes_size;
-			int interfaces_size;
-
 			struct _class_arr {
 				CLASS** array;
 				int size;

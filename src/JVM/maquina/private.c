@@ -1,7 +1,5 @@
 #include "maquina.h"
 
-JVM maquina;
-
 static int getClassIndex(char* class_name, struct _class_arr classes) {
 	if (classes.array == NULL) return -1;
 

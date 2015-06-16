@@ -33,7 +33,8 @@ public final class ClassicSingleton extends AbstractTeste1 implements InterfaceT
 	}
 
 	public static void main(String args[]) {
-
+		ClassicSingleton var = new ClassicSingleton();
+		System.out.println("Main: soma1: " + var.soma(1,2) + "soma2: " + var.soma2(1,2,3));
 	}
 }
 

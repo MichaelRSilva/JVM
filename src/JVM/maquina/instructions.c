@@ -3,7 +3,7 @@
 JVM maquina;
 
 static void nop() {
-	//TODO
+	maquina.current_frame->pc++;
 }
 
 static void aconst_null() {
@@ -977,7 +977,7 @@ const JVM_INSTRUCTION instructions[] = {
 	{2, 	"jsr",				jsr				},
 	{1, 	"ret",				ret				},
 	{14, 	"tableswitch",		tableswitch		},
-	{10, 	"lookupswitch",		lookupswitch	},
+	{10,	"lookupswitch",		lookupswitch	},
 	{0, 	"ireturn",			ireturn			},
 	{0, 	"lreturn",			lreturn			},
 	{0, 	"freturn",			freturn			},
