@@ -25,8 +25,13 @@
 		typedef struct _frame {
 			// atributos
 			uint32_t* local_variables;
-			uint32_t operand_stack[MAX_OPERAND_STACK];
-			uint16_t operand_stack_top;
+
+			struct _operand_stack {
+				uint32_t array[MAX_OPERAND_STACK];				
+				uint32_t base;
+				uint32_t top;
+			} operand_stack;
+			
 			CONSTANT_POOL* runtime_constant_pool;
 			struct _method_info* current_method;
 			CLASS* current_class;

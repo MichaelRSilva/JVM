@@ -2,16 +2,19 @@
 
 // TODO
 
-
-void push(uint32_t valor) {
-	maquina.current_frame->operand_stack[++maquina.current_frame->operand_stack_top] = valor;
+static void push(uint32_t valor) {
+	maquina.current_frame->operand_stack.array[++maquina.current_frame->operand_stack.top] = valor;
 }
 
-uint32_t pop() {
-	return maquina.current_frame->operand_stack[maquina.current_frame->operand_stack_top--];
+static uint32_t pop() {
+	return maquina.current_frame->operand_stack.array[maquina.current_frame->operand_stack.top--];
 }
 
 FRAME* initFRAME() {
+	FRAME* frame = (FRAME*)malloc(sizeof(FRAME));
 	
-	return NULL;
+	frame->pop = pop;
+	frame->push = push;
+	
+	return frame;
 }
