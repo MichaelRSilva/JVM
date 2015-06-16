@@ -2,287 +2,540 @@
 
 JVM maquina;
 
+uint8_t WIDE = 0;
+
 static void _nop() {
 	maquina.current_frame->pc++;
 }
 
 static void _aconst_null() {
-	//TODO
+    maquina.current_frame->push(0);
+    maquina.current_frame->pc++;
 }
 
 static void _iconst_m1() {
-	//TODO
+	maquina.current_frame->push(-1);
+	maquina.current_frame->pc++;
 }
 
 static void _iconst_0() {
-	//TODO
+    maquina.current_frame->push(0);
+    maquina.current_frame->pc++;
 }
 
 static void _iconst_1() {
-	//TODO
+	maquina.current_frame->push(1);
+	maquina.current_frame->pc++;
 }
 
 static void _iconst_2() {
-	//TODO
+    maquina.current_frame->push(2);
+    maquina.current_frame->pc++;
 }
 
+
 static void _iconst_3() {
-	//TODO
+	maquina.current_frame->push(3);
+	maquina.current_frame->pc++;
 }
 
 static void _iconst_4() {
-	//TODO
+    maquina.current_frame->push(4);
+    maquina.current_frame->pc++;
 }
 
 static void _iconst_5() {
-	//TODO
+	maquina.current_frame->push(5);
+	maquina.current_frame->pc++;
 }
 
 static void _lconst_0() {
-	//TODO
+    maquina.current_frame->push(0);
+    maquina.current_frame->push(0);
+    maquina.current_frame->pc++;
 }
 
 static void _lconst_1() {
-	//TODO
+	maquina.current_frame->push(0);
+	maquina.current_frame->push(1);
+	maquina.current_frame->pc++;
 }
+
 static void _fconst_0() {
-	//TODO
+    float float_number = 0.0;
+    maquina.current_frame->push(*((uint32_t*)&float_number));
+    maquina.current_frame->pc++;
 }
 
 static void _fconst_1() {
-	//TODO
+    float float_number = 1.0;
+    maquina.current_frame->push(*((uint32_t*)&float_number));
+    maquina.current_frame->pc++;
 }
 
 static void _fconst_2() {
-	//TODO
+    float float_number = 2.0;
+    maquina.current_frame->push(*((uint32_t*)&float_number));
+    maquina.current_frame->pc++;
 }
-
 static void _dconst_0() {
-	//TODO
+	//testar
+	uint32_t auxiliar_32;
+	uint64_t auxiliar_64;
+	double double_number = 0.0;
+
+	auxiliar_32 = *(uint64_t*)double_number >> 32;
+	maquina.current_frame->push(auxiliar_32);
+	auxiliar_32 = *(uint64_t*)double_number;
+	maquina.current_frame->push(auxiliar_32);
+
 }
 
 static void _dconst_1() {
-	//TODO
+	uint32_t auxiliar_32;
+	uint64_t auxiliar_64;
+	double double_number = 1.0;
+
+	auxiliar_32 = *(uint64_t*)double_number >> 32;
+	maquina.current_frame->push(auxiliar_32);
+	auxiliar_32 = *(uint64_t*)double_number;
+	maquina.current_frame->push(auxiliar_32);
 }
 
 static void _bipush() {
-	//TODO
+    //Pula os 8 bits codigo da instrucao contida no array de codes
+    maquina.current_frame->pc++;
+    maquina.current_frame->push(maquina.current_frame->code_attr->code[maquina.current_frame->pc]);
+    maquina.current_frame->pc++;
 }
 
 static void _sipush() {
-	//TODO
+	uint8_t high,low;
+	int16_t auxiliar_16;
+	
+	maquina.current_frame->pc++;	
+	high = maquina.current_frame->code_attr->code[maquina.current_frame->pc];
+	maquina.current_frame->pc++;
+	low = maquina.current_frame->code_attr->code[maquina.current_frame->pc];
+
+	auxiliar_16 = high;
+	auxiliar_16 <<= 8;
+	auxiliar_16 |= low;
+	
+	maquina.current_frame->push((int32_t)auxiliar_16);
+	maquina.current_frame->pc++;
 }
 
 static void _ldc() {
-	//TODO
+    uint8_t indice, type;
+    
+    maquina.current_frame->pc++;
+    indice = maquina.current_frame->code_attr->code[maquina.current_frame->pc];
+    type = maquina.current_frame->runtime_constant_pool->constants[indice-1].tag;
+    
+    if(type == tInteger){
+        maquina.current_frame->push(maquina.current_frame->runtime_constant_pool->constants[indice-1].type.Integer.bytes);
+    }else if(type == tFloat){
+        maquina.current_frame->push(maquina.current_frame->runtime_constant_pool->constants[indice-1].type.Float.bytes);
+    }else if(type == tString){
+        maquina.current_frame->push(maquina.current_frame->runtime_constant_pool->constants[indice-1].type.String.stringIndex);
+    }
+    
 }
 
 static void _ldc_w() {
-	//TODO
+	uint32_t indice;
+	uint8_t type;
+	uint32_t high, low, completeValue;
+	
+	maquina.current_frame->pc++;
+
+	high = maquina.current_frame->code_attr->code[maquina.current_frame->pc];
+	maquina.current_frame->pc++;
+	low = maquina.current_frame->code_attr->code[maquina.current_frame->pc];
+
+	completeValue = high;
+	completeValue = completeValue << 8;
+	completeValue = completeValue | low;
+
+	type = maquina.current_frame->runtime_constant_pool->constants[indice-1].tag;
+
+	if(type == tInteger){
+		maquina.current_frame->push(maquina.current_frame->runtime_constant_pool->constants[indice-1].type.Integer.bytes);
+	}
+	if(type == tFloat){
+		maquina.current_frame->push(maquina.current_frame->runtime_constant_pool->constants[indice-1].type.Float.bytes);
+	}
+	else if(type == tString){
+		maquina.current_frame->push(maquina.current_frame->runtime_constant_pool->constants[indice-1].type.String.stringIndex);
+	}
+
+	maquina.current_frame->pc++;
 }
 
 static void _ldc2_w() {
-	//TODO
+    
+    uint32_t indice;
+    uint8_t type;
+    uint32_t high, low, completeValue;
+    
+    maquina.current_frame->pc++;
+    
+    high = maquina.current_frame->code_attr->code[maquina.current_frame->pc];
+    maquina.current_frame->pc++;
+    low = maquina.current_frame->code_attr->code[maquina.current_frame->pc];
+    
+    completeValue = high;
+    completeValue = completeValue << 8;
+    completeValue = completeValue | low;
+    
+    type = maquina.current_frame->runtime_constant_pool->constants[indice-1].tag;
+    
+    if(type == tLong){
+        maquina.current_frame->push(maquina.current_frame->runtime_constant_pool->constants[indice-1].type.Long.highBytes);
+        maquina.current_frame->push(maquina.current_frame->runtime_constant_pool->constants[indice-1].type.Long.lowBytes);
+    }else if(type == tDouble){
+        maquina.current_frame->push(maquina.current_frame->runtime_constant_pool->constants[indice-1].type.Double.highBytes);
+        maquina.current_frame->push(maquina.current_frame->runtime_constant_pool->constants[indice-1].type.Double.lowBytes);
+    }
+    
+    maquina.current_frame->pc++;
 }
 
 static void _iload() {
-	//TODO
+	
+	uint16_t indice;
+	maquina.current_frame->pc++;
+	indice =  maquina.current_frame->code_attr->code[maquina.current_frame->pc];
+
+	if(WIDE == 1){
+		indice = indice << 8;
+		maquina.current_frame->pc++;
+		indice = indice | maquina.current_frame->code_attr->code[maquina.current_frame->pc];
+		WIDE = 0;
+	}
+	maquina.current_frame->push(maquina.current_frame->local_variables[indice]);
+	maquina.current_frame->pc++;
 }
 
 static void _lload() {
-	//TODO
+    uint16_t indice;
+    maquina.current_frame->pc++;
+    indice = maquina.current_frame->code_attr->code[maquina.current_frame->pc];
+    
+    if(WIDE == 1){
+        indice = indice << 8;
+        maquina.current_frame->pc++;
+        indice = indice | maquina.current_frame->code_attr->code[maquina.current_frame->pc];
+        WIDE = 0;
+    }
+    
+    maquina.current_frame->push(maquina.current_frame->local_variables[indice]);
+    maquina.current_frame->push(maquina.current_frame->local_variables[indice+1]);
+    maquina.current_frame->pc++;
+    
 }
-
 static void _fload() {
-	//TODO
+	_iload();
 }
 
 static void _dload() {
-	//TODO
+    _lload();
 }
 
 static void _aload() {
-	//TODO
+	_iload();
 }
 
 static void _iload_0() {
-	//TODO
+    maquina.current_frame->push(maquina.current_frame->local_variables[0]);
+    maquina.current_frame->pc++;
 }
 
 static void _iload_1() {
-	//TODO
+	maquina.current_frame->push(maquina.current_frame->local_variables[1]);
+	maquina.current_frame->pc++;
 }
 
 static void _iload_2() {
-	//TODO
+    maquina.current_frame->push(maquina.current_frame->local_variables[2]);
+    maquina.current_frame->pc++;
 }
 
 static void _iload_3() {
-	//TODO
+	maquina.current_frame->push(maquina.current_frame->local_variables[3]);
+	maquina.current_frame->pc++;
 }
 
 static void _lload_0() {
-	//TODO
+    maquina.current_frame->push(maquina.current_frame->local_variables[0]);
+    maquina.current_frame->push(maquina.current_frame->local_variables[1]);
+    maquina.current_frame->pc++;
 }
 
 static void _lload_1() {
-	//TODO
+	maquina.current_frame->push(maquina.current_frame->local_variables[1]);
+	maquina.current_frame->push(maquina.current_frame->local_variables[2]);
+	maquina.current_frame->pc++;
 }
 
 static void _lload_2() {
-	//TODO
+    maquina.current_frame->push(maquina.current_frame->local_variables[2]);
+    maquina.current_frame->push(maquina.current_frame->local_variables[3]);
+    maquina.current_frame->pc++;
 }
 
 static void _lload_3() {
-	//TODO
+	maquina.current_frame->push(maquina.current_frame->local_variables[3]);
+	maquina.current_frame->push(maquina.current_frame->local_variables[4]);
+	maquina.current_frame->pc++;
 }
 
 static void _fload_0() {
-	//TODO
+    _iload_0();
 }
 
 static void _fload_1() {
-	//TODO
+	_iload_1();
 }
 
 static void _fload_2() {
-	//TODO
+    _iload_2();
 }
 
+
 static void _fload_3() {
-	//TODO
+	_iload_3();
 }
 
 static void _dload_0() {
-	//TODO
+    _lload_0();
 }
 
 static void _dload_1() {
-	//TODO
+	_lload_1();
 }
 
 static void _dload_2() {
-	//TODO
+    _lload_2();
 }
 
 static void _dload_3() {
-	//TODO
+	_lload_3();;
 }
 
 static void _aload_0() {
-	//TODO
+    _iload_0();
 }
 
 static void _aload_1() {
-	//TODO
+	_iload_1();
 }
 
 static void _aload_2() {
-	//TODO
+    _iload_2();
 }
 
 static void _aload_3() {
-	//TODO
+	_iload_3();
 }
 
 static void _iaload() {
-	//TODO
+    uint32_t indice;
+    void *point;
+    indice = maquina.current_frame->pop();
+    point = (void *)(maquina.current_frame->pop());
+    maquina.current_frame->push(((uint32_t *)point)[indice]);
+    maquina.current_frame->pc++;
 }
 
 static void _laload() {
-	//TODO
+	uint32_t indice;
+	void *point;
+	indice = maquina.current_frame->pop();
+	point = (void *) maquina.current_frame->pop();
+	maquina.current_frame->push2(((uint64_t *)point)[indice]);
+	maquina.current_frame->pc++;
 }
 
 static void _faload() {
-	//TODO
+    uint32_t retorno, indice;
+    void *point;
+    indice = maquina.current_frame->pop();
+    point = (void *)(maquina.current_frame->pop());
+    memcpy(&retorno, &((float *)point)[indice], sizeof(retorno));
+    maquina.current_frame->push(retorno);
+    maquina.current_frame->pc++;
 }
 
 static void _daload() {
-	//TODO
+	_laload();
 }
 
 static void _aaload() {
-	//TODO
+    uint32_t indice;
+    void *point;
+    indice = maquina.current_frame->pop();
+    point = (void *)maquina.current_frame->pop();
+    maquina.current_frame->push(((uint32_t *)point)[indice]);
+    maquina.current_frame->pc++;
 }
 
 static void _baload() {
-	//TODO
+	uint32_t indice;
+	void *point;
+	indice = maquina.current_frame->pop();
+	point = (void *) maquina.current_frame->pop();
+	maquina.current_frame->push((uint32_t)(((uint8_t *)point)[indice]));
+	maquina.current_frame->pc++;
+
 }
 
 static void _caload() {
-	//TODO
+    uint32_t indice;
+    void *point;
+    indice = maquina.current_frame->pop();
+    point = (void *)maquina.current_frame->pop();
+    maquina.current_frame->push((uint32_t)(((uint16_t*)point)[indice]));
+    maquina.current_frame->pc++;
 }
 
 static void _saload() {
-	//TODO
+	_caload();
 }
 
 static void _istore() {
-	//TODO
+    uint16_t indice;
+    uint32_t value;
+    maquina.current_frame->pc++;
+    indice = maquina.current_frame->code_attr->code[maquina.current_frame->pc];
+    value = maquina.current_frame->pop();
+    maquina.current_frame->local_variables[indice] = value;
+    maquina.current_frame->pc++;
 }
 
 static void _lstore() {
-	//TODO
+	uint16_t indice;
+	uint32_t high, low;
+	maquina.current_frame->pc++;
+	
+	indice = maquina.current_frame->code_attr->code[maquina.current_frame->pc];	
+	low = maquina.current_frame->pop();
+	high = maquina.current_frame->pop();
+
+	maquina.current_frame->local_variables[indice] = high;
+	maquina.current_frame->local_variables[indice+1] = low;
+
+	maquina.current_frame->pc++;
 }
 
 static void _fstore() {
-	//TODO
+    _istore();
 }
 
 static void _dstore() {
-	//TODO
+	uint16_t indice;
+	uint32_t high, low;
+	maquina.current_frame->pc++;
+	
+	indice = maquina.current_frame->code_attr->code[maquina.current_frame->pc];	
+	low = maquina.current_frame->pop();
+	high = maquina.current_frame->pop();
+
+	maquina.current_frame->local_variables[indice] = low;
+	maquina.current_frame->local_variables[indice+1] = high;
+
+	maquina.current_frame->pc++;
 }
 
 static void _astore() {
-	//TODO
+    _istore();
 }
 
 static void _istore_0() {
-	//TODO
+	uint32_t value;
+	value = maquina.current_frame->pop();
+	maquina.current_frame->local_variables[0] = value;
+	maquina.current_frame->pc++;
 }
 
 static void _istore_1() {
-	//TODO
+    uint32_t value;
+    value = maquina.current_frame->pop();
+    maquina.current_frame->local_variables[1] = value;
+    maquina.current_frame->pc++;
 }
 
 static void _istore_2() {
-	//TODO
+	uint32_t value;
+	value = maquina.current_frame->pop();
+	maquina.current_frame->local_variables[2] = value;
+	maquina.current_frame->pc++;
 }
 
 static void _istore_3() {
-	//TODO
+    uint32_t value;
+    value = maquina.current_frame->pop();
+    maquina.current_frame->local_variables[3] = value;
+    maquina.current_frame->pc++;
 }
 
 static void _lstore_0() {
-	//TODO
+	uint32_t high, low;
+	low = maquina.current_frame->pop();
+	high = maquina.current_frame->pop();
+
+	maquina.current_frame->local_variables[0] = high;
+	maquina.current_frame->local_variables[1] = low;
+	maquina.current_frame->pc++;
 }
 
 static void _lstore_1() {
-	//TODO
+    uint32_t high, low;
+    low = maquina.current_frame->pop();
+    high = maquina.current_frame->pop();
+    maquina.current_frame->local_variables[1]= high;
+    maquina.current_frame->local_variables[2] = low;
+    maquina.current_frame->pc++;
 }
 
 static void _lstore_2() {
-	//TODO
+	uint32_t high, low;
+	low = maquina.current_frame->pop();
+	high = maquina.current_frame->pop();
+
+	maquina.current_frame->local_variables[2] = high;
+	maquina.current_frame->local_variables[3] = low;
+	maquina.current_frame->pc++;
 }
 
 static void _lstore_3() {
-	//TODO
+    uint32_t high, low;
+    low = maquina.current_frame->pop();
+    high = maquina.current_frame->pop();
+    maquina.current_frame->local_variables[3]= high;
+    maquina.current_frame->local_variables[4] = low;
+    maquina.current_frame->pc++;
 }
 
 static void _fstore_0() {
-	//TODO
+	uint32_t  value;
+	valor = maquina.current_frame->pop();
+	maquina.current_frame->local_variables[0] = value;
+	maquina.current_frame->pc++;
 }
 
 static void _fstore_1() {
-	//TODO
+    _istore_1();
 }
+
 
 static void _fstore_2() {
 	//TODO
 }
 
 static void _fstore_3() {
-	//TODO
+    _istore_3();
 }
 
 static void _dstore_0() {
@@ -290,7 +543,7 @@ static void _dstore_0() {
 }
 
 static void _dstore_1() {
-	//TODO
+    _lstore_1();
 }
 
 static void _dstore_2() {
@@ -298,7 +551,7 @@ static void _dstore_2() {
 }
 
 static void _dstore_3() {
-	//TODO
+    _lstore_3();
 }
 
 static void _astore_0() {
@@ -306,7 +559,10 @@ static void _astore_0() {
 }
 
 static void _astore_1() {
-	//TODO
+    uint32_t value;
+    value = maquina.current_frame->pop();
+    maquina.current_frame->local_variables[1] = value;
+    maquina.current_frame->pc++;
 }
 
 static void _astore_2() {
@@ -314,15 +570,31 @@ static void _astore_2() {
 }
 
 static void _astore_3() {
-	//TODO
+    uint32_t value;
+    value = maquina.current_frame->pop();
+    maquina.current_frame->local_variables[3] = value;
+    maquina.current_frame->pc++;
 }
 
 static void _iastore() {
 	//TODO
 }
 
+
 static void _lastore() {
-	//TODO
+    uint32_t indice, low, high;
+    uint16_t value;
+    uint64_t auxValue;
+    void *point;
+    low = maquina.current_frame->pop();
+    high = maquina.current_frame->pop();
+    auxValue = high;
+    auxValue = auxValue << 32;
+    value = auxValue + low;
+    indice = maquina.current_frame->pop();
+    point = (void *)maquina.current_frame->pop();
+    ((uint16_t *)point)[indice] = value;
+    maquina.current_frame->pc++;
 }
 
 static void _fastore() {
@@ -782,7 +1054,8 @@ static void _monitorexit() {
 }
 
 static void _wide() {
-	//TODO
+	WIDE = 1;
+	maquina.current_frame->pc++;
 }
 
 static void _multianewarray() {
