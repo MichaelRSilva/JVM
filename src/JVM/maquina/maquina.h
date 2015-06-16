@@ -1,17 +1,27 @@
 #ifndef MODULE_JVM
 	#define MODULE_JVM
 	#include "../../ClassLoader/classloader.h"
-	#define MAX_OPERAND_STACK 50
+
+	#define tREFERENCIA 	0
+	#define	tBOOLEAN	 	4
+	#define	tCHAR 			5
+	#define	tFLOAT 			6
+	#define	tDOUBLE		 	7
+	#define	tBYTE	 		8
+	#define	tSHORT	 		9
+	#define	tINT	 		10
+	#define	tLONG	 		11
 
 	// heap
 		typedef struct _heap {
 			struct _object {
 				CLASS* class;
 				struct _object* super;
-			}** Objects;
+			}** objects;
 			struct _array {
-				uint32_t ref;
-				uint32_t size;
+				uint32_t quantidade;
+				uint32_t tipo;
+				uint32_t element_size;
 			}** arrays;
 
 			uint32_t object_count;
@@ -37,9 +47,11 @@
 			uint32_t* local_variables;
 
 			struct _operand_stack {
-				uint32_t array[MAX_OPERAND_STACK];				
-				uint32_t base;
-				uint32_t topo;
+				uint32_t allocated;
+				struct _u4pilha {
+					uint32_t value;
+					struct _u4pilha* next; 
+				}* topo;
 			} operand_stack;
 
 			CONSTANT_POOL* runtime_constant_pool;
