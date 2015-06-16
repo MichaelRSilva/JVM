@@ -79,27 +79,32 @@ static void _fconst_2() {
     maquina.current_frame->pc++;
 }
 static void _dconst_0() {
-	//testar
+	
 	uint32_t auxiliar_32;
-	uint64_t auxiliar_64;
 	double double_number = 0.0;
+	int64_t *auxiliar_64 = malloc(sizeof(uint64_t));
 
-	auxiliar_32 = *(uint64_t*)double_number >> 32;
+	memcpy(auxiliar_64, &double_number, sizeof(uint64_t));
+	auxiliar_32 = *auxiliar_64 >> 32;
 	maquina.current_frame->push(auxiliar_32);
-	auxiliar_32 = *(uint64_t*)double_number;
+	auxiliar_32 = *auxiliar_64 & 0xffffffff;
 	maquina.current_frame->push(auxiliar_32);
+	maquina.current_frame->pc++;
+        
 
 }
 
 static void _dconst_1() {
 	uint32_t auxiliar_32;
-	uint64_t auxiliar_64;
 	double double_number = 1.0;
+	int64_t *auxiliar_64 = malloc(2 * sizeof(uint32_t));
 
-	auxiliar_32 = *(uint64_t*)double_number >> 32;
+	memcpy(auxiliar_64, &double_number, 2 * sizeof(uint32_t));
+	auxiliar_32 = *auxiliar_64 >> 32;
 	maquina.current_frame->push(auxiliar_32);
-	auxiliar_32 = *(uint64_t*)double_number;
+	auxiliar_32 = *auxiliar_64 & 0xffffffff;
 	maquina.current_frame->push(auxiliar_32);
+	maquina.current_frame->pc++;
 }
 
 static void _bipush() {
@@ -140,6 +145,8 @@ static void _ldc() {
     }else if(type == tString){
         maquina.current_frame->push(maquina.current_frame->runtime_constant_pool->constants[indice-1].type.String.stringIndex);
     }
+
+    maquina.current_frame->pc++;
     
 }
 
@@ -520,7 +527,7 @@ static void _lstore_3() {
 
 static void _fstore_0() {
 	uint32_t  value;
-	valor = maquina.current_frame->pop();
+	value = maquina.current_frame->pop();
 	maquina.current_frame->local_variables[0] = value;
 	maquina.current_frame->pc++;
 }
