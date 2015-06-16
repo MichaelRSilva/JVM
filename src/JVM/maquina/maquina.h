@@ -1,7 +1,8 @@
 #ifndef MODULE_JVM
 	#define MODULE_JVM
 	#include "../../ClassLoader/classloader.h"
-	
+	#define MAX_OPERAND_STACK 50
+
 	// heap
 		typedef struct _heap {
 			struct _object {
@@ -22,12 +23,18 @@
 
 	// frame: capítulo 3, seção 3.6 da especificação
 		typedef struct _frame {
+			// atributos
 			uint32_t* local_variables;
-			uint32_t* operand_stack;
+			uint32_t operand_stack[MAX_OPERAND_STACK];
+			uint16_t operand_stack_top;
 			CONSTANT_POOL* runtime_constant_pool;
 			struct _method_info* current_method;
 			CLASS* current_class;
 			uint32_t pc;
+
+			// metodos
+			void (*push)(uint32_t);
+			uint32_t (*pop)();
 		} FRAME;		
 
 	// instructions

@@ -349,7 +349,7 @@ static void sastore() {
 	//TODO
 }
 
-static void pop() {
+static void _pop() {
 	//TODO
 }		
 
@@ -893,7 +893,7 @@ const JVM_INSTRUCTION instructions[] = {
 	{0, 	"bastore",			bastore			},
 	{0, 	"castore",			castore			},
 	{0, 	"sastore",			sastore			},
-	{0, 	"pop",				pop				},
+	{0, 	"pop",				_pop			},
 	{0, 	"pop2",				pop2			},
 	{0, 	"dup",				dup				},
 	{0, 	"dup_x1",			dup_x1			},
