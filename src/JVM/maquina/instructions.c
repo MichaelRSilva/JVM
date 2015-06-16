@@ -348,30 +348,36 @@ static void _aload_3() {
 }
 
 static void _iaload() {
-    uint32_t indice;
-    void *point;
-    indice = maquina.current_frame->pop();
-    point = (void *)(maquina.current_frame->pop());
-    maquina.current_frame->push(((uint32_t *)point)[indice]);
+    uint32_t indice, aux;
+    uint32_t* arrayRef;
+
+    indice 	 = maquina.current_frame->pop();
+    aux = maquina.current_frame->pop();
+    memcpy(&arrayRef, &aux, sizeof(uint32_t));
+    maquina.current_frame->push(arrayRef[indice]);
     maquina.current_frame->pc++;
 }
 
 static void _laload() {
-	uint32_t indice;
-	void *point;
+	uint32_t indice,aux;
+	uint64_t* arrayRef;
+
 	indice = maquina.current_frame->pop();
-	point = (void *) maquina.current_frame->pop();
-	maquina.current_frame->push2(((uint64_t *)point)[indice]);
+	aux = maquina.current_frame->pop();
+	memcpy(&arrayRef, &aux, sizeof(uint32_t));
+	maquina.current_frame->push2(arrayRef[indice]);
 	maquina.current_frame->pc++;
 }
 
 static void _faload() {
-    uint32_t retorno, indice;
-    void *point;
-    indice = maquina.current_frame->pop();
-    point = (void *)(maquina.current_frame->pop());
-    memcpy(&retorno, &((float *)point)[indice], sizeof(retorno));
-    maquina.current_frame->push(retorno);
+    uint32_t indice, aux, aux2;
+    uint32_t* arrayRef;
+
+    indice 	 = maquina.current_frame->pop();
+    aux = maquina.current_frame->pop();
+    memcpy(&arrayRef, &aux, sizeof(uint32_t));
+    memcpy(&aux2, &((float *)arrayRef)[indice], sizeof(uint32_t));
+    maquina.current_frame->push(aux2);
     maquina.current_frame->pc++;
 }
 
@@ -380,31 +386,30 @@ static void _daload() {
 }
 
 static void _aaload() {
-    uint32_t indice;
-    void *point;
-    indice = maquina.current_frame->pop();
-    point = (void *)maquina.current_frame->pop();
-    maquina.current_frame->push(((uint32_t *)point)[indice]);
-    maquina.current_frame->pc++;
+    _iaload();
 }
 
 static void _baload() {
-	uint32_t indice;
-	void *point;
+	uint32_t indice,aux;
+	uint8_t* arrayRef;
+
 	indice = maquina.current_frame->pop();
-	point = (void *) maquina.current_frame->pop();
-	maquina.current_frame->push((uint32_t)(((uint8_t *)point)[indice]));
+	aux = maquina.current_frame->pop();
+	memcpy(&arrayRef, &aux, sizeof(uint8_t));
+	maquina.current_frame->push(arrayRef[indice]);
 	maquina.current_frame->pc++;
 
 }
 
 static void _caload() {
-    uint32_t indice;
-    void *point;
-    indice = maquina.current_frame->pop();
-    point = (void *)maquina.current_frame->pop();
-    maquina.current_frame->push((uint32_t)(((uint16_t*)point)[indice]));
-    maquina.current_frame->pc++;
+    uint32_t indice,aux;
+	uint16_t* arrayRef;
+
+	indice = maquina.current_frame->pop();
+	aux = maquina.current_frame->pop();
+	memcpy(&arrayRef, &aux, sizeof(uint16_t));
+	maquina.current_frame->push(arrayRef[indice]);
+	maquina.current_frame->pc++;
 }
 
 static void _saload() {
@@ -587,20 +592,35 @@ static void _iastore() {
 	//TODO
 }
 
+/*
+
+uint32_t indice, aux;
+    uint32_t* arrayRef;
+
+    indice 	 = maquina.current_frame->pop();
+    aux = maquina.current_frame->pop();
+    memcpy(&arrayRef, &aux, sizeof(uint32_t));
+    maquina.current_frame->push(arrayRef[indice]);
+    maquina.current_frame->pc++;
+*/
 
 static void _lastore() {
-    uint32_t indice, low, high;
+    uint32_t indice, low, high,aux;
     uint16_t value;
     uint64_t auxValue;
-    void *point;
+    int32_t* arrayRef;
+
+
     low = maquina.current_frame->pop();
     high = maquina.current_frame->pop();
     auxValue = high;
     auxValue = auxValue << 32;
     value = auxValue + low;
+
+    aux = maquina.current_frame->pop();
     indice = maquina.current_frame->pop();
-    point = (void *)maquina.current_frame->pop();
-    ((uint16_t *)point)[indice] = value;
+    memcpy(&arrayRef, &aux, sizeof(uint32_t));
+    arrayRef[indice] = value;
     maquina.current_frame->pc++;
 }
 
