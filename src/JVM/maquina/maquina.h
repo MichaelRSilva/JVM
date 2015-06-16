@@ -7,12 +7,17 @@
 		typedef struct _heap {
 			struct _object {
 				CLASS* class;
-				struct _object *super;
-			}* Objects;
+				struct _object* super;
+			}** Objects;
 			struct _array {
 				uint32_t ref;
 				uint32_t size;
-			}* arrays;
+			}** arrays;
+
+			uint32_t object_count;
+			uint32_t array_count;
+
+			struct _object* (*newObject)(CLASS*);
 		} HEAP;
 
 	// stack

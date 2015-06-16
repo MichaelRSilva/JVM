@@ -50,6 +50,7 @@
 		uint16_t attributes_count;
 		struct _attribute_info* attributes; 
 	};
+	
 	struct _attribute_info {
 		uint16_t attributeNameIndex;
 		uint32_t attributeLength;
