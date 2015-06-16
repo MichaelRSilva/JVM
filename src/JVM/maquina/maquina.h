@@ -17,13 +17,18 @@
 
 	// stack
 		typedef struct _stack {
-			struct _frame* value;
+			//campos
+			struct _frame* topo;
 			struct _stack* proximo;
+
+			//funcoes
+			void (*pushFrame)(CLASS*, struct _code_attribute*);
+			struct _frame* (*popFrame)();
 		} STACK;
 
 	// frame: capítulo 3, seção 3.6 da especificação
 		typedef struct _frame {
-			// atributos
+			// campos
 			uint32_t* local_variables;
 
 			struct _operand_stack {
