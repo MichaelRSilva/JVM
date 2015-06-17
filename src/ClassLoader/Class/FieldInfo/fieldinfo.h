@@ -14,9 +14,9 @@
 
 	};
 
-
 	typedef struct _fields {
 		struct _field_info* fields;
+
 		int (*addField)(struct _fields*, CONSTANT_POOL*,int, DADOS*);
 	} FIELD_POOL;
 	

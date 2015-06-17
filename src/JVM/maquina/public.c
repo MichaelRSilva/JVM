@@ -22,7 +22,7 @@ static int loadClass(char* name) {
 		cl->load(cl, getClassPath(name));
 		toReturn = maquina.classes.size;
 		expandClassArray();
-		maquina.classes.array[maquina.classes.size++] = cl->class;
+		maquina.classes.array[maquina.classes.size++].class = cl->class;
 
  		loadParentClasses(); // insere em maquina.classes todas as classes pai ainda nao carregadas em maquina.clasess
  		loadInterfaces(cl->class); // insere em maquinas.interfaces todas as interfaces ainda nao carregadas em maquina.interfaces
@@ -38,38 +38,57 @@ static void verify(int class_index) {
 	// TODO
 }
 
-/// prepara o current_frame
-static void prepare(int class_index) {
-	maquina.heap = initHEAP();
-	maquina.stack = initSTACK();
+/// aloca e inicializa valores default para os fields estaticos
+static void prepare() {
+	// maquina.classes.array = realloc(maquina.classes.fields, (maquina.classes.size+1)*sizeof(struct _runtime_field));
+	
+	int count = 0;
+	for (int i = 0; i < maquina.classes.size; i++) {
+		for (int j = 0; j < maquina.classes.array[i].class->fields_count; j++) {
+			if (checkIfFieldIsStatic(maquina.classes.array[i].class->fields_pool->fields[j].access_flags)) {
+				maquina.classes.array[i].fields = realloc(maquina.classes.array[i].fields,(++count)*sizeof(struct _runtime_field));
+				maquina.classes.array[i].fields[j].info = &maquina.classes.array[i].class->fields_pool->fields[j];
+				maquina.classes.array[i].fields[j].value = getFieldDefaultValue(maquina.classes.array[i].fields[j].info);
+			}
+		}
+	}
 }
 
 /// carrega para method_area as classes de $reference_name
 static void resolve(int class_index, char* reference_name) {
-
+	// TODO
 }
 
 /// verifica, prepara e opcionalmente resolve
 static void link(int class_index) {
 	verify(class_index);
-	prepare(class_index);
+	prepare();
 }
 
 /// executa o main
 static void execute() {
+	printf("\nentrou execute");
+	while (maquina.current_frame != NULL && (maquina.current_frame->pc) < maquina.current_frame->code_attr->code_length) {
+		// printf("\ncomecou laco");
+		// // instructions[maquina.current_frame->code_attr->code[maquina.current_frame->pc]].call();
+		// printf("\nfinalizou laco");
+	}
 
+	// maquina.stack->popFrame();
+	printf("\nsaiu execute");
 }
 
 /// executa clinit
 static void initialize(int class_index) { 
-	struct _method_info* clinit = getclinit(maquina.classes.array[class_index]);
-
-	construirFrame(maquina.classes.array[class_index], clinit);
+	struct _method_info* clinit = getclinit(maquina.classes.array[class_index].class);
+	if (clinit == NULL) return; // classe abstrata ou interface
+	
+	construirFrame(maquina.classes.array[class_index].class, clinit);
 	execute();
 	int flag = -1;
-	// if ((flag=getClassIndex(maquina.classes.array[class_index]->getParentName(maquina.classes.array[class_index]), maquina.classes)) != -1){
-	// 	initialize(flag);
-	// }
+	if ((flag=getClassIndex(maquina.classes.array[class_index].class->getParentName(maquina.classes.array[class_index].class), maquina.classes)) != -1){
+		initialize(flag);
+	}
 }
 
 JVM initJVM() {
@@ -78,11 +97,11 @@ JVM initJVM() {
 	toReturn.classes.size = 0;
 	toReturn.interfaces.size = 0;
 	
-	toReturn.classes.array = (CLASS**)malloc(sizeof(CLASS*));
+	toReturn.classes.array = (struct _runtime_class*)malloc(sizeof(struct _runtime_class));
 	toReturn.interfaces.array = NULL;
 
-	toReturn.heap = NULL;
-	toReturn.stack = NULL;
+	toReturn.heap = initHEAP();
+	toReturn.stack = initSTACK();
 	toReturn.current_frame = NULL;
 
 	toReturn.loadClass = loadClass;

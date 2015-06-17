@@ -1,7 +1,6 @@
 #include "fieldinfo.h"
 #include "private.c"
 
-
 static int addField(FIELD_POOL* this, CONSTANT_POOL* cp, int ordem, DADOS* d) {
 	
 	this->fields[ordem].access_flags = getAccessFlags(d);
@@ -23,6 +22,5 @@ FIELD_POOL* initFIELD_POOL(int count) {
 
 	toReturn->fields = (struct _field_info*)malloc((count)*sizeof(struct _field_info));
 	toReturn->addField = addField;
-
 	return toReturn;
 }

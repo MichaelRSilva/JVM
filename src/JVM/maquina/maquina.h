@@ -12,11 +12,17 @@
 	#define	tINT	 		10
 	#define	tLONG	 		11
 
+	struct _runtime_field {
+		struct _field_info* info;
+		uint32_t value;
+	};
+
 	// heap
 		typedef struct _heap {
 			struct _object {
 				CLASS* class;
 				struct _object* super;
+				struct _runtime_field* fields;
 			}** objects;
 			struct _array {
 				uint32_t quantidade;
@@ -77,8 +83,11 @@
 
 	// JVM
 		typedef struct _maquina_java {
-			struct _class_arr {
-				CLASS** array;
+			struct _runtime_class_arr {
+				struct _runtime_class {
+					CLASS* class;
+					struct _runtime_field* fields;
+				}* array;
 				int size;
 			} classes, interfaces;
 
@@ -88,7 +97,7 @@
 
 			int (*loadClass)(char*);
 			void (*verify)(int);
-			void (*prepare)(int);
+			void (*prepare)();
 			void (*resolve)(int, char*);
 			void (*link)(int);
 			void (*initialize)(int);
