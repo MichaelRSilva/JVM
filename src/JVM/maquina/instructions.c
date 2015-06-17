@@ -592,17 +592,6 @@ static void _iastore() {
 	//TODO
 }
 
-/*
-
-uint32_t indice, aux;
-    uint32_t* arrayRef;
-
-    indice 	 = maquina.current_frame->pop();
-    aux = maquina.current_frame->pop();
-    memcpy(&arrayRef, &aux, sizeof(uint32_t));
-    maquina.current_frame->push(arrayRef[indice]);
-    maquina.current_frame->pc++;
-*/
 
 static void _lastore() {
     uint32_t indice, low, high,aux;
@@ -625,359 +614,1578 @@ static void _lastore() {
 }
 
 static void _fastore() {
-	//TODO
+	uint32_t indice,aux,valor;
+	uint16_t* arrayRef;
+
+	valor = maquina.current_frame->pop();
+	indice = maquina.current_frame->pop();
+	aux = maquina.current_frame->pop();
+	memcpy(&arrayRef, &aux, sizeof(uint16_t));
+
+	arrayRef[indice] = valor;
+
+	maquina.current_frame->pc++;
 }
 
 static void _dastore() {
-	//TODO
+	uint32_t indice, low, high,aux;
+    uint16_t value;
+    uint64_t auxValue;
+    int32_t* arrayRef;
+
+
+    low = maquina.current_frame->pop();
+    high = maquina.current_frame->pop();
+    auxValue = high;
+    auxValue = auxValue << 32;
+    value = auxValue + low;
+
+    aux = maquina.current_frame->pop();
+    indice = maquina.current_frame->pop();
+    memcpy(&arrayRef, &aux, sizeof(uint32_t));
+    arrayRef[indice] = value;
+    maquina.current_frame->pc++;
 }
 
 static void _aastore() {
-	//TODO
+	uint32_t indice,aux,value;
+	uint32_t* arrayRef;
+
+	value = maquina.current_frame->pop();
+	indice = maquina.current_frame->pop();
+	aux = maquina.current_frame->pop();
+	memcpy(&arrayRef, &aux, sizeof(uint32_t));
+
+	arrayRef[indice] = (uint32_t)value;
+
+	maquina.current_frame->pc++;
 }
 
 static void _bastore() {
-	//TODO
+	uint32_t indice,aux,value;
+	uint8_t* arrayRef;
+
+	value = maquina.current_frame->pop();
+	indice = maquina.current_frame->pop();
+	aux = maquina.current_frame->pop();
+	memcpy(&arrayRef, &aux, sizeof(uint8_t));
+
+	arrayRef[indice] = (uint8_t)value;
+
+	maquina.current_frame->pc++;
 }
 
 static void _castore() {
-	//TODO
+	uint32_t indice,aux,value;
+	uint16_t* arrayRef;
+
+	value = maquina.current_frame->pop();
+	indice = maquina.current_frame->pop();
+	aux = maquina.current_frame->pop();
+	memcpy(&arrayRef, &aux, sizeof(uint16_t));
+
+	arrayRef[indice] = (uint16_t)value;
+
+	maquina.current_frame->pc++;
 }
 
 static void _sastore() {
-	//TODO
+	_castore();
 }
 
 static void _pop() {
-	//TODO
+	maquina.current_frame->pop();
+	maquina.current_frame->pc++;
 }		
 
 static void _pop2() {
-	//TODO
+	maquina.current_frame->pop();
+	maquina.current_frame->pop();
+	maquina.current_frame->pc++;
 }	
 
 static void _dup() {
-	//TODO
+	uint32_t data;
+	data = maquina.current_frame->pop();
+	maquina.current_frame->push(data);
+	maquina.current_frame->push(data);
+	maquina.current_frame->pc++;
 }
 
 static void _dup_x1() {
-	//TODO
+	uint32_t data,other;
+	data = maquina.current_frame->pop();
+	other = maquina.current_frame->pop();
+	maquina.current_frame->push(data);
+	maquina.current_frame->push(other);
+	maquina.current_frame->push(data);
+	maquina.current_frame->pc++;
 }
 
 static void _dup_x2() {
-	//TODO
+	uint32_t data,other,last;
+	data = maquina.current_frame->pop();
+	other = maquina.current_frame->pop();
+	last = maquina.current_frame->pop();
+	maquina.current_frame->push(data);
+	maquina.current_frame->push(last);
+	maquina.current_frame->push(other);
+	maquina.current_frame->push(data);
+	maquina.current_frame->pc++;
 }	
 
 static void _dup2 () {
-	//TODO
+	uint32_t data,other;
+	data = maquina.current_frame->pop();
+	other = maquina.current_frame->pop();
+	maquina.current_frame->push(other);
+	maquina.current_frame->push(data);
+	maquina.current_frame->push(other);
+	maquina.current_frame->push(data);
+	maquina.current_frame->pc++;
 }
 
 static void _dup2_x1() {
-	//TODO
+	uint32_t data,other,last;
+	data = maquina.current_frame->pop();
+	other = maquina.current_frame->pop();
+	last = maquina.current_frame->pop();
+	maquina.current_frame->push(other);
+	maquina.current_frame->push(data);
+	maquina.current_frame->push(last);
+	maquina.current_frame->push(other);
+	maquina.current_frame->push(data);
+	maquina.current_frame->pc++;
 }
 
 static void _dup2_x2() {
-	//TODO
+	uint32_t data,other,middle,last;
+	data = maquina.current_frame->pop();
+	other = maquina.current_frame->pop();
+	middle = maquina.current_frame->pop();
+	last = maquina.current_frame->pop();
+	maquina.current_frame->push(other);
+	maquina.current_frame->push(data);
+	maquina.current_frame->push(last);
+	maquina.current_frame->push(middle);
+	maquina.current_frame->push(other);
+	maquina.current_frame->push(data);
+	maquina.current_frame->pc++;
 }
 
 static void _swap() {
-	//TODO
+	uint32_t data,other;
+	data = maquina.current_frame->pop();
+	other = maquina.current_frame->pop();
+	maquina.current_frame->push(data);
+	maquina.current_frame->push(other);
+	maquina.current_frame->pc++;
 }	
 
 static void _iadd() {
-	//TODO
+	uint32_t op,opp;
+	op  = maquina.current_frame->pop();
+	opp = maquina.current_frame->pop();
+	maquina.current_frame->push(op+opp);
+	maquina.current_frame->pc++;
 }	
 
 static void _ladd() {
-	//TODO
+	
+	uint64_t op,opp;
+	uint32_t high,low;
+
+	low  = maquina.current_frame->pop();
+	high = maquina.current_frame->pop();
+
+	op = high;
+	op = op << 32;
+	op = op + low;
+
+	low  = maquina.current_frame->pop();
+	high = maquina.current_frame->pop();
+
+	opp = high;
+	opp = opp << 32;
+	opp = opp + low;
+
+	maquina.current_frame->push2(op+opp);
+	maquina.current_frame->pc++;
+
 }	
 
 static void _fadd() {
-	//TODO
+	
+	float op, opp, sum;
+	uint32_t value, other,result;
+
+	value = maquina.current_frame->pop();
+	memcpy(&op, &value, sizeof(uint32_t));
+
+	other = maquina.current_frame->pop();
+	memcpy(&opp, &other, sizeof(uint32_t));
+
+	sum = op + opp;
+
+	memcpy(&result, &sum, sizeof(uint32_t));
+	maquina.current_frame->push(result);
+
+	maquina.current_frame->pc++;
 }	
 
 static void _dadd() {
-	//TODO
+	double op, opp, sum;
+	uint64_t result;
+	uint32_t high,low;
+
+	low  = maquina.current_frame->pop();
+	high = maquina.current_frame->pop();
+	op = getDouble(high,low);
+
+	low  = maquina.current_frame->pop();
+	high = maquina.current_frame->pop();
+	opp = getDouble(high,low);
+
+	sum = op + opp;
+
+	memcpy(&result, &sum, sizeof(uint64_t));
+	maquina.current_frame->push2(result);
+	
+	maquina.current_frame->pc++;
 }	
 
 static void _isub() {
-	//TODO
+	uint32_t op,opp;
+	op  = maquina.current_frame->pop();
+	opp = maquina.current_frame->pop();
+	maquina.current_frame->push(op-opp);
+	maquina.current_frame->pc++;
 }	
 
 static void _lsub() {
-	//TODO
+	uint64_t op,opp;
+	uint32_t high,low;
+
+	low  = maquina.current_frame->pop();
+	high = maquina.current_frame->pop();
+
+	op = high;
+	op = op << 32;
+	op = op + low;
+
+	low  = maquina.current_frame->pop();
+	high = maquina.current_frame->pop();
+
+	opp = high;
+	opp = opp << 32;
+	opp = opp + low;
+
+	maquina.current_frame->push2(op-opp);
+	maquina.current_frame->pc++;
 }	
 
 static void _fsub() {
-	//TODO
+	float op, opp, sum;
+	uint32_t value, other,result;
+
+	value = maquina.current_frame->pop();
+	memcpy(&op, &value, sizeof(uint32_t));
+
+	other = maquina.current_frame->pop();
+	memcpy(&opp, &other, sizeof(uint32_t));
+
+	sum = op - opp;
+
+	memcpy(&result, &sum, sizeof(uint32_t));
+	maquina.current_frame->push(result);
+
+	maquina.current_frame->pc++;
 }	
 
 static void _dsub() {
-	//TODO
+	double op, opp, sum;
+	uint64_t result;
+	uint32_t high,low;
+
+	low  = maquina.current_frame->pop();
+	high = maquina.current_frame->pop();
+	op = getDouble(high,low);
+
+	low  = maquina.current_frame->pop();
+	high = maquina.current_frame->pop();
+	opp = getDouble(high,low);
+
+	sum = op - opp;
+
+	memcpy(&result, &sum, sizeof(uint64_t));
+	maquina.current_frame->push2(result);
+	
+	maquina.current_frame->pc++;
 }	
 
 static void _imul() {
-	//TODO
+	uint32_t op,opp;
+	op  = (int32_t)maquina.current_frame->pop();
+	opp = (int32_t)maquina.current_frame->pop();
+	maquina.current_frame->push(op*opp);
+	maquina.current_frame->pc++;
 }	
 
 static void _lmul() {
-	//TODO
+
+	int32_t hop, lop, hopp, lopp;
+	int64_t op, opp;
+
+	lop  = maquina.current_frame->pop();
+	hop  = maquina.current_frame->pop();
+	lopp = maquina.current_frame->pop();
+	hopp = maquina.current_frame->pop();
+
+	op  = hop;
+	op  = op << 32;
+	op  = op + lop;
+
+	opp  = hopp;
+	opp  = opp << 32;
+	opp  = opp + lopp;
+
+	maquina.current_frame->push2((int64_t)(op*opp));
+	maquina.current_frame->pc++;
+
 }	
 
 static void _fmul() {
-	//TODO
+	float op, opp, mult;
+	uint32_t value, other,result;
+
+	value = maquina.current_frame->pop();
+	memcpy(&op, &value, sizeof(uint32_t));
+
+	other = maquina.current_frame->pop();
+	memcpy(&opp, &other, sizeof(uint32_t));
+
+	mult = op * opp;
+
+	memcpy(&result, &mult, sizeof(uint32_t));
+	maquina.current_frame->push((uint32_t)(result));
+
+	maquina.current_frame->pc++;
 }	
 
 static void _dmul() {
-	//TODO
+	int32_t hop, lop, hopp, lopp;
+	double op, opp, mult,final;
+
+	lop  = maquina.current_frame->pop();
+	hop  = maquina.current_frame->pop();
+	lopp = maquina.current_frame->pop();
+	hopp = maquina.current_frame->pop();
+
+	op  = getDouble(lop,hop);
+	opp  = getDouble(lopp,hopp);
+	mult = op*opp;
+
+	memcpy(&final, &mult, sizeof(int64_t));
+	maquina.current_frame->push2((int64_t)(final));
+
+	maquina.current_frame->pc++;
 }	
 
 static void _idiv() {
-	//TODO
+	uint32_t op,opp;
+	op  = (int32_t)maquina.current_frame->pop();
+	opp = (int32_t)maquina.current_frame->pop();
+	maquina.current_frame->push(op/opp);
+	maquina.current_frame->pc++;
 }	
 
 static void _ldiv() {
-	//TODO
+	
+	int32_t hop, lop, hopp, lopp;
+	int64_t op, opp;
+
+	lop  = maquina.current_frame->pop();
+	hop  = maquina.current_frame->pop();
+	lopp = maquina.current_frame->pop();
+	hopp = maquina.current_frame->pop();
+
+	op  = hop;
+	op  = op << 32;
+	op  = op + lop;
+
+	opp  = hopp;
+	opp  = opp << 32;
+	opp  = opp + lopp;
+
+	maquina.current_frame->push2((int64_t)(op/opp));
+
+	maquina.current_frame->pc++;
 }	
 
 static void _fdiv() {
-	//TODO
+	float op, opp, mult;
+	uint32_t value, other,result;
+
+	value = maquina.current_frame->pop();
+	memcpy(&op, &value, sizeof(uint32_t));
+
+	other = maquina.current_frame->pop();
+	memcpy(&opp, &other, sizeof(uint32_t));
+
+	mult = op / opp;
+
+	memcpy(&result, &mult, sizeof(uint32_t));
+	maquina.current_frame->push((uint32_t)(result));
+
+	maquina.current_frame->pc++;
 }	
 
 static void _ddiv() {
-	//TODO
+	int32_t hop, lop, hopp, lopp;
+	double op, opp, mult,final;
+
+	lop  = maquina.current_frame->pop();
+	hop  = maquina.current_frame->pop();
+	lopp = maquina.current_frame->pop();
+	hopp = maquina.current_frame->pop();
+
+	op  = getDouble(lop,hop);
+	opp  = getDouble(lopp,hopp);
+	mult = op/opp;
+
+	memcpy(&final, &mult, sizeof(int64_t));
+	maquina.current_frame->push2((int64_t)(final));
+
+	maquina.current_frame->pc++;
 }	
 
 static void _irem() {
-	//TODO
+	uint32_t op,opp;
+	op  = maquina.current_frame->pop();
+	opp = maquina.current_frame->pop();
+	maquina.current_frame->push(op%opp);
+	maquina.current_frame->pc++;
 }	
 
 static void _lrem() {
-	//TODO
+	uint64_t op,opp;
+	uint32_t high,low;
+
+	low  = maquina.current_frame->pop();
+	high = maquina.current_frame->pop();
+
+	op = high;
+	op = op << 32;
+	op = op + low;
+
+	low  = maquina.current_frame->pop();
+	high = maquina.current_frame->pop();
+
+	opp = high;
+	opp = opp << 32;
+	opp = opp + low;
+
+	maquina.current_frame->push2(op%opp);
+	maquina.current_frame->pc++;
 }	
 
 static void _frem() {
-	//TODO
+	float op, opp, mod;
+	uint32_t value, other, result;
+
+	value = maquina.current_frame->pop();
+	memcpy(&op, &value, sizeof(uint32_t));
+
+	other = maquina.current_frame->pop();
+	memcpy(&opp, &other, sizeof(uint32_t));
+
+	mod = fmodf(op , opp);
+	memcpy(&result, &mod, sizeof(uint32_t));
+
+	maquina.current_frame->push(result);
+	maquina.current_frame->pc++;
+
 }	
 
 static void _drem() {
-	//TODO
+	int32_t hop, lop, hopp, lopp;
+	double op, opp, mod;
+	int64_t final;
+
+	lop  = maquina.current_frame->pop();
+	hop  = maquina.current_frame->pop();
+	lopp = maquina.current_frame->pop();
+	hopp = maquina.current_frame->pop();
+
+	op  = getDouble(lop,hop);
+	opp  = getDouble(lopp,hopp);
+	mod = fmod(op,opp);
+
+	memcpy(&final, &mod, sizeof(int64_t));
+
+	maquina.current_frame->push2((int64_t)(final));
+	maquina.current_frame->pc++;
 }	
 
 static void _ineg() {
-	//TODO
+	uint32_t op;
+	op  = maquina.current_frame->pop();
+	maquina.current_frame->push((uint32_t)(-op));
+	maquina.current_frame->pc++;
 }	
 
 static void _lneg() {
-	//TODO
+	uint64_t op;
+	uint32_t high,low;
+
+	low  = maquina.current_frame->pop();
+	high = maquina.current_frame->pop();
+
+	op = high;
+	op = op << 32;
+	op = op + low;
+
+	op = -(op);
+
+	maquina.current_frame->push2(op);
+	maquina.current_frame->pc++;
 }	
 
 static void _fneg() {
-	//TODO
+	float op, negative;
+	uint32_t value, other,result;
+
+	value = maquina.current_frame->pop();
+	memcpy(&op, &value, sizeof(uint32_t));
+
+	negative = -op;
+
+	memcpy(&result, &negative, sizeof(uint32_t));
+	maquina.current_frame->push(result);
+
+	maquina.current_frame->pc++;
 }	
 
 static void _dneg() {
-	//TODO
+	double op, negative;
+	uint64_t result;
+	uint32_t high,low;
+
+	low  = maquina.current_frame->pop();
+	high = maquina.current_frame->pop();
+	op = getDouble(high,low);
+
+	negative = -op;
+
+	memcpy(&result, &negative, sizeof(uint64_t));
+	maquina.current_frame->push2(result);
+	
+	maquina.current_frame->pc++;
 }	
 
 static void _ishl() {
-	//TODO
+	uint32_t lowsFive = 0x1f;
+	uint32_t value1, value2;
+	
+	value2 = maquina.current_frame->pop();
+	value2 = value2 & lowsFive;
+
+	value1 = maquina.current_frame->pop();
+	value1 = value1 << value2;
+
+	maquina.current_frame->push(value1);
+
+	maquina.current_frame->pc++;
 }	
 
 static void _lshl() {
-	//TODO
+	int64_t bigBits;
+	uint32_t lowSeven = 0x3f;
+	uint32_t low, high, result;
+
+	result = maquina.current_frame->pop();
+	result = result & lowSeven;
+	low = maquina.current_frame->pop();
+	high = maquina.current_frame->pop();
+
+	bigBits = high;
+	bigBits = bigBits << 32;
+	bigBits = (signed)(bigBits + low);
+
+
+	bigBits = bigBits << result;
+	maquina.current_frame->push((uint64_t)bigBits);
+
+	maquina.current_frame->pc++;
 }	
 
 static void _ishr() {
-	//TODO
+	uint32_t value1, value2,lowFive = 0x1f;
+	value1 = maquina.current_frame->pop();
+	value1 = value1 & lowFive;
+	value2 = (int32_t)maquina.current_frame->pop();
+	
+	for(int j = 0; j < value1; j++) {
+		value2 = value2 / 2;
+	}
+
+	maquina.current_frame->push((int32_t)value2);
+	maquina.current_frame->pc++;
 }	
 
 static void _lshr() {
-	//TODO
+	
+	uint64_t allOne = 0xffffffffffffffff, firstOne = 0x8000000000000000, var;	
+	uint32_t low, high, vartwo, lowSeven = 0x3f;;
+
+	vartwo = maquina.current_frame->pop();
+	vartwo = vartwo & lowSeven;
+
+	allOne = allOne << (64-vartwo);
+	low = maquina.current_frame->pop();
+	high = maquina.current_frame->pop();
+
+
+	var = high;
+	var = var << 32;
+	var = (signed)(var + low);
+
+	firstOne = var & firstOne;
+	var = var >> vartwo;
+	
+	if(firstOne == 1) {
+		var = var | allOne;
+	}
+
+	maquina.current_frame->push((uint64_t)var);
+
+	maquina.current_frame->pc++;
 }	
 
 static void _iushr() {
-	//TODO
+	uint32_t lowFive = 0x1f;
+	uint32_t value, other;
+
+	other = maquina.current_frame->pop();
+	other = other & lowFive;
+	value = maquina.current_frame->pop();
+	value = value >> other;
+	maquina.current_frame->push(value);
+	maquina.current_frame->pc++;
 }
 
 static void _lushr() {
-	//TODO
+	int64_t bigBits;
+	uint32_t var, low, high, lowFive = 0x3f;
+
+	var = maquina.current_frame->pop();
+	var = var & lowFive;
+
+	low = maquina.current_frame->pop();
+	high = maquina.current_frame->pop();
+	
+	bigBits = high;
+	bigBits = bigBits << 32;
+	bigBits = (signed)(bigBits + low);
+
+	bigBits = bigBits >> var;
+	maquina.current_frame->push2((uint64_t)bigBits);
+
+	maquina.current_frame->pc++;
 }
 
 static void _iand() {
-	//TODO
+	uint32_t op,opp;
+	op  = maquina.current_frame->pop();
+	opp = maquina.current_frame->pop();
+	maquina.current_frame->push(op&opp);
+	maquina.current_frame->pc++;
 }
 
 static void _land() {
-	//TODO
+
+	uint64_t op,opp;
+	uint32_t high,low;
+
+	low  = maquina.current_frame->pop();
+	high = maquina.current_frame->pop();
+
+	op = high;
+	op = op << 32;
+	op = op + low;
+
+	low  = maquina.current_frame->pop();
+	high = maquina.current_frame->pop();
+
+	opp = high;
+	opp = opp << 32;
+	opp = opp + low;
+
+	maquina.current_frame->push2(op&opp);
+	maquina.current_frame->pc++;
 }
 
-static void _ior	() {
-	//TODO
+static void _ior() {
+	uint32_t op,opp;
+	op  = maquina.current_frame->pop();
+	opp = maquina.current_frame->pop();
+	maquina.current_frame->push(op|opp);
+	maquina.current_frame->pc++;
 }
 
-static void _lor	() {
-	//TODO
+static void _lor() {
+	uint64_t op,opp;
+	uint32_t high,low;
+
+	low  = maquina.current_frame->pop();
+	high = maquina.current_frame->pop();
+
+	op = high;
+	op = op << 32;
+	op = op + low;
+
+	low  = maquina.current_frame->pop();
+	high = maquina.current_frame->pop();
+
+	opp = high;
+	opp = opp << 32;
+	opp = opp + low;
+
+	maquina.current_frame->push2(op|opp);
+	maquina.current_frame->pc++;
 }
 
 static void _ixor() {
-	//TODO
+	uint32_t op,opp;
+	op  = maquina.current_frame->pop();
+	opp = maquina.current_frame->pop();
+	maquina.current_frame->push(op^opp);
+	maquina.current_frame->pc++;
 }
 
 static void _lxor() {
-	//TODO
+	uint64_t op,opp;
+	uint32_t high,low;
+
+	low  = maquina.current_frame->pop();
+	high = maquina.current_frame->pop();
+
+	op = high;
+	op = op << 32;
+	op = op + low;
+
+	low  = maquina.current_frame->pop();
+	high = maquina.current_frame->pop();
+
+	opp = high;
+	opp = opp << 32;
+	opp = opp + low;
+
+	maquina.current_frame->push2(op^opp);
+	maquina.current_frame->pc++;
 }
 
 static void _iinc() {
-	//TODO
+	uint8_t field_index = maquina.current_frame->code_attr->code[++(maquina.current_frame->pc)];
+	uint32_t auxiliar = maquina.current_frame->local_variables[field_index];
+	uint8_t auxiliar2 = maquina.current_frame->code_attr->code[++(maquina.current_frame->pc)];
+	int8_t index = (int8_t) auxiliar;
+	int8_t constant = (int8_t) auxiliar2;
+
+
+	index += constant;
+	maquina.current_frame->local_variables[field_index] = (uint32_t) index;
+	maquina.current_frame->pc++;
 }
 
-static void _i2l	() {
-	//TODO
+static void _i2l() {
+	uint32_t value1, value3, oneOne = 0x80000000;
+	uint64_t bigBits,getHigh = 0xffffffff00000000;
+
+	value1 = maquina.current_frame->pop();
+	value3 = value1 & oneOne;
+	bigBits = (int64_t) value1;
+	
+	if(value3 == 1) {
+		bigBits = bigBits | getHigh;
+	}
+
+	maquina.current_frame->push2(bigBits);
+	maquina.current_frame->pc++;
 }
 
-static void _i2f	() {
-	//TODO
+static void _i2f() {
+	int32_t value;
+	uint32_t value2;
+	
+	float number;
+	value = (int32_t)maquina.current_frame->pop();
+	
+	number = (float)value;
+
+	memcpy(&value, &number, sizeof(int32_t));
+	maquina.current_frame->push(value2);
+
+	maquina.current_frame->pc++;
 }
 
-static void _i2d	() {
-	//TODO
+static void _i2d() {
+	int32_t value1;
+	double value2;
+	uint64_t bigBits;
+	
+	value1 = (int32_t)maquina.current_frame->pop();
+	value2 = (double)value1;
+
+	memcpy(&value2, &value2, sizeof(uint64_t));
+
+	maquina.current_frame->pc++;
 }
 
-static void _l2i	() {
-	//TODO
+static void _l2i() {
+	uint32_t low, high;
+	low = maquina.current_frame->pop();
+	high = maquina.current_frame->pop();
+	maquina.current_frame->push(low);
+	maquina.current_frame->pc++;
+
+	maquina.current_frame->pc++;
 }
 
-static void _l2f	() {
-	//TODO
+static void _l2f() {
+	uint32_t low, high, *parse;
+	float number;
+	low = maquina.current_frame->pop();
+	high = maquina.current_frame->pop();
+	number = (float)getDouble(low, high);
+
+	parse = (uint32_t*) malloc(sizeof(uint32_t));
+	memcpy(parse, &number, sizeof(uint32_t));
+	maquina.current_frame->push(*parse); 
+	maquina.current_frame->pc++;
 }
 
-static void _l2d	() {
-	//TODO
+
+static void _l2d() {
+
+	uint32_t low, high, value;
+	uint64_t *other;
+
+	double double_number;
+
+	low = maquina.current_frame->pop();
+	high = maquina.current_frame->pop();
+
+	double_number =  getDouble(low, high);
+	other = (uint64_t*) malloc(sizeof(uint64_t));
+	memcpy(other, &double_number, sizeof(uint64_t));
+
+	value = *other >> 32;
+	maquina.current_frame->push(value);
+
+	value = *other;
+	maquina.current_frame->push(value);
+
+	maquina.current_frame->pc++;
 }
 
-static void _f2i	() {
-	//TODO
+static void _f2i() {
+	uint32_t value;
+	float number;
+
+	value = maquina.current_frame->pop();
+	memcpy(&number, &value, sizeof(uint32_t));
+	value = (uint32_t) number;
+
+	maquina.current_frame->push(value);
+
+	maquina.current_frame->pc++;
 }
 
-static void _f2l	() {
-	//TODO
+static void _f2l() {
+
+	uint32_t value;
+	uint64_t other;
+	float number;
+
+	value = maquina.current_frame->pop();
+	memcpy(&number, &value, sizeof(uint32_t));
+
+	other = (uint64_t) number;
+	maquina.current_frame->push2(other);
+	
+	maquina.current_frame->pc++;
 }
 
-static void _f2d	() {
-	//TODO
+static void _f2d() {
+
+	uint32_t value;
+	uint64_t other;
+
+	double double_number;
+	float float_number;
+
+	value = maquina.current_frame->pop();
+	memcpy(&float_number, &value, sizeof(uint32_t));
+
+	double_number = (double) float_number;
+	memcpy(&other, &double_number, sizeof(uint64_t));
+
+	maquina.current_frame->push2(other);
+
+	maquina.current_frame->pc++;
 }
 
-static void _d2i	() {
-	//TODO
+static void _d2i() {
+
+	uint32_t low, high;
+	int32_t resp;
+	uint64_t auxiliar;
+	double double_number;
+
+	low = maquina.current_frame->pop();
+	high = maquina.current_frame->pop();
+
+	auxiliar = getDouble(low, high);
+	memcpy(&double_number, &auxiliar, sizeof(uint64_t));
+
+	resp = (int32_t) double_number;
+	maquina.current_frame->push((uint32_t)resp);
+
+	maquina.current_frame->pc++;
 }
 
-static void _d2l	() {
-	//TODO
+static void _d2l() {
+
+	uint32_t low, high;
+	uint64_t aux;
+	double value;
+	
+	low = maquina.current_frame->pop();
+	high = maquina.current_frame->pop();
+
+	aux = getDouble(low, high);
+	memcpy(&value, &aux, sizeof(uint64_t));
+	aux = (uint64_t) value;
+	maquina.current_frame->push(aux);
+
+	maquina.current_frame->pc++;
+
 }
 
-static void _d2f	() {
-	//TODO
+static void _d2f() {
+
+	uint32_t low, high, result;
+	uint64_t value;
+	double double_number;
+	float float_number;
+
+	low = maquina.current_frame->pop();
+	high = maquina.current_frame->pop();
+	value = getDouble(low, high);
+
+	memcpy(&double_number, &value, sizeof(uint64_t));
+	float_number = (float) double_number;
+
+	memcpy(&result, &float_number, sizeof(uint32_t));
+
+	maquina.current_frame->push(result);
+
+	maquina.current_frame->pc++;
 }
 
-static void _i2b	() {
-	//TODO
+static void _i2b() {
+	
+	int8_t value;
+	int32_t other;
+
+	value = (int8_t) maquina.current_frame->pop();
+	other = (int32_t)value;
+	maquina.current_frame->push((int32_t)other);
+
+	maquina.current_frame->pc++;
 }
 
-static void _i2c	() {
-	//TODO
+static void _i2c() {
+
+	int16_t value;
+	int32_t other;
+
+	value = (int16_t) maquina.current_frame->pop();
+	other = (int32_t)value;
+	maquina.current_frame->push((int32_t)other);
+
+	maquina.current_frame->pc++;
 }
 
-static void _i2s	() {
-	//TODO
+static void _i2s() {
+
+	int16_t value;
+	int32_t other;
+
+	value = (int16_t) maquina.current_frame->pop();
+	other = (int32_t)value;
+
+	maquina.current_frame->push((uint32_t)other);
+	
+	maquina.current_frame->pc++;
 }
 
 static void _lcmp() {
-	//TODO
+
+	int32_t result;
+	int32_t low, high;
+	int64_t value, other;
+	
+	low = maquina.current_frame->pop();
+	high = maquina.current_frame->pop();
+	other = getDouble(low, high);
+
+	low = maquina.current_frame->pop();
+	high = maquina.current_frame->pop();
+
+	value = high;
+	value = value << 32;
+	value = value + low;
+
+
+	if(value == other) {
+		result = 0;
+	} else{
+		if(value > other) {
+			result = 1;
+		} else {
+			result = -1;
+		}
+	} 
+	
+	maquina.current_frame->push((int32_t) result);
+	maquina.current_frame->pc++;
 }
 
 static void _fcmpl() {
-	//TODO
+
+	int32_t empilha;
+	uint32_t value;
+	float op, opp;
+
+	value = maquina.current_frame->pop();
+	
+	memcpy(&opp, &value, sizeof(uint32_t));
+	value = maquina.current_frame->pop();
+
+	memcpy(&op, &value, sizeof(uint32_t));
+	
+	if(op == opp) {
+		empilha = 0;
+	}else{
+
+		if(op > opp) {
+			empilha = 1;
+		}else {
+			empilha = -1;
+		}
+	} 
+
+	maquina.current_frame->push((uint32_t) empilha);
+	maquina.current_frame->pc++;
 }
 
 static void _fcmpg() {
-	//TODO
+
+	float value, other;
+	uint32_t auxiliar;
+
+	int32_t resultado;
+
+	auxiliar = maquina.current_frame->pop();
+	memcpy(&other, &auxiliar, sizeof(uint32_t));
+	
+	auxiliar = maquina.current_frame->pop();
+	memcpy(&value, &auxiliar, sizeof(uint32_t));
+
+	if(value == other) {
+		resultado = 0;
+	} else{ 
+		if(value > other) {
+			resultado = 1;
+		}else {
+			resultado = -1;
+		}
+	}
+
+	maquina.current_frame->push((uint32_t) resultado);
+	maquina.current_frame->pc++;
 }
 
 static void _dcmpl() {
-	//TODO
+	
+	double double_number, double_number2;
+	uint32_t low, high;
+	uint64_t bigBits;
+	int32_t empilha;
+	
+	low = maquina.current_frame->pop();
+	high = maquina.current_frame->pop();
+
+	bigBits = getDouble(low, high);
+	memcpy(&double_number2, &bigBits, sizeof(uint64_t));
+
+	low = maquina.current_frame->pop();
+	high = maquina.current_frame->pop();
+
+	bigBits = high;
+	bigBits = bigBits << 32;
+	bigBits = bigBits + low;
+
+
+	memcpy(&double_number, &bigBits, sizeof(uint64_t));
+	if(double_number == double_number2) {
+		empilha = 0;
+	} else{
+		if(double_number > double_number2) {
+			empilha = 1;
+		}else {
+			empilha = -1;
+		}
+	}
+
+	maquina.current_frame->push((uint64_t) empilha);
+	maquina.current_frame->pc++;
 }
 
 static void _dcmpg() {
-	//TODO
+	double double_number, double_number2;
+	uint32_t low, high;
+	uint64_t auxiliar;
+	int32_t empilha;
+
+	low = maquina.current_frame->pop();
+	high = maquina.current_frame->pop();
+	
+
+	auxiliar = high;
+	auxiliar = auxiliar << 32;
+	auxiliar = auxiliar + low;
+
+	memcpy(&double_number2, &auxiliar, sizeof(uint64_t));
+	
+	low = maquina.current_frame->pop();
+	high = maquina.current_frame->pop();
+
+	auxiliar = high;
+	auxiliar = auxiliar << 32;
+	auxiliar = auxiliar + low;
+
+	memcpy(&double_number, &auxiliar, sizeof(uint32_t));
+
+	if(double_number == double_number2) {
+		empilha = 0;
+	} else{
+		if(double_number > double_number2) {
+			empilha = 1;
+		}else {
+			empilha = -1;
+		}
+	}
+
+	maquina.current_frame->push((uint32_t) empilha);
+	maquina.current_frame->pc++;
+
 }
 
 static void _ifeq() {
-	//TODO
+
+	uint8_t pathOne, pathTwo;
+	int16_t desloc;
+	int32_t value;
+
+	pathOne = maquina.current_frame->code_attr->code[(maquina.current_frame->pc)+1];
+	pathTwo = maquina.current_frame->code_attr->code[(maquina.current_frame->pc)+2];
+
+	value = (signed) maquina.current_frame->pop();
+	if(value == 0) {
+		
+		desloc = pathTwo;
+		desloc = desloc << 8;
+		desloc = desloc | pathOne;
+
+		maquina.current_frame->pc = maquina.current_frame->pc + desloc;
+
+	} else {
+		maquina.current_frame->pc = maquina.current_frame->pc + 3;
+	}
 }
 
+
 static void _ifne() {
-	//TODO
+
+	uint8_t pathOne, pathTwo;
+	int16_t desloc;
+	int32_t value;
+
+	pathOne = maquina.current_frame->code_attr->code[(maquina.current_frame->pc)+1];
+	pathTwo = maquina.current_frame->code_attr->code[(maquina.current_frame->pc)+2];
+
+	value = (signed) maquina.current_frame->pop();
+	if(value != 0) {
+		
+		desloc = pathTwo;
+		desloc = desloc << 8;
+		desloc = desloc | pathOne;
+
+		maquina.current_frame->pc = maquina.current_frame->pc + desloc;
+
+	} else {
+		maquina.current_frame->pc = maquina.current_frame->pc + 3;
+	}
 }
 
 static void _iflt() {
-	//TODO
+	
+	uint8_t pathOne, pathTwo;
+	int16_t desloc;
+	int32_t value;
+
+	pathOne = maquina.current_frame->code_attr->code[(maquina.current_frame->pc)+1];
+	pathTwo = maquina.current_frame->code_attr->code[(maquina.current_frame->pc)+2];
+
+	value = (signed) maquina.current_frame->pop();
+	if(value < 0) {
+		
+		desloc = pathTwo;
+		desloc = desloc << 8;
+		desloc = desloc | pathOne;
+
+		maquina.current_frame->pc = maquina.current_frame->pc + desloc;
+
+	} else {
+		maquina.current_frame->pc = maquina.current_frame->pc + 3;
+	}
 }
 
 static void _ifge() {
-	//TODO
+	
+	uint8_t pathOne, pathTwo;
+	int16_t desloc;
+	int32_t value;
+
+	pathOne = maquina.current_frame->code_attr->code[(maquina.current_frame->pc)+1];
+	pathTwo = maquina.current_frame->code_attr->code[(maquina.current_frame->pc)+2];
+
+	value = (signed) maquina.current_frame->pop();
+	if(value >= 0) {
+		
+		desloc = pathTwo;
+		desloc = desloc << 8;
+		desloc = desloc | pathOne;
+
+		maquina.current_frame->pc = maquina.current_frame->pc + desloc;
+
+	} else {
+		maquina.current_frame->pc = maquina.current_frame->pc + 3;
+	}
+
 }
 
 static void _ifgt() {
-	//TODO
+	
+	uint8_t pathOne, pathTwo;
+	int16_t desloc;
+	int32_t value;
+
+	pathOne = maquina.current_frame->code_attr->code[(maquina.current_frame->pc)+1];
+	pathTwo = maquina.current_frame->code_attr->code[(maquina.current_frame->pc)+2];
+
+	value = (signed) maquina.current_frame->pop();
+	if(value > 0) {
+		
+		desloc = pathTwo;
+		desloc = desloc << 8;
+		desloc = desloc | pathOne;
+
+		maquina.current_frame->pc = maquina.current_frame->pc + desloc;
+
+	} else {
+		maquina.current_frame->pc = maquina.current_frame->pc + 3;
+	}
+
 }
 
 static void _ifle() {
-	//TODO
+	
+	uint8_t pathOne, pathTwo;
+	int16_t desloc;
+	int32_t value;
+
+	pathOne = maquina.current_frame->code_attr->code[(maquina.current_frame->pc)+1];
+	pathTwo = maquina.current_frame->code_attr->code[(maquina.current_frame->pc)+2];
+
+	value = (signed) maquina.current_frame->pop();
+	if(value <= 0) {
+		
+		desloc = pathTwo;
+		desloc = desloc << 8;
+		desloc = desloc | pathOne;
+
+		maquina.current_frame->pc = maquina.current_frame->pc + desloc;
+
+	} else {
+		maquina.current_frame->pc = maquina.current_frame->pc + 3;
+	}
 }
 
 static void _if_icmpeq() {
-	//TODO
+	
+	int8_t pathOne, pathTwo;
+	int32_t value1, value2;
+	int16_t desloc;
+
+	pathOne = maquina.current_frame->code_attr->code[(maquina.current_frame->pc)+1];
+	pathTwo = maquina.current_frame->code_attr->code[(maquina.current_frame->pc)+2];
+
+	value1 = (signed) maquina.current_frame->pop();
+	value2 = (signed) maquina.current_frame->pop();
+	
+	if(value1 == value2) {
+		
+		desloc = pathTwo;
+		desloc = desloc << 8;
+		desloc = desloc | pathOne;
+
+		maquina.current_frame->pc = maquina.current_frame->pc + desloc;
+
+	} else {
+		maquina.current_frame->pc = maquina.current_frame->pc + 3;
+	}
+
 }
 
 static void _if_icmpne() {
-	//TODO
+	
+	int8_t pathOne, pathTwo;
+	int32_t value1, value2;
+	int16_t desloc;
+
+	pathOne = maquina.current_frame->code_attr->code[(maquina.current_frame->pc)+1];
+	pathTwo = maquina.current_frame->code_attr->code[(maquina.current_frame->pc)+2];
+
+	value1 = (signed) maquina.current_frame->pop();
+	value2 = (signed) maquina.current_frame->pop();
+	
+	if(value1 != value2) {
+		
+		desloc = pathTwo;
+		desloc = desloc << 8;
+		desloc = desloc | pathOne;
+
+		maquina.current_frame->pc = maquina.current_frame->pc + desloc;
+
+	} else {
+		maquina.current_frame->pc = maquina.current_frame->pc + 3;
+	}
+
 }
 
 static void _if_icmplt() {
-	//TODO
+	
+	int8_t pathOne, pathTwo;
+	int32_t value1, value2;
+	int16_t desloc;
+
+	pathOne = maquina.current_frame->code_attr->code[(maquina.current_frame->pc)+1];
+	pathTwo = maquina.current_frame->code_attr->code[(maquina.current_frame->pc)+2];
+
+	value1 = (signed) maquina.current_frame->pop();
+	value2 = (signed) maquina.current_frame->pop();
+	
+	if(value1 < value2) {
+		
+		desloc = pathTwo;
+		desloc = desloc << 8;
+		desloc = desloc | pathOne;
+
+		maquina.current_frame->pc = maquina.current_frame->pc + desloc;
+
+	} else {
+		maquina.current_frame->pc = maquina.current_frame->pc + 3;
+	}
+
 }
 
 static void _if_icmpge() {
-	//TODO
+	
+	int8_t pathOne, pathTwo;
+	int32_t value1, value2;
+	int16_t desloc;
+
+	pathOne = maquina.current_frame->code_attr->code[(maquina.current_frame->pc)+1];
+	pathTwo = maquina.current_frame->code_attr->code[(maquina.current_frame->pc)+2];
+
+	value1 = (signed) maquina.current_frame->pop();
+	value2 = (signed) maquina.current_frame->pop();
+	
+	if(value1 >= value2) {
+		
+		desloc = pathTwo;
+		desloc = desloc << 8;
+		desloc = desloc | pathOne;
+
+		maquina.current_frame->pc = maquina.current_frame->pc + desloc;
+
+	} else {
+		maquina.current_frame->pc = maquina.current_frame->pc + 3;
+	}
+
 }
 
 static void _if_icmpgt() {
-	//TODO
+	
+	int8_t pathOne, pathTwo;
+	int32_t value1, value2;
+	int16_t desloc;
+
+	pathOne = maquina.current_frame->code_attr->code[(maquina.current_frame->pc)+1];
+	pathTwo = maquina.current_frame->code_attr->code[(maquina.current_frame->pc)+2];
+
+	value1 = (signed) maquina.current_frame->pop();
+	value2 = (signed) maquina.current_frame->pop();
+	
+	if(value1 > value2) {
+		
+		desloc = pathTwo;
+		desloc = desloc << 8;
+		desloc = desloc | pathOne;
+
+		maquina.current_frame->pc = maquina.current_frame->pc + desloc;
+
+	} else {
+		maquina.current_frame->pc = maquina.current_frame->pc + 3;
+	}
+
 }
 
 static void _if_icmple() {
-	//TODO
+	
+	int8_t pathOne, pathTwo;
+	int32_t value1, value2;
+	int16_t desloc;
+
+	pathOne = maquina.current_frame->code_attr->code[(maquina.current_frame->pc)+1];
+	pathTwo = maquina.current_frame->code_attr->code[(maquina.current_frame->pc)+2];
+
+	value1 = (signed) maquina.current_frame->pop();
+	value2 = (signed) maquina.current_frame->pop();
+	
+	if(value1 <= value2) {
+		
+		desloc = pathTwo;
+		desloc = desloc << 8;
+		desloc = desloc | pathOne;
+
+		maquina.current_frame->pc = maquina.current_frame->pc + desloc;
+
+	} else {
+		maquina.current_frame->pc = maquina.current_frame->pc + 3;
+	}
+
 }
 
 static void _if_acmpeg() {
-	//TODO
+	
+	int8_t pathOne, pathTwo;
+	int32_t value1, value2;
+	int16_t desloc;
+
+	pathOne = maquina.current_frame->code_attr->code[(maquina.current_frame->pc)+1];
+	pathTwo = maquina.current_frame->code_attr->code[(maquina.current_frame->pc)+2];
+
+	value1 = (signed) maquina.current_frame->pop();
+	value2 = (signed) maquina.current_frame->pop();
+	
+	if(value1 == value2) {
+		
+		desloc = pathTwo;
+		desloc = desloc << 8;
+		desloc = desloc | pathOne;
+
+		maquina.current_frame->pc = maquina.current_frame->pc + desloc;
+
+	} else {
+		maquina.current_frame->pc = maquina.current_frame->pc + 3;
+	}
+
 }
 
 static void _if_acmpne() {
-	//TODO
+	
+int8_t pathOne, pathTwo;
+	int32_t value1, value2;
+	int16_t desloc;
+
+	pathOne = maquina.current_frame->code_attr->code[(maquina.current_frame->pc)+1];
+	pathTwo = maquina.current_frame->code_attr->code[(maquina.current_frame->pc)+2];
+
+	value1 = (signed) maquina.current_frame->pop();
+	value2 = (signed) maquina.current_frame->pop();
+	
+	if(value1 != value2) {
+		
+		desloc = pathTwo;
+		desloc = desloc << 8;
+		desloc = desloc | pathOne;
+
+		maquina.current_frame->pc = maquina.current_frame->pc + desloc;
+
+	} else {
+		maquina.current_frame->pc = maquina.current_frame->pc + 3;
+	}
+
 }
 
 static void _goto() {
-	//TODO
+	uint8_t pathOne, pathTwo;
+	int16_t desloc;
+	pathOne = maquina.current_frame->code_attr->code[(maquina.current_frame->pc)+1];
+	pathTwo = maquina.current_frame->code_attr->code[(maquina.current_frame->pc)+2];
+	
+	desloc = pathTwo;
+	desloc = desloc << 8;
+	desloc = desloc | pathOne;
+
+	maquina.current_frame->pc += desloc;
 }
 
-static void _jsr	() {
-	//TODO
+static void _jsr() {
+	
+	uint8_t pathOne, pathTwo;
+	int16_t desloc;
+
+	maquina.current_frame->push((maquina.current_frame->pc) + 3);
+	pathOne = maquina.current_frame->code_attr->code[(maquina.current_frame->pc)+1];
+	pathOne = maquina.current_frame->code_attr->code[(maquina.current_frame->pc)+2];
+
+	desloc = pathTwo;
+	desloc = desloc << 8;
+	desloc = desloc | pathOne;
+	
+	maquina.current_frame->pc = maquina.current_frame->pc + desloc;
+
 }
 
-static void _ret	() {
-	//TODO
+static void _ret() {
+	
+	int16_t indice;
+	maquina.current_frame->pc++;
+	indice = maquina.current_frame->code_attr->code[maquina.current_frame->pc];
+	
+	if(WIDE == 1){
+		indice = indice << 8;
+		maquina.current_frame->pc++;
+		indice = indice | maquina.current_frame->code_attr->code[maquina.current_frame->pc];
+		WIDE = 0;
+	}
+	maquina.current_frame->pc = maquina.current_frame->local_variables[indice];
 }
 
 static void _tableswitch() {

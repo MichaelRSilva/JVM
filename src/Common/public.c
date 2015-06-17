@@ -75,6 +75,7 @@ long getLong(uint32_t highBytes, uint32_t lowBytes) {
 	return ((uint64_t)highBytes) << 32 | lowBytes;
 }
 
+
 double getDouble(uint32_t highBytes, uint32_t lowBytes) {
 	uint64_t var = 0, auxVar;
 	int sinal = 0, expoente = 0;
