@@ -87,6 +87,12 @@
 			FRAME* current_frame;
 
 			int (*loadClass)(char*);
+			void (*verify)(int);
+			void (*prepare)(int);
+			void (*resolve)(int, char*);
+			void (*link)(int);
+			void (*initialize)(int);
+			void (*execute)();
 		} JVM;
 	
 	HEAP* initHEAP();

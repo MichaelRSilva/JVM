@@ -33,6 +33,45 @@ static int loadClass(char* name) {
 	return toReturn;
 }
 
+/// verificação do .class
+static void verify(int class_index) {
+	// TODO
+}
+
+/// prepara o current_frame
+static void prepare(int class_index) {
+	maquina.heap = initHEAP();
+	maquina.stack = initSTACK();
+}
+
+/// carrega para method_area as classes de $reference_name
+static void resolve(int class_index, char* reference_name) {
+
+}
+
+/// verifica, prepara e opcionalmente resolve
+static void link(int class_index) {
+	verify(class_index);
+	prepare(class_index);
+}
+
+/// executa o main
+static void execute() {
+
+}
+
+/// executa clinit
+static void initialize(int class_index) { 
+	struct _method_info* clinit = getclinit(maquina.classes.array[class_index]);
+
+	construirFrame(maquina.classes.array[class_index], clinit);
+	execute();
+	int flag = -1;
+	// if ((flag=getClassIndex(maquina.classes.array[class_index]->getParentName(maquina.classes.array[class_index]), maquina.classes)) != -1){
+	// 	initialize(flag);
+	// }
+}
+
 JVM initJVM() {
 	JVM toReturn;
 
@@ -47,6 +86,12 @@ JVM initJVM() {
 	toReturn.current_frame = NULL;
 
 	toReturn.loadClass = loadClass;
+	toReturn.link = link;
+	toReturn.initialize = initialize;
+	toReturn.execute = execute;
+	toReturn.verify = verify;
+	toReturn.prepare = prepare;
+	toReturn.resolve = resolve;
 	return toReturn;
 }
 

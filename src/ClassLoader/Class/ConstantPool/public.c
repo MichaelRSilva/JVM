@@ -55,6 +55,10 @@ static char* getClassName(CONSTANT_POOL* this, int index) {
 	return getUtf8String(this, this->constants[index - 1].type.Class.nameIndex);
 }
 
+static char* getAttributeType(CONSTANT_POOL* this, int index) {
+	return (char*)this->constants[index - 1].type.Utf8.bytes;
+}
+
 CONSTANT_POOL* initCONSTANT_POOL(int count) {
 	CONSTANT_POOL* toReturn = (CONSTANT_POOL*)malloc(sizeof(CONSTANT_POOL));
 
@@ -62,6 +66,7 @@ CONSTANT_POOL* initCONSTANT_POOL(int count) {
 	toReturn->addConstant = addConstant;
 	toReturn->getClassName = getClassName;
 	toReturn->getUtf8String = getUtf8String;
+	toReturn->getAttributeType = getAttributeType;
 
 	return toReturn;
 }
