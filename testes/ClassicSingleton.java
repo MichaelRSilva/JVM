@@ -19,6 +19,10 @@ public final class ClassicSingleton extends AbstractTeste1 implements InterfaceT
 		return instance;
 	}
 
+	public int div(int a, int b) {
+		return 0;
+	}
+
 	public int soma(int a, int b){
 		int resultado = 0;
 		resultado = a+b;
@@ -44,8 +48,13 @@ class AbstractTeste1 {
 	}
 }
 
-interface InterfaceTeste {
+interface SuperInterface {
+	public int div(int a, int b);
+}
+
+interface InterfaceTeste extends SuperInterface {
 	public int soma(int a, int b);
+	public int div(int a, int b);
 }
 
 interface InterfaceTeste2 {

@@ -19,7 +19,9 @@ int main(int argc, char **argv) {
 	if(!(flag = util.VerificaLeitorExibidorCMDArgs(argc, argv))) {
 		maquina = initJVM();
 
-		maquina.loadClass(argv[1]);
+		int index = maquina.loadClass(argv[1]);
+		maquina.link(index);
+		maquina.initialize(index);
 	}
 	
 	printf("%s", errordesc[abs(flag)].message);

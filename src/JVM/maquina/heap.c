@@ -1,18 +1,18 @@
 #include "maquina.h"
 
-struct _object* addObject(struct _object* obj) {
+static struct _object* addObject(struct _object* obj) {
 	maquina.heap->objects = realloc(maquina.heap->objects, (maquina.heap->object_count+1)*sizeof(struct _object*));
 	maquina.heap->objects[maquina.heap->object_count++] = obj;
 	return obj;
 }
 
-struct _array* addArray(struct _array* arr) {
+static struct _array* addArray(struct _array* arr) {
 	maquina.heap->arrays = realloc(maquina.heap->arrays, (maquina.heap->array_count+1)*sizeof(struct _array*));
 	maquina.heap->arrays[maquina.heap->array_count++] = arr;
 	return arr;
 }
 
-struct _object* newObject(CLASS* class) {
+static struct _object* newObject(CLASS* class) {
 	if (!class) return NULL;
 
 	struct _object* toReturn = (struct _object*)malloc(sizeof(struct _object));
@@ -22,38 +22,38 @@ struct _object* newObject(CLASS* class) {
 	return toReturn;
 }
 
-struct _array* newArray(uint32_t count, uint32_t tipo) {
+static struct _array* newArray(uint32_t count, uint32_t tipo) {
 	struct _array* toReturn = (struct _array*)malloc(sizeof(struct _array));
 	
 	toReturn->quantidade = count;
 	toReturn->tipo = tipo;
 	switch(tipo) {
 		case tREFERENCIA:
-			toReturn->element_size = 32;
+			toReturn->element_size = sizeof(uint32_t);
 			break;
 		case tBOOLEAN:
-			toReturn->element_size = 8;
+			toReturn->element_size = sizeof(uint8_t);
 			break;
 		case tCHAR:
-			toReturn->element_size = 16;
+			toReturn->element_size = sizeof(uint16_t);
 			break;
 		case tFLOAT:
-			toReturn->element_size = 32;
+			toReturn->element_size = sizeof(uint32_t);
 			break;
 		case tDOUBLE:
-			toReturn->element_size = 64;
+			toReturn->element_size = sizeof(uint64_t);
 			break;
 		case tBYTE:
-			toReturn->element_size = 8;
+			toReturn->element_size = sizeof(uint8_t);
 			break;
 		case tSHORT:
-			toReturn->element_size = 16;
+			toReturn->element_size = sizeof(uint16_t);
 			break;
 		case tINT:
-			toReturn->element_size = 32;
+			toReturn->element_size = sizeof(uint32_t);
 			break;
 		case tLONG:
-			toReturn->element_size = 64;
+			toReturn->element_size = sizeof(uint64_t);
 			break;
 		default:
 			break;
