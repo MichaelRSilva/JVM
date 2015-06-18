@@ -91,7 +91,7 @@ static void initialize(int class_index) {
 	}
 }
 
- uint32_t retrieveFieldIndex(char *className, char *name, uint16_t nameLen, char *desc, uint16_t descLen) {
+static uint32_t retrieveFieldIndex(char *className, char *name, uint16_t nameLen, char *desc, uint16_t descLen) {
 	
 	int32_t i;
 	CLASS *main_class;
@@ -145,6 +145,8 @@ JVM initJVM() {
 	toReturn.verify = verify;
 	toReturn.prepare = prepare;
 	toReturn.resolve = resolve;
+	toReturn.retrieveFieldIndex = retrieveFieldIndex;
+
 	return toReturn;
 }
 
