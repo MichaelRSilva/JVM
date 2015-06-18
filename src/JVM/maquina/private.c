@@ -119,7 +119,6 @@ static void construirFrame(CLASS* class, struct _method_info* metodo) {
 
 /// retorna o valor default para fields estaticos
 uint32_t getFieldDefaultValue(struct _field_info* field) {
-	
 	return 0;
 }
 

@@ -34,6 +34,7 @@
 			uint32_t array_count;
 
 			struct _object* (*newObject)(CLASS*);
+			struct _array* (*newArray)(uint32_t, uint32_t);
 		} HEAP;
 
 	// stack
