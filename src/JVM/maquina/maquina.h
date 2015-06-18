@@ -103,11 +103,14 @@
 			void (*link)(int);
 			void (*initialize)(int);
 			void (*execute)();
+			uint32_t (*retrieveFieldIndex)(char*,char*,uint16_t,char*,uint16_t);
+
 		} JVM;
 	
 	HEAP* initHEAP();
 	STACK* initSTACK();
 	FRAME* initFRAME(CLASS*, struct _code_attribute*);
 	JVM initJVM();
+
 	extern JVM maquina;
 #endif

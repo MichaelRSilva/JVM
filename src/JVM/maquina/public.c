@@ -91,6 +91,40 @@ static void initialize(int class_index) {
 	}
 }
 
+ uint32_t retrieveFieldIndex(char *className, char *name, uint16_t nameLen, char *desc, uint16_t descLen) {
+	
+	int32_t i;
+	CLASS *main_class;
+	uint8_t *getName, *getDesc;
+	uint16_t tamName, tamDesc;
+
+	main_class = maquina.classes.array[getClassIndex(className,maquina.classes)].class;
+	if (!main_class) {
+		return -2;
+	}
+	for (i = 0; main_class && i < main_class->fields_count; i++) {
+		
+		getName = main_class->constant_pool->constants[(main_class->fields_pool->fields[i].name_index-1)].type.Utf8.bytes;
+		tamName = main_class->constant_pool->constants[(main_class->fields_pool->fields[i].name_index-1)].type.Utf8.tam;
+		
+		getDesc = main_class->constant_pool->constants[(main_class->fields_pool->fields[i].descriptor_index-1)].type.Utf8.bytes;
+		tamDesc = main_class->constant_pool->constants[(main_class->fields_pool->fields[i].descriptor_index-1)].type.Utf8.tam;
+		
+		if (nameLen != tamDesc) {
+			continue;
+		}
+		if (descLen != tamDesc) {
+			continue;
+		}
+		if ((strncmp((char *)name, (char *)getName , tamName) == 0) && (strncmp((char *)desc, (char *)getDesc , tamDesc) == 0)) {
+			return i;
+		}
+	}
+	return -1;
+}
+
+
+
 JVM initJVM() {
 	JVM toReturn;
 

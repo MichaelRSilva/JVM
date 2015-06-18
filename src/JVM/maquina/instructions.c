@@ -2189,39 +2189,219 @@ static void _ret() {
 }
 
 static void _tableswitch() {
-	//TODO
+	
+	int32_t *tabela;
+	int32_t defaultSwitch, min, max, indice;
+	uint32_t byte[12], genericByte[5],stopped,desloc;
+
+	indice = (int32_t)maquina.current_frame->pop();
+	stopped = maquina.current_frame->pc;
+
+	while((maquina.current_frame->pc + 1) % 4 != 0) {
+		maquina.current_frame->pc++;
+	}
+	
+	maquina.current_frame->pc++;
+
+	for(int i=0; i<12; i++){
+		byte[i] = maquina.current_frame->code_attr->code[maquina.current_frame->pc++];
+	}
+	
+	defaultSwitch = (byte[0] & 0xFF) << 24;
+	defaultSwitch = defaultSwitch | (byte[1] & 0xFF) << 16;
+	defaultSwitch = defaultSwitch | (byte[2] & 0xFF) << 8;
+	defaultSwitch = defaultSwitch | (byte[3] & 0xFF);
+
+
+	min = (byte[4] & 0xFF) << 24;
+	min = min | (byte[5] & 0xFF) << 16;
+	min = min | (byte[6] & 0xFF) << 8;
+	min = min | (byte[7] & 0xFF);
+
+	max = (byte[8] & 0xFF) << 24;
+	max = max | (byte[9] & 0xFF) << 16;
+	max = max | (byte[10] & 0xFF) << 8;
+	max = max | (byte[11] & 0xFF);
+
+	if(indice < min || indice > max) {
+		
+		maquina.current_frame->pc = defaultSwitch+stopped;
+
+	} else {
+
+		tabela = calloc(sizeof(uint32_t), (max-min+1));
+
+		for(int i = 0; i < (max-min+1); i++) 	{
+			
+			genericByte[0] = maquina.current_frame->code_attr->code[maquina.current_frame->pc++];
+			genericByte[1] = maquina.current_frame->code_attr->code[maquina.current_frame->pc++];
+			genericByte[2] = maquina.current_frame->code_attr->code[maquina.current_frame->pc++];
+			genericByte[3] = maquina.current_frame->code_attr->code[maquina.current_frame->pc++];
+			
+			tabela[i]  = (genericByte[0] & 0xFF) << 24;
+			tabela[i]  = tabela[i]  | (genericByte[1] & 0xFF) << 16;
+			tabela[i]  = tabela[i]  | (genericByte[2] & 0xFF) << 8;
+			tabela[i]  = tabela[i]  | (genericByte[3] & 0xFF);
+
+		}
+
+		maquina.current_frame->pc = tabela[indice-min]+stopped;
+	}
+
 }
 
 static void _lookupswitch() {
-	//TODO
+	
+	int32_t defaultSwitch, key, count;
+	int32_t *list, *offset;
+	int k, find,i;
+	uint32_t stopped, byte[12];
+
+	key = (int32_t)maquina.current_frame->pop();
+	stopped = maquina.current_frame->pc;
+
+	while((maquina.current_frame->pc + 1) % 4 != 0) {
+		maquina.current_frame->pc++;
+	}
+	
+	maquina.current_frame->pc++;
+
+	for(int i=0; i<8; i++){
+		byte[i] = maquina.current_frame->code_attr->code[maquina.current_frame->pc++];
+	}
+	
+	defaultSwitch = (byte[0] & 0xFF) << 24;
+	defaultSwitch = defaultSwitch | (byte[1] & 0xFF) << 16;
+	defaultSwitch = defaultSwitch | (byte[2] & 0xFF) << 8;
+	defaultSwitch = defaultSwitch | (byte[3] & 0xFF);
+
+	count = (byte[4] & 0xFF) << 24;
+	count = count | (byte[5] & 0xFF) << 16;
+	count = count | (byte[6] & 0xFF) << 8;
+	count = count | (byte[7] & 0xFF);
+
+	list = calloc(sizeof(int32_t), count);
+	offset = calloc(sizeof(int32_t), count);
+
+	for(i = 0; i < count; i++) {
+
+		byte[0] = maquina.current_frame->code_attr->code[maquina.current_frame->pc++];
+		byte[1] = maquina.current_frame->code_attr->code[maquina.current_frame->pc++];
+		byte[2] = maquina.current_frame->code_attr->code[maquina.current_frame->pc++];
+		byte[3] = maquina.current_frame->code_attr->code[maquina.current_frame->pc++];
+		byte[4] = maquina.current_frame->code_attr->code[maquina.current_frame->pc++];
+		byte[5] = maquina.current_frame->code_attr->code[maquina.current_frame->pc++];
+		byte[6] = maquina.current_frame->code_attr->code[maquina.current_frame->pc++];
+		byte[7] = maquina.current_frame->code_attr->code[maquina.current_frame->pc++];
+
+		list[i]  = (byte[0] & 0xFF) << 24;
+		list[i]  = list[i]  | (byte[1] & 0xFF) << 16;
+		list[i]  = list[i]  | (byte[2] & 0xFF) << 8;
+		list[i]  = list[i]  | (byte[3] & 0xFF);
+
+		offset[i]  = (byte[4] & 0xFF) << 24;
+		offset[i]  = offset[i]  | (byte[5] & 0xFF) << 16;
+		offset[i]  = offset[i]  | (byte[6] & 0xFF) << 8;
+		offset[i]  = offset[i]  | (byte[7] & 0xFF);		
+
+	}
+
+	k = 0;
+	find = 0;
+
+	while((k < count) &&( !find)) {
+
+		if(list[k] == key)
+			find = 1;
+		k++;
+	}
+
+	k--;
+
+	if(find == 1) {
+		maquina.current_frame->pc = offset[i] + stopped;
+	} else {
+		maquina.current_frame->pc = defaultSwitch + stopped;
+	}
+
 }
 
+
 static void _ireturn() {
-	//TODO
+	
+	uint32_t aux = maquina.current_frame->pop();
+	maquina.stack->popFrame();
+	maquina.current_frame->push(aux);
+
 }
 
 static void _lreturn() {
-	//TODO
+
+	uint32_t low = maquina.current_frame->pop();
+	uint32_t high = maquina.current_frame->pop();
+	maquina.stack->popFrame();
+	maquina.current_frame->push2(getLong(high,low));
 }
 
 static void _freturn() {
-	//TODO
+	_ireturn();
 }
 
 static void _dreturn() {
-	//TODO
+	_dreturn();
 }
 
 static void _areturn() {
-	//TODO
+	_ireturn();
 }
 
 static void _return() {
-	//TODO
+	maquina.stack->popFrame();
 }
 
 static void _getstatic() {
-	//TODO
+	
+	uint8_t index1, index2;
+	uint16_t index, nameTypeIndex;
+	uint32_t classIndexTemp;
+	int32_t classIndex, field_index;
+	uint64_t valor;
+	char *className, *name, *type;
+
+	index1 = (uint8_t) maquina.current_frame->code_attr->code[++(maquina.current_frame->pc)];
+	index2 = (uint8_t) maquina.current_frame->code_attr->code[++(maquina.current_frame->pc)];
+	index = ((uint16_t)index1 << 8) |(uint16_t)index2;
+	
+	classIndexTemp = maquina.current_frame->runtime_constant_pool->constants[index-1].type.FieldRef.classIndex;
+	className = maquina.current_frame->runtime_constant_pool->getClassName(maquina.current_frame->runtime_constant_pool, maquina.current_frame->runtime_constant_pool->constants[classIndexTemp-1].type.Class.nameIndex);
+
+
+	nameTypeIndex = maquina.current_frame->runtime_constant_pool->constants[index-1].type.FieldRef.nameTypeIndex;
+	name = maquina.current_frame->runtime_constant_pool->getClassName(maquina.current_frame->runtime_constant_pool, maquina.current_frame->runtime_constant_pool->constants[nameTypeIndex-1].type.NameType.nameIndex);
+	type = maquina.current_frame->runtime_constant_pool->getClassName(maquina.current_frame->runtime_constant_pool, maquina.current_frame->runtime_constant_pool->constants[nameTypeIndex-1].type.NameType.descriptorIndex);
+
+	while((field_index = retrieveFieldIndex(className, name, strlen(name), type, strlen(type))) == -1) {
+		//className = getParentName(getClassByName(className));
+	}
+
+	/*if(field_index == -2) {
+		if(type[0] == 'J' || type[0] == 'D') {
+			pushU8(0);
+		} else {
+			push(0);
+		}
+		frameAtual->pc++;
+		return;
+	}
+
+	classIndex = carregarClass(className);
+	valor = getStaticFieldValue(classIndex , field_index);
+	if(type[0] == 'J' || type[0] == 'D') {
+		pushU8(valor);
+	} else {
+		push((u4)valor);
+	}
+	frameAtual->pc++;*/
 }
 
 static void _putstatic() {
