@@ -1,12 +1,26 @@
 #include "maquina.h"
 
 /// retorna um index para o array de classes da area de metodos
-static int getClassIndex(char* class_name, struct _runtime_class_arr classes) {
-	if (classes.array == NULL) return -1;
+static int getClassIndex(char* class_name) {
+	if (maquina.method_area->classes == NULL) return -1;
 
-	for(int i=0; i < classes.size; i++){
-		char *aux = classes.array[i].class->getName(classes.array[i].class);
+	for(int i=0; i < maquina.method_area->classes_count; i++){
+		char *aux = maquina.method_area->classes[i]->getName(maquina.method_area->classes[i]);
 		if(!strcmp(class_name,aux)){
+			return i;
+		}
+	}
+
+	return -1;
+}
+
+/// retorna um index para o array de interfaces da area de metodos
+static int getInterfceIndex(char* interface_name) {
+	if (maquina.method_area->classes == NULL) return -1;
+
+	for(int i=0; i < maquina.method_area->interfaces_count; i++){
+		char *aux = maquina.method_area->interfaces[i]->getName(maquina.method_area->interfaces[i]);
+		if(!strcmp(interface_name,aux)){
 			return i;
 		}
 	}
@@ -32,28 +46,28 @@ static char* getClassPath(char* class_name) {
 
 /// realoca o array de classes por 1
 static void expandClassArray() {
-	maquina.classes.array = (struct _runtime_class*)realloc(maquina.classes.array,(maquina.classes.size+1)*sizeof(struct _runtime_class));
+	maquina.method_area->classes = (CLASS**)realloc(maquina.method_area->classes,(maquina.method_area->classes_count+1)*sizeof(CLASS*));
 }
 
 /// realoca o array de interfaces por 1
 static void expandInterfaceArray() {
-	maquina.interfaces.array = (struct _runtime_class*)realloc(maquina.interfaces.array,(maquina.interfaces.size+1)*sizeof(struct _runtime_class*));
+	maquina.method_area->interfaces = (CLASS**)realloc(maquina.method_area->interfaces,(maquina.method_area->interfaces_count+1)*sizeof(CLASS*));
 }
 
 /// carrega as classes pai da classe na posicao maquina.classes.size - 1 no array de classes da area de metodo
 static int loadParentClasses() {
-	CLASS* class = maquina.classes.array[maquina.classes.size-1].class;
+	CLASS* class = maquina.method_area->classes[maquina.method_area->classes_count-1];
 	char* parentName = class->getParentName(class);
 	int flag = 0;
 
-	// insere parent em maquina.classes caso parent ainda nao esteja carregado 
-	if (getClassIndex(parentName, maquina.classes) == -1) {
+	// insere parent em maquina.method_area->classes caso parent ainda nao esteja carregado 
+	if (getClassIndex(parentName) == -1) {
 		CLASS_LOADER *cl = initCLASS_LOADER();
 
 		expandClassArray();
 		cl->load(cl, getClassPath(parentName));
-		maquina.classes.array[maquina.classes.size++].class= cl->class;
-		if (maquina.classes.array[maquina.classes.size-1].class->super_class != 0) {
+		maquina.method_area->classes[maquina.method_area->classes_count++]= cl->class;
+		if (maquina.method_area->classes[maquina.method_area->classes_count-1]->super_class != 0) {
 			flag = loadParentClasses(maquina);
 		}
 
@@ -71,10 +85,10 @@ static int loadInterfaces(CLASS* class) {
 	for(int i=0; i<interfacesCount; i++){
 		char* name = class->getInterfaceName(class, i);
 		
-		if (getClassIndex(name, maquina.interfaces) == -1) {
+		if (getInterfceIndex(name) == -1) {
 			expandInterfaceArray();
 			cl->load(cl, getClassPath(name));
-			maquina.interfaces.array[maquina.interfaces.size++].class = cl->class;
+			maquina.method_area->interfaces[maquina.method_area->interfaces_count++] = cl->class;
 		}
 		
 	}
@@ -116,12 +130,6 @@ static void construirFrame(CLASS* class, struct _method_info* metodo) {
 	}
 	printf("\nsaiu construirFrame");
 }
-
-/// retorna o valor default para fields estaticos
-uint32_t getFieldDefaultValue(struct _field_info* field) {
-	return 0;
-}
-
 
 
 

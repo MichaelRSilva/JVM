@@ -22,6 +22,7 @@ static int addField(FIELD_POOL* this, CONSTANT_POOL* cp, int ordem, DADOS* d) {
 	this->fields[ordem].name_index = getNameIndex(d);
 	this->fields[ordem].descriptor_index = getDescriptorIndex(d);
 	this->fields[ordem].attributes_count = getAttributesCount(d);
+	this->fields[ordem].value = 0;
 
 	ATTRIBUTE_POOL* field_attributes = initATTRIBUTE_POOL(this->fields[ordem].attributes_count);
 	for(int i =0; i<this->fields[ordem].attributes_count; i++){

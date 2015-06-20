@@ -13,16 +13,17 @@
 #include "heap.c"
 #include "stack.c"
 #include "frame.c"
+#include "method_area.c"
 
 static int loadClass(char* name) {
 	int toReturn = -1;
-	if ((toReturn = getClassIndex(name, maquina.classes)) == -1) {
+	if ((toReturn = getClassIndex(name)) == -1) {
 		CLASS_LOADER* cl = initCLASS_LOADER();
 
 		cl->load(cl, getClassPath(name));
-		toReturn = maquina.classes.size;
+		toReturn = maquina.method_area->classes_count;
 		expandClassArray();
-		maquina.classes.array[maquina.classes.size++].class = cl->class;
+		maquina.method_area->classes[maquina.method_area->classes_count++] = cl->class;
 
  		loadParentClasses(); // insere em maquina.classes todas as classes pai ainda nao carregadas em maquina.clasess
  		loadInterfaces(cl->class); // insere em maquinas.interfaces todas as interfaces ainda nao carregadas em maquina.interfaces
@@ -43,12 +44,10 @@ static void prepare() {
 	// maquina.classes.array = realloc(maquina.classes.fields, (maquina.classes.size+1)*sizeof(struct _runtime_field));
 	
 	int count = 0;
-	for (int i = 0; i < maquina.classes.size; i++) {
-		for (int j = 0; j < maquina.classes.array[i].class->fields_count; j++) {
-			if (checkIfFieldIsStatic(maquina.classes.array[i].class->fields_pool->fields[j].access_flags)) {
-				maquina.classes.array[i].fields = realloc(maquina.classes.array[i].fields,(++count)*sizeof(struct _runtime_field));
-				maquina.classes.array[i].fields[j].info = &maquina.classes.array[i].class->fields_pool->fields[j];
-				maquina.classes.array[i].fields[j].value = getFieldDefaultValue(maquina.classes.array[i].fields[j].info);
+	for (int i = 0; i < maquina.method_area->classes_count; i++) {
+		for (int j = 0; j < maquina.method_area->classes[i]->fields_count; j++) {
+			if (checkIfFieldIsStatic(maquina.method_area->classes[i]->fields_pool->fields[j].access_flags)) {
+				maquina.method_area->classes[i]->fields_pool->fields[j].value = 0;
 			}
 		}
 	}
@@ -80,26 +79,24 @@ static void execute() {
 
 /// executa clinit
 static void initialize(int class_index) { 
-	struct _method_info* clinit = getclinit(maquina.classes.array[class_index].class);
+	struct _method_info* clinit = getclinit(maquina.method_area->classes[class_index]);
 	if (clinit == NULL) return; // classe abstrata ou interface
 	
-	construirFrame(maquina.classes.array[class_index].class, clinit);
+	construirFrame(maquina.method_area->classes[class_index], clinit);
 	execute();
 	int flag = -1;
-	if ((flag=getClassIndex(maquina.classes.array[class_index].class->getParentName(maquina.classes.array[class_index].class), maquina.classes)) != -1){
+	if ((flag=getClassIndex(maquina.method_area->classes[class_index]->getParentName(maquina.method_area->classes[class_index]))) != -1){
 		initialize(flag);
 	}
 }
 
 static CLASS* getClassByName(char* classname){
-	return maquina.classes.array[getClassIndex(classname,maquina.classes)].class;
+	return maquina.method_area->classes[getClassIndex(classname)];
 }
 
-static uint32_t getStaticFieldVal(char* classname){
-	return maquina.classes.array[getClassIndex(classname,maquina.classes)].class;
+static uint64_t getStaticFieldVal(uint32_t class_index, uint32_t field_index){
+	return maquina.method_area->classes[class_index]->fields_pool->fields[field_index].value;
 }
-
-
 
 static uint32_t retrieveFieldIndex(char *className, char *name, uint16_t nameLen, char *desc, uint16_t descLen) {
 	
@@ -138,13 +135,8 @@ static uint32_t retrieveFieldIndex(char *className, char *name, uint16_t nameLen
 
 JVM initJVM() {
 	JVM toReturn;
-
-	toReturn.classes.size = 0;
-	toReturn.interfaces.size = 0;
 	
-	toReturn.classes.array = (struct _runtime_class*)malloc(sizeof(struct _runtime_class));
-	toReturn.interfaces.array = NULL;
-
+	toReturn.method_area = initMETHOD_AREA();
 	toReturn.heap = initHEAP();
 	toReturn.stack = initSTACK();
 	toReturn.current_frame = NULL;
@@ -158,6 +150,7 @@ JVM initJVM() {
 	toReturn.resolve = resolve;
 	toReturn.retrieveFieldIndex = retrieveFieldIndex;
 	toReturn.getClassByName = getClassByName;
+	toReturn.getStaticFieldVal = getStaticFieldVal;
 
 	return toReturn;
 }

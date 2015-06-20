@@ -10,6 +10,7 @@
 		uint16_t name_index;
 		uint16_t descriptor_index;
 		uint16_t attributes_count;
+		uint64_t value;
 		struct _attribute_info* attributes;
 
 	};

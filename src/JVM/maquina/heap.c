@@ -17,8 +17,7 @@ static struct _object* newObject(CLASS* class) {
 
 	struct _object* toReturn = (struct _object*)malloc(sizeof(struct _object));
 	toReturn->class = class;
-	toReturn->super = newObject(maquina.classes.array[maquina.loadClass(class->getParentName(class))].class);
-	toReturn->fields = (struct _runtime_field*)malloc(class->fields_count*sizeof(struct _runtime_field));
+	toReturn->super = newObject(maquina.method_area->classes[maquina.loadClass(class->getParentName(class))]);
 	
 	return toReturn;
 }

@@ -12,22 +12,16 @@
 	#define	tINT	 		10
 	#define	tLONG	 		11
 
-	struct _runtime_field {
-		struct _field_info* info;
-		uint32_t value;
-	};
-
 	// heap
 		typedef struct _heap {
 			struct _object {
 				CLASS* class;
 				struct _object* super;
-				struct _runtime_field* fields;
 			}** objects;
 			struct _array {
 				uint32_t quantidade;
 				uint32_t tipo;
-				uint32_t element_size;
+				uint32_t element_size;	
 			}** arrays;
 
 			uint32_t object_count;
@@ -72,6 +66,12 @@
 			void (*push2)(uint64_t);
 		} FRAME;		
 
+	// method_area
+		typedef struct _method_area {
+			CLASS **classes, **interfaces;
+			uint32_t classes_count, interfaces_count;
+		} METHOD_AREA;
+
 	// instructions
 		typedef struct _jvminstruction {
 			uint16_t qtd_operandos;
@@ -84,18 +84,13 @@
 
 	// JVM
 		typedef struct _maquina_java {
-			struct _runtime_class_arr {
-				struct _runtime_class {
-					CLASS* class;
-					struct _runtime_field* fields;
-				}* array;
-				int size;
-			} classes, interfaces;
-
+			// campos
+			METHOD_AREA* method_area;
 			HEAP* heap;
 			STACK* stack;
 			FRAME* current_frame;
 
+			// funcoes
 			int (*loadClass)(char*);
 			void (*verify)(int);
 			void (*prepare)();
@@ -105,6 +100,7 @@
 			void (*execute)();
 			uint32_t (*retrieveFieldIndex)(char*,char*,uint16_t,char*,uint16_t);
 			CLASS* (*getClassByName)(char*);
+			uint64_t (*getStaticFieldVal)(uint32_t, uint32_t);
 
 		} JVM;
 	

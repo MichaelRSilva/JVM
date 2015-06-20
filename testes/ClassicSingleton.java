@@ -1,3 +1,4 @@
+
 public final class ClassicSingleton extends AbstractTeste1 implements InterfaceTeste, InterfaceTeste2 {
 	public final static ClassicSingleton instance = getInstance();
 	public final static String teste = "Teste";
@@ -31,7 +32,7 @@ public final class ClassicSingleton extends AbstractTeste1 implements InterfaceT
 
 	public int soma2(int a, int b, int c) {
 		int resultado = 0;
-		resultado = a + b + c;
+		resultado = a + b + c + AbstractTeste2.field;
 
 		return resultado;
 	}
@@ -43,6 +44,8 @@ public final class ClassicSingleton extends AbstractTeste1 implements InterfaceT
 }
 
 class AbstractTeste1 {
+	public static int field = 1;
+
 	public Integer teste(Object b) {
 		return (Integer)b;
 	}
