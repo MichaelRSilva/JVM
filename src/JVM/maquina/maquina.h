@@ -112,10 +112,10 @@
 			CLASS* (*getClassByName)(char*);
 			uint64_t (*getStaticFieldVal)(uint32_t, uint32_t);
 			void (*setStaticFieldVal)(uint32_t, uint32_t,uint64_t);
-			struct _field_info* (*getObjectField)(struct _object*, uint32_t);
+			//struct _field_info* (*getObjectField)(struct _object*, uint32_t);
 			void (*setObjectField)(struct _object*, uint32_t,uint64_t);
 			char* (*getNameConstants)(CLASS*, uint16_t);
-			struct _method_info* (*getMethodByNameDesc)(CLASS*, CLASS*, uint16_t);
+			//struct _method_info* (*getMethodByNameDesc)(CLASS*, CLASS*, uint16_t);
 			int32_t (*getNumParameters)(CLASS*, struct _method_info*) ;
 			void (*construirFrame)(CLASS*, struct _method_info*);
 			

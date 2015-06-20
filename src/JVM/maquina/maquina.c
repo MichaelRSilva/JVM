@@ -121,14 +121,14 @@ static void setStaticFieldVal(uint32_t class_index, uint32_t field_index, uint64
 	maquina.method_area->classes[class_index]->fields_pool->fields[field_index].value = value;
 }
 
-static struct _field_info* getObjectField(struct _object *object, uint32_t name_index) {
+static struct _field_info *getObjectField(struct _object *object, uint32_t name_index) {
 
 	int32_t i = 0;
 
 	while (object->class->fields_pool->fields[i].name_index != name_index) {
 		i++;
 	}
-	return &object->class->fields_pool->fields[i];
+	return &(object->class->fields_pool->fields[i]);
 }
 
 static void setObjectField(struct _object *object, uint32_t name_index, uint64_t value) {
@@ -212,7 +212,7 @@ int32_t getNumParameters(CLASS *class, struct _method_info *method) {
 	return parametros;
 }
 
-struct _method_info* getMethodByNameDesc(CLASS *main_class, CLASS *name_type_class, uint16_t name_type_index) {
+struct _method_info *getMethodByNameDesc(CLASS *main_class, CLASS *name_type_class, uint16_t name_type_index) {
 	int i;
 	uint8_t *m_name, *m_desc;
 	uint16_t m_name_len, m_desc_len;
@@ -238,7 +238,7 @@ struct _method_info* getMethodByNameDesc(CLASS *main_class, CLASS *name_type_cla
 			continue;
 		}
 		if((strncmp((char *)name,(char *)m_name , m_name_len) == 0) &&(strncmp((char *)desc,(char *)m_desc , m_desc_len) == 0)) {
-			return(&main_class->methods_pool->methods[i]);
+			return &(main_class->methods_pool->methods[i]);
 		}
 
 	}
@@ -267,10 +267,10 @@ JVM initJVM() {
 	toReturn.getClassByName = getClassByName;
 	toReturn.getStaticFieldVal = getStaticFieldVal;
 	toReturn.setStaticFieldVal = setStaticFieldVal;
-	toReturn.getObjectField = getObjectField;
+	//toReturn.getObjectField = getObjectField;
 	toReturn.setObjectField = setObjectField;
 	toReturn.getNameConstants = getNameConstants;
-	toReturn.getMethodByNameDesc = getMethodByNameDesc;
+	//toReturn.getMethodByNameDesc = getMethodByNameDesc;
 	toReturn.getNumParameters = getNumParameters;
 	toReturn.construirFrame = construirFrame;
 	

@@ -2456,6 +2456,7 @@ static void _putstatic() {
 	maquina.current_frame->pc++;
 }
 
+/*
 static void _getfield() {
 	
 	uint8_t low, high;
@@ -2901,7 +2902,7 @@ static void _invokeinterface() {
 	maquina.current_frame->pc++;
 
 }
-
+*/
 static void _new() {
 	uint8_t low, high;
 	uint32_t indice;
@@ -3389,12 +3390,12 @@ const JVM_INSTRUCTION instructions[] = {
 	{0, 	"return",			_return			},
 	{2, 	"getstatic",		_getstatic		},
 	{2, 	"putstatic",		_putstatic		},
-	{2, 	"getfield",			_getfield		},
+	/*{2, 	"getfield",			_getfield		},
 	{2, 	"putfield",			_putfield		},
 	{2, 	"invokevirtual",	_invokevirtual	},
 	{2, 	"invokespecial",	_invokespecial	},
 	{2, 	"invokestatic",		_invokestatic	},
-	{4, 	"invokeinterface",	_invokeinterface},
+	{4, 	"invokeinterface",	_invokeinterface},*/
 	{0, 	NULL,				NULL			},
 	{2, 	"new",				_new			},
 	{1, 	"newarray",			_newarray		},
