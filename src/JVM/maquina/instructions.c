@@ -2809,7 +2809,6 @@ static void _invokestatic() {
 
 	classIndexTemp = maquina.current_frame->runtime_constant_pool->constants[indice-1].type.MethodRef.classIndex;
 	className = maquina.getNameConstants(maquina.current_frame->current_class, maquina.current_frame->runtime_constant_pool->constants[classIndexTemp-1].type.Class.nameIndex);
-
 	nameTypeIndex = maquina.current_frame->runtime_constant_pool->constants[indice-1].type.MethodRef.nameTypeIndex;
 
 
@@ -2847,7 +2846,60 @@ static void _invokestatic() {
 }
 
 static void _invokeinterface() {
-	//TODO
+	
+	uint32_t indice;
+	uint8_t low, high, args_count, nothing;
+	int32_t classIndex, classIndexTemp, i;
+	uint16_t nameTypeIndex;
+	char *className;
+	uint32_t *fieldsTemp;
+	CLASS *class;
+	struct _method_info *method;
+
+	high = maquina.current_frame->code_attr->code[++(maquina.current_frame->pc)];
+	low = maquina.current_frame->code_attr->code[++(maquina.current_frame->pc)];
+
+	indice = high;
+	indice <<= 8;
+	indice = indice | low;
+
+	args_count = maquina.current_frame->code_attr->code[++(maquina.current_frame->pc)];
+	nothing = maquina.current_frame->code_attr->code[++(maquina.current_frame->pc)];
+
+	fieldsTemp = calloc(sizeof(uint32_t),args_count+1);
+
+
+	for(i = args_count; i >= 0; i--) {
+		fieldsTemp[i] = maquina.current_frame->pop();
+	}
+
+	classIndexTemp = maquina.current_frame->runtime_constant_pool->constants[indice-1].type.MethodRef.classIndex;
+	className = maquina.getNameConstants(maquina.current_frame->current_class, maquina.current_frame->runtime_constant_pool->constants[classIndexTemp-1].type.Class.nameIndex);
+	nameTypeIndex = maquina.current_frame->runtime_constant_pool->constants[indice-1].type.MethodRef.nameTypeIndex;
+
+
+	classIndex = maquina.loadClass(className);
+	class = maquina.method_area->classes[classIndex];
+
+
+	while(class != NULL && (method = maquina.getMethodByNameDesc(class, maquina.current_frame->current_class, nameTypeIndex)) == NULL) {
+		className = class->getParentName(class);
+		classIndex = maquina.loadClass(className);
+		class = maquina.method_area->classes[classIndex];
+	}
+
+	if(class == NULL) {
+		printf("Metodo nao encontrando.\n");
+	}
+
+	maquina.construirFrame(class, method);
+	for(i = args_count; i >= 0; i--) {
+		maquina.current_frame->local_variables[i] = fieldsTemp[i];
+	}
+	maquina.execute();
+
+	maquina.current_frame->pc++;
+
 }
 
 static void _new() {
