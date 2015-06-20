@@ -91,6 +91,10 @@ static void initialize(int class_index) {
 	}
 }
 
+static CLASS* getClassByName(char* classname){
+	return maquina.classes.array[getClassIndex(classname,maquina.classes)].class;
+}
+
 static uint32_t retrieveFieldIndex(char *className, char *name, uint16_t nameLen, char *desc, uint16_t descLen) {
 	
 	int32_t i;
@@ -98,7 +102,8 @@ static uint32_t retrieveFieldIndex(char *className, char *name, uint16_t nameLen
 	uint8_t *getName, *getDesc;
 	uint16_t tamName, tamDesc;
 
-	main_class = maquina.classes.array[getClassIndex(className,maquina.classes)].class;
+	main_class = getClassByName(className);
+
 	if (!main_class) {
 		return -2;
 	}
@@ -124,7 +129,6 @@ static uint32_t retrieveFieldIndex(char *className, char *name, uint16_t nameLen
 }
 
 
-
 JVM initJVM() {
 	JVM toReturn;
 
@@ -146,6 +150,7 @@ JVM initJVM() {
 	toReturn.prepare = prepare;
 	toReturn.resolve = resolve;
 	toReturn.retrieveFieldIndex = retrieveFieldIndex;
+	toReturn.getClassByName = getClassByName;
 
 	return toReturn;
 }

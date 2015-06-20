@@ -104,6 +104,7 @@
 			void (*initialize)(int);
 			void (*execute)();
 			uint32_t (*retrieveFieldIndex)(char*,char*,uint16_t,char*,uint16_t);
+			CLASS* (*getClassByName)(char*);
 
 		} JVM;
 	

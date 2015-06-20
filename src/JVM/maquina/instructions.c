@@ -2381,7 +2381,7 @@ static void _getstatic() {
 	type = maquina.current_frame->runtime_constant_pool->getClassName(maquina.current_frame->runtime_constant_pool, maquina.current_frame->runtime_constant_pool->constants[nameTypeIndex-1].type.NameType.descriptorIndex);
 
 	while((field_index = maquina.retrieveFieldIndex(className, name, strlen(name), type, strlen(type))) == -1) {
-		//className = getParentName(getClassByName(className));
+		className = maquina.current_frame->current_class->getParentName(maquina.getClassByName(className));
 	}
 
 	/*if(field_index == -2) {
