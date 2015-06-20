@@ -1,6 +1,5 @@
 #include "classloader.h"
 
-
 static int verifyCAFEBABE(uint32_t magic) {
 	return (0xCAFEBABE == magic) ? E_SUCCESS : E_CAFEBABE;
 }

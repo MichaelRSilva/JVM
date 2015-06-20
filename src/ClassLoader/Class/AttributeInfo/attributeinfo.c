@@ -1,4 +1,3 @@
-#include "attributeinfo.h"
 #include "private.c"
 
 static void addAttribute(ATTRIBUTE_POOL* this, CONSTANT_POOL* cp, int ordem, DADOS* d) {
@@ -28,6 +27,7 @@ static void addAttribute(ATTRIBUTE_POOL* this, CONSTANT_POOL* cp, int ordem, DAD
 		populateDeprecated(&this->attributes[ordem], d);
 	}
 }
+
 
 ATTRIBUTE_POOL* initATTRIBUTE_POOL(int tamanho) {
 	ATTRIBUTE_POOL* toReturn = (ATTRIBUTE_POOL*)malloc(sizeof(ATTRIBUTE_POOL));

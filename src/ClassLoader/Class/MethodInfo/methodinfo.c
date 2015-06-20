@@ -1,5 +1,20 @@
 #include "methodinfo.h"
-#include "private.c"
+
+static uint16_t getAccessFlags(DADOS* d) {
+	return d->le2Bytes(d);
+}
+
+static uint16_t getNameIndex(DADOS* d) {
+	return d->le2Bytes(d);
+}
+
+static uint16_t getDescriptorIndex(DADOS* d) {
+	return d->le2Bytes(d);
+}
+
+static uint16_t getAttributesCount(DADOS* d) {
+	return d->le2Bytes(d);
+}
 
 static int addMethods(METHOD_POOL* this, CONSTANT_POOL* cp, int ordem, DADOS* d) {
 	

@@ -27,6 +27,10 @@ Dois binários serão gerados
 
 	- JVM.exe (o interpretador de bytecode - não implementado ainda)
 
+Fornecemos aqui também uma linha de comando 'gcc' para compilação da JVM:
+
+	gcc -std=c99 src/Common/common.c src/Util/util.c src/ClassLoader/Class/class.c src/ClassLoader/Class/AttributeInfo/attributeinfo.c src/ClassLoader/Class/ConstantPool/constantpool.c src/ClassLoader/Class/FieldInfo/fieldinfo.c src/ClassLoader/Class/MethodInfo/methodinfo.c src/ClassLoader/classloader.c src/JVM/maquina/maquina.c src/JVM/main.c
+
 
 Caso não deseje utilizar o makefile, recomendamos executar a seguinte lista de comandos 'gcc' para gerar os executáveis:
 	

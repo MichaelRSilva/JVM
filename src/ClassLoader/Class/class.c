@@ -1,9 +1,9 @@
 #include "class.h"
-#include "private.c"
 
 static char* getName(CLASS* this) {
 	return this->constant_pool->getClassName(this->constant_pool, this->this_class);
 }
+
 static char* getParentName(CLASS* this) {
 	return this->constant_pool->getClassName(this->constant_pool, this->super_class);
 }
@@ -12,7 +12,6 @@ static char* getInterfaceName(CLASS* this, int interface_index) {
 	return this->constant_pool->getClassName(this->constant_pool, this->interfaces[interface_index]);
 }
 
-// funcoes acessiveis publicamente
 CLASS* initCLASS() {
 	CLASS* toReturn = (CLASS*)malloc(sizeof(CLASS));
 
@@ -27,7 +26,7 @@ CLASS* initCLASS() {
 		toReturn->interfaces_count = 0;
 		toReturn->interfaces = NULL;
 
-		toReturn->constant_pool_count = 0;
+		toReturn->constant_pool_count = 0; 
 		toReturn->fields_count = 0;
 		toReturn->methods_count = 0;
 		toReturn->attributes_count = 0;

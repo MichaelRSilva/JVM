@@ -1,4 +1,3 @@
-#include "constantpool.h"
 #include "private.c"
 
 static int addConstant(CONSTANT_POOL* this, int ordem, DADOS* d) {
