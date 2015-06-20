@@ -12,6 +12,16 @@
 	#define	tINT	 		10
 	#define	tLONG	 		11
 
+	#define tREFERENCIA_SIZE	4
+	#define	tBOOLEAN_SIZE		1
+	#define	tCHAR_SIZE			2
+	#define	tFLOAT_SIZE			4
+	#define	tDOUBLE_SIZE		8
+	#define	tBYTE_SIZE			1	
+	#define	tSHORT_SIZE			2	
+	#define	tINT_SIZE 			4	
+	#define	tLONG_SIZE			8
+
 	// heap
 		typedef struct _heap {
 			struct _object {

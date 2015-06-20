@@ -543,7 +543,7 @@ static void _fstore_1() {
 
 
 static void _fstore_2() {
-	//TODO
+	_istore_2();
 }
 
 static void _fstore_3() {
@@ -551,7 +551,7 @@ static void _fstore_3() {
 }
 
 static void _dstore_0() {
-	//TODO
+	_lstore_0();
 }
 
 static void _dstore_1() {
@@ -559,7 +559,7 @@ static void _dstore_1() {
 }
 
 static void _dstore_2() {
-	//TODO
+	_lstore_2();
 }
 
 static void _dstore_3() {
@@ -567,7 +567,10 @@ static void _dstore_3() {
 }
 
 static void _astore_0() {
-	//TODO
+	uint32_t value;
+	value = maquina.current_frame->pop();
+	maquina.current_frame->local_variables[0] = value;
+	maquina.current_frame->pc++;
 }
 
 static void _astore_1() {
@@ -578,7 +581,10 @@ static void _astore_1() {
 }
 
 static void _astore_2() {
-	//TODO
+	uint32_t value;
+    value = maquina.current_frame->pop();
+    maquina.current_frame->local_variables[2] = value;
+    maquina.current_frame->pc++;
 }
 
 static void _astore_3() {
@@ -589,7 +595,16 @@ static void _astore_3() {
 }
 
 static void _iastore() {
-	//TODO
+	uint32_t indice, value;
+	void *reference;
+
+	value = maquina.current_frame->pop();
+	indice = maquina.current_frame->pop();
+	
+	memcpy(&reference, &indice, sizeof(uint32_t));
+
+	((uint32_t *)reference)[indice] = value;
+	maquina.current_frame->pc++;
 }
 
 
@@ -2720,39 +2735,145 @@ static void _invokeinterface() {
 }
 
 static void _new() {
-	//TODO
+	uint8_t low, high;
+	uint32_t indice;
+	char *className;	
+	int32_t classIndex;
+
+	CLASS *class;
+	struct _object *objeto;
+
+	high = maquina.current_frame->local_variables[++(maquina.current_frame->pc)];
+	low = maquina.current_frame->local_variables[++(maquina.current_frame->pc)];
+
+	uint32_t value;
+	value = high;
+	value <<= 8;
+	value |= low;
+
+	indice = value;
+
+	uint32_t tempIndex = maquina.current_frame->runtime_constant_pool->constants[indice-1].type.Class.nameIndex;
+	className = maquina.current_frame->runtime_constant_pool->getClassName(maquina.current_frame->runtime_constant_pool,tempIndex);
+
+	classIndex = maquina.loadClass(className);
+	class = maquina.method_area->classes[indice];
+	objeto = maquina.heap->newObject(class);
+
+	maquina.current_frame->push((uint32_t)(intptr_t)objeto);
+	maquina.current_frame->pc++;
 }
 
 static void _newarray() {
-	//TODO
+	int count;
+	uint8_t type;
+	count = maquina.current_frame->pop();
+	maquina.current_frame->pc++;
+
+	type = maquina.current_frame->local_variables[maquina.current_frame->pc];	
+	
+	if(count < 0) {
+		printf("Erro: Invalid Array Size\n");
+	}
+	maquina.current_frame->push((uint32_t)(intptr_t)maquina.heap->newArray(count,0));
+	maquina.current_frame->pc++;
 }
 
 static void _anewarray() {
-	//TODO
+	//revisar
+	int count;
+	count = maquina.current_frame->pop();
+	maquina.current_frame->pc += 2;
+	
+	if(count < 0){
+		printf("Erro: Invalid Array Size\n");
+	}
+    maquina.current_frame->push((uint32_t)(intptr_t)maquina.heap->newArray(count,0));
+	maquina.current_frame->pc++;
 }
 
 static void _arraylength() {
-	//TODO
+	//revisar
+	uint32_t reference;
+
+	int i;
+	reference = maquina.current_frame->pop();
+	for(i=0;i < maquina.heap->array_count; i++){
+
+		if(!memcmp(&maquina.heap->arrays[i], &reference, sizeof(uint32_t))) {
+			maquina.current_frame->push(maquina.heap->arrays[i]->quantidade);
+			maquina.current_frame->pc++;
+			return;
+		}
+		maquina.current_frame->pc++;	
+	}
+	maquina.current_frame->push(0);
+	maquina.current_frame->pc++;
 }
 
 static void _athrow() {
-	//TODO
+	exit(1);
 }
 
 static void _checkcast() {
-	//TODO
+	struct _object *reference;
+	uint16_t indice;
+
+	maquina.current_frame->pc++;
+	indice = maquina.current_frame->local_variables[(maquina.current_frame->pc)];
+	indice = indice << 8;
+	maquina.current_frame->pc++;
+	indice = indice | maquina.current_frame->local_variables[(maquina.current_frame->pc)];
+	reference = (struct _object *)(intptr_t)maquina.current_frame->pop();
+	
+	char* className1 = maquina.current_frame->current_class->getName(maquina.current_frame->current_class);
+	char* className2 = maquina.current_frame->runtime_constant_pool->getClassName(reference->class->constant_pool,indice);
+
+	if(reference == NULL) {
+		printf("Erro: Null Reference\n");
+	}
+	if(strcmp(className1, className2) == 0) {
+		printf(" Erro: Wrong Typt Object\n");
+	}
+	maquina.current_frame->push((uint32_t)(intptr_t)reference);
+	maquina.current_frame->pc++;
+	
 }
 
 static void _instanceof() {
-	//TODO
+
+	struct _object *reference;
+	uint16_t indice;
+
+	maquina.current_frame->pc++;
+	indice = maquina.current_frame->local_variables[(maquina.current_frame->pc)];
+	indice = indice << 8;
+	maquina.current_frame->pc++;
+	indice = indice | maquina.current_frame->local_variables[(maquina.current_frame->pc)];
+	reference = (struct _object *)(intptr_t)maquina.current_frame->pop();
+	
+	if(reference == NULL) {
+		printf("Erro: Null Reference\n");
+	}
+
+	char* className1 = maquina.current_frame->current_class->getName(maquina.current_frame->current_class);
+	char* className2 = maquina.current_frame->runtime_constant_pool->getClassName(reference->class->constant_pool,indice);
+
+	if(strcmp(className1, className2) == 0) {
+		maquina.current_frame->push(1);
+		maquina.current_frame->pc++;
+		return;
+	}
+	maquina.current_frame->push(0);
+	maquina.current_frame->pc++;
 }
 
 static void _monitorenter() {
-	//TODO
+	exit(1);
 }
 
 static void _monitorexit() {
-	//TODO
+	exit(1);
 }
 
 static void _wide() {
@@ -2761,23 +2882,162 @@ static void _wide() {
 }
 
 static void _multianewarray() {
-	//TODO
+	uint16_t byte1indice, byte2indice, indice, type, size;
+	uint8_t quantidades;
+	uint32_t i, quantidade, tamanho;
+	void *array_reference;
+	char *array_type;
+
+	maquina.current_frame->pc++;
+	byte1indice = maquina.current_frame->local_variables[(maquina.current_frame->pc)];	  
+	maquina.current_frame->pc++;
+	byte1indice = maquina.current_frame->local_variables[(maquina.current_frame->pc)];
+	maquina.current_frame->pc++;
+	byte1indice = maquina.current_frame->local_variables[(maquina.current_frame->pc)];
+	maquina.current_frame->pc++;
+	quantidades = maquina.current_frame->local_variables[(maquina.current_frame->pc)];
+	indice = ((byte1indice & 0xFF) << 8) |(byte2indice & 0xFF);
+
+	quantidade = maquina.current_frame->pop();
+	array_reference = maquina.heap->newArray(quantidade,tREFERENCIA);
+	array_type = maquina.current_frame->current_class->getName(maquina.current_frame->current_class);
+	i = 0;
+
+	while(array_type[i] == '[') {
+		i++;
+	}
+
+	switch(array_type[i]) {
+		case 'L':
+			type = tREFERENCIA;
+			size = tREFERENCIA_SIZE;
+			break;
+		case 'Z':
+			type = tBOOLEAN;
+			size = tBOOLEAN_SIZE;
+			break;
+		case 'C':
+			type = tCHAR;
+			size = tCHAR_SIZE;
+			break;
+		case 'F':
+			type = tFLOAT;
+			size = tFLOAT_SIZE;
+			break;
+		case 'D':
+			type = tDOUBLE;
+			size = tDOUBLE_SIZE;
+			break;
+		case 'B':
+			type = tBYTE;
+			size = tBYTE_SIZE;
+			break;
+		case 'S':
+			type = tSHORT;
+			size = tSHORT_SIZE;
+			break;
+		case 'I':
+			type = tINT;
+			size = tINT_SIZE;
+			break;
+		case 'J':
+			type = tLONG;
+			size = tLONG_SIZE;
+			break;
+		default:
+			type = tREFERENCIA;
+			size = tREFERENCIA_SIZE;
+	}
+
+	for(i = 0; i < quantidades; i++)	{
+		tamanho = maquina.current_frame->pop();
+		if(tamanho == 0) {
+			break;
+		}
+		if(size == 1) {
+			((uint8_t**)array_reference)[i] = (uint8_t*) maquina.heap->newArray(type,tamanho);
+		} else if(size == 2) {
+			((uint16_t**)array_reference)[i] = (uint16_t*) maquina.heap->newArray(type,tamanho);
+		} else if(size == 4) {
+			((uint32_t**)array_reference)[i] = (uint32_t*) maquina.heap->newArray(type,tamanho);
+		} else {
+			((uint64_t**)array_reference)[i] = (uint64_t*) maquina.heap->newArray(type,tamanho);
+		}
+	}
+	maquina.current_frame->push((uint32_t)(intptr_t) array_reference);
+	maquina.current_frame->pc++;
 }
 
 static void _ifnull() {
-	//TODO
+	uint8_t bb1, bb2;
+	int32_t auxiliar_32;
+	uint32_t offset;
+
+	bb1 = maquina.current_frame->local_variables[(maquina.current_frame->pc)+1];
+	bb1 = maquina.current_frame->local_variables[(maquina.current_frame->pc)+2];
+	auxiliar_32 = (signed) maquina.current_frame->pop();
+	
+	if(auxiliar_32 == 0) {
+		uint32_t value;
+		value = bb1;
+		value <<= 8;
+		value |= bb2;
+		offset = value;		
+		maquina.current_frame->pc += offset;
+	} else {
+		maquina.current_frame->pc += 3;
+	}
+
 }
 
 static void _ifnonnull() {
-	//TODO
+	uint8_t bb1, bb2;
+	int32_t auxiliar_32;
+	int16_t offset;
+
+	bb1 = maquina.current_frame->local_variables[(maquina.current_frame->pc)+1];
+	bb2 = maquina.current_frame->local_variables[(maquina.current_frame->pc)+2];
+	auxiliar_32 = (signed) maquina.current_frame->pop();
+	
+	if(auxiliar_32 != 0){
+		uint32_t value;
+		value = bb1;
+		value <<= 8;
+		value |= bb2;
+		offset = value;
+		maquina.current_frame->pc += offset;
+	}else{
+		maquina.current_frame->pc += 3;
+	}
+
 }
 
 static void _goto_w() {
-	//TODO
+	uint32_t bb1, bb2, bb3, bb4;
+	int32_t offset;
+
+	bb1 = maquina.current_frame->local_variables[(maquina.current_frame->pc)+1];
+	bb2 = maquina.current_frame->local_variables[(maquina.current_frame->pc)+2];
+	bb3 = maquina.current_frame->local_variables[(maquina.current_frame->pc)+3];
+	bb4 = maquina.current_frame->local_variables[(maquina.current_frame->pc)+4];
+
+	offset = (int32_t)(((bb1 & 0xFF)<<24) |((bb2 & 0xFF)<<16) |((bb3 & 0xFF)<<8) |(bb4));
+	maquina.current_frame->pc += offset;
 }
 
 static void _jsr_w() {
-	//TODO
+	uint32_t bb1, bb2, bb3, bb4;
+	int32_t offset;
+
+	maquina.current_frame->push((maquina.current_frame->pc)+5);
+
+	bb1 = maquina.current_frame->local_variables[(maquina.current_frame->pc)+1];
+	bb2 = maquina.current_frame->local_variables[(maquina.current_frame->pc)+2];
+	bb3 = maquina.current_frame->local_variables[(maquina.current_frame->pc)+3];
+	bb4 = maquina.current_frame->local_variables[(maquina.current_frame->pc)+4];
+
+	offset = (int32_t)(((bb1 & 0xFF)<<24) |((bb2 & 0xFF)<<16) |((bb3 & 0xFF)<<8) |(bb4));
+	maquina.current_frame->pc += offset;
 }
 
 const JVM_INSTRUCTION instructions[] = {
