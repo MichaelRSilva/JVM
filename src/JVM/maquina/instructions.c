@@ -2384,24 +2384,18 @@ static void _getstatic() {
 		className = maquina.current_frame->current_class->getParentName(maquina.getClassByName(className));
 	}
 
-	/*if(field_index == -2) {
-		if(type[0] == 'J' || type[0] == 'D') {
-			pushU8(0);
-		} else {
-			push(0);
-		}
-		frameAtual->pc++;
-		return;
-	}
+	classIndex = maquina.loadClass(className);
 
-	classIndex = carregarClass(className);
-	valor = getStaticFieldValue(classIndex , field_index);
-	if(type[0] == 'J' || type[0] == 'D') {
+	valor = maquina.getStaticFieldVal(classIndex , field_index);
+	/*if(type[0] == 'J' || type[0] == 'D') {
 		pushU8(valor);
 	} else {
 		push((u4)valor);
-	}
-	frameAtual->pc++;*/
+	}*/
+
+
+	maquina.current_frame->pc++;
+
 }
 
 static void _putstatic() {

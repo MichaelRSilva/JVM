@@ -95,6 +95,12 @@ static CLASS* getClassByName(char* classname){
 	return maquina.classes.array[getClassIndex(classname,maquina.classes)].class;
 }
 
+static uint32_t getStaticFieldVal(char* classname){
+	return maquina.classes.array[getClassIndex(classname,maquina.classes)].class;
+}
+
+
+
 static uint32_t retrieveFieldIndex(char *className, char *name, uint16_t nameLen, char *desc, uint16_t descLen) {
 	
 	int32_t i;
@@ -125,6 +131,7 @@ static uint32_t retrieveFieldIndex(char *className, char *name, uint16_t nameLen
 			return i;
 		}
 	}
+
 	return -1;
 }
 
