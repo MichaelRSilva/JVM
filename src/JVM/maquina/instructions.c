@@ -2585,17 +2585,13 @@ static void _invokevirtual() {
 	indice = indice | low;
 
 
-	classIndex = maquina.current_frame->runtime_constant_pool->constants[indice-1].type.FieldRef.classIndex;
-	className = maquina.current_frame->runtime_constant_pool->getClassName(maquina.current_frame->runtime_constant_pool, maquina.current_frame->runtime_constant_pool->constants[classIndex-1].type.Class.nameIndex);
+	classIndexTemp = maquina.current_frame->runtime_constant_pool->constants[indice-1].type.MethodRef.classIndex;
+	className = maquina.getNameConstants(maquina.current_frame->current_class, maquina.current_frame->runtime_constant_pool->constants[classIndexTemp-1].type.Class.nameIndex);
 
-	
-
-	classIndex = maquina.current_frame->runtime_constant_pool->constants[indice-1].type.FieldRef.classIndex;
-	className = maquina.current_frame->runtime_constant_pool->getClassName(maquina.current_frame->runtime_constant_pool, maquina.current_frame->runtime_constant_pool->constants[classIndex-1].type.Class.nameIndex);
+	nameTypeIndex = maquina.current_frame->runtime_constant_pool->constants[indice-1].type.MethodRef.nameTypeIndex;
 
 	methodNameIndex = maquina.current_frame->runtime_constant_pool->constants[nameTypeIndex-1].type.NameType.nameIndex;
 	methodDescriptorIndex = maquina.current_frame->runtime_constant_pool->constants[nameTypeIndex-1].type.NameType.descriptorIndex;
-	
 	methodDesc = maquina.getNameConstants(maquina.current_frame->current_class, methodDescriptorIndex);
 	methodName = maquina.getNameConstants(maquina.current_frame->current_class, methodNameIndex);
 
@@ -2723,7 +2719,62 @@ static void _invokevirtual() {
 }
 
 static void _invokespecial() {
-	//TODO
+	
+	uint32_t index;
+	uint8_t low, high;
+	int32_t numParams, i;
+	int32_t classIndex, classIndexTemp;
+	uint16_t nameTypeIndex;
+	char *className;
+	uint32_t *fieldsTemp;
+	uint8_t *bytes;
+	uint16_t length;
+	CLASS *class;
+	struct _method_info *method;
+
+	high = frameAtual->code[++(frameAtual->pc)];
+	low = frameAtual->code[++(frameAtual->pc)];
+	index = converter2x8To32bits(low, high);
+	classIndexTemp = (frameAtual->constantPool[index-1]).type.MethodRef.classIndex;
+	className = getName(frameAtual->class,(frameAtual->constantPool[classIndexTemp-1]).type.Class.nameIndex);
+	classIndex = carregarClass(className);
+	
+
+	class = getClassByIndex(classIndex);
+	nameTypeIndex = ((frameAtual->constantPool[index-1])).type.MethodRef.nameTypeIndex;
+
+	while(class != NULL &&(method = getMethodByNameAndDescIndex(class, frameAtual->class, nameTypeIndex)) == NULL) {
+		className = getParentName(class);
+		classIndex = carregarClass(className);
+		class = getClassByIndex(classIndex);
+	}
+
+	if(class == NULL) {
+		printf("Metodo nao encontrando.\n");
+	}
+
+	numParams = getNumParameters(class , method);
+	fieldsTemp = calloc(sizeof(u4),numParams+1);
+	for(i = numParams; i >= 0; i--) {
+		fieldsTemp[i] = pop();
+	}
+
+	if(method->accessFlags & AFNative) {
+		bytes = class->constantPool[(method->descriptorIndex-1)].type.Utf8.bytes;
+		length = class->constantPool[(method->descriptorIndex-1)].type.Utf8.length;
+		if(bytes[length-1] == 'D' || bytes[length-1] == 'J') {
+			pushU8(0);
+		} else if(bytes[length-1] != 'V') {
+			push(0);
+		}
+	} else {
+		prepararMetodo(class, method);
+		for(i = numParams; i >= 0; i--) {
+			frameAtual->fields[i] = fieldsTemp[i];
+		}
+		executarMetodo();
+	}
+	frameAtual->pc++;
 }
 
 static void _invokestatic() {
