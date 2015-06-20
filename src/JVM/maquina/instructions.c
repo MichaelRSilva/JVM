@@ -2720,7 +2720,7 @@ static void _invokevirtual() {
 
 static void _invokespecial() {
 	
-	uint32_t index;
+	/*uint32_t index;
 	uint8_t low, high;
 	int32_t numParams, i;
 	int32_t classIndex, classIndexTemp;
@@ -2774,7 +2774,7 @@ static void _invokespecial() {
 		}
 		executarMetodo();
 	}
-	frameAtual->pc++;
+	frameAtual->pc++;*/
 }
 
 static void _invokestatic() {
