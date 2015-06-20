@@ -112,24 +112,6 @@ static struct _method_info* getclinit(CLASS* class) {
 	return NULL;
 }
 
-/// constroi e coloca no topo do stack de frames o frame relacionado com $metodo e $class
-static void construirFrame(CLASS* class, struct _method_info* metodo) {
-	printf("\nentrou construirFrame");
-	int flag = 0;
-	if (metodo->attributes_count > 0) { // indica nao ser nativo
-		for (int i = 0; i < metodo->attributes_count; i++) {
-			if (strcmp(class->constant_pool->getAttributeType(class->constant_pool, metodo->attributes[i].attributeNameIndex), "Code")) {
-				maquina.stack->pushFrame(class, (struct _code_attribute*)&(metodo->attributes[i].info));
-				flag = 1;
-				break;
-			}
-		}
-	} 
-	if (!flag) {
-
-	}
-	printf("\nsaiu construirFrame");
-}
 
 
 

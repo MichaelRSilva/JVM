@@ -17,6 +17,21 @@
 	#include <string.h>
 	#include <math.h>
 
+
+	enum _ACCESS_FLAGS {
+		mask_public = 0x0001,
+		mask_private= 0x0002,
+		mask_protected = 0x0004,
+		mask_static = 0x0008,
+		mask_final = 0x0010,
+		mask_interface = 0x0200,
+		mask_abstract = 0x0400,
+		mask_volatile = 0x0040,
+   		mask_transient = 0x0080,
+   		mask_native  = 0x0100
+	};
+
+
 	// estruturas para propagacao de erros ao usuario.
 		
 		/// Associa inteiros com macros para melhor legibilidade dos erros.
@@ -24,6 +39,7 @@
 			E_SUCCESS = 0, E_INVALID_NUM_ARGS = -1, E_ARGV1_FILE_NOT_EXISTENT = -2, E_CAFEBABE = -3, E_VERSION = -4,
 			W_NAOLIDOINTEIRO = -5, E_OPCAO_NAO_EXISTENTE = -6
 		};
+
 
 		/// Associa uma mensagem de erro a um código.
 		typedef struct _errordesc {

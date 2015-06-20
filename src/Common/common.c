@@ -23,47 +23,40 @@ const ERRORS errordesc[] = {
 
 const char *returnAccessFlagsName(uint16_t hexadecimal){
 
-	uint16_t mask_public, mask_private, mask_protected, mask_static, mask_final, mask_interface, mask_abstract;
+	uint16_t imask_public, imask_private, imask_protected, imask_static, imask_final, imask_interface, imask_abstract;
 
-	mask_public = 0x0001;
-	mask_private= 0x0002;
-	mask_protected = 0x0004;
-	mask_static = 0x0008;
-	mask_final = 0x0010;
-	mask_interface = 0x0200;
-	mask_abstract = 0x0400;
 
 	char *retorno = (char *) malloc(sizeof(char) * 50);
 
 	strcpy(retorno, "");
 
-	mask_public = mask_public & hexadecimal;
-	mask_private = mask_private & hexadecimal;
-	mask_protected = mask_protected & hexadecimal;
-	mask_static = mask_static & hexadecimal;
-	mask_final = mask_final & hexadecimal;
-	mask_interface = mask_interface & hexadecimal;
-	mask_abstract = mask_abstract & hexadecimal;
+	imask_public = mask_public & hexadecimal;
+	imask_private = mask_private & hexadecimal;
+	imask_protected = mask_protected & hexadecimal;
+	imask_static = mask_static & hexadecimal;
+	imask_final = mask_final & hexadecimal;
+	imask_interface = mask_interface & hexadecimal;
+	imask_abstract = mask_abstract & hexadecimal;
 
-	if(mask_public > 0){
+	if(imask_public > 0){
 		strcat(retorno, " public");
 	}
-	if(mask_private > 0){
+	if(imask_private > 0){
 		strcat(retorno, " private");
 	}
-	if(mask_protected > 0){
+	if(imask_protected > 0){
 		strcat(retorno, " protected");
 	}
-	if(mask_static > 0){
+	if(imask_static > 0){
 		strcat(retorno, " static");
 	}
-	if(mask_final > 0){
+	if(imask_final > 0){
 		strcat(retorno, " final");
 	}
-	if(mask_interface > 0){
+	if(imask_interface > 0){
 		strcat(retorno, " interface");
 	}
-	if(mask_abstract > 0){
+	if(imask_abstract > 0){
 		strcat(retorno, " abstract");
 	}
 
