@@ -2720,7 +2720,7 @@ static void _invokevirtual() {
 
 static void _invokespecial() {
 	
-	/*uint32_t index;
+	uint32_t indice;
 	uint8_t low, high;
 	int32_t numParams, i;
 	int32_t classIndex, classIndexTemp;
@@ -2732,53 +2732,118 @@ static void _invokespecial() {
 	CLASS *class;
 	struct _method_info *method;
 
-	high = frameAtual->code[++(frameAtual->pc)];
-	low = frameAtual->code[++(frameAtual->pc)];
-	index = converter2x8To32bits(low, high);
-	classIndexTemp = (frameAtual->constantPool[index-1]).type.MethodRef.classIndex;
-	className = getName(frameAtual->class,(frameAtual->constantPool[classIndexTemp-1]).type.Class.nameIndex);
-	classIndex = carregarClass(className);
-	
+	high = maquina.current_frame->code_attr->code[++(maquina.current_frame->pc)];
+	low = maquina.current_frame->code_attr->code[++(maquina.current_frame->pc)];
 
-	class = getClassByIndex(classIndex);
-	nameTypeIndex = ((frameAtual->constantPool[index-1])).type.MethodRef.nameTypeIndex;
+	indice = high;
+	indice <<= 8;
+	indice = indice | low;
 
-	while(class != NULL &&(method = getMethodByNameAndDescIndex(class, frameAtual->class, nameTypeIndex)) == NULL) {
-		className = getParentName(class);
-		classIndex = carregarClass(className);
-		class = getClassByIndex(classIndex);
+	classIndexTemp = maquina.current_frame->runtime_constant_pool->constants[indice-1].type.MethodRef.classIndex;
+	className = maquina.getNameConstants(maquina.current_frame->current_class, maquina.current_frame->runtime_constant_pool->constants[classIndexTemp-1].type.Class.nameIndex);
+
+	nameTypeIndex = maquina.current_frame->runtime_constant_pool->constants[indice-1].type.MethodRef.nameTypeIndex;
+
+
+	classIndex = maquina.loadClass(className);
+	class = maquina.method_area->classes[classIndex];
+
+	while(class != NULL && (method = maquina.getMethodByNameDesc(class, maquina.current_frame->current_class, nameTypeIndex)) == NULL) {
+		className = class->getParentName(class);
+		classIndex = maquina.loadClass(className);
+		class = maquina.method_area->classes[classIndex];
 	}
 
 	if(class == NULL) {
-		printf("Metodo nao encontrando.\n");
+		printf("Metodo nao foi encontrando, veja.\n");
 	}
 
-	numParams = getNumParameters(class , method);
-	fieldsTemp = calloc(sizeof(u4),numParams+1);
+	numParams = maquina.getNumParameters(class , method);
+	fieldsTemp = calloc(sizeof(uint32_t),numParams+1);
 	for(i = numParams; i >= 0; i--) {
-		fieldsTemp[i] = pop();
+		fieldsTemp[i] = maquina.current_frame->pop();
 	}
 
-	if(method->accessFlags & AFNative) {
-		bytes = class->constantPool[(method->descriptorIndex-1)].type.Utf8.bytes;
-		length = class->constantPool[(method->descriptorIndex-1)].type.Utf8.length;
+	if((method->access_flags) & mask_native) {
+		bytes = class->constant_pool->constants[(method->descriptor_index-1)].type.Utf8.bytes;
+		length = class->constant_pool->constants[(method->descriptor_index-1)].type.Utf8.tam;
+
 		if(bytes[length-1] == 'D' || bytes[length-1] == 'J') {
-			pushU8(0);
+			maquina.current_frame->push2(0);
 		} else if(bytes[length-1] != 'V') {
-			push(0);
+			maquina.current_frame->push(0);
 		}
+
 	} else {
-		prepararMetodo(class, method);
+		maquina.construirFrame(class, method);
 		for(i = numParams; i >= 0; i--) {
-			frameAtual->fields[i] = fieldsTemp[i];
+			maquina.current_frame->local_variables[i] = fieldsTemp[i];
 		}
-		executarMetodo();
+		maquina.execute();
 	}
-	frameAtual->pc++;*/
+
+	maquina.current_frame->pc++;
+
 }
 
 static void _invokestatic() {
-	//TODO
+	
+	uint32_t indice;
+	uint8_t low, high;
+	int32_t numParams, i;
+	int32_t classIndex, classIndexTemp;
+	uint16_t nameTypeIndex;
+	char *className;
+	uint32_t *fieldsTemp;
+	uint8_t *bytes;
+	uint16_t length;
+	CLASS *class;
+	struct _method_info *method;
+
+	high = maquina.current_frame->code_attr->code[++(maquina.current_frame->pc)];
+	low = maquina.current_frame->code_attr->code[++(maquina.current_frame->pc)];
+
+	indice = high;
+	indice <<= 8;
+	indice = indice | low;
+
+	classIndexTemp = maquina.current_frame->runtime_constant_pool->constants[indice-1].type.MethodRef.classIndex;
+	className = maquina.getNameConstants(maquina.current_frame->current_class, maquina.current_frame->runtime_constant_pool->constants[classIndexTemp-1].type.Class.nameIndex);
+
+	nameTypeIndex = maquina.current_frame->runtime_constant_pool->constants[indice-1].type.MethodRef.nameTypeIndex;
+
+
+	classIndex = maquina.loadClass(className);
+	class = maquina.method_area->classes[classIndex];
+
+
+	method = maquina.getMethodByNameDesc(class, maquina.current_frame->current_class, nameTypeIndex);
+
+	numParams = maquina.getNumParameters(class , method);
+	fieldsTemp = calloc(sizeof(uint32_t),numParams+1);
+	for(i = numParams; i >= 0; i--) {
+		fieldsTemp[i] = maquina.current_frame->pop();
+	}
+
+	if((method->access_flags) & mask_native) {
+		bytes = class->constant_pool->constants[(method->descriptor_index-1)].type.Utf8.bytes;
+		length = class->constant_pool->constants[(method->descriptor_index-1)].type.Utf8.tam;
+
+		if(bytes[length-1] == 'D' || bytes[length-1] == 'J') {
+			maquina.current_frame->push2(0);
+		} else if(bytes[length-1] != 'V') {
+			maquina.current_frame->push(0);
+		}
+
+	} else {
+		maquina.construirFrame(class, method);
+		for(i = numParams; i >= 0; i--) {
+			maquina.current_frame->local_variables[i] = fieldsTemp[i];
+		}
+		maquina.execute();
+	}
+
+	maquina.current_frame->pc++;
 }
 
 static void _invokeinterface() {
