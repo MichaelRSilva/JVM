@@ -52,6 +52,7 @@ static char* getUtf8String(CONSTANT_POOL* this, int index) {
 }
 
 static char* getClassName(CONSTANT_POOL* this, int index) {
+	if (index == 0) return NULL;
 	return getUtf8String(this, this->constants[index - 1].type.Class.nameIndex);
 }
 
