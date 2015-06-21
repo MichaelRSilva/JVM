@@ -267,10 +267,10 @@ JVM initJVM() {
 	toReturn.getClassByName = getClassByName;
 	toReturn.getStaticFieldVal = getStaticFieldVal;
 	toReturn.setStaticFieldVal = setStaticFieldVal;
-	//toReturn.getObjectField = getObjectField;
+	toReturn.getObjectField = getObjectField;
 	toReturn.setObjectField = setObjectField;
 	toReturn.getNameConstants = getNameConstants;
-	//toReturn.getMethodByNameDesc = getMethodByNameDesc;
+	toReturn.getMethodByNameDesc = getMethodByNameDesc;
 	toReturn.getNumParameters = getNumParameters;
 	toReturn.construirFrame = construirFrame;
 	
