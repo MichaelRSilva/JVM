@@ -111,7 +111,7 @@ static int loadInterfaces(CLASS* class) {
 
 /// procura pela presenca do metodo clinit na classe $class
 static struct _method_info* getclinit(CLASS* class) {
-	printf("\nentrou getclinit");
+	printf("\n\tentrou getclinit: %s", class->getName(class));
 	for (int i = 0; i < class->methods_count; i++) {
 		char* name = class->constant_pool->getUtf8String(class->constant_pool, class->methods_pool->methods[i].name_index);
 		char* desc = class->constant_pool->getUtf8String(class->constant_pool, class->methods_pool->methods[i].descriptor_index);
@@ -120,7 +120,7 @@ static struct _method_info* getclinit(CLASS* class) {
 			return &(class->methods_pool->methods[i]);
 		}
 	}
-	printf("\nsaiu getclinit");
+	printf("\n\tsaiu getclinit%s", class->getName(class));
 	return NULL;
 }
 

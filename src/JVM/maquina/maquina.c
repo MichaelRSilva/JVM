@@ -17,12 +17,14 @@
 
 /// constroi e coloca no topo do stack de frames o frame relacionado com $metodo e $class
 static void construirFrame(CLASS* class, struct _method_info* metodo) {
-	printf("\nentrou construirFrame");
+	printf("\n\tentrou construirFrame: %s", class->getName(class));
 	int flag = 0;
 	if (metodo->attributes_count > 0) { // indica nao ser nativo
 		for (int i = 0; i < metodo->attributes_count; i++) {
-			if (strcmp(class->constant_pool->getAttributeType(class->constant_pool, metodo->attributes[i].attributeNameIndex), "Code")) {
+			if (!strcmp(class->constant_pool->getAttributeType(class->constant_pool, metodo->attributes[i].attributeNameIndex), "Code")) {
+				printf("\n\t\tira pushFrame");
 				maquina.stack->pushFrame(class, (struct _code_attribute*)&(metodo->attributes[i].info));
+				printf("\n\t\tfinalizado pushFrame");
 				flag = 1;
 				break;
 			}
@@ -31,7 +33,7 @@ static void construirFrame(CLASS* class, struct _method_info* metodo) {
 	if (!flag) {
 
 	}
-	printf("\nsaiu construirFrame");
+	printf("\n\tsaiu construirFrame: %s", class->getName(class));
 }
 
 static int loadClass(char* name) {
@@ -85,28 +87,33 @@ static void link(int class_index) {
 
 /// executa o main
 static void execute() {
-	printf("\nentrou execute");
+	printf("\n\t\tentrou execute: %p", maquina.current_frame);
 	while (maquina.current_frame != NULL && (maquina.current_frame->pc) < maquina.current_frame->code_attr->code_length) {
-		// printf("\ncomecou laco");
+		printf("\n\t\t\texecutou instrução");
+		maquina.current_frame->pc++;
 		// // instructions[maquina.current_frame->code_attr->code[maquina.current_frame->pc]].call();
-		// printf("\nfinalizou laco");
 	}
 
-	// maquina.stack->popFrame();
-	printf("\nsaiu execute");
+	maquina.stack->popFrame();
+	printf("\n\t\tsaiu execute: %p", maquina.current_frame);
 }
 
 /// executa clinit
 static void initialize(int class_index) { 
-	struct _method_info* clinit = getclinit(maquina.method_area->classes[class_index]);
+	printf("\nentrou initialize");
+	CLASS* class = maquina.method_area->classes[class_index];
+	struct _method_info* clinit = getclinit(class);
+	int flag = -1;
+
 	if (clinit == NULL) return; // classe abstrata ou interface
 	
-	construirFrame(maquina.method_area->classes[class_index], clinit);
+	construirFrame(class, clinit);
 	execute();
-	int flag = -1;
-	if ((flag=getClassIndex(maquina.method_area->classes[class_index]->getParentName(maquina.method_area->classes[class_index]))) != -1){
+	if ((flag=getClassIndex(class->getParentName(class))) != -1){
 		initialize(flag);
 	}
+
+	printf("\nsaiu initialize");
 }
 
 static CLASS* getClassByName(char* classname){
@@ -245,17 +252,16 @@ struct _method_info *getMethodByNameDesc(CLASS *main_class, CLASS *name_type_cla
 	return NULL;
 }
 
-
-
-
 JVM initJVM() {
 	JVM toReturn;
 	
+	// init campos
 	toReturn.method_area = initMETHOD_AREA();
 	toReturn.heap = initHEAP();
 	toReturn.stack = initSTACK();
 	toReturn.current_frame = NULL;
 
+	// init funcoes
 	toReturn.loadClass = loadClass;
 	toReturn.link = link;
 	toReturn.initialize = initialize;
@@ -273,8 +279,6 @@ JVM initJVM() {
 	toReturn.getMethodByNameDesc = getMethodByNameDesc;
 	toReturn.getNumParameters = getNumParameters;
 	toReturn.construirFrame = construirFrame;
-	
-	
 
 	return toReturn;
 }
