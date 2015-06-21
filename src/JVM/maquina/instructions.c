@@ -2448,7 +2448,7 @@ static void _getstatic() {
 	uint8_t index_1, index_2;
 	uint16_t indice, nameTypeIndex;
 	uint32_t classIndexTemp;
-	int32_t classIndex, field_index;
+	uint32_t classIndex, field_index;
 	uint64_t valor;
 	char *className, *name, *type;
 
@@ -2456,8 +2456,13 @@ static void _getstatic() {
 	index_2 = (uint8_t) maquina.current_frame->code_attr->code[++(maquina.current_frame->pc)];
 	indice = ((uint16_t)index_1 << 8) |(uint16_t)index_2;
 	
+	
+	
 	classIndexTemp = maquina.current_frame->runtime_constant_pool->constants[indice-1].type.FieldRef.classIndex;
 	className = maquina.current_frame->runtime_constant_pool->getUtf8String(maquina.current_frame->runtime_constant_pool, maquina.current_frame->runtime_constant_pool->constants[classIndexTemp-1].type.Class.nameIndex);
+	
+	printf("\n\t\t\t\t\t\t indice: %d", indice);
+	className = maquina.current_frame->runtime_constant_pool->getClassName(maquina.current_frame->runtime_constant_pool, maquina.current_frame->runtime_constant_pool->constants[classIndexTemp-1].type.Class.nameIndex);
 	
 	nameTypeIndex = maquina.current_frame->runtime_constant_pool->constants[indice-1].type.FieldRef.nameTypeIndex;
 	name = maquina.current_frame->runtime_constant_pool->getUtf8String(maquina.current_frame->runtime_constant_pool, maquina.current_frame->runtime_constant_pool->constants[nameTypeIndex-1].type.NameType.nameIndex);
@@ -2476,7 +2481,6 @@ static void _getstatic() {
 	} else {
 		maquina.current_frame->push(valor);
 	}
-
 
 	maquina.current_frame->pc++;
 	printf("\n\t\t\t\nsaiu getstatic: %p", maquina.current_frame);
