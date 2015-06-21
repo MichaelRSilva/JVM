@@ -47,6 +47,7 @@ static int addConstant(CONSTANT_POOL* this, int ordem, DADOS* d) {
 }
 
 static char* getUtf8String(CONSTANT_POOL* this, int index) {
+	if (index == 0) return NULL;
 	return (char*)this->constants[index - 1].type.Utf8.bytes;
 }
 
@@ -55,6 +56,7 @@ static char* getClassName(CONSTANT_POOL* this, int index) {
 }
 
 static char* getAttributeType(CONSTANT_POOL* this, int index) {
+	if (index == 0) return NULL;
 	return (char*)this->constants[index - 1].type.Utf8.bytes;
 }
 

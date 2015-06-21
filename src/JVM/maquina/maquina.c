@@ -109,7 +109,7 @@ static void initialize(int class_index) {
 	
 	construirFrame(class, clinit);
 	execute();
-	if ((flag=getClassIndex(class->getParentName(class))) != -1){
+	if ((flag=getClassIndex(class->getParentName(class))) > -1){
 		initialize(flag);
 	}
 

@@ -3,6 +3,7 @@
 /// retorna um index para o array de classes da area de metodos
 static int getClassIndex(char* class_name) {
 	if (maquina.method_area->classes == NULL) return -1;
+	if (class_name == NULL || !strcmp(class_name, "")) return -2;
 
 	for(int i=0; i < maquina.method_area->classes_count; i++){
 		char *aux = maquina.method_area->classes[i]->getName(maquina.method_area->classes[i]);
@@ -17,7 +18,8 @@ static int getClassIndex(char* class_name) {
 /// retorna um index para o array de interfaces da area de metodos
 static int getInterfceIndex(char* interface_name) {
 	if (maquina.method_area->classes == NULL) return -1;
-
+	if (interface_name == NULL || !strcmp(interface_name, "")) return -2;
+	
 	for(int i=0; i < maquina.method_area->interfaces_count; i++){
 		char *aux = maquina.method_area->interfaces[i]->getName(maquina.method_area->interfaces[i]);
 		if(!strcmp(interface_name,aux)){
@@ -44,7 +46,7 @@ static char* getClassPath(char* class_name) {
 	return path;
 }
 
-/// realoca o array de classes por 1
+/// realoca o array de classes por 10 (precaução contra memory corruption)
 static void expandClassArray() {
 	CLASS** tmp;
 	tmp = (CLASS**)realloc(maquina.method_area->classes,(maquina.method_area->classes_count+10)*sizeof(CLASS*));
@@ -57,7 +59,7 @@ static void expandClassArray() {
 	maquina.method_area->classes = tmp;
 }
 
-/// realoca o array de interfaces por 1
+/// realoca o array de interfaces por 10 (precaução contra memory corruption)
 static void expandInterfaceArray() {
 	CLASS** tmp;
 	tmp = (CLASS**)realloc(maquina.method_area->interfaces,(maquina.method_area->interfaces_count+10)*sizeof(CLASS*));
@@ -66,7 +68,7 @@ static void expandInterfaceArray() {
 		printf("\nexpandInterfaceArray(): MEMORY CORRUPTION");
 		exit(-1000);
 	}
-	
+
 	maquina.method_area->interfaces = tmp;
 }
 
