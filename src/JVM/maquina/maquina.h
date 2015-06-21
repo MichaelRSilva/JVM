@@ -46,6 +46,7 @@
 			//campos
 			struct _frame* topo;
 			struct _stack* proximo;
+			uint32_t count;
 
 			//funcoes
 			void (*pushFrame)(CLASS*, struct _code_attribute*);
@@ -103,8 +104,7 @@
 			// funcoes
 			int (*loadClass)(char*);
 			void (*verify)(int);
-			void (*prepare)();
-			void (*resolve)(int, char*);
+			void (*prepare)(uint32_t);
 			void (*link)(int);
 			void (*initialize)(int);
 			void (*execute)();
@@ -119,6 +119,8 @@
 			int32_t (*getNumParameters)(CLASS*, struct _method_info*) ;
 			void (*construirFrame)(CLASS*, struct _method_info*);
 			void (*run)();
+			int (*loadParentClasses)();
+			int (*loadInterfaces)(CLASS* class);
 
 		} JVM;
 	

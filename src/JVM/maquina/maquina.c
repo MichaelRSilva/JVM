@@ -17,14 +17,12 @@
 
 /// constroi e coloca no topo do stack de frames o frame relacionado com $metodo e $class
 static void construirFrame(CLASS* class, struct _method_info* metodo) {
-	printf("\n\tentrou construirFrame: %s", class->getName(class));
+	printf("\n\t\tentrou construirFrame: %s", class->getName(class));
 	int flag = 0;
 	if (metodo->attributes_count > 0) { // indica nao ser nativo
 		for (int i = 0; i < metodo->attributes_count; i++) {
 			if (!strcmp(class->constant_pool->getAttributeType(class->constant_pool, metodo->attributes[i].attributeNameIndex), "Code")) {
-				printf("\n\t\tira pushFrame");
 				maquina.stack->pushFrame(class, (struct _code_attribute*)&(metodo->attributes[i].info));
-				printf("\n\t\tfinalizado pushFrame");
 				flag = 1;
 				break;
 			}
@@ -33,10 +31,109 @@ static void construirFrame(CLASS* class, struct _method_info* metodo) {
 	if (!flag) {
 
 	}
-	printf("\n\tsaiu construirFrame: %s", class->getName(class));
+	printf("\n\t\tsaiu construirFrame: %s", class->getName(class));
+}
+
+/// executa o método do current frame
+static void execute() {
+	printf("\n\t\tentrou execute: %p; stack_count: %d", maquina.current_frame, maquina.stack->count);
+	while (maquina.current_frame != NULL && (maquina.current_frame->pc) < maquina.current_frame->code_attr->code_length) {
+		uint32_t ins = maquina.current_frame->code_attr->code[maquina.current_frame->pc];
+		printf("\n\t\t\tpc: %x; code: %x <%s>", maquina.current_frame->pc, ins , instructions[ins].nome);
+		instructions[maquina.current_frame->code_attr->code[maquina.current_frame->pc]].call();
+	}
+
+	maquina.stack->popFrame();
+	printf("\n\t\tsaiu execute: %p; stack_count: %d", maquina.current_frame, maquina.stack->count);
+}
+
+/// executa clinit
+static void initialize(int class_index) { 
+	printf("\n\tentrou initialize; class_index: %d", class_index);
+	CLASS* class = maquina.method_area->classes[class_index];
+	struct _method_info* clinit = getclinit(class);
+	int flag = -1;
+
+	if (clinit == NULL) return; // classe abstrata ou interface
+	
+	construirFrame(class, clinit);
+	execute();
+
+	printf("\n\tsaiu initialize; class_index: %d", class_index);
+}
+
+
+/// aloca e inicializa valores default para os fields estaticos da classe indicada por $index
+static void prepare(uint32_t index) {
+	// maquina.classes.array = realloc(maquina.classes.fields, (maquina.classes.size+1)*sizeof(struct _runtime_field));
+	
+	int count = 0;
+	for (int j = 0; j < maquina.method_area->classes[index]->fields_count; j++) {
+		if (checkIfFieldIsStatic(maquina.method_area->classes[index]->fields_pool->fields[j].access_flags)) {
+			maquina.method_area->classes[index]->fields_pool->fields[j].value = 0;
+		}
+	}
+}
+
+/// verificação do .class
+static void verify(int class_index) {
+	// TODO
+}
+
+/// verifica, prepara e opcionalmente resolve
+static void link(int class_index) {
+	verify(class_index);
+	prepare(class_index);
+}
+
+/// carrega as classes pai da classe na posicao maquina.classes.size - 1 no array de classes da area de metodo
+static int loadParentClasses() {
+	CLASS* class = maquina.method_area->classes[maquina.method_area->classes_count-1];
+	char* parentName = class->getParentName(class);
+	int flag = 0;
+
+	// insere parent em maquina.method_area->classes caso parent ainda nao esteja carregado 
+	if (getClassIndex(parentName) == -1) {
+		CLASS_LOADER *cl = initCLASS_LOADER();
+
+		expandClassArray();
+		cl->load(cl, getClassPath(parentName));
+		maquina.method_area->classes[maquina.method_area->classes_count++]= cl->class;
+		link(maquina.method_area->classes_count-1);
+		initialize(maquina.method_area->classes_count-1);
+
+		if (maquina.method_area->classes[maquina.method_area->classes_count-1]->super_class != 0) {
+			flag = loadParentClasses(maquina);
+		}
+
+		free(cl);	
+	}
+
+	return flag;
+}
+
+/// carrega as interfaces da classe na posicao maquina.classes.size - 1 no array de interfaces da area de metodo 
+static int loadInterfaces(CLASS* class) {
+	int interfacesCount = class->interfaces_count;
+	CLASS_LOADER *cl = initCLASS_LOADER();
+
+	for(int i=0; i<interfacesCount; i++){
+		char* name = class->getInterfaceName(class, i);
+		
+		if (getInterfceIndex(name) == -1) {
+			expandInterfaceArray();
+			cl->load(cl, getClassPath(name));
+			maquina.method_area->interfaces[maquina.method_area->interfaces_count++] = cl->class;
+		}
+		
+	}
+
+	free(cl);
+	return E_SUCCESS;
 }
 
 static int loadClass(char* name) {
+	printf("\nentrou loadClass: %s", name);
 	int toReturn = -1;
 	if ((toReturn = getClassIndex(name)) == -1) {
 		CLASS_LOADER* cl = initCLASS_LOADER();
@@ -45,6 +142,8 @@ static int loadClass(char* name) {
 		toReturn = maquina.method_area->classes_count;
 		expandClassArray();
 		maquina.method_area->classes[maquina.method_area->classes_count++] = cl->class;
+		link(maquina.method_area->classes_count-1);
+		initialize(maquina.method_area->classes_count-1);
 
  		loadParentClasses(); // insere em maquina.classes todas as classes pai ainda nao carregadas em maquina.clasess
  		loadInterfaces(cl->class); // insere em maquinas.interfaces todas as interfaces ainda nao carregadas em maquina.interfaces
@@ -52,50 +151,8 @@ static int loadClass(char* name) {
 		free(cl);
 	}
 
+	printf("\nsaiu loadClass: %s", name);
 	return toReturn;
-}
-
-/// verificação do .class
-static void verify(int class_index) {
-	// TODO
-}
-
-/// aloca e inicializa valores default para os fields estaticos
-static void prepare() {
-	// maquina.classes.array = realloc(maquina.classes.fields, (maquina.classes.size+1)*sizeof(struct _runtime_field));
-	
-	int count = 0;
-	for (int i = 0; i < maquina.method_area->classes_count; i++) {
-		for (int j = 0; j < maquina.method_area->classes[i]->fields_count; j++) {
-			if (checkIfFieldIsStatic(maquina.method_area->classes[i]->fields_pool->fields[j].access_flags)) {
-				maquina.method_area->classes[i]->fields_pool->fields[j].value = 0;
-			}
-		}
-	}
-}
-
-/// carrega para method_area as classes de $reference_name
-static void resolve(int class_index, char* reference_name) {
-	// TODO
-}
-
-/// verifica, prepara e opcionalmente resolve
-static void link(int class_index) {
-	verify(class_index);
-	prepare();
-}
-
-/// executa o método do current frame
-static void execute() {
-	printf("\n\t\tentrou execute: %p", maquina.current_frame);
-	while (maquina.current_frame != NULL && (maquina.current_frame->pc) < maquina.current_frame->code_attr->code_length) {
-		// maquina.current_frame->pc++;
-		printf("\n\t\t\tpc: %x; code: %x", maquina.current_frame->pc, maquina.current_frame->code_attr->code[maquina.current_frame->pc]);
-		instructions[maquina.current_frame->code_attr->code[maquina.current_frame->pc]].call();
-	}
-
-	maquina.stack->popFrame();
-	printf("\n\t\tsaiu execute: %p", maquina.current_frame);
 }
 
 /// executa o main
@@ -107,24 +164,6 @@ static void run() {
 	construirFrame(maquina.method_area->classes[0], main);
 	execute();
 	printf("\nSAIU RUN");
-}
-
-/// executa clinit
-static void initialize(int class_index) { 
-	printf("\nentrou initialize");
-	CLASS* class = maquina.method_area->classes[class_index];
-	struct _method_info* clinit = getclinit(class);
-	int flag = -1;
-
-	if (clinit == NULL) return; // classe abstrata ou interface
-	
-	construirFrame(class, clinit);
-	execute();
-	if ((flag=getClassIndex(class->getParentName(class))) > -1){
-		initialize(flag);
-	}
-
-	printf("\nsaiu initialize");
 }
 
 static CLASS* getClassByName(char* classname){
@@ -279,7 +318,6 @@ JVM initJVM() {
 	toReturn.execute = execute;
 	toReturn.verify = verify;
 	toReturn.prepare = prepare;
-	toReturn.resolve = resolve;
 	toReturn.retrieveFieldIndex = retrieveFieldIndex;
 	toReturn.getClassByName = getClassByName;
 	toReturn.getStaticFieldVal = getStaticFieldVal;
@@ -291,6 +329,8 @@ JVM initJVM() {
 	toReturn.getNumParameters = getNumParameters;
 	toReturn.construirFrame = construirFrame;
 	toReturn.run = run;
+	toReturn.loadParentClasses = loadParentClasses;
+	toReturn.loadInterfaces = loadInterfaces;
 
 	return toReturn;
 }

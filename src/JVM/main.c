@@ -20,8 +20,6 @@ int main(int argc, char **argv) {
 		maquina = initJVM();
 
 		int index = maquina.loadClass(argv[1]);
-		maquina.link(index);
-		maquina.initialize(index);
 		maquina.run();
 	}
 	

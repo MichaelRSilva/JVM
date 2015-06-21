@@ -5,6 +5,7 @@ void pushFrame(CLASS* class, struct _code_attribute* code_attr) {
 	maquina.stack->proximo = maquina.stack;
 	maquina.stack->topo = initFRAME(class, code_attr);
 	maquina.current_frame = maquina.stack->topo;
+	maquina.stack->count++;
 	printf("\n\t\t\tentrou pushFrame:  %s", class->getName(class));
 }
 
@@ -13,6 +14,7 @@ FRAME* popFrame(CLASS* class, struct _code_attribute* code_attr) {
 
 	maquina.stack = maquina.stack->proximo;
 	maquina.current_frame = (maquina.stack != NULL) ? maquina.stack->topo : NULL;
+	maquina.stack->count--;
 
 	return aux;
 }
@@ -23,6 +25,7 @@ STACK* initSTACK() {
 	// campos
 	toReturn->topo = NULL;
 	toReturn->proximo = NULL;
+	toReturn->count = 0;
 
 	// funcoes
 	toReturn->pushFrame = pushFrame;

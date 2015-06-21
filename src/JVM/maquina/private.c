@@ -72,49 +72,6 @@ static void expandInterfaceArray() {
 	maquina.method_area->interfaces = tmp;
 }
 
-/// carrega as classes pai da classe na posicao maquina.classes.size - 1 no array de classes da area de metodo
-static int loadParentClasses() {
-	CLASS* class = maquina.method_area->classes[maquina.method_area->classes_count-1];
-	char* parentName = class->getParentName(class);
-	int flag = 0;
-
-	// insere parent em maquina.method_area->classes caso parent ainda nao esteja carregado 
-	if (getClassIndex(parentName) == -1) {
-		CLASS_LOADER *cl = initCLASS_LOADER();
-
-		expandClassArray();
-		cl->load(cl, getClassPath(parentName));
-		maquina.method_area->classes[maquina.method_area->classes_count++]= cl->class;
-		if (maquina.method_area->classes[maquina.method_area->classes_count-1]->super_class != 0) {
-			flag = loadParentClasses(maquina);
-		}
-
-		free(cl);	
-	}
-
-	return flag;
-}
-
-/// carrega as interfaces da classe na posicao maquina.classes.size - 1 no array de interfaces da area de metodo 
-static int loadInterfaces(CLASS* class) {
-	int interfacesCount = class->interfaces_count;
-	CLASS_LOADER *cl = initCLASS_LOADER();
-
-	for(int i=0; i<interfacesCount; i++){
-		char* name = class->getInterfaceName(class, i);
-		
-		if (getInterfceIndex(name) == -1) {
-			expandInterfaceArray();
-			cl->load(cl, getClassPath(name));
-			maquina.method_area->interfaces[maquina.method_area->interfaces_count++] = cl->class;
-		}
-		
-	}
-
-	free(cl);
-	return E_SUCCESS;
-}
-
 /// procura pela presenca do metodo clinit na classe $class
 static struct _method_info* getclinit(CLASS* class) {
 	printf("\n\tentrou getclinit: %s", class->getName(class));
