@@ -47,22 +47,26 @@ static char* getClassPath(char* class_name) {
 /// realoca o array de classes por 1
 static void expandClassArray() {
 	CLASS** tmp;
-	tmp = (CLASS**)realloc(maquina.method_area->classes,(maquina.method_area->classes_count*2)*sizeof(CLASS*));
+	tmp = (CLASS**)realloc(maquina.method_area->classes,(maquina.method_area->classes_count+10)*sizeof(CLASS*));
+
 	if (tmp == NULL) {
-		printf("\nMEMORY CORRUPTION");
+		printf("\nexpandClassArray(): MEMORY CORRUPTION");
 		exit(-1000);
 	}
+
 	maquina.method_area->classes = tmp;
 }
 
 /// realoca o array de interfaces por 1
 static void expandInterfaceArray() {
 	CLASS** tmp;
-	tmp = (CLASS**)realloc(maquina.method_area->interfaces,(maquina.method_area->interfaces_count*2)*sizeof(CLASS*));
+	tmp = (CLASS**)realloc(maquina.method_area->interfaces,(maquina.method_area->interfaces_count+10)*sizeof(CLASS*));
+
 	if (tmp == NULL) {
-		printf("\nMEMORY CORRUPTION");
+		printf("\nexpandInterfaceArray(): MEMORY CORRUPTION");
 		exit(-1000);
 	}
+	
 	maquina.method_area->interfaces = tmp;
 }
 
