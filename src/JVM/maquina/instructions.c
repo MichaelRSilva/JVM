@@ -1,83 +1,141 @@
+/*! \file
+	\brief Funçoes para execução de instruções do Code de um Frame.
+	PC tem valor zero e a Função esta alocada no Code
+	A medida que PC incrementa ou decrementa é executado uma função.
+
+	Autores: 
+		- Abilio Esteves Calegario de Oliveira - 10/0006132
+		- Marcus da Silva Ferreira - 10/0056881
+		- Michael Rodrigues - 09/0126432
+
+	JVM - Software Basico 1/2015
+*/
+
 #include "maquina.h"
 
 JVM maquina;
 
 uint8_t WIDE = 0;
 
+/*!
+	Não faz nada e incrementa PC
+*/
 static void _nop() {
 	maquina.current_frame->pc++;
 }
 
+/*!
+	Empilha  nulo na pilha de operandos
+*/
 static void _aconst_null() {
     maquina.current_frame->push(0);
     maquina.current_frame->pc++;
 }
 
+/*!
+	Empilha constante int -1 na pilha de operandos
+*/
 static void _iconst_m1() {
 	maquina.current_frame->push(-1);
 	maquina.current_frame->pc++;
 }
 
+/*!
+	Empilha constante int 0 na pilha de operandos
+*/
 static void _iconst_0() {
     maquina.current_frame->push(0);
     maquina.current_frame->pc++;
 }
 
+/*!
+	Empilha constante int 1 na pilha de operandos
+*/
 static void _iconst_1() {
 	maquina.current_frame->push(1);
 	maquina.current_frame->pc++;
 }
 
+/*!
+	Empilha constante int 2 na pilha de operandos
+*/
 static void _iconst_2() {
     maquina.current_frame->push(2);
     maquina.current_frame->pc++;
 }
 
-
+/*!
+	Empilha constante int 3 na pilha de operandos
+*/
 static void _iconst_3() {
 	maquina.current_frame->push(3);
 	maquina.current_frame->pc++;
 }
 
+/*!
+	Empilha constante int 4 na pilha de operandos
+*/
 static void _iconst_4() {
     maquina.current_frame->push(4);
     maquina.current_frame->pc++;
 }
 
+/*!
+	Empilha constante int 5 na pilha de operandos
+*/
 static void _iconst_5() {
 	maquina.current_frame->push(5);
 	maquina.current_frame->pc++;
 }
 
+/*!
+	Empilha constante long 0 na pilha de operandos
+*/
 static void _lconst_0() {
     maquina.current_frame->push(0);
     maquina.current_frame->push(0);
     maquina.current_frame->pc++;
 }
 
+/*!
+	Empilha constante long 1 na pilha de operandos
+*/
 static void _lconst_1() {
 	maquina.current_frame->push(0);
 	maquina.current_frame->push(1);
 	maquina.current_frame->pc++;
 }
 
+/*!
+	Empilha constante float 0.0 na pilha de operandos
+*/
 static void _fconst_0() {
     float float_number = 0.0;
     maquina.current_frame->push(*((uint32_t*)&float_number));
     maquina.current_frame->pc++;
 }
 
+/*!
+	Empilha constante float 1.0 na pilha de operandos
+*/
 static void _fconst_1() {
     float float_number = 1.0;
     maquina.current_frame->push(*((uint32_t*)&float_number));
     maquina.current_frame->pc++;
 }
 
+/*!
+	Empilha constante float 2.0 na pilha de operandos
+*/
 static void _fconst_2() {
     float float_number = 2.0;
     maquina.current_frame->push(*((uint32_t*)&float_number));
     maquina.current_frame->pc++;
 }
+
+/*!
+	Empilha constante double 0.0 na pilha de operandos
+*/
 static void _dconst_0() {
 	
 	uint32_t auxiliar_32;
@@ -94,6 +152,9 @@ static void _dconst_0() {
 
 }
 
+/*!
+	Empilha constante double 1.0 na pilha de operandos
+*/
 static void _dconst_1() {
 	uint32_t auxiliar_32;
 	double double_number = 1.0;
@@ -107,6 +168,11 @@ static void _dconst_1() {
 	maquina.current_frame->pc++;
 }
 
+/*!
+	Empilha um byte. 
+	O valor imediato do byte tem o sinal extendido para um valor int  (8 bits)
+	O valor é colcado na pilha de operandos
+*/
 static void _bipush() {
     //Pula os 8 bits codigo da instrucao contida no array de codes
     maquina.current_frame->pc++;
@@ -2943,7 +3009,7 @@ static void _newarray() {
 	count = maquina.current_frame->pop();
 	maquina.current_frame->pc++;
 
-	type = maquina.current_frame->local_variables[maquina.current_frame->pc];	
+	type = maquina.current_frame->code_attr->code[(maquina.current_frame->pc)];
 	
 	if(count < 0) {
 		printf("Erro: Invalid Array Size\n");
@@ -2953,7 +3019,6 @@ static void _newarray() {
 }
 
 static void _anewarray() {
-	//revisar
 	int count;
 	count = maquina.current_frame->pop();
 	maquina.current_frame->pc += 2;
@@ -2966,7 +3031,6 @@ static void _anewarray() {
 }
 
 static void _arraylength() {
-	//revisar
 	uint32_t reference;
 
 	int i;
@@ -2993,10 +3057,10 @@ static void _checkcast() {
 	uint16_t indice;
 
 	maquina.current_frame->pc++;
-	indice = maquina.current_frame->local_variables[(maquina.current_frame->pc)];
+	indice = maquina.current_frame->code_attr->code[(maquina.current_frame->pc)];
 	indice = indice << 8;
 	maquina.current_frame->pc++;
-	indice = indice | maquina.current_frame->local_variables[(maquina.current_frame->pc)];
+	indice = indice | maquina.current_frame->code_attr->code[(maquina.current_frame->pc)];
 	reference = (struct _object *)(intptr_t)maquina.current_frame->pop();
 	
 	char* className1 = maquina.current_frame->current_class->getName(maquina.current_frame->current_class);
@@ -3019,10 +3083,10 @@ static void _instanceof() {
 	uint16_t indice;
 
 	maquina.current_frame->pc++;
-	indice = maquina.current_frame->local_variables[(maquina.current_frame->pc)];
+	indice = maquina.current_frame->code_attr->code[(maquina.current_frame->pc)];
 	indice = indice << 8;
 	maquina.current_frame->pc++;
-	indice = indice | maquina.current_frame->local_variables[(maquina.current_frame->pc)];
+	indice = indice | maquina.current_frame->code_attr->code[(maquina.current_frame->pc)];
 	reference = (struct _object *)(intptr_t)maquina.current_frame->pop();
 	
 	if(reference == NULL) {
@@ -3062,13 +3126,13 @@ static void _multianewarray() {
 	char *array_type;
 
 	maquina.current_frame->pc++;
-	byte1indice = maquina.current_frame->local_variables[(maquina.current_frame->pc)];	  
+	byte1indice = maquina.current_frame->code_attr->code[(maquina.current_frame->pc)];	  
 	maquina.current_frame->pc++;
-	byte1indice = maquina.current_frame->local_variables[(maquina.current_frame->pc)];
+	byte1indice = maquina.current_frame->code_attr->code[(maquina.current_frame->pc)];
 	maquina.current_frame->pc++;
-	byte1indice = maquina.current_frame->local_variables[(maquina.current_frame->pc)];
+	byte1indice = maquina.current_frame->code_attr->code[(maquina.current_frame->pc)];
 	maquina.current_frame->pc++;
-	quantidades = maquina.current_frame->local_variables[(maquina.current_frame->pc)];
+	quantidades = maquina.current_frame->code_attr->code[(maquina.current_frame->pc)];
 	indice = ((byte1indice & 0xFF) << 8) |(byte2indice & 0xFF);
 
 	quantidade = maquina.current_frame->pop();
@@ -3146,8 +3210,8 @@ static void _ifnull() {
 	int32_t auxiliar_32;
 	uint32_t offset;
 
-	bb1 = maquina.current_frame->local_variables[(maquina.current_frame->pc)+1];
-	bb1 = maquina.current_frame->local_variables[(maquina.current_frame->pc)+2];
+	bb1 = maquina.current_frame->code_attr->code[(maquina.current_frame->pc)+1];
+	bb2 = maquina.current_frame->code_attr->code[(maquina.current_frame->pc)+2];
 	auxiliar_32 = (signed) maquina.current_frame->pop();
 	
 	if(auxiliar_32 == 0) {
@@ -3168,8 +3232,8 @@ static void _ifnonnull() {
 	int32_t auxiliar_32;
 	int16_t offset;
 
-	bb1 = maquina.current_frame->local_variables[(maquina.current_frame->pc)+1];
-	bb2 = maquina.current_frame->local_variables[(maquina.current_frame->pc)+2];
+	bb1 = maquina.current_frame->code_attr->code[(maquina.current_frame->pc)+1];
+	bb2 = maquina.current_frame->code_attr->code[(maquina.current_frame->pc)+2];
 	auxiliar_32 = (signed) maquina.current_frame->pop();
 	
 	if(auxiliar_32 != 0){
@@ -3189,11 +3253,11 @@ static void _goto_w() {
 	uint32_t bb1, bb2, bb3, bb4;
 	int32_t offset;
 
-	bb1 = maquina.current_frame->local_variables[(maquina.current_frame->pc)+1];
-	bb2 = maquina.current_frame->local_variables[(maquina.current_frame->pc)+2];
-	bb3 = maquina.current_frame->local_variables[(maquina.current_frame->pc)+3];
-	bb4 = maquina.current_frame->local_variables[(maquina.current_frame->pc)+4];
-
+	bb1 = maquina.current_frame->code_attr->code[(maquina.current_frame->pc)+1];
+	bb2 = maquina.current_frame->code_attr->code[(maquina.current_frame->pc)+2];
+	bb3 = maquina.current_frame->code_attr->code[(maquina.current_frame->pc)+3];
+	bb4 = maquina.current_frame->code_attr->code[(maquina.current_frame->pc)+4];
+	
 	offset = (int32_t)(((bb1 & 0xFF)<<24) |((bb2 & 0xFF)<<16) |((bb3 & 0xFF)<<8) |(bb4));
 	maquina.current_frame->pc += offset;
 }
@@ -3203,11 +3267,11 @@ static void _jsr_w() {
 	int32_t offset;
 
 	maquina.current_frame->push((maquina.current_frame->pc)+5);
-
-	bb1 = maquina.current_frame->local_variables[(maquina.current_frame->pc)+1];
-	bb2 = maquina.current_frame->local_variables[(maquina.current_frame->pc)+2];
-	bb3 = maquina.current_frame->local_variables[(maquina.current_frame->pc)+3];
-	bb4 = maquina.current_frame->local_variables[(maquina.current_frame->pc)+4];
+			
+	bb1 = maquina.current_frame->code_attr->code[(maquina.current_frame->pc)+1];
+	bb2 = maquina.current_frame->code_attr->code[(maquina.current_frame->pc)+2];
+	bb3 = maquina.current_frame->code_attr->code[(maquina.current_frame->pc)+3];
+	bb4 = maquina.current_frame->code_attr->code[(maquina.current_frame->pc)+4];
 
 	offset = (int32_t)(((bb1 & 0xFF)<<24) |((bb2 & 0xFF)<<16) |((bb3 & 0xFF)<<8) |(bb4));
 	maquina.current_frame->pc += offset;
