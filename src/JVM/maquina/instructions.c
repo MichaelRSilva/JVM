@@ -2347,6 +2347,7 @@ static void _ireturn() {
 	uint32_t aux = maquina.current_frame->pop();
 	maquina.stack->popFrame();
 	maquina.current_frame->push(aux);
+	maquina.current_frame->pc++;
 
 }
 
@@ -2356,6 +2357,7 @@ static void _lreturn() {
 	uint32_t high = maquina.current_frame->pop();
 	maquina.stack->popFrame();
 	maquina.current_frame->push2(getLong(high,low));
+	maquina.current_frame->pc++;
 }
 
 static void _freturn() {
@@ -2372,6 +2374,7 @@ static void _areturn() {
 
 static void _return() {
 	maquina.stack->popFrame();
+	maquina.current_frame->pc++;
 }
 
 static void _getstatic() {
@@ -2904,6 +2907,7 @@ static void _invokeinterface() {
 }
 
 static void _new() {
+	printf("\n\t\t\tentrou _new");
 	uint8_t low, high;
 	uint32_t indice;
 	char *className;	
@@ -2912,8 +2916,8 @@ static void _new() {
 	CLASS *class;
 	struct _object *objeto;
 
-	high = maquina.current_frame->local_variables[++(maquina.current_frame->pc)];
-	low = maquina.current_frame->local_variables[++(maquina.current_frame->pc)];
+	high = maquina.current_frame->code_attr->code[++(maquina.current_frame->pc)];
+	low = maquina.current_frame->code_attr->code[++(maquina.current_frame->pc)];
 
 	uint32_t value;
 	value = high;
@@ -2921,16 +2925,16 @@ static void _new() {
 	value |= low;
 
 	indice = value;
+	className = maquina.current_frame->runtime_constant_pool->getClassName(maquina.current_frame->runtime_constant_pool, indice);
 
-	uint32_t tempIndex = maquina.current_frame->runtime_constant_pool->constants[indice-1].type.Class.nameIndex;
-	className = maquina.current_frame->runtime_constant_pool->getClassName(maquina.current_frame->runtime_constant_pool,tempIndex);
-
+	printf("\n\t\t\t\tnew: className = %s", className);
 	classIndex = maquina.loadClass(className);
-	class = maquina.method_area->classes[indice];
+	class = maquina.method_area->classes[classIndex];
 	objeto = maquina.heap->newObject(class);
 
 	maquina.current_frame->push((uint32_t)(intptr_t)objeto);
 	maquina.current_frame->pc++;
+	printf("\n\t\t\tsaiu _new");
 }
 
 static void _newarray() {

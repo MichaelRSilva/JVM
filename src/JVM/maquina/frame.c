@@ -7,7 +7,7 @@ static void push(uint32_t valor) {
 
 	maquina.current_frame->operand_stack.topo++; // sobe no stack
 	maquina.current_frame->operand_stack.topo->next = ref; // guarda referencia para o proximo topo
-	maquina.current_frame->operand_stack.topo->value = valor; // guada o valor do topo
+	maquina.current_frame->operand_stack.topo->value = valor; // guarda o valor do topo
 }
 
 static uint32_t pop() {
@@ -17,7 +17,7 @@ static uint32_t pop() {
 	memcpy(toReturn, &(maquina.current_frame->operand_stack.topo->value), sizeof(uint32_t)); // copia bits
 	maquina.current_frame->operand_stack.topo = maquina.current_frame->operand_stack.topo->next;
 	
-	free(ref); // desalocado topo
+	// free(ref); // desalocado topo
 	return *toReturn;
 }
 

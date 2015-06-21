@@ -89,9 +89,9 @@ static void link(int class_index) {
 static void execute() {
 	printf("\n\t\tentrou execute: %p", maquina.current_frame);
 	while (maquina.current_frame != NULL && (maquina.current_frame->pc) < maquina.current_frame->code_attr->code_length) {
-		printf("\n\t\t\texecutou instrução");
-		maquina.current_frame->pc++;
-		// // instructions[maquina.current_frame->code_attr->code[maquina.current_frame->pc]].call();
+		// maquina.current_frame->pc++;
+		printf("\n\t\t\tpc: %x; code: %x", maquina.current_frame->pc, maquina.current_frame->code_attr->code[maquina.current_frame->pc]);
+		instructions[maquina.current_frame->code_attr->code[maquina.current_frame->pc]].call();
 	}
 
 	maquina.stack->popFrame();
