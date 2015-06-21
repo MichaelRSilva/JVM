@@ -119,7 +119,7 @@ static int PrintClass(CLASS* this, FILE* output) {
 	fprintf(output,"Constant pool count: \t\t%d \n",this->constant_pool_count);
 	fprintf(output,"Access flags: \t\t\t0x%04x \t\t[%s ] \n", this->access_flags,returnAccessFlagsName(this->access_flags));
 	fprintf(output,"This class\t\t\tindice: %d\t<%s> \n", this->this_class, this->constant_pool->constants[this->constant_pool->constants[this->this_class-1].type.Class.nameIndex - 1].type.Utf8.bytes);
-	fprintf(output,"Super class\t\t\tindice: %d\t<%s> \n", this->super_class, this->constant_pool->constants[this->constant_pool->constants[this->super_class-1].type.Class.nameIndex - 1].type.Utf8.bytes);
+	fprintf(output,"Super class\t\t\tindice: %d\t<%s> \n", this->super_class, this->getParentName(this));
 	fprintf(output,"Interfaces count: \t\t%d \n", this->interfaces_count);
 	fprintf(output,"Fields count: \t\t\t%d \n", this->fields_count);
 	fprintf(output,"Methods count: \t\t\t%d \n", this->methods_count);
