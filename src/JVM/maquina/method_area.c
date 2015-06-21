@@ -1,7 +1,7 @@
 #include "maquina.h"
 
 METHOD_AREA* initMETHOD_AREA() {
-	METHOD_AREA* toReturn;
+	METHOD_AREA* toReturn = (METHOD_AREA*)malloc(sizeof(METHOD_AREA));
 
 	toReturn->classes = (CLASS**)malloc(sizeof(CLASS*));
 	toReturn->interfaces = (CLASS**)malloc(sizeof(CLASS*));

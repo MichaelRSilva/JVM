@@ -46,12 +46,24 @@ static char* getClassPath(char* class_name) {
 
 /// realoca o array de classes por 1
 static void expandClassArray() {
-	maquina.method_area->classes = (CLASS**)realloc(maquina.method_area->classes,(maquina.method_area->classes_count+1)*sizeof(CLASS*));
+	CLASS** tmp;
+	tmp = (CLASS**)realloc(maquina.method_area->classes,(maquina.method_area->classes_count*2)*sizeof(CLASS*));
+	if (tmp == NULL) {
+		printf("\nMEMORY CORRUPTION");
+		exit(-1000);
+	}
+	maquina.method_area->classes = tmp;
 }
 
 /// realoca o array de interfaces por 1
 static void expandInterfaceArray() {
-	maquina.method_area->interfaces = (CLASS**)realloc(maquina.method_area->interfaces,(maquina.method_area->interfaces_count+1)*sizeof(CLASS*));
+	CLASS** tmp;
+	tmp = (CLASS**)realloc(maquina.method_area->interfaces,(maquina.method_area->interfaces_count*2)*sizeof(CLASS*));
+	if (tmp == NULL) {
+		printf("\nMEMORY CORRUPTION");
+		exit(-1000);
+	}
+	maquina.method_area->interfaces = tmp;
 }
 
 /// carrega as classes pai da classe na posicao maquina.classes.size - 1 no array de classes da area de metodo
