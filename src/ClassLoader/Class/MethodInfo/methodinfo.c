@@ -1,21 +1,36 @@
 #include "methodinfo.h"
 
+/*!
+	devolve as flags de acesso de um metodo
+*/
 static uint16_t getAccessFlags(DADOS* d) {
 	return d->le2Bytes(d);
 }
 
+/*!
+	devolve o indice do nome de um metodo que esta no constant_pool
+*/
 static uint16_t getNameIndex(DADOS* d) {
 	return d->le2Bytes(d);
 }
 
+/*!
+	devolve o indice da descricao de um metodo que esta no constant_pool
+*/
 static uint16_t getDescriptorIndex(DADOS* d) {
 	return d->le2Bytes(d);
 }
 
+/*!
+	devolve a quantidade de de atributos de um metodo
+*/
 static uint16_t getAttributesCount(DADOS* d) {
 	return d->le2Bytes(d);
 }
 
+/*!
+	carrega os metodos na memoria (constant pool)
+*/
 static int addMethods(METHOD_POOL* this, CONSTANT_POOL* cp, int ordem, DADOS* d) {
 	
 	this->methods[ordem].access_flags = getAccessFlags(d);
@@ -32,6 +47,9 @@ static int addMethods(METHOD_POOL* this, CONSTANT_POOL* cp, int ordem, DADOS* d)
 	return E_SUCCESS;
 }
 
+/*!
+	incia o nosso ponto de metodos
+*/
 METHOD_POOL* initMETHOD_POOL(int count) {
 	METHOD_POOL* toReturn = (METHOD_POOL*)malloc(sizeof(METHOD_POOL));
 

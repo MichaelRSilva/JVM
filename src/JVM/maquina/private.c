@@ -87,6 +87,9 @@ static struct _method_info* getclinit(CLASS* class) {
 	return NULL;
 }
 
+/*!
+	procura e devolve o metodo MAIN
+*/
 struct _method_info* getMainMethod() {
 	CLASS *main_class;
 	uint8_t *name, *desc;

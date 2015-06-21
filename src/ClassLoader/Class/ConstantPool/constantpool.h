@@ -12,6 +12,10 @@
 	#define MODUDLE_CONSTANT_POOL
 	#include "../../../Common/common.h"
 
+	/*!
+		Enum com os atribuicao de nome de tipo com o numero do bytecode que representa esse nome (traduzindo para portugues)
+	*/
+
 	enum _tags {
 		tExtended = 0,
 		tUtf8 = 1,
@@ -27,6 +31,9 @@
 		tNameType = 12
 	};
 
+	/*!
+		estrutura do constant_info, separada por tipo e sub-structs
+	*/
 	struct _constant_info {
 		uint8_t tag;
 		union {
@@ -59,6 +66,9 @@
 		} type;
 	};
 
+	/*!
+		estrutura do constant pool e declaracoes das funcoes internas que podederao ser usadas quando tiver uma variavel desse tipo
+	*/
 	typedef struct _constant_pool {
 		struct _constant_info* constants;
 

@@ -1,21 +1,36 @@
 #include "fieldinfo.h"
 
+/*!
+	devolve as flags de acesso do field
+*/
 static uint16_t getAccessFlags(DADOS* d) {
 	return d->le2Bytes(d);
 }
 
+/*!
+	devolve o indice de um nome do field
+*/
 static uint16_t getNameIndex(DADOS* d) {
 	return d->le2Bytes(d);
 }
 
+/*!
+	devolve o indice da descricao do field
+*/
 static uint16_t getDescriptorIndex(DADOS* d) {
 	return d->le2Bytes(d);
 }
 
+/*!
+	devolve a quantidade de atributos do field
+*/
 static uint16_t getAttributesCount(DADOS* d) {
 	return d->le2Bytes(d);
 }
 
+/*!
+	carrega um field na memoria
+*/
 static int addField(FIELD_POOL* this, CONSTANT_POOL* cp, int ordem, DADOS* d) {
 	
 	this->fields[ordem].access_flags = getAccessFlags(d);
@@ -33,6 +48,9 @@ static int addField(FIELD_POOL* this, CONSTANT_POOL* cp, int ordem, DADOS* d) {
 	return E_SUCCESS;
 }
 
+/*!
+	inicia o ponto de fields
+*/
 FIELD_POOL* initFIELD_POOL(int count) {
 	FIELD_POOL* toReturn = (FIELD_POOL*)malloc(sizeof(FIELD_POOL));
 

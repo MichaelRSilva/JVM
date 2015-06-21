@@ -132,6 +132,9 @@ static int loadInterfaces(CLASS* class) {
 	return E_SUCCESS;
 }
 
+/*!
+	carrega uma classe que ainda nao foi carregada na memoria 
+*/
 static int loadClass(char* name) {
 	printf("\nentrou loadClass: %s", name);
 	int toReturn = -1;
@@ -166,20 +169,33 @@ static void run() {
 	printf("\nSAIU RUN");
 }
 
+/*!
+	procura uma class pelo nome no array de classes
+*/
+
 static CLASS* getClassByName(char* classname){
 	int flag = getClassIndex(classname);
 	if (flag < 0) return NULL;
 	return maquina.method_area->classes[getClassIndex(classname)];
 }
 
+/*!
+	devolve um valor de um field estatico
+*/
 static uint64_t getStaticFieldVal(uint32_t class_index, uint32_t field_index){
 	return maquina.method_area->classes[class_index]->fields_pool->fields[field_index].value;
 }
 
+/*!
+	atribui um valor a um field estatico
+*/
 static void setStaticFieldVal(uint32_t class_index, uint32_t field_index, uint64_t value){
 	maquina.method_area->classes[class_index]->fields_pool->fields[field_index].value = value;
 }
 
+/*!
+	dado um objeto devolve a referencia para um field desse objeto
+*/
 static struct _field_info *getObjectField(struct _object *object, uint32_t name_index) {
 
 	int32_t i = 0;
@@ -190,6 +206,9 @@ static struct _field_info *getObjectField(struct _object *object, uint32_t name_
 	return &(object->class->fields_pool->fields[i]);
 }
 
+/*!
+	seta um valor a um field que estah instanciado
+*/
 static void setObjectField(struct _object *object, uint32_t name_index, uint64_t value) {
 
 	int32_t i = 0;
@@ -202,6 +221,9 @@ static void setObjectField(struct _object *object, uint32_t name_index, uint64_t
 
 }
 
+/*!
+	devolve o index de um field de uma classe
+*/
 static uint32_t retrieveFieldIndex(char *className, char *name, uint16_t nameLen, char *desc, uint16_t descLen) {
 	
 	int32_t i;
@@ -236,6 +258,9 @@ static uint32_t retrieveFieldIndex(char *className, char *name, uint16_t nameLen
 	return -1;
 }
 
+/*!
+	devolve um index de um nome de uma constant
+*/
 static char * getNameConstants(CLASS *class, uint16_t nameIndex) {
 	
 	int i;
@@ -248,6 +273,9 @@ static char * getNameConstants(CLASS *class, uint16_t nameIndex) {
 	return data;
 }
 
+/*!
+	devolve a quantida de parametros de um metodo
+*/
 int32_t getNumParameters(CLASS *class, struct _method_info *method) {
 	int32_t i;
 	int32_t parametros = 0;
@@ -271,6 +299,10 @@ int32_t getNumParameters(CLASS *class, struct _method_info *method) {
 	return parametros;
 }
 
+
+/*!
+	procura e devolve um metodo, pesquisando por nome e descricao
+*/
 struct _method_info *getMethodByNameDesc(CLASS *main_class, CLASS *name_type_class, uint16_t name_type_index) {
 	int i;
 	uint8_t *m_name, *m_desc;
@@ -304,6 +336,9 @@ struct _method_info *getMethodByNameDesc(CLASS *main_class, CLASS *name_type_cla
 	return NULL;
 }
 
+/*!
+	inicia a JVM 
+*/
 JVM initJVM() {
 	JVM toReturn;
 	

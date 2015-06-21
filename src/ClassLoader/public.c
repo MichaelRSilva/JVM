@@ -1,5 +1,8 @@
 #include "private.c"
 
+/*!
+	carrega uma classe na memoria, eh dado o nome de um arquivo .class
+*/
 // funcoes somente visiveis a struct classloader
 static CLASS* load(CLASS_LOADER* this, char* fileName) {
 	DADOS d = getUTILInstance().LeArquivo(fileName);

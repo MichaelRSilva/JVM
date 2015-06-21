@@ -1,5 +1,9 @@
 #include "../JVM/maquina/instructions.c"
 
+
+/*!
+	exibe o dado e informacoes de uma constante
+*/
 static void printConstantValue(struct _attribute_info attr, char *tab, CONSTANT_POOL* cp, int ordem, FILE* output) {
 	fprintf(output,"%s[%d]%s\n", tab, ordem,cp->constants[attr.attributeNameIndex-1].type.Utf8.bytes);
 	fprintf(output,"%s\tAttribute name index: %d\n", tab,attr.attributeNameIndex);
@@ -8,6 +12,9 @@ static void printConstantValue(struct _attribute_info attr, char *tab, CONSTANT_
 	fprintf(output,"%s\tConstant value index: %d\n", tab,attr.info.ConstantValueAttribute.constantvalue_index);
 }
 
+/*!
+	exibe o code que estah contido em .class
+*/
 static void printCode(struct _attribute_info attr, char *tab, CONSTANT_POOL* cp, int ordem, FILE* output) {
 	int k = 0;
 
@@ -49,34 +56,58 @@ static void printCode(struct _attribute_info attr, char *tab, CONSTANT_POOL* cp,
 
 }
 
+/*!
+	no print in jclasslib
+*/
 static void printExceptions(struct _attribute_info attr, char *tab, FILE* output) {
-//TODO: MARCUS
+
 }
 
+/*!
+	no print in jclasslib
+*/
 static void printInnerClasses(struct _attribute_info attr, char *tab, FILE* output) {
 //NOT PRINT IN JCLASSLIB
 }
 
+/*!
+	no print in jclasslib
+*/
 static void printSynthetic(struct _attribute_info attr, char *tab, FILE* output) {
-//NOTHING
+
 }
 
+/*!
+	exibe o source file (informacoes do arquivo .class)
+*/
 static void printSourceFile(struct _attribute_info attr, char *tab, FILE* output) {
 	fprintf(output,"%s\tSource file index: %d\n", tab,attr.info.SourceFileAttribute.sourcefile_index);
 }
 
+/*!
+	no print in jclasslib
+*/
 static void printLineNumberTable(struct _attribute_info attr, char *tab, FILE* output) {
-//TODO: MARCUS
+
 }
 
+/*!
+	no print in jclasslib
+*/
 static void printLocalVariableTable(struct _attribute_info attr, char *tab, FILE* output) {
 //NOT PRINT IN JCLASSLIB
 }
 
+/*!
+	no print in jclasslib
+*/
 static void printDeprecated(struct _attribute_info attr, char *tab, FILE* output) {
 //NOTHING
 }
 
+/*!
+	exibe informacoes do atributo
+*/
 static void printAttribute(struct _attribute_info attr, CONSTANT_POOL* cp, char* tab, int ordem, FILE* output){
 	char* tipoNome = (char*)malloc(cp->constants[attr.attributeNameIndex - 1].type.Utf8.tam * sizeof(char));
 	strcpy(tipoNome, (char*)cp->constants[attr.attributeNameIndex - 1].type.Utf8.bytes);
@@ -104,6 +135,9 @@ static void printAttribute(struct _attribute_info attr, CONSTANT_POOL* cp, char*
 	}
 }
 
+/*!
+	exibe todos os dados que o leitor-exibidor deve exibir, usando as funcoes acima.
+*/
 static int PrintClass(CLASS* this, FILE* output) {
 	fprintf(output,"\nINFORMACOES DA CLASSE\n");
 	fprintf(output,"-------------------------------------------------------------------\n\n");

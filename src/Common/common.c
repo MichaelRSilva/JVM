@@ -21,6 +21,9 @@ const ERRORS errordesc[] = {
 	{ E_OPCAO_NAO_EXISTENTE, "ERRO: opcao nao existente (ou '-tela' ou 'arquivo')"}
 };
 
+/*!
+	dado um hexadecimal, devolve uma string com o nome do acesso, principalmente para exibir no leitor-exibidor
+*/
 const char *returnAccessFlagsName(uint16_t hexadecimal){
 
 	uint16_t imask_public, imask_private, imask_protected, imask_static, imask_final, imask_interface, imask_abstract;
@@ -68,7 +71,9 @@ long getLong(uint32_t highBytes, uint32_t lowBytes) {
 	return ((uint64_t)highBytes) << 32 | lowBytes;
 }
 
-
+/*!
+	pega e trata um double que esta na class, principalmente para exibir e tratar operacoes
+*/
 double getDouble(uint32_t highBytes, uint32_t lowBytes) {
 	uint64_t var = 0, auxVar;
 	int sinal = 0, expoente = 0;
@@ -104,6 +109,9 @@ static uint8_t le1Byte(DADOS* this) {
 	return 0;
 }
 
+/*!
+	leh dois bytes de um objeto do tipo dados
+*/
 static uint16_t le2Bytes(DADOS* this) {
 	uint16_t buffer = 0;
 
@@ -114,6 +122,9 @@ static uint16_t le2Bytes(DADOS* this) {
 	return buffer;
 }
 
+/*!
+	leh 4 bytes de um objeto do tipo dados
+*/
 static uint32_t le4Bytes(DADOS* this) {
 	uint32_t buffer = 0;
 

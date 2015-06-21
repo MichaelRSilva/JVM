@@ -1,17 +1,29 @@
 #include "class.h"
 
+/*!
+	devolve o nome de uma classe recebida
+*/
 static char* getName(CLASS* this) {
 	return this->constant_pool->getClassName(this->constant_pool, this->this_class);
 }
 
+/*!
+	devolve o nome de uma classe pai
+*/
 static char* getParentName(CLASS* this) {
 	return this->constant_pool->getClassName(this->constant_pool, this->super_class);
 }
 
+/*!
+	devolve o nome de uma interface recebida
+*/
 static char* getInterfaceName(CLASS* this, int interface_index) {
 	return this->constant_pool->getClassName(this->constant_pool, this->interfaces[interface_index]);
 }
 
+/*!
+	inicia o tipo de class
+*/
 CLASS* initCLASS() {
 	CLASS* toReturn = (CLASS*)malloc(sizeof(CLASS));
 

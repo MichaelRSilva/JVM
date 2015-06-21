@@ -17,7 +17,9 @@
 	#include <string.h>
 	#include <math.h>
 
-
+	/*!
+		facilitar o uso para comparacao de access flags
+	*/
 	enum _ACCESS_FLAGS {
 		mask_public = 0x0001,
 		mask_private= 0x0002,

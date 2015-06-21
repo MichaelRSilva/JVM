@@ -4,6 +4,9 @@
 	#include "../../../Common/common.h"
 	#include "../AttributeInfo/attributeinfo.h"
 	
+	/*!
+		estrutura _field_info (criacao de tipo para novas variaveis)
+	*/
 	struct _field_info {
 		
 		uint16_t access_flags;
@@ -15,6 +18,9 @@
 
 	};
 
+	/*!
+		fields tem um array de field
+	*/
 	typedef struct _fields {
 		struct _field_info* fields;
 

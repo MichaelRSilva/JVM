@@ -12,6 +12,9 @@
 #include "../Util/util.h"
 #include "maquina/maquina.h"
 
+/*!
+	cria o executavel da maquina virtual, e chama todas as funcoes para finalmente executar os codes (bytecode)
+*/
 int main(int argc, char **argv) {
 	int flag;
 	UTIL util = getUTILInstance();
@@ -19,6 +22,9 @@ int main(int argc, char **argv) {
 	if(!(flag = util.VerificaLeitorExibidorCMDArgs(argc, argv))) {
 		maquina = initJVM();
 
+		/*!
+			carrega o .class passado por argumento
+		*/
 		int index = maquina.loadClass(argv[1]);
 		maquina.run();
 	}

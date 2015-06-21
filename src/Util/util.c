@@ -10,6 +10,9 @@
 */
 #include "util.h"
 
+/*!
+	trata se os argumentos passados para o executavel, se esta correto
+*/
 static int VerificaLeitorExibidorCMDArgs(int argc, char **argv){
 	FILE *fp;
     char *arq1name;
@@ -28,6 +31,9 @@ static int VerificaLeitorExibidorCMDArgs(int argc, char **argv){
 	return E_SUCCESS;
 }
 
+/*!
+	trata se os argumentos passados para o executavel, se esta correto
+*/
 static int VerificaJVMCMDArgs(int argc, char** argv){
 	FILE *fp;
     char *arq1name;

@@ -1,5 +1,9 @@
 #include "private.c"
 
+
+/*!
+	Adiciona um atributo no constant pool passador por parametro
+*/
 static void addAttribute(ATTRIBUTE_POOL* this, CONSTANT_POOL* cp, int ordem, DADOS* d) {
 	this->attributes[ordem].attributeNameIndex = getAttributeNameIndex(d);
 	this->attributes[ordem].attributeLength = getAttributeLength(d);
@@ -7,6 +11,9 @@ static void addAttribute(ATTRIBUTE_POOL* this, CONSTANT_POOL* cp, int ordem, DAD
 	char* tipoNome = (char*)malloc(cp->constants[this->attributes[ordem].attributeNameIndex - 1].type.Utf8.tam * sizeof(char));
 	strcpy(tipoNome, (char*)cp->constants[this->attributes[ordem].attributeNameIndex - 1].type.Utf8.bytes);
 	
+	/*!
+		verifica do tipo de atributo, e para cada tipo, chama uma funcao que esta no private.c
+	*/
 	if (strcmp(tipoNome, "ConstantValue") == 0) {
 		populateConstantValueAttribute(&this->attributes[ordem], d);
 	} else if (strcmp(tipoNome, "Code") == 0) {
@@ -28,7 +35,9 @@ static void addAttribute(ATTRIBUTE_POOL* this, CONSTANT_POOL* cp, int ordem, DAD
 	}
 }
 
-
+/*!
+	inicial o ponto de atributos de acordo com a struct _attribute_info
+*/
 ATTRIBUTE_POOL* initATTRIBUTE_POOL(int tamanho) {
 	ATTRIBUTE_POOL* toReturn = (ATTRIBUTE_POOL*)malloc(sizeof(ATTRIBUTE_POOL));
 

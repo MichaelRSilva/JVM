@@ -13,7 +13,9 @@
 	#include "../../../Common/common.h"
 	#include "../AttributeInfo/attributeinfo.h"
 
-
+	/*!
+		estrutura _method_info (criacao de tipo para novas variaveis)
+	*/
 	struct _method_info {
 		uint16_t access_flags;
 		uint16_t name_index;
@@ -22,6 +24,9 @@
 		struct _attribute_info* attributes;
 	};
 
+	/*!
+		fields tem um array de _method
+	*/
 	typedef struct _method {
 		struct _method_info* methods;
 		int (*addMethods)(struct _method*, CONSTANT_POOL*,int, DADOS*);

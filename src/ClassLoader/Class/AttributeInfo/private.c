@@ -1,18 +1,30 @@
 #include "attributeinfo.h"
 
+/*!
+	devolve o indice do nome do atributo que estara no constant_pool
+*/
 static uint16_t getAttributeNameIndex(DADOS* d) {
 	return d->le2Bytes(d);
 }
 
+/*!
+	devolve o tamanho do atributo
+*/
 static uint32_t getAttributeLength(DADOS* d ) {
 	return d->le4Bytes(d);
 }
 
+/*!
+	atribue o valor de uma const
+*/
 static void populateConstantValueAttribute(struct _attribute_info* a, DADOS* d) {
 
 	a->info.ConstantValueAttribute.constantvalue_index = d->le2Bytes(d);
 }
 
+/*!
+	carrega o code (bytecode) na memoria
+*/
 static void populateCodeAttribute(struct _attribute_info* a, CONSTANT_POOL* cp, DADOS* d) {
 	a->info.CodeAttribute.max_stack = d->le2Bytes(d);
 	a->info.CodeAttribute.max_locals = d->le2Bytes(d);
@@ -38,6 +50,9 @@ static void populateCodeAttribute(struct _attribute_info* a, CONSTANT_POOL* cp, 
 	a->info.CodeAttribute.attributes = code_atts->attributes;
 }
 
+/*!
+	carrega as exceptios na memoria
+*/
 static void populateExceptions(struct _attribute_info* a, DADOS* d) {
 	a->info.ExeceptionsAttribute.number_of_exceptions = d->le2Bytes(d);
 	a->info.ExeceptionsAttribute.exception_index_table = malloc (a->info.ExeceptionsAttribute.number_of_exceptions * sizeof(struct _exception_table));
@@ -46,6 +61,10 @@ static void populateExceptions(struct _attribute_info* a, DADOS* d) {
 		a->info.ExeceptionsAttribute.exception_index_table[i] = d->le2Bytes(d);
 	}
 }
+
+/*!
+	carrega as classes internas na memoria
+*/
 
 static void populateInnerClasses(struct _attribute_info* a, DADOS* d) {
 	a->info.InnerClassesAttribute.number_of_classes = d->le2Bytes(d);
@@ -59,14 +78,23 @@ static void populateInnerClasses(struct _attribute_info* a, DADOS* d) {
 	}
 }
 
+/*!
+	nao usaremos Synthetic
+*/
 static void populateSynthetic(struct _attribute_info* a, DADOS* d) {
 	//NOTHING
 }
 
+/*!
+	informacoes do arquivo .class
+*/
 static void populateSourceFile(struct _attribute_info* a, DADOS* d) {
 	a->info.SourceFileAttribute.sourcefile_index = d->le2Bytes(d);
 }
 
+/*!
+	carrega os extremos do pc para um metodo, na memoria
+*/
 static void populateLineNumberTable(struct _attribute_info* a, DADOS* d) {
 	a->info.LineNumberTableAttribute.liner_number_table_length = d->le2Bytes(d);
 	a->info.LineNumberTableAttribute.line_number_table = (struct _line_number_table*) malloc (a->info.LineNumberTableAttribute.liner_number_table_length * sizeof(struct _line_number_table));
@@ -77,6 +105,9 @@ static void populateLineNumberTable(struct _attribute_info* a, DADOS* d) {
 	}
 }
 
+/*!
+	carrega as variaveis locais na memoria
+*/
 static void populateLocalVariableTable(struct _attribute_info* a, DADOS* d) {
 	
 	a->info.LocalVariableTableAttribute.local_variable_table_length = d->le2Bytes(d);
@@ -92,6 +123,10 @@ static void populateLocalVariableTable(struct _attribute_info* a, DADOS* d) {
 }
 
 
+/*!
+	nao usaremos Depreacated
+*/
 static void populateDeprecated(struct _attribute_info* a, DADOS* d) {
 	//NOTHING
 }
+

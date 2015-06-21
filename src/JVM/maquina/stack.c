@@ -19,6 +19,9 @@ FRAME* popFrame(CLASS* class, struct _code_attribute* code_attr) {
 	return aux;
 }
 
+/*!
+	inicia a pilha de frames, onde cada metodo tem um frame 
+*/
 STACK* initSTACK() {
 	STACK* toReturn = (STACK*)malloc(sizeof(STACK));
 

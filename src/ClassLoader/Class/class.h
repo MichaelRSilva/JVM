@@ -16,6 +16,10 @@
 	#include "MethodInfo/methodinfo.h"
 	#include "AttributeInfo/attributeinfo.h"
 
+	/*!
+		uma das structs mais importantes do programa, ela eh a juncao de todas as outras structs: attributs,constant_pool,field_info,method_info
+	*/
+
 	typedef struct _class {
 		// estrutura estatica do arquivo .class
 			char* class_file;

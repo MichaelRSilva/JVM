@@ -1,5 +1,8 @@
 #include "maquina.h"
 
+/*!
+	inicial a area de metodos
+*/
 METHOD_AREA* initMETHOD_AREA() {
 	METHOD_AREA* toReturn = (METHOD_AREA*)malloc(sizeof(METHOD_AREA));
 

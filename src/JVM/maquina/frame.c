@@ -1,5 +1,8 @@
 #include "maquina.h"
 
+/*!
+	empilha um valor na pilha de operandos
+*/
 static void push(uint64_t valor) {
 	if (maquina.current_frame->operand_stack.allocated >= maquina.current_frame->code_attr->max_stack) {
 		printf("Stack Overflow!");
@@ -13,6 +16,9 @@ static void push(uint64_t valor) {
 	maquina.current_frame->operand_stack.allocated++;
 }
 
+/*!
+	desempilha um valor na pilha de operandos
+*/
 static uint64_t pop() {
 	uint64_t* toReturn = (uint64_t*)malloc(sizeof(uint64_t)); // valor para retorno
 	struct _u4pilha* ref = maquina.current_frame->operand_stack.topo; // topo sera desalocado
@@ -24,12 +30,17 @@ static uint64_t pop() {
 	// free(ref); // desalocado topo
 	return *toReturn;
 }
-
+/*!
+	empilha um valor na pilha de operandos
+*/
 static void push2(uint64_t valor) {
 	push(valor >> 32);
 	push(valor & 0xffffffff);
 }
 
+/*!
+	incicia e alococa o frame inicial na memoria
+*/
 FRAME* initFRAME(CLASS* class, struct _code_attribute* code_attr) {
 	FRAME* frame = (FRAME*)malloc(sizeof(FRAME));
 	

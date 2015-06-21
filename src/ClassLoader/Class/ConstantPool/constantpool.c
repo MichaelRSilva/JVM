@@ -1,5 +1,8 @@
 #include "private.c"
 
+/*!
+	coloca um dado de um tipo no ponto de constante
+*/
 static int addConstant(CONSTANT_POOL* this, int ordem, DADOS* d) {
 	int toReturn = 0;
 	
@@ -46,21 +49,33 @@ static int addConstant(CONSTANT_POOL* this, int ordem, DADOS* d) {
 	return toReturn;
 }
 
+/*!
+	entra o ponto de constantes e um index, devolve um dado em utf8
+*/
 static char* getUtf8String(CONSTANT_POOL* this, int index) {
 	if (index == 0) return NULL;
 	return (char*)this->constants[index - 1].type.Utf8.bytes;
 }
 
+/*!
+	entra o ponto de constantes e um index, o nome de uma classe
+*/
 static char* getClassName(CONSTANT_POOL* this, int index) {
 	if (index == 0) return NULL;
 	return getUtf8String(this, this->constants[index - 1].type.Class.nameIndex);
 }
 
+/*!
+	entra o ponto de constantes e um index, devolve o tipo de um atributo
+*/
 static char* getAttributeType(CONSTANT_POOL* this, int index) {
 	if (index == 0) return NULL;
 	return (char*)this->constants[index - 1].type.Utf8.bytes;
 }
 
+/*!
+	inicia o ponto de constante
+*/
 CONSTANT_POOL* initCONSTANT_POOL(int count) {
 	CONSTANT_POOL* toReturn = (CONSTANT_POOL*)malloc(sizeof(CONSTANT_POOL));
 
