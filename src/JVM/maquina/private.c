@@ -130,6 +130,24 @@ static struct _method_info* getclinit(CLASS* class) {
 	return NULL;
 }
 
+struct _method_info* getMainMethod() {
+	CLASS *main_class;
+	uint8_t *name, *desc;
+
+	main_class = maquina.method_area->classes[0];
+
+	/* procura por método main ([LJava/lang/String;)V */
+	for (int i = 0; i < main_class->methods_count; i++){
+		name = main_class->constant_pool->constants[(main_class->methods_pool->methods[i].name_index-1)].type.Utf8.bytes;
+		desc = main_class->constant_pool->constants[(main_class->methods_pool->methods[i].descriptor_index-1)].type.Utf8.bytes;
+
+		if ((strcmp("main", (char *)name) == 0) && (strcmp("([Ljava/lang/String;)V", (char *)desc) == 0))
+			return &(main_class->methods_pool->methods[i]);
+	}
+
+	return NULL;
+}
+
 
 
 

@@ -22,6 +22,7 @@ int main(int argc, char **argv) {
 		int index = maquina.loadClass(argv[1]);
 		maquina.link(index);
 		maquina.initialize(index);
+		maquina.run();
 	}
 	
 	printf("%s", errordesc[abs(flag)].message);

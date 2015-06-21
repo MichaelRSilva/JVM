@@ -85,7 +85,7 @@ static void link(int class_index) {
 	prepare();
 }
 
-/// executa o main
+/// executa o método do current frame
 static void execute() {
 	printf("\n\t\tentrou execute: %p", maquina.current_frame);
 	while (maquina.current_frame != NULL && (maquina.current_frame->pc) < maquina.current_frame->code_attr->code_length) {
@@ -96,6 +96,17 @@ static void execute() {
 
 	maquina.stack->popFrame();
 	printf("\n\t\tsaiu execute: %p", maquina.current_frame);
+}
+
+/// executa o main
+static void run() {
+	printf("\nENTROU RUN");
+	struct _method_info* main = getMainMethod();
+	if (main == NULL) {printf("Nao foi encontrado nenhuma main!"); exit(-1230);}
+
+	construirFrame(maquina.method_area->classes[0], main);
+	execute();
+	printf("\nSAIU RUN");
 }
 
 /// executa clinit
@@ -279,6 +290,7 @@ JVM initJVM() {
 	toReturn.getMethodByNameDesc = getMethodByNameDesc;
 	toReturn.getNumParameters = getNumParameters;
 	toReturn.construirFrame = construirFrame;
+	toReturn.run = run;
 
 	return toReturn;
 }

@@ -118,7 +118,8 @@
 			struct _method_info* (*getMethodByNameDesc)(CLASS*, CLASS*, uint16_t);
 			int32_t (*getNumParameters)(CLASS*, struct _method_info*) ;
 			void (*construirFrame)(CLASS*, struct _method_info*);
-			
+			void (*run)();
+
 		} JVM;
 	
 	HEAP* initHEAP();
