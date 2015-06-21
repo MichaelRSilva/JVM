@@ -236,8 +236,7 @@ static uint32_t retrieveFieldIndex(char *className, char *name, uint16_t nameLen
 	if (!main_class) {
 		return -2;
 	}
-	for (i = 0; main_class && i < main_class->fields_count; i++) {
-		
+	for (i = 0; main_class && i < main_class->fields_count; i++) {		
 		getName = main_class->constant_pool->constants[(main_class->fields_pool->fields[i].name_index-1)].type.Utf8.bytes;
 		tamName = main_class->constant_pool->constants[(main_class->fields_pool->fields[i].name_index-1)].type.Utf8.tam;
 		
@@ -250,10 +249,11 @@ static uint32_t retrieveFieldIndex(char *className, char *name, uint16_t nameLen
 		if (descLen != tamDesc) {
 			continue;
 		}
-		if ((strncmp((char *)name, (char *)getName , tamName) == 0) && (strncmp((char *)desc, (char *)getDesc , tamDesc) == 0)) {
+		if ((strcmp((char *)name, (char *)getName) == 0) && (strcmp((char *)desc, (char *)getDesc) == 0)) {
 			return i;
 		}
 	}
+	// exit(-24242);
 
 	return -1;
 }

@@ -25,7 +25,7 @@ int main(int argc, char **argv) {
 		/*!
 			carrega o .class passado por argumento
 		*/
-		int index = maquina.loadClass(argv[1]);
+		maquina.loadClass(argv[1]);
 		maquina.run();
 	}
 	

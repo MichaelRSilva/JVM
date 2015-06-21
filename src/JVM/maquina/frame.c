@@ -27,7 +27,7 @@ static uint64_t pop() {
 	maquina.current_frame->operand_stack.topo = maquina.current_frame->operand_stack.topo->next;
 	maquina.current_frame->operand_stack.allocated--;
 
-	// free(ref); // desalocado topo
+	free(ref); // desalocado topo
 	return *toReturn;
 }
 /*!

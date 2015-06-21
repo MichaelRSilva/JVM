@@ -2510,30 +2510,30 @@ static void _putstatic() {
 	classIndexTemp = maquina.current_frame->runtime_constant_pool->constants[indice-1].type.FieldRef.classIndex;
 	className = maquina.current_frame->runtime_constant_pool->getUtf8String(maquina.current_frame->runtime_constant_pool, maquina.current_frame->runtime_constant_pool->constants[classIndexTemp-1].type.Class.nameIndex);
 	
-
 	nameTypeIndex = maquina.current_frame->runtime_constant_pool->constants[indice-1].type.FieldRef.nameTypeIndex;
 	name = maquina.current_frame->runtime_constant_pool->getUtf8String(maquina.current_frame->runtime_constant_pool, maquina.current_frame->runtime_constant_pool->constants[nameTypeIndex-1].type.NameType.nameIndex);
 	type = maquina.current_frame->runtime_constant_pool->getUtf8String(maquina.current_frame->runtime_constant_pool, maquina.current_frame->runtime_constant_pool->constants[nameTypeIndex-1].type.NameType.descriptorIndex);
 
+	field_index =  maquina.retrieveFieldIndex(className, name, strlen(name), type, strlen(type));
+	// while((field_index = maquina.retrieveFieldIndex(className, name, strlen(name), type, strlen(type))) == -1) {
+	// 	className = maquina.current_frame->current_class->getParentName(maquina.getClassByName(className));
+	// }
 
-	while((field_index = maquina.retrieveFieldIndex(className, name, strlen(name), type, strlen(type))) == -1) {
-		className = maquina.current_frame->current_class->getParentName(maquina.getClassByName(className));
-	}
+	// classIndex = maquina.loadClass(className);
 
-	classIndex = maquina.loadClass(className);
-
-	if(type[0] == 'J' || type[0] == 'D') {
+	// if(type[0] == 'J' || type[0] == 'D') {
 
 		valor  = maquina.current_frame->pop();
-		valor2 = maquina.current_frame->pop();
-		valor = valor | (valor2 << 32);
+		// valor2 = maquina.current_frame->pop();
+	// 	valor = valor | (valor2 << 32);
  
-	} else {
-		valor = maquina.current_frame->pop();
-	}
+	// } else {
+	// 	valor = maquina.current_frame->pop();
+	// }
 
-	maquina.setStaticFieldVal(classIndex , field_index, valor);
+	// maquina.setStaticFieldVal(classIndex , field_index, valor);
 	maquina.current_frame->pc++;
+	exit(-12323);
 }
 
 
