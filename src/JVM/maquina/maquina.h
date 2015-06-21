@@ -56,12 +56,12 @@
 	// frame: capítulo 3, seção 3.6 da especificação
 		typedef struct _frame {
 			// campos
-			uint32_t* local_variables;
+			uint64_t* local_variables;
 
 			struct _operand_stack {
 				uint32_t allocated;
 				struct _u4pilha {
-					uint32_t value;
+					uint64_t value;
 					struct _u4pilha* next; 
 				}* topo;
 			} operand_stack;
@@ -72,8 +72,8 @@
 			uint32_t pc;
 
 			// funcoes
-			void (*push)(uint32_t);
-			uint32_t (*pop)();
+			void (*push)(uint64_t);
+			uint64_t (*pop)();
 			void (*push2)(uint64_t);
 		} FRAME;		
 

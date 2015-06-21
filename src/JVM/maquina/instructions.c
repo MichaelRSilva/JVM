@@ -111,7 +111,7 @@ static void _lconst_1() {
 */
 static void _fconst_0() {
     float float_number = 0.0;
-    maquina.current_frame->push(*((uint32_t*)&float_number));
+    maquina.current_frame->push(*((uint64_t*)&float_number));
     maquina.current_frame->pc++;
 }
 
@@ -120,7 +120,7 @@ static void _fconst_0() {
 */
 static void _fconst_1() {
     float float_number = 1.0;
-    maquina.current_frame->push(*((uint32_t*)&float_number));
+    maquina.current_frame->push(*((uint64_t*)&float_number));
     maquina.current_frame->pc++;
 }
 
@@ -129,7 +129,7 @@ static void _fconst_1() {
 */
 static void _fconst_2() {
     float float_number = 2.0;
-    maquina.current_frame->push(*((uint32_t*)&float_number));
+    maquina.current_frame->push(*((uint64_t*)&float_number));
     maquina.current_frame->pc++;
 }
 
@@ -137,41 +137,30 @@ static void _fconst_2() {
 	Empilha constante double 0.0 na pilha de operandos
 */
 static void _dconst_0() {
-	
-	uint32_t auxiliar_32;
 	double double_number = 0.0;
-	int64_t *auxiliar_64 = malloc(sizeof(uint64_t));
+	uint64_t *auxiliar_64 = malloc(sizeof(uint64_t));
 
 	memcpy(auxiliar_64, &double_number, sizeof(uint64_t));
-	auxiliar_32 = *auxiliar_64 >> 32;
-	maquina.current_frame->push(auxiliar_32);
-	auxiliar_32 = *auxiliar_64 & 0xffffffff;
-	maquina.current_frame->push(auxiliar_32);
+	maquina.current_frame->push2(*auxiliar_64);
 	maquina.current_frame->pc++;
-        
-
 }
 
 /*!
 	Empilha constante double 1.0 na pilha de operandos
 */
 static void _dconst_1() {
-	uint32_t auxiliar_32;
 	double double_number = 1.0;
-	int64_t *auxiliar_64 = malloc(2 * sizeof(uint32_t));
+	uint64_t *auxiliar_64 = malloc(sizeof(uint64_t));
 
-	memcpy(auxiliar_64, &double_number, 2 * sizeof(uint32_t));
-	auxiliar_32 = *auxiliar_64 >> 32;
-	maquina.current_frame->push(auxiliar_32);
-	auxiliar_32 = *auxiliar_64 & 0xffffffff;
-	maquina.current_frame->push(auxiliar_32);
+	memcpy(auxiliar_64, &double_number, sizeof(uint64_t));
+	maquina.current_frame->push2(*auxiliar_64);
 	maquina.current_frame->pc++;
 }
 
 /*!
 	Empilha um byte. 
 	O valor imediato do byte tem o sinal extendido para um valor int  (8 bits)
-	O valor é colcado na pilha de operandos
+	O valor é colocado na pilha de operandos
 */
 static void _bipush() {
     //Pula os 8 bits codigo da instrucao contida no array de codes
@@ -193,7 +182,7 @@ static void _sipush() {
 	auxiliar_16 <<= 8;
 	auxiliar_16 |= low;
 	
-	maquina.current_frame->push((int32_t)auxiliar_16);
+	maquina.current_frame->push(auxiliar_16);
 	maquina.current_frame->pc++;
 }
 
@@ -217,9 +206,9 @@ static void _ldc() {
 }
 
 static void _ldc_w() {
-	uint32_t indice;
+	uint64_t indice;
 	uint8_t type;
-	uint32_t high, low, completeValue;
+	uint64_t high, low, completeValue;
 	
 	maquina.current_frame->pc++;
 
@@ -248,9 +237,9 @@ static void _ldc_w() {
 
 static void _ldc2_w() {
     
-    uint32_t indice;
+    uint64_t indice;
     uint8_t type;
-    uint32_t high, low, completeValue;
+    uint64_t high, low, completeValue;
     
     maquina.current_frame->pc++;
     
@@ -287,6 +276,7 @@ static void _iload() {
 		indice = indice | maquina.current_frame->code_attr->code[maquina.current_frame->pc];
 		WIDE = 0;
 	}
+
 	maquina.current_frame->push(maquina.current_frame->local_variables[indice]);
 	maquina.current_frame->pc++;
 }
@@ -414,37 +404,39 @@ static void _aload_3() {
 }
 
 static void _iaload() {
-    uint32_t indice, aux;
-    uint32_t* arrayRef;
+    uint64_t indice;
+    uint64_t *arrayRef, aux;
 
     indice 	 = maquina.current_frame->pop();
     aux = maquina.current_frame->pop();
-    memcpy(&arrayRef, &aux, sizeof(uint32_t));
-    maquina.current_frame->push(arrayRef[indice]);
+    memcpy(&arrayRef, &aux, sizeof(uint64_t));
+
+    maquina.current_frame->push(((uint64_t*)arrayRef)[indice]);
     maquina.current_frame->pc++;
 }
 
 static void _laload() {
-	uint32_t indice,aux;
-	uint64_t* arrayRef;
+	uint64_t indice, aux;
+	void *arrayRef;
 
 	indice = maquina.current_frame->pop();
 	aux = maquina.current_frame->pop();
-	memcpy(&arrayRef, &aux, sizeof(uint32_t));
-	maquina.current_frame->push2(arrayRef[indice]);
+	memcpy(&arrayRef, &aux, sizeof(uint64_t)); // convert to pointer
+
+	maquina.current_frame->push2(((uint64_t*)arrayRef)[indice]);
 	maquina.current_frame->pc++;
 }
 
 static void _faload() {
-    uint32_t indice, aux, aux2;
-    uint32_t* arrayRef;
+    uint64_t indice, aux;
+    void* arrayRef;
 
-    indice 	 = maquina.current_frame->pop();
+    indice = maquina.current_frame->pop();
     aux = maquina.current_frame->pop();
-    memcpy(&arrayRef, &aux, sizeof(uint32_t));
-    memcpy(&aux2, &((float *)arrayRef)[indice], sizeof(uint32_t));
-    maquina.current_frame->push(aux2);
-    maquina.current_frame->pc++;
+    memcpy(&arrayRef, &aux, sizeof(uint64_t)); // convert to pointer
+
+    maquina.current_frame->push(((uint64_t*)arrayRef)[indice]);
+	maquina.current_frame->pc++;
 }
 
 static void _daload() {
@@ -456,25 +448,27 @@ static void _aaload() {
 }
 
 static void _baload() {
-	uint32_t indice,aux;
-	uint8_t* arrayRef;
+	uint64_t indice,aux;
+	void* arrayRef;
 
 	indice = maquina.current_frame->pop();
 	aux = maquina.current_frame->pop();
-	memcpy(&arrayRef, &aux, sizeof(uint8_t));
-	maquina.current_frame->push(arrayRef[indice]);
+	memcpy(&arrayRef, &aux, sizeof(uint64_t));
+
+	maquina.current_frame->push(((uint8_t*)arrayRef)[indice]);
 	maquina.current_frame->pc++;
 
 }
 
 static void _caload() {
-    uint32_t indice,aux;
-	uint16_t* arrayRef;
+    uint64_t indice,aux;
+	void* arrayRef;
 
 	indice = maquina.current_frame->pop();
 	aux = maquina.current_frame->pop();
-	memcpy(&arrayRef, &aux, sizeof(uint16_t));
-	maquina.current_frame->push(arrayRef[indice]);
+	memcpy(&arrayRef, &aux, sizeof(uint64_t));
+
+	maquina.current_frame->push(((uint16_t*)arrayRef)[indice]);
 	maquina.current_frame->pc++;
 }
 
@@ -484,17 +478,21 @@ static void _saload() {
 
 static void _istore() {
     uint16_t indice;
-    uint32_t value;
+    uint64_t value;
+
     maquina.current_frame->pc++;
+
     indice = maquina.current_frame->code_attr->code[maquina.current_frame->pc];
     value = maquina.current_frame->pop();
+
     maquina.current_frame->local_variables[indice] = value;
     maquina.current_frame->pc++;
 }
 
 static void _lstore() {
 	uint16_t indice;
-	uint32_t high, low;
+	uint64_t high, low;
+
 	maquina.current_frame->pc++;
 	
 	indice = maquina.current_frame->code_attr->code[maquina.current_frame->pc];	
@@ -513,7 +511,8 @@ static void _fstore() {
 
 static void _dstore() {
 	uint16_t indice;
-	uint32_t high, low;
+	uint64_t high, low;
+
 	maquina.current_frame->pc++;
 	
 	indice = maquina.current_frame->code_attr->code[maquina.current_frame->pc];	
@@ -531,35 +530,36 @@ static void _astore() {
 }
 
 static void _istore_0() {
-	uint32_t value;
-	value = maquina.current_frame->pop();
+	uint64_t value = maquina.current_frame->pop();
+
 	maquina.current_frame->local_variables[0] = value;
 	maquina.current_frame->pc++;
 }
 
 static void _istore_1() {
-    uint32_t value;
-    value = maquina.current_frame->pop();
+    uint64_t value = maquina.current_frame->pop();
+
     maquina.current_frame->local_variables[1] = value;
     maquina.current_frame->pc++;
 }
 
 static void _istore_2() {
-	uint32_t value;
-	value = maquina.current_frame->pop();
+	uint64_t value = maquina.current_frame->pop();
+
 	maquina.current_frame->local_variables[2] = value;
 	maquina.current_frame->pc++;
 }
 
 static void _istore_3() {
-    uint32_t value;
-    value = maquina.current_frame->pop();
+    uint64_t value = maquina.current_frame->pop();
+
     maquina.current_frame->local_variables[3] = value;
     maquina.current_frame->pc++;
 }
 
 static void _lstore_0() {
-	uint32_t high, low;
+	uint64_t high, low;
+
 	low = maquina.current_frame->pop();
 	high = maquina.current_frame->pop();
 
@@ -569,16 +569,19 @@ static void _lstore_0() {
 }
 
 static void _lstore_1() {
-    uint32_t high, low;
+    uint64_t high, low;
+
     low = maquina.current_frame->pop();
     high = maquina.current_frame->pop();
+
     maquina.current_frame->local_variables[1]= high;
     maquina.current_frame->local_variables[2] = low;
     maquina.current_frame->pc++;
 }
 
 static void _lstore_2() {
-	uint32_t high, low;
+	uint64_t high, low;
+
 	low = maquina.current_frame->pop();
 	high = maquina.current_frame->pop();
 
@@ -588,17 +591,21 @@ static void _lstore_2() {
 }
 
 static void _lstore_3() {
-    uint32_t high, low;
+    uint64_t high, low;
+
     low = maquina.current_frame->pop();
     high = maquina.current_frame->pop();
+
     maquina.current_frame->local_variables[3]= high;
     maquina.current_frame->local_variables[4] = low;
     maquina.current_frame->pc++;
 }
 
 static void _fstore_0() {
-	uint32_t  value;
+	uint64_t  value;
+
 	value = maquina.current_frame->pop();
+
 	maquina.current_frame->local_variables[0] = value;
 	maquina.current_frame->pc++;
 }
@@ -633,52 +640,53 @@ static void _dstore_3() {
 }
 
 static void _astore_0() {
-	uint32_t value;
-	value = maquina.current_frame->pop();
+	uint64_t value = maquina.current_frame->pop();
+
 	maquina.current_frame->local_variables[0] = value;
 	maquina.current_frame->pc++;
 }
 
 static void _astore_1() {
-    uint32_t value;
-    value = maquina.current_frame->pop();
+    uint64_t value = maquina.current_frame->pop();
+
     maquina.current_frame->local_variables[1] = value;
     maquina.current_frame->pc++;
 }
 
 static void _astore_2() {
-	uint32_t value;
-    value = maquina.current_frame->pop();
+	uint64_t value = maquina.current_frame->pop();
+
     maquina.current_frame->local_variables[2] = value;
     maquina.current_frame->pc++;
 }
 
 static void _astore_3() {
-    uint32_t value;
-    value = maquina.current_frame->pop();
+    uint64_t value = maquina.current_frame->pop();
+
     maquina.current_frame->local_variables[3] = value;
     maquina.current_frame->pc++;
 }
 
 static void _iastore() {
-	uint32_t indice, value;
-	void *reference;
+	uint64_t indice, value, arrayref;
+	int *reference;
 
 	value = maquina.current_frame->pop();
 	indice = maquina.current_frame->pop();
+	arrayref = maquina.current_frame->pop();
 	
-	memcpy(&reference, &indice, sizeof(uint32_t));
+	memcpy(&reference, &arrayref, sizeof(uint64_t));
 
-	((uint32_t *)reference)[indice] = value;
+	reference[indice] = (int)value;
 	maquina.current_frame->pc++;
 }
 
 
 static void _lastore() {
-    uint32_t indice, low, high,aux;
-    uint16_t value;
+    uint64_t indice, low, high, aux;
+    uint64_t value;
     uint64_t auxValue;
-    int32_t* arrayRef;
+    long* arrayRef;
 
 
     low = maquina.current_frame->pop();
@@ -687,32 +695,33 @@ static void _lastore() {
     auxValue = auxValue << 32;
     value = auxValue + low;
 
-    aux = maquina.current_frame->pop();
     indice = maquina.current_frame->pop();
-    memcpy(&arrayRef, &aux, sizeof(uint32_t));
+    aux = maquina.current_frame->pop();
+    memcpy(&arrayRef, &aux, sizeof(uint64_t));
+
     arrayRef[indice] = value;
     maquina.current_frame->pc++;
 }
 
 static void _fastore() {
-	uint32_t indice,aux,valor;
-	uint16_t* arrayRef;
+	uint64_t indice,aux,valor;
+	float* arrayRef;
 
 	valor = maquina.current_frame->pop();
 	indice = maquina.current_frame->pop();
 	aux = maquina.current_frame->pop();
-	memcpy(&arrayRef, &aux, sizeof(uint16_t));
+	memcpy(&arrayRef, &aux, sizeof(uint64_t));
 
-	arrayRef[indice] = valor;
+	arrayRef[indice] = (float)valor;
 
 	maquina.current_frame->pc++;
 }
 
 static void _dastore() {
-	uint32_t indice, low, high,aux;
-    uint16_t value;
+	uint64_t indice, low, high,aux;
+    uint64_t value;
     uint64_t auxValue;
-    int32_t* arrayRef;
+    void* arrayRef;
 
 
     low = maquina.current_frame->pop();
@@ -723,27 +732,27 @@ static void _dastore() {
 
     aux = maquina.current_frame->pop();
     indice = maquina.current_frame->pop();
-    memcpy(&arrayRef, &aux, sizeof(uint32_t));
-    arrayRef[indice] = value;
+    memcpy(&arrayRef, &aux, sizeof(uint64_t));
+
+    ((uint64_t*)arrayRef)[indice] = value;
     maquina.current_frame->pc++;
 }
 
 static void _aastore() {
-	uint32_t indice,aux,value;
-	uint32_t* arrayRef;
+	uint64_t indice,aux,value;
+	uint64_t* arrayRef;
 
 	value = maquina.current_frame->pop();
 	indice = maquina.current_frame->pop();
 	aux = maquina.current_frame->pop();
-	memcpy(&arrayRef, &aux, sizeof(uint32_t));
-
-	arrayRef[indice] = (uint32_t)value;
+	memcpy(&arrayRef, &aux, sizeof(uint64_t));
+	memcpy(&(arrayRef[indice]), &value, sizeof(void*));
 
 	maquina.current_frame->pc++;
 }
 
 static void _bastore() {
-	uint32_t indice,aux,value;
+	uint64_t indice,aux,value;
 	uint8_t* arrayRef;
 
 	value = maquina.current_frame->pop();
@@ -757,7 +766,7 @@ static void _bastore() {
 }
 
 static void _castore() {
-	uint32_t indice,aux,value;
+	uint64_t indice,aux,value;
 	uint16_t* arrayRef;
 
 	value = maquina.current_frame->pop();
@@ -786,7 +795,7 @@ static void _pop2() {
 }	
 
 static void _dup() {
-	uint32_t data;
+	uint64_t data;
 	data = maquina.current_frame->pop();
 	maquina.current_frame->push(data);
 	maquina.current_frame->push(data);
@@ -794,7 +803,7 @@ static void _dup() {
 }
 
 static void _dup_x1() {
-	uint32_t data,other;
+	uint64_t data,other;
 	data = maquina.current_frame->pop();
 	other = maquina.current_frame->pop();
 	maquina.current_frame->push(data);
@@ -804,7 +813,7 @@ static void _dup_x1() {
 }
 
 static void _dup_x2() {
-	uint32_t data,other,last;
+	uint64_t data,other,last;
 	data = maquina.current_frame->pop();
 	other = maquina.current_frame->pop();
 	last = maquina.current_frame->pop();
@@ -816,7 +825,7 @@ static void _dup_x2() {
 }	
 
 static void _dup2 () {
-	uint32_t data,other;
+	uint64_t data,other;
 	data = maquina.current_frame->pop();
 	other = maquina.current_frame->pop();
 	maquina.current_frame->push(other);
@@ -827,7 +836,7 @@ static void _dup2 () {
 }
 
 static void _dup2_x1() {
-	uint32_t data,other,last;
+	uint64_t data,other,last;
 	data = maquina.current_frame->pop();
 	other = maquina.current_frame->pop();
 	last = maquina.current_frame->pop();
@@ -840,7 +849,7 @@ static void _dup2_x1() {
 }
 
 static void _dup2_x2() {
-	uint32_t data,other,middle,last;
+	uint64_t data,other,middle,last;
 	data = maquina.current_frame->pop();
 	other = maquina.current_frame->pop();
 	middle = maquina.current_frame->pop();
@@ -855,7 +864,7 @@ static void _dup2_x2() {
 }
 
 static void _swap() {
-	uint32_t data,other;
+	uint64_t data,other;
 	data = maquina.current_frame->pop();
 	other = maquina.current_frame->pop();
 	maquina.current_frame->push(data);
@@ -864,7 +873,7 @@ static void _swap() {
 }	
 
 static void _iadd() {
-	uint32_t op,opp;
+	uint64_t op,opp;
 	op  = maquina.current_frame->pop();
 	opp = maquina.current_frame->pop();
 	maquina.current_frame->push(op+opp);
@@ -874,7 +883,7 @@ static void _iadd() {
 static void _ladd() {
 	
 	uint64_t op,opp;
-	uint32_t high,low;
+	uint64_t high,low;
 
 	low  = maquina.current_frame->pop();
 	high = maquina.current_frame->pop();
@@ -898,7 +907,7 @@ static void _ladd() {
 static void _fadd() {
 	
 	float op, opp, sum;
-	uint32_t value, other,result;
+	uint64_t value, other,result;
 
 	value = maquina.current_frame->pop();
 	memcpy(&op, &value, sizeof(uint32_t));
@@ -908,7 +917,7 @@ static void _fadd() {
 
 	sum = op + opp;
 
-	memcpy(&result, &sum, sizeof(uint32_t));
+	memcpy(&result, &sum, sizeof(uint64_t));
 	maquina.current_frame->push(result);
 
 	maquina.current_frame->pc++;
@@ -917,7 +926,7 @@ static void _fadd() {
 static void _dadd() {
 	double op, opp, sum;
 	uint64_t result;
-	uint32_t high,low;
+	uint64_t high,low;
 
 	low  = maquina.current_frame->pop();
 	high = maquina.current_frame->pop();
@@ -936,7 +945,7 @@ static void _dadd() {
 }	
 
 static void _isub() {
-	uint32_t op,opp;
+	uint64_t op,opp;
 	op  = maquina.current_frame->pop();
 	opp = maquina.current_frame->pop();
 	maquina.current_frame->push(op-opp);
@@ -945,7 +954,7 @@ static void _isub() {
 
 static void _lsub() {
 	uint64_t op,opp;
-	uint32_t high,low;
+	uint64_t high,low;
 
 	low  = maquina.current_frame->pop();
 	high = maquina.current_frame->pop();
@@ -967,7 +976,7 @@ static void _lsub() {
 
 static void _fsub() {
 	float op, opp, sum;
-	uint32_t value, other,result;
+	uint64_t value, other,result;
 
 	value = maquina.current_frame->pop();
 	memcpy(&op, &value, sizeof(uint32_t));
@@ -977,7 +986,7 @@ static void _fsub() {
 
 	sum = op - opp;
 
-	memcpy(&result, &sum, sizeof(uint32_t));
+	memcpy(&result, &sum, sizeof(uint64_t));
 	maquina.current_frame->push(result);
 
 	maquina.current_frame->pc++;
@@ -986,7 +995,7 @@ static void _fsub() {
 static void _dsub() {
 	double op, opp, sum;
 	uint64_t result;
-	uint32_t high,low;
+	uint64_t high,low;
 
 	low  = maquina.current_frame->pop();
 	high = maquina.current_frame->pop();
@@ -1005,16 +1014,16 @@ static void _dsub() {
 }	
 
 static void _imul() {
-	uint32_t op,opp;
-	op  = (int32_t)maquina.current_frame->pop();
-	opp = (int32_t)maquina.current_frame->pop();
+	uint64_t op,opp;
+	op  = (int64_t)maquina.current_frame->pop();
+	opp = (int64_t)maquina.current_frame->pop();
 	maquina.current_frame->push(op*opp);
 	maquina.current_frame->pc++;
 }	
 
 static void _lmul() {
 
-	int32_t hop, lop, hopp, lopp;
+	int64_t hop, lop, hopp, lopp;
 	int64_t op, opp;
 
 	lop  = maquina.current_frame->pop();
@@ -1037,7 +1046,7 @@ static void _lmul() {
 
 static void _fmul() {
 	float op, opp, mult;
-	uint32_t value, other,result;
+	uint64_t value, other,result;
 
 	value = maquina.current_frame->pop();
 	memcpy(&op, &value, sizeof(uint32_t));
@@ -1047,14 +1056,14 @@ static void _fmul() {
 
 	mult = op * opp;
 
-	memcpy(&result, &mult, sizeof(uint32_t));
-	maquina.current_frame->push((uint32_t)(result));
+	memcpy(&result, &mult, sizeof(uint64_t));
+	maquina.current_frame->push(result);
 
 	maquina.current_frame->pc++;
 }	
 
 static void _dmul() {
-	int32_t hop, lop, hopp, lopp;
+	int64_t hop, lop, hopp, lopp;
 	double op, opp, mult,final;
 
 	lop  = maquina.current_frame->pop();
@@ -1073,16 +1082,16 @@ static void _dmul() {
 }	
 
 static void _idiv() {
-	uint32_t op,opp;
-	op  = (int32_t)maquina.current_frame->pop();
-	opp = (int32_t)maquina.current_frame->pop();
+	uint64_t op,opp;
+	op  = (int64_t)maquina.current_frame->pop();
+	opp = (int64_t)maquina.current_frame->pop();
 	maquina.current_frame->push(op/opp);
 	maquina.current_frame->pc++;
 }	
 
 static void _ldiv() {
 	
-	int32_t hop, lop, hopp, lopp;
+	int64_t hop, lop, hopp, lopp;
 	int64_t op, opp;
 
 	lop  = maquina.current_frame->pop();
@@ -1105,7 +1114,7 @@ static void _ldiv() {
 
 static void _fdiv() {
 	float op, opp, mult;
-	uint32_t value, other,result;
+	uint64_t value, other,result;
 
 	value = maquina.current_frame->pop();
 	memcpy(&op, &value, sizeof(uint32_t));
@@ -1115,14 +1124,14 @@ static void _fdiv() {
 
 	mult = op / opp;
 
-	memcpy(&result, &mult, sizeof(uint32_t));
-	maquina.current_frame->push((uint32_t)(result));
+	memcpy(&result, &mult, sizeof(uint64_t));
+	maquina.current_frame->push((uint64_t)(result));
 
 	maquina.current_frame->pc++;
 }	
 
 static void _ddiv() {
-	int32_t hop, lop, hopp, lopp;
+	int64_t hop, lop, hopp, lopp;
 	double op, opp, mult,final;
 
 	lop  = maquina.current_frame->pop();
@@ -1141,7 +1150,7 @@ static void _ddiv() {
 }	
 
 static void _irem() {
-	uint32_t op,opp;
+	uint64_t op,opp;
 	op  = maquina.current_frame->pop();
 	opp = maquina.current_frame->pop();
 	maquina.current_frame->push(op%opp);
@@ -1150,7 +1159,7 @@ static void _irem() {
 
 static void _lrem() {
 	uint64_t op,opp;
-	uint32_t high,low;
+	uint64_t high,low;
 
 	low  = maquina.current_frame->pop();
 	high = maquina.current_frame->pop();
@@ -1172,7 +1181,7 @@ static void _lrem() {
 
 static void _frem() {
 	float op, opp, mod;
-	uint32_t value, other, result;
+	uint64_t value, other, result;
 
 	value = maquina.current_frame->pop();
 	memcpy(&op, &value, sizeof(uint32_t));
@@ -1181,7 +1190,7 @@ static void _frem() {
 	memcpy(&opp, &other, sizeof(uint32_t));
 
 	mod = fmodf(op , opp);
-	memcpy(&result, &mod, sizeof(uint32_t));
+	memcpy(&result, &mod, sizeof(uint64_t));
 
 	maquina.current_frame->push(result);
 	maquina.current_frame->pc++;
@@ -1189,7 +1198,7 @@ static void _frem() {
 }	
 
 static void _drem() {
-	int32_t hop, lop, hopp, lopp;
+	int64_t hop, lop, hopp, lopp;
 	double op, opp, mod;
 	int64_t final;
 
@@ -1209,15 +1218,15 @@ static void _drem() {
 }	
 
 static void _ineg() {
-	uint32_t op;
+	uint64_t op;
 	op  = maquina.current_frame->pop();
-	maquina.current_frame->push((uint32_t)(-op));
+	maquina.current_frame->push((uint64_t)(-op));
 	maquina.current_frame->pc++;
 }	
 
 static void _lneg() {
 	uint64_t op;
-	uint32_t high,low;
+	uint64_t high,low;
 
 	low  = maquina.current_frame->pop();
 	high = maquina.current_frame->pop();
@@ -1234,14 +1243,14 @@ static void _lneg() {
 
 static void _fneg() {
 	float op, negative;
-	uint32_t value, other,result;
+	uint64_t value, other,result;
 
 	value = maquina.current_frame->pop();
 	memcpy(&op, &value, sizeof(uint32_t));
 
 	negative = -op;
 
-	memcpy(&result, &negative, sizeof(uint32_t));
+	memcpy(&result, &negative, sizeof(uint64_t));
 	maquina.current_frame->push(result);
 
 	maquina.current_frame->pc++;
@@ -1250,7 +1259,7 @@ static void _fneg() {
 static void _dneg() {
 	double op, negative;
 	uint64_t result;
-	uint32_t high,low;
+	uint64_t high,low;
 
 	low  = maquina.current_frame->pop();
 	high = maquina.current_frame->pop();
@@ -1265,8 +1274,8 @@ static void _dneg() {
 }	
 
 static void _ishl() {
-	uint32_t lowsFive = 0x1f;
-	uint32_t value1, value2;
+	uint64_t lowsFive = 0x1f;
+	uint64_t value1, value2;
 	
 	value2 = maquina.current_frame->pop();
 	value2 = value2 & lowsFive;
@@ -1281,8 +1290,8 @@ static void _ishl() {
 
 static void _lshl() {
 	int64_t bigBits;
-	uint32_t lowSeven = 0x3f;
-	uint32_t low, high, result;
+	uint64_t lowSeven = 0x3f;
+	uint64_t low, high, result;
 
 	result = maquina.current_frame->pop();
 	result = result & lowSeven;
@@ -1301,23 +1310,23 @@ static void _lshl() {
 }	
 
 static void _ishr() {
-	uint32_t value1, value2,lowFive = 0x1f;
+	uint64_t value1, value2,lowFive = 0x1f;
 	value1 = maquina.current_frame->pop();
 	value1 = value1 & lowFive;
-	value2 = (int32_t)maquina.current_frame->pop();
+	value2 = (int64_t)maquina.current_frame->pop();
 	
 	for(int j = 0; j < value1; j++) {
 		value2 = value2 / 2;
 	}
 
-	maquina.current_frame->push((int32_t)value2);
+	maquina.current_frame->push((int64_t)value2);
 	maquina.current_frame->pc++;
 }	
 
 static void _lshr() {
 	
 	uint64_t allOne = 0xffffffffffffffff, firstOne = 0x8000000000000000, var;	
-	uint32_t low, high, vartwo, lowSeven = 0x3f;;
+	uint64_t low, high, vartwo, lowSeven = 0x3f;;
 
 	vartwo = maquina.current_frame->pop();
 	vartwo = vartwo & lowSeven;
@@ -1344,8 +1353,8 @@ static void _lshr() {
 }	
 
 static void _iushr() {
-	uint32_t lowFive = 0x1f;
-	uint32_t value, other;
+	uint64_t lowFive = 0x1f;
+	uint64_t value, other;
 
 	other = maquina.current_frame->pop();
 	other = other & lowFive;
@@ -1357,7 +1366,7 @@ static void _iushr() {
 
 static void _lushr() {
 	int64_t bigBits;
-	uint32_t var, low, high, lowFive = 0x3f;
+	uint64_t var, low, high, lowFive = 0x3f;
 
 	var = maquina.current_frame->pop();
 	var = var & lowFive;
@@ -1376,7 +1385,7 @@ static void _lushr() {
 }
 
 static void _iand() {
-	uint32_t op,opp;
+	uint64_t op,opp;
 	op  = maquina.current_frame->pop();
 	opp = maquina.current_frame->pop();
 	maquina.current_frame->push(op&opp);
@@ -1386,7 +1395,7 @@ static void _iand() {
 static void _land() {
 
 	uint64_t op,opp;
-	uint32_t high,low;
+	uint64_t high,low;
 
 	low  = maquina.current_frame->pop();
 	high = maquina.current_frame->pop();
@@ -1407,7 +1416,7 @@ static void _land() {
 }
 
 static void _ior() {
-	uint32_t op,opp;
+	uint64_t op,opp;
 	op  = maquina.current_frame->pop();
 	opp = maquina.current_frame->pop();
 	maquina.current_frame->push(op|opp);
@@ -1416,7 +1425,7 @@ static void _ior() {
 
 static void _lor() {
 	uint64_t op,opp;
-	uint32_t high,low;
+	uint64_t high,low;
 
 	low  = maquina.current_frame->pop();
 	high = maquina.current_frame->pop();
@@ -1437,7 +1446,7 @@ static void _lor() {
 }
 
 static void _ixor() {
-	uint32_t op,opp;
+	uint64_t op,opp;
 	op  = maquina.current_frame->pop();
 	opp = maquina.current_frame->pop();
 	maquina.current_frame->push(op^opp);
@@ -1446,7 +1455,7 @@ static void _ixor() {
 
 static void _lxor() {
 	uint64_t op,opp;
-	uint32_t high,low;
+	uint64_t high,low;
 
 	low  = maquina.current_frame->pop();
 	high = maquina.current_frame->pop();
@@ -1468,19 +1477,19 @@ static void _lxor() {
 
 static void _iinc() {
 	uint8_t field_index = maquina.current_frame->code_attr->code[++(maquina.current_frame->pc)];
-	uint32_t auxiliar = maquina.current_frame->local_variables[field_index];
+	uint64_t auxiliar = maquina.current_frame->local_variables[field_index];
 	uint8_t auxiliar2 = maquina.current_frame->code_attr->code[++(maquina.current_frame->pc)];
 	int8_t index = (int8_t) auxiliar;
 	int8_t constant = (int8_t) auxiliar2;
 
 
 	index += constant;
-	maquina.current_frame->local_variables[field_index] = (uint32_t) index;
+	maquina.current_frame->local_variables[field_index] = (uint64_t) index;
 	maquina.current_frame->pc++;
 }
 
 static void _i2l() {
-	uint32_t value1, value3, oneOne = 0x80000000;
+	uint64_t value1, value3, oneOne = 0x80000000;
 	uint64_t bigBits,getHigh = 0xffffffff00000000;
 
 	value1 = maquina.current_frame->pop();
@@ -1496,26 +1505,26 @@ static void _i2l() {
 }
 
 static void _i2f() {
-	int32_t value;
-	uint32_t value2;
+	int64_t value;
+	uint64_t value2;
 	
 	float number;
-	value = (int32_t)maquina.current_frame->pop();
+	value = (int64_t)maquina.current_frame->pop();
 	
 	number = (float)value;
 
-	memcpy(&value, &number, sizeof(int32_t));
+	memcpy(&value, &number, sizeof(int64_t));
 	maquina.current_frame->push(value2);
 
 	maquina.current_frame->pc++;
 }
 
 static void _i2d() {
-	int32_t value1;
+	int64_t value1;
 	double value2;
 	uint64_t bigBits;
 	
-	value1 = (int32_t)maquina.current_frame->pop();
+	value1 = (int64_t)maquina.current_frame->pop();
 	value2 = (double)value1;
 
 	memcpy(&value2, &value2, sizeof(uint64_t));
@@ -1524,7 +1533,7 @@ static void _i2d() {
 }
 
 static void _l2i() {
-	uint32_t low, high;
+	uint64_t low, high;
 	low = maquina.current_frame->pop();
 	high = maquina.current_frame->pop();
 	maquina.current_frame->push(low);
@@ -1534,14 +1543,14 @@ static void _l2i() {
 }
 
 static void _l2f() {
-	uint32_t low, high, *parse;
+	uint64_t low, high, *parse;
 	float number;
 	low = maquina.current_frame->pop();
 	high = maquina.current_frame->pop();
 	number = (float)getDouble(low, high);
 
-	parse = (uint32_t*) malloc(sizeof(uint32_t));
-	memcpy(parse, &number, sizeof(uint32_t));
+	parse = (uint64_t*) malloc(sizeof(uint64_t));
+	memcpy(parse, &number, sizeof(uint64_t));
 	maquina.current_frame->push(*parse); 
 	maquina.current_frame->pc++;
 }
@@ -1549,7 +1558,7 @@ static void _l2f() {
 
 static void _l2d() {
 
-	uint32_t low, high, value;
+	uint64_t low, high, value;
 	uint64_t *other;
 
 	double double_number;
@@ -1571,12 +1580,12 @@ static void _l2d() {
 }
 
 static void _f2i() {
-	uint32_t value;
+	uint64_t value;
 	float number;
 
 	value = maquina.current_frame->pop();
 	memcpy(&number, &value, sizeof(uint32_t));
-	value = (uint32_t) number;
+	value = (uint64_t) number;
 
 	maquina.current_frame->push(value);
 
@@ -1585,7 +1594,7 @@ static void _f2i() {
 
 static void _f2l() {
 
-	uint32_t value;
+	uint64_t value;
 	uint64_t other;
 	float number;
 
@@ -1600,7 +1609,7 @@ static void _f2l() {
 
 static void _f2d() {
 
-	uint32_t value;
+	uint64_t value;
 	uint64_t other;
 
 	double double_number;
@@ -1619,8 +1628,8 @@ static void _f2d() {
 
 static void _d2i() {
 
-	uint32_t low, high;
-	int32_t resp;
+	uint64_t low, high;
+	int64_t resp;
 	uint64_t auxiliar;
 	double double_number;
 
@@ -1630,15 +1639,15 @@ static void _d2i() {
 	auxiliar = getDouble(low, high);
 	memcpy(&double_number, &auxiliar, sizeof(uint64_t));
 
-	resp = (int32_t) double_number;
-	maquina.current_frame->push((uint32_t)resp);
+	resp = (int64_t) double_number;
+	maquina.current_frame->push((uint64_t)resp);
 
 	maquina.current_frame->pc++;
 }
 
 static void _d2l() {
 
-	uint32_t low, high;
+	uint64_t low, high;
 	uint64_t aux;
 	double value;
 	
@@ -1656,7 +1665,7 @@ static void _d2l() {
 
 static void _d2f() {
 
-	uint32_t low, high, result;
+	uint64_t low, high, result;
 	uint64_t value;
 	double double_number;
 	float float_number;
@@ -1668,7 +1677,7 @@ static void _d2f() {
 	memcpy(&double_number, &value, sizeof(uint64_t));
 	float_number = (float) double_number;
 
-	memcpy(&result, &float_number, sizeof(uint32_t));
+	memcpy(&result, &float_number, sizeof(uint64_t));
 
 	maquina.current_frame->push(result);
 
@@ -1678,11 +1687,11 @@ static void _d2f() {
 static void _i2b() {
 	
 	int8_t value;
-	int32_t other;
+	int64_t other;
 
 	value = (int8_t) maquina.current_frame->pop();
-	other = (int32_t)value;
-	maquina.current_frame->push((int32_t)other);
+	other = (int64_t)value;
+	maquina.current_frame->push((int64_t)other);
 
 	maquina.current_frame->pc++;
 }
@@ -1690,11 +1699,11 @@ static void _i2b() {
 static void _i2c() {
 
 	int16_t value;
-	int32_t other;
+	int64_t other;
 
 	value = (int16_t) maquina.current_frame->pop();
-	other = (int32_t)value;
-	maquina.current_frame->push((int32_t)other);
+	other = (int64_t)value;
+	maquina.current_frame->push((int64_t)other);
 
 	maquina.current_frame->pc++;
 }
@@ -1702,20 +1711,20 @@ static void _i2c() {
 static void _i2s() {
 
 	int16_t value;
-	int32_t other;
+	int64_t other;
 
 	value = (int16_t) maquina.current_frame->pop();
-	other = (int32_t)value;
+	other = (int64_t)value;
 
-	maquina.current_frame->push((uint32_t)other);
+	maquina.current_frame->push((uint64_t)other);
 	
 	maquina.current_frame->pc++;
 }
 
 static void _lcmp() {
 
-	int32_t result;
-	int32_t low, high;
+	int64_t result;
+	int64_t low, high;
 	int64_t value, other;
 	
 	low = maquina.current_frame->pop();
@@ -1740,14 +1749,14 @@ static void _lcmp() {
 		}
 	} 
 	
-	maquina.current_frame->push((int32_t) result);
+	maquina.current_frame->push((int64_t) result);
 	maquina.current_frame->pc++;
 }
 
 static void _fcmpl() {
 
-	int32_t empilha;
-	uint32_t value;
+	int64_t empilha;
+	uint64_t value;
 	float op, opp;
 
 	value = maquina.current_frame->pop();
@@ -1768,16 +1777,16 @@ static void _fcmpl() {
 		}
 	} 
 
-	maquina.current_frame->push((uint32_t) empilha);
+	maquina.current_frame->push((uint64_t) empilha);
 	maquina.current_frame->pc++;
 }
 
 static void _fcmpg() {
 
 	float value, other;
-	uint32_t auxiliar;
+	uint64_t auxiliar;
 
-	int32_t resultado;
+	int64_t resultado;
 
 	auxiliar = maquina.current_frame->pop();
 	memcpy(&other, &auxiliar, sizeof(uint32_t));
@@ -1795,16 +1804,16 @@ static void _fcmpg() {
 		}
 	}
 
-	maquina.current_frame->push((uint32_t) resultado);
+	maquina.current_frame->push((uint64_t) resultado);
 	maquina.current_frame->pc++;
 }
 
 static void _dcmpl() {
 	
 	double double_number, double_number2;
-	uint32_t low, high;
+	uint64_t low, high;
 	uint64_t bigBits;
-	int32_t empilha;
+	int64_t empilha;
 	
 	low = maquina.current_frame->pop();
 	high = maquina.current_frame->pop();
@@ -1837,9 +1846,9 @@ static void _dcmpl() {
 
 static void _dcmpg() {
 	double double_number, double_number2;
-	uint32_t low, high;
+	uint64_t low, high;
 	uint64_t auxiliar;
-	int32_t empilha;
+	int64_t empilha;
 
 	low = maquina.current_frame->pop();
 	high = maquina.current_frame->pop();
@@ -1858,7 +1867,7 @@ static void _dcmpg() {
 	auxiliar = auxiliar << 32;
 	auxiliar = auxiliar + low;
 
-	memcpy(&double_number, &auxiliar, sizeof(uint32_t));
+	memcpy(&double_number, &auxiliar, sizeof(uint64_t));
 
 	if(double_number == double_number2) {
 		empilha = 0;
@@ -1870,7 +1879,7 @@ static void _dcmpg() {
 		}
 	}
 
-	maquina.current_frame->push((uint32_t) empilha);
+	maquina.current_frame->push((uint64_t) empilha);
 	maquina.current_frame->pc++;
 
 }
@@ -1879,7 +1888,7 @@ static void _ifeq() {
 
 	uint8_t pathOne, pathTwo;
 	int16_t desloc;
-	int32_t value;
+	int64_t value;
 
 	pathOne = maquina.current_frame->code_attr->code[(maquina.current_frame->pc)+1];
 	pathTwo = maquina.current_frame->code_attr->code[(maquina.current_frame->pc)+2];
@@ -1903,7 +1912,7 @@ static void _ifne() {
 
 	uint8_t pathOne, pathTwo;
 	int16_t desloc;
-	int32_t value;
+	int64_t value;
 
 	pathOne = maquina.current_frame->code_attr->code[(maquina.current_frame->pc)+1];
 	pathTwo = maquina.current_frame->code_attr->code[(maquina.current_frame->pc)+2];
@@ -1926,7 +1935,7 @@ static void _iflt() {
 	
 	uint8_t pathOne, pathTwo;
 	int16_t desloc;
-	int32_t value;
+	int64_t value;
 
 	pathOne = maquina.current_frame->code_attr->code[(maquina.current_frame->pc)+1];
 	pathTwo = maquina.current_frame->code_attr->code[(maquina.current_frame->pc)+2];
@@ -1949,7 +1958,7 @@ static void _ifge() {
 	
 	uint8_t pathOne, pathTwo;
 	int16_t desloc;
-	int32_t value;
+	int64_t value;
 
 	pathOne = maquina.current_frame->code_attr->code[(maquina.current_frame->pc)+1];
 	pathTwo = maquina.current_frame->code_attr->code[(maquina.current_frame->pc)+2];
@@ -1973,7 +1982,7 @@ static void _ifgt() {
 	
 	uint8_t pathOne, pathTwo;
 	int16_t desloc;
-	int32_t value;
+	int64_t value;
 
 	pathOne = maquina.current_frame->code_attr->code[(maquina.current_frame->pc)+1];
 	pathTwo = maquina.current_frame->code_attr->code[(maquina.current_frame->pc)+2];
@@ -1997,7 +2006,7 @@ static void _ifle() {
 	
 	uint8_t pathOne, pathTwo;
 	int16_t desloc;
-	int32_t value;
+	int64_t value;
 
 	pathOne = maquina.current_frame->code_attr->code[(maquina.current_frame->pc)+1];
 	pathTwo = maquina.current_frame->code_attr->code[(maquina.current_frame->pc)+2];
@@ -2019,7 +2028,7 @@ static void _ifle() {
 static void _if_icmpeq() {
 	
 	int8_t pathOne, pathTwo;
-	int32_t value1, value2;
+	int64_t value1, value2;
 	int16_t desloc;
 
 	pathOne = maquina.current_frame->code_attr->code[(maquina.current_frame->pc)+1];
@@ -2045,7 +2054,7 @@ static void _if_icmpeq() {
 static void _if_icmpne() {
 	
 	int8_t pathOne, pathTwo;
-	int32_t value1, value2;
+	int64_t value1, value2;
 	int16_t desloc;
 
 	pathOne = maquina.current_frame->code_attr->code[(maquina.current_frame->pc)+1];
@@ -2071,7 +2080,7 @@ static void _if_icmpne() {
 static void _if_icmplt() {
 	
 	int8_t pathOne, pathTwo;
-	int32_t value1, value2;
+	int64_t value1, value2;
 	int16_t desloc;
 
 	pathOne = maquina.current_frame->code_attr->code[(maquina.current_frame->pc)+1];
@@ -2097,7 +2106,7 @@ static void _if_icmplt() {
 static void _if_icmpge() {
 	
 	int8_t pathOne, pathTwo;
-	int32_t value1, value2;
+	int64_t value1, value2;
 	int16_t desloc;
 
 	pathOne = maquina.current_frame->code_attr->code[(maquina.current_frame->pc)+1];
@@ -2123,7 +2132,7 @@ static void _if_icmpge() {
 static void _if_icmpgt() {
 	
 	int8_t pathOne, pathTwo;
-	int32_t value1, value2;
+	int64_t value1, value2;
 	int16_t desloc;
 
 	pathOne = maquina.current_frame->code_attr->code[(maquina.current_frame->pc)+1];
@@ -2149,7 +2158,7 @@ static void _if_icmpgt() {
 static void _if_icmple() {
 	
 	int8_t pathOne, pathTwo;
-	int32_t value1, value2;
+	int64_t value1, value2;
 	int16_t desloc;
 
 	pathOne = maquina.current_frame->code_attr->code[(maquina.current_frame->pc)+1];
@@ -2175,7 +2184,7 @@ static void _if_icmple() {
 static void _if_acmpeg() {
 	
 	int8_t pathOne, pathTwo;
-	int32_t value1, value2;
+	int64_t value1, value2;
 	int16_t desloc;
 
 	pathOne = maquina.current_frame->code_attr->code[(maquina.current_frame->pc)+1];
@@ -2201,7 +2210,7 @@ static void _if_acmpeg() {
 static void _if_acmpne() {
 	
 int8_t pathOne, pathTwo;
-	int32_t value1, value2;
+	int64_t value1, value2;
 	int16_t desloc;
 
 	pathOne = maquina.current_frame->code_attr->code[(maquina.current_frame->pc)+1];
@@ -2271,11 +2280,11 @@ static void _ret() {
 
 static void _tableswitch() {
 	
-	int32_t *tabela;
-	int32_t defaultSwitch, min, max, indice;
-	uint32_t byte[12], genericByte[5],stopped,desloc;
+	int64_t *tabela;
+	int64_t defaultSwitch, min, max, indice;
+	uint64_t byte[12], genericByte[5],stopped,desloc;
 
-	indice = (int32_t)maquina.current_frame->pop();
+	indice = (int64_t)maquina.current_frame->pop();
 	stopped = maquina.current_frame->pc;
 
 	while((maquina.current_frame->pc + 1) % 4 != 0) {
@@ -2310,7 +2319,7 @@ static void _tableswitch() {
 
 	} else {
 
-		tabela = calloc(sizeof(uint32_t), (max-min+1));
+		tabela = calloc(sizeof(uint64_t), (max-min+1));
 
 		for(int i = 0; i < (max-min+1); i++) 	{
 			
@@ -2333,12 +2342,12 @@ static void _tableswitch() {
 
 static void _lookupswitch() {
 	
-	int32_t defaultSwitch, key, count;
-	int32_t *list, *offset;
+	int64_t defaultSwitch, key, count;
+	int64_t *list, *offset;
 	int k, find,i;
-	uint32_t stopped, byte[12];
+	uint64_t stopped, byte[12];
 
-	key = (int32_t)maquina.current_frame->pop();
+	key = (int64_t)maquina.current_frame->pop();
 	stopped = maquina.current_frame->pc;
 
 	while((maquina.current_frame->pc + 1) % 4 != 0) {
@@ -2361,8 +2370,8 @@ static void _lookupswitch() {
 	count = count | (byte[6] & 0xFF) << 8;
 	count = count | (byte[7] & 0xFF);
 
-	list = calloc(sizeof(int32_t), count);
-	offset = calloc(sizeof(int32_t), count);
+	list = calloc(sizeof(int64_t), count);
+	offset = calloc(sizeof(int64_t), count);
 
 	for(i = 0; i < count; i++) {
 
@@ -2410,7 +2419,7 @@ static void _lookupswitch() {
 
 static void _ireturn() {
 	
-	uint32_t aux = maquina.current_frame->pop();
+	uint64_t aux = maquina.current_frame->pop();
 	maquina.stack->popFrame();
 	maquina.current_frame->push(aux);
 	maquina.current_frame->pc++;
@@ -2419,8 +2428,8 @@ static void _ireturn() {
 
 static void _lreturn() {
 
-	uint32_t low = maquina.current_frame->pop();
-	uint32_t high = maquina.current_frame->pop();
+	uint64_t low = maquina.current_frame->pop();
+	uint64_t high = maquina.current_frame->pop();
 	maquina.stack->popFrame();
 	maquina.current_frame->push2(getLong(high,low));
 	maquina.current_frame->pc++;
@@ -2447,8 +2456,8 @@ static void _getstatic() {
 	printf("\n\t\t\t\tentrou getstatic: %p; method_area: %p", maquina.current_frame, maquina.method_area);
 	uint8_t index_1, index_2;
 	uint16_t indice, nameTypeIndex;
-	uint32_t classIndexTemp;
-	uint32_t classIndex, field_index;
+	uint64_t classIndexTemp;
+	uint64_t classIndex, field_index;
 	uint64_t valor;
 	char *className, *name, *type;
 
@@ -2489,8 +2498,8 @@ static void _putstatic() {
 	
 	uint8_t index_1, index_2;
 	uint16_t indice, nameTypeIndex;
-	uint32_t classIndexTemp;
-	int32_t classIndex, field_index;
+	uint64_t classIndexTemp;
+	int64_t classIndex, field_index;
 	uint64_t valor,valor2;
 	char *className, *name, *type;
 
@@ -2531,8 +2540,8 @@ static void _putstatic() {
 static void _getfield() {
 	
 	uint8_t low, high;
-	uint32_t indice;
-	int32_t classIndex, field_index, nameIndex, aux;
+	uint64_t indice;
+	int64_t classIndex, field_index, nameIndex, aux;
 	uint16_t nameTypeIndex;
 	char *className, *name, *type;
 	struct _object *objeto;
@@ -2561,7 +2570,7 @@ static void _getfield() {
 	}
 
 	aux = maquina.current_frame->pop();
-	memcpy(objeto, &aux, sizeof(uint32_t));
+	memcpy(objeto, &aux, sizeof(uint64_t));
 
 	nameIndex = maquina.current_frame->current_class->fields_pool->fields[field_index].name_index;
 	aux2 = maquina.getObjectField(objeto, nameIndex);
@@ -2579,8 +2588,8 @@ static void _getfield() {
 static void _putfield() {
 	
 	uint8_t low, high;
-	uint32_t indice;
-	int32_t classIndex, field_index, nameIndex, aux, val_1,val_2;
+	uint64_t indice;
+	int64_t classIndex, field_index, nameIndex, aux, val_1,val_2;
 	uint16_t nameTypeIndex;
 	char *className, *name, *type;
 	struct _object *objeto;
@@ -2624,7 +2633,7 @@ static void _putfield() {
 		val_1 = maquina.current_frame->pop();
 		
 		aux = maquina.current_frame->pop();
-		memcpy(objeto, &aux, sizeof(uint32_t));
+		memcpy(objeto, &aux, sizeof(uint64_t));
 
 		maquina.setObjectField(objeto, nameIndex, val_1);
 
@@ -2635,14 +2644,14 @@ static void _putfield() {
 
 static void _invokevirtual() {
 	
-	uint32_t indice, valorHigh, valorLow, vU4, array_ref;
+	uint64_t indice, valorHigh, valorLow, vU4, array_ref;
 	uint64_t valor;
 	uint8_t low, high;
-	int32_t numParams, i, j;
-	int32_t classIndex, classIndexTemp;
+	int64_t numParams, i, j;
+	int64_t classIndex, classIndexTemp;
 	uint16_t nameTypeIndex, methodNameIndex, methodDescriptorIndex;
 	char *className, *methodName, *methodDesc;
-	uint32_t *fieldsTemp;
+	uint64_t *fieldsTemp;
 	float vfloat;
 	uint8_t *bytes;
 	uint8_t length;
@@ -2700,11 +2709,11 @@ static void _invokevirtual() {
 			if(strstr(methodDesc, "[C") != NULL){
 				array_ref = maquina.current_frame->pop();
 				for(i = 0; i < maquina.heap->array_count; i++){
-					if(!memcmp(&maquina.heap->arrays[i], &array_ref, sizeof(uint32_t)))
+					if(!memcmp(&maquina.heap->arrays[i], &array_ref, sizeof(uint64_t)))
 						break;
 				}
 				for(j = 0; j < maquina.heap->array_count; j++){
-					printf("%c",(int16_t)array_ref +i);
+					printf("%"PRIi16,(int16_t)(array_ref +i));
 				}
 				//CHAR
 			} else {
@@ -2713,7 +2722,7 @@ static void _invokevirtual() {
 
 		//Quando tem que imprimir inteiro
 		}else if(strstr(methodDesc, "I") != NULL) {
-			printf("%"PRIi32,(int32_t)maquina.current_frame->pop());
+			printf("%"PRIi64,(int64_t)maquina.current_frame->pop());
 		
 		//Quando tem que imprimir float
 		}else if(strstr(methodDesc, "F") != NULL) {
@@ -2725,7 +2734,7 @@ static void _invokevirtual() {
 		}else if(strstr(methodDesc, "Ljava/lang/String") != NULL) {
 			char* aux; 
 			vU4 = maquina.current_frame->pop();
-			memcpy(&aux, &vU4, sizeof(uint32_t));
+			memcpy(&aux, &vU4, sizeof(uint64_t));
 
 			printf("%s",aux);
 
@@ -2734,7 +2743,7 @@ static void _invokevirtual() {
 
 			void* aux; 
 			vU4 = maquina.current_frame->pop();
-			memcpy(&aux, &vU4, sizeof(uint32_t));
+			memcpy(&aux, &vU4, sizeof(uint64_t));
 
 			printf("%p",aux);
 		}
@@ -2762,7 +2771,7 @@ static void _invokevirtual() {
 		}
 
 		numParams = maquina.getNumParameters(class , method);
-		fieldsTemp = calloc(sizeof(uint32_t),numParams+1);
+		fieldsTemp = calloc(sizeof(uint64_t),numParams+1);
 		for(i = numParams; i >= 0; i--) {
 			fieldsTemp[i] = maquina.current_frame->pop();
 		}
@@ -2792,13 +2801,13 @@ static void _invokevirtual() {
 
 static void _invokespecial() {
 	
-	uint32_t indice;
+	uint64_t indice;
 	uint8_t low, high;
-	int32_t numParams, i;
-	int32_t classIndex, classIndexTemp;
+	int64_t numParams, i;
+	int64_t classIndex, classIndexTemp;
 	uint16_t nameTypeIndex;
 	char *className;
-	uint32_t *fieldsTemp;
+	uint64_t *fieldsTemp;
 	uint8_t *bytes;
 	uint16_t length;
 	CLASS *class;
@@ -2831,7 +2840,7 @@ static void _invokespecial() {
 	}
 
 	numParams = maquina.getNumParameters(class , method);
-	fieldsTemp = calloc(sizeof(uint32_t),numParams+1);
+	fieldsTemp = calloc(sizeof(uint64_t),numParams+1);
 	for(i = numParams; i >= 0; i--) {
 		fieldsTemp[i] = maquina.current_frame->pop();
 	}
@@ -2860,13 +2869,13 @@ static void _invokespecial() {
 
 static void _invokestatic() {
 	printf("\n\t\t\t\tentrou invokestatic: %p", maquina.current_frame);
-	uint32_t indice;
+	uint64_t indice;
 	uint8_t low, high;
-	int32_t numParams, i;
-	int32_t classIndex, classIndexTemp;
+	int64_t numParams, i;
+	int64_t classIndex, classIndexTemp;
 	uint16_t nameTypeIndex;
 	char *className;
-	uint32_t *fieldsTemp;
+	uint64_t *fieldsTemp;
 	uint8_t *bytes;
 	uint16_t length;
 	CLASS *class;
@@ -2891,7 +2900,7 @@ static void _invokestatic() {
 	method = maquina.getMethodByNameDesc(class, maquina.current_frame->current_class, nameTypeIndex);
 
 	numParams = maquina.getNumParameters(class , method);
-	fieldsTemp = calloc(sizeof(uint32_t),numParams+1);
+	fieldsTemp = calloc(sizeof(uint64_t),numParams+1);
 	for(i = numParams; i >= 0; i--) {
 		fieldsTemp[i] = maquina.current_frame->pop();
 	}
@@ -2920,12 +2929,12 @@ static void _invokestatic() {
 
 static void _invokeinterface() {
 	
-	uint32_t indice;
+	uint64_t indice;
 	uint8_t low, high, args_count, nothing;
-	int32_t classIndex, classIndexTemp, i;
+	int64_t classIndex, classIndexTemp, i;
 	uint16_t nameTypeIndex;
 	char *className;
-	uint32_t *fieldsTemp;
+	uint64_t *fieldsTemp;
 	CLASS *class;
 	struct _method_info *method;
 
@@ -2939,7 +2948,7 @@ static void _invokeinterface() {
 	args_count = maquina.current_frame->code_attr->code[++(maquina.current_frame->pc)];
 	nothing = maquina.current_frame->code_attr->code[++(maquina.current_frame->pc)];
 
-	fieldsTemp = calloc(sizeof(uint32_t),args_count+1);
+	fieldsTemp = calloc(sizeof(uint64_t),args_count+1);
 
 
 	for(i = args_count; i >= 0; i--) {
@@ -2978,9 +2987,9 @@ static void _invokeinterface() {
 static void _new() {
 	printf("\n\t\t\tentrou _new");
 	uint8_t low, high;
-	uint32_t indice;
+	uint64_t indice;
 	char *className;	
-	int32_t classIndex;
+	int64_t classIndex;
 
 	CLASS *class;
 	struct _object *objeto;
@@ -2988,7 +2997,7 @@ static void _new() {
 	high = maquina.current_frame->code_attr->code[++(maquina.current_frame->pc)];
 	low = maquina.current_frame->code_attr->code[++(maquina.current_frame->pc)];
 
-	uint32_t value;
+	uint64_t value;
 	value = high;
 	value <<= 8;
 	value |= low;
@@ -3001,7 +3010,7 @@ static void _new() {
 	class = maquina.method_area->classes[classIndex];
 	objeto = maquina.heap->newObject(class);
 
-	maquina.current_frame->push((uint32_t)(intptr_t)objeto);
+	maquina.current_frame->push((uint64_t)(intptr_t)objeto);
 	maquina.current_frame->pc++;
 	printf("\n\t\t\tsaiu _new");
 }
@@ -3017,7 +3026,7 @@ static void _newarray() {
 	if(count < 0) {
 		printf("Erro: Invalid Array Size\n");
 	}
-	maquina.current_frame->push((uint32_t)(intptr_t)maquina.heap->newArray(count,0));
+	maquina.current_frame->push((uint64_t)(intptr_t)maquina.heap->newArray(count,0));
 	maquina.current_frame->pc++;
 }
 
@@ -3031,21 +3040,21 @@ static void _anewarray() {
 	}
 
 	void* pointer = maquina.heap->newArray(count,0);
-	uint32_t toPush = 0;
-	memcpy(&toPush, &pointer, sizeof(uint32_t));
+	uint64_t toPush = 0;
+	memcpy(&toPush, &pointer, sizeof(uint64_t));
 
     maquina.current_frame->push(toPush);
 	maquina.current_frame->pc++;
 }
 
 static void _arraylength() {
-	uint32_t reference;
+	uint64_t reference;
 
 	int i;
 	reference = maquina.current_frame->pop();
 	for(i=0;i < maquina.heap->array_count; i++){
 
-		if(!memcmp(&maquina.heap->arrays[i], &reference, sizeof(uint32_t))) {
+		if(!memcmp(&maquina.heap->arrays[i], &reference, sizeof(uint64_t))) {
 			maquina.current_frame->push(maquina.heap->arrays[i]->quantidade);
 			maquina.current_frame->pc++;
 			return;
@@ -3081,7 +3090,7 @@ static void _checkcast() {
 	if(strcmp(className1, className2) == 0) {
 		printf(" Erro: Wrong Typt Object\n");
 	}
-	maquina.current_frame->push((uint32_t)(intptr_t)reference);
+	maquina.current_frame->push((uint64_t)(intptr_t)reference);
 	maquina.current_frame->pc++;
 	
 }
@@ -3130,7 +3139,7 @@ static void _wide() {
 static void _multianewarray() {
 	uint16_t byte1indice, byte2indice, indice, type, size;
 	uint8_t quantidades;
-	uint32_t i, quantidade, tamanho;
+	uint64_t i, quantidade, tamanho;
 	void *array_reference;
 	char *array_type;
 
@@ -3205,26 +3214,26 @@ static void _multianewarray() {
 		} else if(size == 2) {
 			((uint16_t**)array_reference)[i] = (uint16_t*) maquina.heap->newArray(type,tamanho);
 		} else if(size == 4) {
-			((uint32_t**)array_reference)[i] = (uint32_t*) maquina.heap->newArray(type,tamanho);
+			((uint64_t**)array_reference)[i] = (uint64_t*) maquina.heap->newArray(type,tamanho);
 		} else {
 			((uint64_t**)array_reference)[i] = (uint64_t*) maquina.heap->newArray(type,tamanho);
 		}
 	}
-	maquina.current_frame->push((uint32_t)(intptr_t) array_reference);
+	maquina.current_frame->push((uint64_t)(intptr_t) array_reference);
 	maquina.current_frame->pc++;
 }
 
 static void _ifnull() {
 	uint8_t bb1, bb2;
-	int32_t auxiliar_32;
-	uint32_t offset;
+	int64_t auxiliar_32;
+	uint64_t offset;
 
 	bb1 = maquina.current_frame->code_attr->code[(maquina.current_frame->pc)+1];
 	bb2 = maquina.current_frame->code_attr->code[(maquina.current_frame->pc)+2];
 	auxiliar_32 = (signed) maquina.current_frame->pop();
 	
 	if(auxiliar_32 == 0) {
-		uint32_t value;
+		uint64_t value;
 		value = bb1;
 		value <<= 8;
 		value |= bb2;
@@ -3238,7 +3247,7 @@ static void _ifnull() {
 
 static void _ifnonnull() {
 	uint8_t bb1, bb2;
-	int32_t auxiliar_32;
+	int64_t auxiliar_32;
 	int16_t offset;
 
 	bb1 = maquina.current_frame->code_attr->code[(maquina.current_frame->pc)+1];
@@ -3246,7 +3255,7 @@ static void _ifnonnull() {
 	auxiliar_32 = (signed) maquina.current_frame->pop();
 	
 	if(auxiliar_32 != 0){
-		uint32_t value;
+		uint64_t value;
 		value = bb1;
 		value <<= 8;
 		value |= bb2;
@@ -3259,21 +3268,21 @@ static void _ifnonnull() {
 }
 
 static void _goto_w() {
-	uint32_t bb1, bb2, bb3, bb4;
-	int32_t offset;
+	uint64_t bb1, bb2, bb3, bb4;
+	int64_t offset;
 
 	bb1 = maquina.current_frame->code_attr->code[(maquina.current_frame->pc)+1];
 	bb2 = maquina.current_frame->code_attr->code[(maquina.current_frame->pc)+2];
 	bb3 = maquina.current_frame->code_attr->code[(maquina.current_frame->pc)+3];
 	bb4 = maquina.current_frame->code_attr->code[(maquina.current_frame->pc)+4];
 	
-	offset = (int32_t)(((bb1 & 0xFF)<<24) |((bb2 & 0xFF)<<16) |((bb3 & 0xFF)<<8) |(bb4));
+	offset = (int64_t)(((bb1 & 0xFF)<<24) |((bb2 & 0xFF)<<16) |((bb3 & 0xFF)<<8) |(bb4));
 	maquina.current_frame->pc += offset;
 }
 
 static void _jsr_w() {
-	uint32_t bb1, bb2, bb3, bb4;
-	int32_t offset;
+	uint64_t bb1, bb2, bb3, bb4;
+	int64_t offset;
 
 	maquina.current_frame->push((maquina.current_frame->pc)+5);
 			
@@ -3282,7 +3291,7 @@ static void _jsr_w() {
 	bb3 = maquina.current_frame->code_attr->code[(maquina.current_frame->pc)+3];
 	bb4 = maquina.current_frame->code_attr->code[(maquina.current_frame->pc)+4];
 
-	offset = (int32_t)(((bb1 & 0xFF)<<24) |((bb2 & 0xFF)<<16) |((bb3 & 0xFF)<<8) |(bb4));
+	offset = (int64_t)(((bb1 & 0xFF)<<24) |((bb2 & 0xFF)<<16) |((bb3 & 0xFF)<<8) |(bb4));
 	maquina.current_frame->pc += offset;
 }
 
