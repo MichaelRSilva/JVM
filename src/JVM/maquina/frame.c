@@ -1,6 +1,7 @@
 #include "maquina.h"
 
 static void push(uint32_t valor) {
+	printf("\n\t\t\t\t\t\tpush valor: %x; current_frame: %p", valor, maquina.current_frame);
 	if (maquina.current_frame->operand_stack.allocated == maquina.current_frame->code_attr->max_stack)
 		return;
 	struct _u4pilha* ref = maquina.current_frame->operand_stack.topo; // armazena referencia ao antigo topo
@@ -8,6 +9,7 @@ static void push(uint32_t valor) {
 	maquina.current_frame->operand_stack.topo++; // sobe no stack
 	maquina.current_frame->operand_stack.topo->next = ref; // guarda referencia para o proximo topo
 	maquina.current_frame->operand_stack.topo->value = valor; // guarda o valor do topo
+	printf("\n\t\t\t\t\t\tsaiu push valor: %x, %p", valor, maquina.current_frame);
 }
 
 static uint32_t pop() {

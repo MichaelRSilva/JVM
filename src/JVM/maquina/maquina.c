@@ -167,6 +167,8 @@ static void run() {
 }
 
 static CLASS* getClassByName(char* classname){
+	int flag = getClassIndex(classname);
+	if (flag < 0) return NULL;
 	return maquina.method_area->classes[getClassIndex(classname)];
 }
 
@@ -208,7 +210,7 @@ static uint32_t retrieveFieldIndex(char *className, char *name, uint16_t nameLen
 	uint16_t tamName, tamDesc;
 
 	main_class = getClassByName(className);
-
+	
 	if (!main_class) {
 		return -2;
 	}

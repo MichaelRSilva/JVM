@@ -2444,7 +2444,7 @@ static void _return() {
 }
 
 static void _getstatic() {
-	printf("\n\t\t\t\tentrou getstatic: %p", maquina.current_frame);
+	printf("\n\t\t\t\tentrou getstatic: %p; method_area: %p", maquina.current_frame, maquina.method_area);
 	uint8_t index_1, index_2;
 	uint16_t indice, nameTypeIndex;
 	uint32_t classIndexTemp;
@@ -2457,32 +2457,28 @@ static void _getstatic() {
 	indice = ((uint16_t)index_1 << 8) |(uint16_t)index_2;
 	
 	classIndexTemp = maquina.current_frame->runtime_constant_pool->constants[indice-1].type.FieldRef.classIndex;
-	className = maquina.current_frame->runtime_constant_pool->getClassName(maquina.current_frame->runtime_constant_pool, maquina.current_frame->runtime_constant_pool->constants[classIndexTemp-1].type.Class.nameIndex);
-
+	className = maquina.current_frame->runtime_constant_pool->getUtf8String(maquina.current_frame->runtime_constant_pool, maquina.current_frame->runtime_constant_pool->constants[classIndexTemp-1].type.Class.nameIndex);
 	
-	
-	// nameTypeIndex = maquina.current_frame->runtime_constant_pool->constants[indice-1].type.FieldRef.nameTypeIndex;
-	// name = maquina.current_frame->runtime_constant_pool->getClassName(maquina.current_frame->runtime_constant_pool, maquina.current_frame->runtime_constant_pool->constants[nameTypeIndex-1].type.NameType.nameIndex);
-	// type = maquina.current_frame->runtime_constant_pool->getClassName(maquina.current_frame->runtime_constant_pool, maquina.current_frame->runtime_constant_pool->constants[nameTypeIndex-1].type.NameType.descriptorIndex);
+	nameTypeIndex = maquina.current_frame->runtime_constant_pool->constants[indice-1].type.FieldRef.nameTypeIndex;
+	name = maquina.current_frame->runtime_constant_pool->getUtf8String(maquina.current_frame->runtime_constant_pool, maquina.current_frame->runtime_constant_pool->constants[nameTypeIndex-1].type.NameType.nameIndex);
+	type = maquina.current_frame->runtime_constant_pool->getUtf8String(maquina.current_frame->runtime_constant_pool, maquina.current_frame->runtime_constant_pool->constants[nameTypeIndex-1].type.NameType.descriptorIndex);
 
-	// while((field_index = maquina.retrieveFieldIndex(className, name, strlen(name), type, strlen(type))) == -1) {
-	// 	className = maquina.current_frame->current_class->getParentName(maquina.getClassByName(className));
-	// }
+	while((field_index = maquina.retrieveFieldIndex(className, name, strlen(name), type, strlen(type))) == -1) {
+		className = maquina.current_frame->current_class->getParentName(maquina.getClassByName(className));
+	}
 
-	// classIndex = maquina.loadClass(className);
+	classIndex = maquina.loadClass(className);
 
+	valor = maquina.getStaticFieldVal(classIndex , field_index);
 
-	// valor = maquina.getStaticFieldVal(classIndex , field_index);
-
-	// if(type[0] == 'J' || type[0] == 'D') {
-	// 	maquina.current_frame->push2(valor);
-	// } else {
-	// 	maquina.current_frame->push(valor);
-	// }
+	if(type[0] == 'J' || type[0] == 'D') {
+		maquina.current_frame->push2(valor);
+	} else {
+		maquina.current_frame->push(valor);
+	}
 
 
-	// maquina.current_frame->pc++;
-	exit(-2300);
+	maquina.current_frame->pc++;
 	printf("\n\t\t\t\nsaiu getstatic: %p", maquina.current_frame);
 }
 
@@ -3029,7 +3025,12 @@ static void _anewarray() {
 	if(count < 0){
 		printf("Erro: Invalid Array Size\n");
 	}
-    maquina.current_frame->push((uint32_t)(intptr_t)maquina.heap->newArray(count,0));
+
+	void* pointer = maquina.heap->newArray(count,0);
+	uint32_t toPush = 0;
+	memcpy(&toPush, &pointer, sizeof(uint32_t));
+
+    maquina.current_frame->push(toPush);
 	maquina.current_frame->pc++;
 }
 
@@ -3064,6 +3065,7 @@ static void _checkcast() {
 	indice = indice << 8;
 	maquina.current_frame->pc++;
 	indice = indice | maquina.current_frame->code_attr->code[(maquina.current_frame->pc)];
+
 	reference = (struct _object *)(intptr_t)maquina.current_frame->pop();
 	
 	char* className1 = maquina.current_frame->current_class->getName(maquina.current_frame->current_class);

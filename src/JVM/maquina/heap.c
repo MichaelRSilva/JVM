@@ -73,5 +73,6 @@ HEAP* initHEAP() {
 
 	// funcoes
 	toReturn->newObject = newObject;
+	toReturn->newArray = newArray;
 	return toReturn;
 }
