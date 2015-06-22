@@ -14,7 +14,7 @@
 	#include "../Util/util.h"
 	#include "Class/class.h"
 
-	/*!
+	/*! @class
 		class_loader tem uma array de classes
 	*/
 	typedef struct _class_loader {

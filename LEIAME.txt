@@ -15,7 +15,7 @@ Autores:
 
 
 
-Compilação e Execução
+Compilação
 
 ======
 
@@ -27,34 +27,18 @@ Dois binários serão gerados
 
 	- JVM.exe (o interpretador de bytecode - não implementado ainda)
 
-Fornecemos aqui também uma linha de comando 'gcc' para compilação da JVM:
-
+Caso não deseje utilizar o makefile, será exigido executar a seguinte linha de comando:
+	
 	gcc -std=c99 src/Common/common.c src/Util/util.c src/ClassLoader/Class/class.c src/ClassLoader/Class/AttributeInfo/attributeinfo.c src/ClassLoader/Class/ConstantPool/constantpool.c src/ClassLoader/Class/FieldInfo/fieldinfo.c src/ClassLoader/Class/MethodInfo/methodinfo.c src/ClassLoader/classloader.c src/JVM/maquina/maquina.c src/JVM/main.c
 
+Execução
 
-Caso não deseje utilizar o makefile, recomendamos executar a seguinte lista de comandos 'gcc' para gerar os executáveis:
-	
-	gcc -std=c99 -c src/Common/public.c -o common.o
-	gcc -std=c99 -c src/util/public.c -o util.o
-	gcc -std=c99 -c src/ClassLoader/Class/public.c -o class.o
-	gcc -std=c99 -c src/ClassLoader/Class/AttributeInfo/public.c -o attributeinfo.o
-	gcc -std=c99 -c src/ClassLoader/Class/ConstantPool/public.c -o constantpool.o
-	gcc -std=c99 -c src/ClassLoader/Class/FieldInfo/public.c -o fieldinfo.o
-	gcc -std=c99 -c src/ClassLoader/Class/MethodInfo/public.c -o methodinfo.o
-	gcc -std=c99 -c src/ClassLoader/public.c -o classloader.o
-	gcc -std=c99 -c src/JVM/main.c -o jvm.o
-	gcc -std=c99 common.o util.o attributeinfo.o constantpool.o fieldinfo.o methodinfo.o class.o classloader.o jvm.o -o JVM.exe
-	gcc -std=c99 -c src/LeitorExibidor/main.c -o leitorexibidor.o
-	gcc -std=c99 common.o util.o attributeinfo.o constantpool.o fieldinfo.o methodinfo.o class.o classloader.o LeitorExibidor.o -o LeitorExibidor.exe
-	rm *.o
+======
+Para executar a JVM, se dirija ao terminal e execute './JVM.exe <ClassName> [opcoes]'
 
-Para executar o Leitor/Exibidor, se dirija ao terminal e execute './LeitorExibidor.exe <filename>.class [-teste|-arquivo]'
+As opções de linhas de comando disponíveis para a execução da JVM podem ser acessadas executando:
 
-Por padrão, imprimimos tanto na tela quanto num arquivo chamado 'output.txt'.
-Por meio de argumentos de linha de comando, porem, o usuario pode selecionar qual opcao deseja:
-	
-	- o argumento '-tela' APOS o nome do arquivo faz com que seja impresso as informacoes do bytecode apenas na tela;
-	- o argumento '-arquivo' APOS o nome do arquivo faz com que seja impresso as informacoes do bytecode apenas no arquivo output.txt
+	./JVM.exe <ClassName> [--help]
 
 Organização
 =======
@@ -76,6 +60,8 @@ Segue a estrutura de pastas e seus significados
 
 			./JVM    -> Modulo contendo o 'int main(int argc, char** argv)' do interpretador Java (JVM)
 
+				./maquina -> Submodulo contendo as entidades responsáveis por administrar a execução da JVM
+
 			./ClassLoader -> Modulo que lida com o carregamento em memoria de um '.class' de forma estruturada
 			
 				./Class -> Modulo que define a estrutura de um ponto class e fornece a funcionalidade necessaria para carregar um .class para memoria
@@ -90,11 +76,11 @@ Segue a estrutura de pastas e seus significados
 
 Observacoes
 =======
-Observe que cada modulo "X" contem três arquivos e um variável numero de pastas:
+Tentamos organizar este projeto num padrão orientado a objetos. Cada módulo deve possuir um variado numero de pastas, e ao menos dois arquivos que indiquem suas estruturas e funcoes relacionadas. Geralmente:
 	
 	- X.h -> define as estruturas de tal modulo
 
-	- public.c -> funcoes visiveis a outros modulos, 
+	- X.c -> funcoes visiveis a outros modulos, 
 		      porem somente acessiveis via uma variavel do tipo do modulo 
 		      que tenha sido inicializada pela funcao initX() 
 
@@ -102,9 +88,7 @@ Observe que cada modulo "X" contem três arquivos e um variável numero de pasta
 
 	- subpastas -> submodulos
 
-Dessa forma simulamos uma falsa orientacao objeto visando facilitar a manutenibilidade da aplicacao
-e tambem visando uma melhor escalabilidade.
-
+Utilizando ponteiros para funcoes em estruturas, nos possibilitou simular uma falsa orientacao objeto visando facilitar a manutenibilidade da aplicacao e tambem visando uma melhor escalabilidade.
 --
 (c)
 

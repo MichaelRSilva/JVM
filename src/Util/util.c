@@ -39,13 +39,22 @@ static int VerificaJVMCMDArgs(int argc, char** argv){
     char *arq1name;
     int i;
 
-    if (argc < LEITOREXIBIDORCMDARGCOUNT + 1 || argc > LEITOREXIBIDORCMDARGCOUNT + 1){
+    if (argc < JVMCMDARGCOUNT + 1 || argc > JVMCMDARGCOUNT + 3){
         return E_INVALID_NUM_ARGS; /*ERRO 1: invalido numero de argumentos*/
     }
 	if ((fp=fopen(argv[1],"rb"))==NULL) {
 		return E_ARGV1_FILE_NOT_EXISTENT; /*ERRO 2: argv[2] invalido: arquivo nao existente*/
 	}else{
 		fclose(fp);
+	}
+	if (argc > JVMCMDARGCOUNT + 1) {
+		if (!strcmp(argv[2],"--help")) {
+			return 1;
+		}else if ( argc > JVMCMDARGCOUNT + 2 && !strcmp(argv[2], "-p")) {
+			if (!strcmp(argv[3], "both")) return 2;
+			if (!strcmp(argv[3], "tela")) return 3;
+			if (!strcmp(argv[3], "arquivo")) return 4;
+		}
 	}
 	return E_SUCCESS;
 }
