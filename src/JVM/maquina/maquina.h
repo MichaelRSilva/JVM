@@ -47,6 +47,7 @@
 			struct _frame* topo;
 			struct _stack* proximo;
 			uint32_t count;
+			uint8_t have_returned;
 
 			//funcoes
 			void (*pushFrame)(CLASS*, struct _code_attribute*);
@@ -121,6 +122,7 @@
 			void (*run)();
 			int (*loadParentClasses)();
 			int (*loadInterfaces)(CLASS* class);
+			uint64_t (*getNativeValueForStaticMethod)(struct _method_info*);
 
 		} JVM;
 	

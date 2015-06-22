@@ -31,6 +31,7 @@ STACK* initSTACK() {
 	toReturn->topo = NULL;
 	toReturn->proximo = NULL;
 	toReturn->count = 0;
+	toReturn->have_returned = 0;
 
 	// funcoes
 	toReturn->pushFrame = pushFrame;

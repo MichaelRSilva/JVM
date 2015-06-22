@@ -37,11 +37,14 @@ static void construirFrame(CLASS* class, struct _method_info* metodo) {
 /// executa o método do current frame
 static void execute() {
 	// printf("\n\t\tentrou execute: %p; stack_count: %d", maquina.current_frame, maquina.stack->count);
-	while (maquina.current_frame != NULL && (maquina.current_frame->pc) < maquina.current_frame->code_attr->code_length) {
+	while (maquina.stack->have_returned == 0 
+		&& maquina.current_frame != NULL && (maquina.current_frame->pc) < maquina.current_frame->code_attr->code_length) {
+		
 		uint32_t ins = maquina.current_frame->code_attr->code[maquina.current_frame->pc];
 		printf("\n\tpc: %x; code: %x <%s>", maquina.current_frame->pc, ins , instructions[ins].nome);
 		instructions[maquina.current_frame->code_attr->code[maquina.current_frame->pc]].call();
 	}
+	maquina.stack->have_returned = 0;
 
 	// printf("\n\t\tsaiu execute: %p; stack_count: %d", maquina.current_frame, maquina.stack->count);
 }
@@ -292,7 +295,6 @@ int32_t getNumParameters(CLASS *class, struct _method_info *method) {
 	return parametros;
 }
 
-
 /*!
 	procura e devolve um metodo, pesquisando por nome e descricao
 */
@@ -329,6 +331,10 @@ struct _method_info *getMethodByNameDesc(CLASS *main_class, CLASS *name_type_cla
 	return NULL;
 }
 
+static uint64_t getNativeValueForStaticMethod(struct _method_info* method) {
+	return 0;
+}
+
 /*!
 	inicia a JVM 
 */
@@ -361,6 +367,7 @@ JVM initJVM() {
 	toReturn.run = run;
 	toReturn.loadParentClasses = loadParentClasses;
 	toReturn.loadInterfaces = loadInterfaces;
+	toReturn.getNativeValueForStaticMethod = getNativeValueForStaticMethod;
 
 	return toReturn;
 }

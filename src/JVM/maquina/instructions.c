@@ -30,7 +30,6 @@ static void _nop() {
 static void _aconst_null() {
     maquina.current_frame->push(0);
     maquina.current_frame->pc++;
-    exit(1);
 }
 
 /*!
@@ -93,8 +92,7 @@ static void _iconst_5() {
 	Empilha constante long 0 na pilha de operandos
 */
 static void _lconst_0() {
-    maquina.current_frame->push(0);
-    maquina.current_frame->push(0);
+    maquina.current_frame->push2(0);
     maquina.current_frame->pc++;
 }
 
@@ -102,8 +100,7 @@ static void _lconst_0() {
 	Empilha constante long 1 na pilha de operandos
 */
 static void _lconst_1() {
-	maquina.current_frame->push(0);
-	maquina.current_frame->push(1);
+	maquina.current_frame->push2(1);
 	maquina.current_frame->pc++;
 }
 
@@ -2416,21 +2413,27 @@ static void _lookupswitch() {
 
 
 static void _ireturn() {
-	
 	uint64_t aux = maquina.current_frame->pop();
 	maquina.stack->popFrame();
-	maquina.current_frame->push(aux);
-	maquina.current_frame->pc++;
+	maquina.stack->have_returned = 1;
+
+	if (maquina.current_frame) {
+		maquina.current_frame->push(aux);
+		maquina.current_frame->pc++;
+	}
 
 }
 
 static void _lreturn() {
-
 	uint64_t low = maquina.current_frame->pop();
 	uint64_t high = maquina.current_frame->pop();
 	maquina.stack->popFrame();
-	maquina.current_frame->push2(getLong(high,low));
-	maquina.current_frame->pc++;
+	maquina.stack->have_returned = 1;
+
+	if (maquina.current_frame) {
+		maquina.current_frame->push2(getLong(high,low));
+		maquina.current_frame->pc++;
+	}
 }
 
 static void _freturn() {
@@ -2438,7 +2441,7 @@ static void _freturn() {
 }
 
 static void _dreturn() {
-	_dreturn();
+	_lreturn();
 }
 
 static void _areturn() {
@@ -2447,7 +2450,10 @@ static void _areturn() {
 
 static void _return() {
 	maquina.stack->popFrame();
-	maquina.current_frame->pc++;
+	maquina.stack->have_returned = 1;
+
+	if (maquina.current_frame)
+		maquina.current_frame->pc++;
 }
 
 static void _getstatic() {
@@ -2908,9 +2914,10 @@ static void _invokestatic() {
 		length = class->constant_pool->constants[(method->descriptor_index-1)].type.Utf8.tam;
 
 		if(bytes[length-1] == 'D' || bytes[length-1] == 'J') {
-			maquina.current_frame->push2(0);
+			printf("tem que ter entrado aqui");
+			maquina.current_frame->push2(maquina.getNativeValueForStaticMethod(method));
 		} else if(bytes[length-1] != 'V') {
-			maquina.current_frame->push(0);
+			maquina.current_frame->push(maquina.getNativeValueForStaticMethod(method));
 		}
 
 	} else {
@@ -3065,7 +3072,7 @@ static void _arraylength() {
 }
 
 static void _athrow() {
-	exit(1);
+	maquina.current_frame->pc++;
 }
 
 static void _checkcast() {
