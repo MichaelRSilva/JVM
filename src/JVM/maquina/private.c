@@ -2,16 +2,18 @@
 
 /// retorna um index para o array de classes da area de metodos
 static int getClassIndex(char* class_name) {
-	if (maquina.method_area->classes == NULL) return -1;
-	if (class_name == NULL || !strcmp(class_name, "")) return -2;
+	printf("\n\t\t\tentrou getClassIndex: %s", class_name);
+	if (maquina.method_area->classes == NULL) {printf("\n\t\t\tsaiu getClassIndex: %s; toReturn: %d", class_name, -3); return -3;}
+	if (class_name == NULL || !strcmp(class_name, "")) {printf("\n\t\t\tsaiu getClassIndex: %s; toReturn: %d", class_name, -2);return -2;}
 
 	for(int i=0; i < maquina.method_area->classes_count; i++){
 		char *aux = maquina.method_area->classes[i]->getName(maquina.method_area->classes[i]);
 		if(!strcmp(class_name,aux)){
+			printf("\n\t\t\tsaiu getClassIndex: %s; toReturn: %d", class_name, i);
 			return i;
 		}
 	}
-
+	printf("\n\t\t\tsaiu getClassIndex: %s; toReturn: %d", class_name, -1);
 	return -1;
 }
 

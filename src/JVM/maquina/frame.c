@@ -4,6 +4,7 @@
 	empilha um valor na pilha de operandos
 */
 static void push(uint64_t valor) {
+	printf("\n\t\tentrou no push(); current_frame: %p",maquina.current_frame);
 	if (maquina.current_frame->operand_stack.allocated >= maquina.current_frame->code_attr->max_stack) {
 		printf("Stack Overflow!");
 		exit(-1000);
@@ -14,6 +15,7 @@ static void push(uint64_t valor) {
 	maquina.current_frame->operand_stack.topo->next = ref; // guarda referencia para o proximo topo
 	maquina.current_frame->operand_stack.topo->value = valor; // guarda o valor do topo
 	maquina.current_frame->operand_stack.allocated++;
+	printf("\n\t\tsaiu no push(); valor: %llx;  current_frame: %p", valor, maquina.current_frame);
 }
 
 /*!
@@ -21,16 +23,18 @@ static void push(uint64_t valor) {
 */
 static uint64_t pop() {
 	printf("\n\t\tentrou no pop(); current_frame: %p",maquina.current_frame);
-	if (maquina.current_frame->operand_stack.topo == NULL) { printf("\nERRO: Operand Stack vazio"); exit(213123);}
+	if (maquina.current_frame->operand_stack.topo == NULL || !maquina.current_frame->operand_stack.allocated) { 
+		printf("\nERRO: Operand Stack vazio"); exit(213123);
+	}
 
 	uint64_t toReturn = maquina.current_frame->operand_stack.topo->value; // guarda valor do topo
-	struct _u4pilha* ref = maquina.current_frame->operand_stack.topo; // topo sera desalocado
+	// struct _u4pilha* ref = maquina.current_frame->operand_stack.topo; // topo sera desalocado
 
 	maquina.current_frame->operand_stack.topo = maquina.current_frame->operand_stack.topo->next;
 	maquina.current_frame->operand_stack.allocated--;
 
-	free(ref); // desalocado topo
-	printf("\n\t\tsaiu no pop(); current_frame: %p",maquina.current_frame);
+	// free(ref); // desalocado topo
+	printf("\n\t\tsaiu no pop(); valor: %llx; current_frame: %p", toReturn,maquina.current_frame);
 	return toReturn;
 }
 /*!

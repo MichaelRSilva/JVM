@@ -1729,14 +1729,12 @@ static void _lcmp() {
 	
 	low = maquina.current_frame->pop();
 	high = maquina.current_frame->pop();
-	other = getDouble(low, high);
+	other = getLong(high, low);
 
 	low = maquina.current_frame->pop();
 	high = maquina.current_frame->pop();
 
-	value = high;
-	value = value << 32;
-	value = value + low;
+	value = getLong(high, low);
 
 
 	if(value == other) {
@@ -1749,7 +1747,7 @@ static void _lcmp() {
 		}
 	} 
 	
-	maquina.current_frame->push((int64_t) result);
+	maquina.current_frame->push(result);
 	maquina.current_frame->pc++;
 }
 
@@ -2769,7 +2767,7 @@ static void _invokevirtual() {
 
 		numParams = maquina.getNumParameters(class , method);
 		fieldsTemp = calloc(sizeof(uint64_t),numParams+1);
-		for(i = numParams; i >= 0; i--) {
+		for(i = numParams; i > 0; i--) {
 			fieldsTemp[i] = maquina.current_frame->pop();
 		}
 
@@ -2785,7 +2783,7 @@ static void _invokevirtual() {
 
 		} else {
 			maquina.construirFrame(class, method);
-			for(i = numParams; i >= 0; i--) {
+			for(i = numParams; i > 0; i--) {
 				maquina.current_frame->local_variables[i] = fieldsTemp[i];
 			}
 			maquina.execute();
@@ -2838,7 +2836,7 @@ static void _invokespecial() {
 
 	numParams = maquina.getNumParameters(class , method);
 	fieldsTemp = calloc(sizeof(uint64_t),numParams+1);
-	for(i = numParams; i >= 0; i--) {
+	for(i = numParams; i > 0; i--) {
 		fieldsTemp[i] = maquina.current_frame->pop();
 	}
 
@@ -2854,7 +2852,7 @@ static void _invokespecial() {
 
 	} else {
 		maquina.construirFrame(class, method);
-		for(i = numParams; i >= 0; i--) {
+		for(i = numParams; i > 0; i--) {
 			maquina.current_frame->local_variables[i] = fieldsTemp[i];
 		}
 		maquina.execute();
@@ -2892,6 +2890,7 @@ static void _invokestatic() {
 	printf("\n\t\t\t METHOD_INFO: <%s.%d>", className, nameTypeIndex);
 
 	classIndex = maquina.loadClass(className);
+	printf("\n\n\t CLASSINDEX: %d", (int)classIndex);
 	class = maquina.method_area->classes[classIndex];
 
 
@@ -2899,7 +2898,7 @@ static void _invokestatic() {
 
 	numParams = maquina.getNumParameters(class , method);
 	fieldsTemp = calloc(sizeof(uint64_t),numParams+1);
-	for(i = numParams; i >= 0; i--) {
+	for(i = numParams; i > 0; i--) {
 		fieldsTemp[i] = maquina.current_frame->pop();
 	}
 
@@ -2917,7 +2916,7 @@ static void _invokestatic() {
 
 	} else {
 		maquina.construirFrame(class, method);
-		for(i = numParams; i >= 0; i--) {
+		for(i = numParams; i > 0; i--) {
 			maquina.current_frame->local_variables[i] = fieldsTemp[i];
 		}
 		maquina.execute();
@@ -2951,7 +2950,7 @@ static void _invokeinterface() {
 	fieldsTemp = calloc(sizeof(uint64_t),args_count+1);
 
 
-	for(i = args_count; i >= 0; i--) {
+	for(i = args_count; i > 0; i--) {
 		fieldsTemp[i] = maquina.current_frame->pop();
 	}
 
@@ -2975,7 +2974,7 @@ static void _invokeinterface() {
 	}
 
 	maquina.construirFrame(class, method);
-	for(i = args_count; i >= 0; i--) {
+	for(i = args_count; i > 0; i--) {
 		maquina.current_frame->local_variables[i] = fieldsTemp[i];
 	}
 	maquina.execute();

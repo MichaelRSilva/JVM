@@ -87,6 +87,7 @@ static void link(int class_index) {
 
 /// carrega as classes pai da classe na posicao maquina.classes.size - 1 no array de classes da area de metodo
 static int loadParentClasses() {
+	printf("\n\tentrou loadParentClasses");
 	CLASS* class = maquina.method_area->classes[maquina.method_area->classes_count-1];
 	char* parentName = class->getParentName(class);
 	int flag = 0;
@@ -107,7 +108,7 @@ static int loadParentClasses() {
 
 		free(cl);	
 	}
-
+	printf("\n\tentrou loadParentClasses");
 	return flag;
 }
 
@@ -137,7 +138,7 @@ static int loadInterfaces(CLASS* class) {
 static int loadClass(char* name) {
 	printf("\nentrou loadClass: %s", name);
 	int toReturn = -1;
-	if ((toReturn = getClassIndex(name)) == -1) {
+	if ((toReturn = getClassIndex(name)) <= -1) {
 		CLASS_LOADER* cl = initCLASS_LOADER();
 
 		cl->load(cl, getClassPath(name));
@@ -153,7 +154,7 @@ static int loadClass(char* name) {
 		free(cl);
 	}
 
-	printf("\nsaiu loadClass: %s", name);
+	printf("\nsaiu loadClass: %s; toReturn: %d", name, toReturn);
 	return toReturn;
 }
 
@@ -273,7 +274,7 @@ static char * getNameConstants(CLASS *class, uint16_t nameIndex) {
 }
 
 /*!
-	devolve a quantida de parametros de um metodo
+	devolve a quantidade de parametros de um metodo
 */
 int32_t getNumParameters(CLASS *class, struct _method_info *method) {
 	int32_t i;
@@ -295,6 +296,7 @@ int32_t getNumParameters(CLASS *class, struct _method_info *method) {
 			parametros+=2;
 		}
 	}
+	printf("\n\t\t\tparametros: %d", parametros);
 	return parametros;
 }
 
