@@ -331,7 +331,16 @@ struct _method_info *getMethodByNameDesc(CLASS *main_class, CLASS *name_type_cla
 	return NULL;
 }
 
-static uint64_t getNativeValueForStaticMethod(struct _method_info* method) {
+static uint64_t getNativeValueForStaticMethod(CLASS* class, struct _method_info* method) {
+	uint64_t toReturn;
+	char* method_name = class->constant_pool->getUtf8String(class->constant_pool, method->name_index);
+	char* type_desc = class->constant_pool->getUtf8String(class->constant_pool, method->descriptor_index);
+	if (!strcmp(class->getName(class), "java/lang/System") && !(strcmp(method_name, "currentTimeMillis"))
+		&& !(strcmp(type_desc, "()J"))) {
+		return 1;
+	}
+	// adicionar aqui as outras ocasioes
+
 	return 0;
 }
 

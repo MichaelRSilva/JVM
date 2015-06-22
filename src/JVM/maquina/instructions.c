@@ -2416,10 +2416,10 @@ static void _ireturn() {
 	uint64_t aux = maquina.current_frame->pop();
 	maquina.stack->popFrame();
 	maquina.stack->have_returned = 1;
+	maquina.current_frame->pc++;
 
 	if (maquina.current_frame) {
 		maquina.current_frame->push(aux);
-		maquina.current_frame->pc++;
 	}
 
 }
@@ -2429,10 +2429,10 @@ static void _lreturn() {
 	uint64_t high = maquina.current_frame->pop();
 	maquina.stack->popFrame();
 	maquina.stack->have_returned = 1;
+	maquina.current_frame->pc++;
 
 	if (maquina.current_frame) {
 		maquina.current_frame->push2(getLong(high,low));
-		maquina.current_frame->pc++;
 	}
 }
 
@@ -2451,9 +2451,7 @@ static void _areturn() {
 static void _return() {
 	maquina.stack->popFrame();
 	maquina.stack->have_returned = 1;
-
-	if (maquina.current_frame)
-		maquina.current_frame->pc++;
+	maquina.current_frame->pc++;
 }
 
 static void _getstatic() {
@@ -2893,10 +2891,7 @@ static void _invokestatic() {
 	className = maquina.getNameConstants(maquina.current_frame->current_class, maquina.current_frame->runtime_constant_pool->constants[classIndexTemp-1].type.Class.nameIndex);
 	nameTypeIndex = maquina.current_frame->runtime_constant_pool->constants[indice-1].type.MethodRef.nameTypeIndex;
 
-	// printf("\n\t\t\t METHOD_INFO: <%s.%d>", className, nameTypeIndex);
-
 	classIndex = maquina.loadClass(className);
-	// printf("\n\n\t CLASSINDEX: %d", (int)classIndex);
 	class = maquina.method_area->classes[classIndex];
 
 
@@ -2914,10 +2909,9 @@ static void _invokestatic() {
 		length = class->constant_pool->constants[(method->descriptor_index-1)].type.Utf8.tam;
 
 		if(bytes[length-1] == 'D' || bytes[length-1] == 'J') {
-			printf("tem que ter entrado aqui");
-			maquina.current_frame->push2(maquina.getNativeValueForStaticMethod(method));
+			maquina.current_frame->push2(maquina.getNativeValueForStaticMethod(class, method));
 		} else if(bytes[length-1] != 'V') {
-			maquina.current_frame->push(maquina.getNativeValueForStaticMethod(method));
+			maquina.current_frame->push(maquina.getNativeValueForStaticMethod(class, method));
 		}
 
 	} else {

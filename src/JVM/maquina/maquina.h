@@ -121,8 +121,8 @@
 			void (*construirFrame)(CLASS*, struct _method_info*);
 			void (*run)();
 			int (*loadParentClasses)();
-			int (*loadInterfaces)(CLASS* class);
-			uint64_t (*getNativeValueForStaticMethod)(struct _method_info*);
+			int (*loadInterfaces)(CLASS*);
+			uint64_t (*getNativeValueForStaticMethod)(CLASS*, struct _method_info*);
 
 		} JVM;
 	
