@@ -44,14 +44,17 @@
 	// stack
 		typedef struct _stack {
 			//campos
-			struct _frame* topo;
-			struct _stack* proximo;
+			struct _frame_pilha {
+				struct _frame* value;
+				struct _frame_pilha* next;
+			} *topo;
+
 			uint32_t count;
 			uint8_t have_returned;
 
 			//funcoes
 			void (*pushFrame)(CLASS*, struct _code_attribute*);
-			struct _frame* (*popFrame)();
+			void (*popFrame)();
 		} STACK;
 
 	// frame: capítulo 3, seção 3.6 da especificação

@@ -9,7 +9,6 @@ static int getClassIndex(char* class_name) {
 	for(int i=0; i < maquina.method_area->classes_count; i++){
 		char *aux = maquina.method_area->classes[i]->getName(maquina.method_area->classes[i]);
 		if(!strcmp(class_name,aux)){
-			printf("\n\t\t\tsaiu getClassIndex: %s; toReturn: %d", class_name, i);
 			return i;
 		}
 	}

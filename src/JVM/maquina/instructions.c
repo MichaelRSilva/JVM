@@ -2414,9 +2414,12 @@ static void _lookupswitch() {
 
 static void _ireturn() {
 	uint64_t aux = maquina.current_frame->pop();
+
+	printf("\n\t\ticurrentFrame: %p", maquina.current_frame);
 	maquina.stack->popFrame();
+	printf("\n\t\tacurrentFrame: %p", maquina.current_frame);
 	maquina.stack->have_returned = 1;
-	maquina.current_frame->pc++;
+	printf("\ncurrent frame: %p; pc: %d", maquina.current_frame,maquina.current_frame->pc);
 
 	if (maquina.current_frame) {
 		maquina.current_frame->push(aux);
@@ -2451,7 +2454,8 @@ static void _areturn() {
 static void _return() {
 	maquina.stack->popFrame();
 	maquina.stack->have_returned = 1;
-	maquina.current_frame->pc++;
+	if (maquina.current_frame)
+		maquina.current_frame->pc++;
 }
 
 static void _getstatic() {
@@ -2494,7 +2498,7 @@ static void _getstatic() {
 }
 
 static void _putstatic() {
-	
+	printf("\n\nputstatic pc: %d", maquina.current_frame->pc);
 	uint8_t index_1, index_2;
 	uint16_t indice, nameTypeIndex;
 	uint64_t classIndexTemp;
@@ -2532,7 +2536,6 @@ static void _putstatic() {
 
 	maquina.setStaticFieldVal(classIndex , field_index, valor);
 	maquina.current_frame->pc++;
-	exit(-12323);
 }
 
 
@@ -2903,7 +2906,6 @@ static void _invokestatic() {
 		fieldsTemp[i] = maquina.current_frame->pop();
 	}
 
-	// printf("\n\t\t access_flags: %x; mask_native: %x; and %x", method->access_flags, mask_native, (method->access_flags) & mask_native);
 	if((method->access_flags) & mask_native) {
 		bytes = class->constant_pool->constants[(method->descriptor_index-1)].type.Utf8.bytes;
 		length = class->constant_pool->constants[(method->descriptor_index-1)].type.Utf8.tam;
@@ -2916,15 +2918,12 @@ static void _invokestatic() {
 
 	} else {
 		maquina.construirFrame(class, method);
-		printf("\n\t\t\tconstruiu novo frame");
 		for(i = numParams; i > 0; i--) {
 			maquina.current_frame->local_variables[i] = fieldsTemp[i];
 		}
 		maquina.execute();
 	}
-
 	maquina.current_frame->pc++;
-	// printf("\n\t\t\t\nsaiu invokestatic: %p", maquina.current_frame);
 }
 
 static void _invokeinterface() {

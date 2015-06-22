@@ -39,9 +39,12 @@ static void execute() {
 	// printf("\n\t\tentrou execute: %p; stack_count: %d", maquina.current_frame, maquina.stack->count);
 	while (maquina.stack->have_returned == 0 
 		&& maquina.current_frame != NULL && (maquina.current_frame->pc) < maquina.current_frame->code_attr->code_length) {
-		
+		printf("\n\n\t\t next opcode: %x", maquina.current_frame->code_attr->code[maquina.current_frame->pc]);
+	
 		uint32_t ins = maquina.current_frame->code_attr->code[maquina.current_frame->pc];
-		printf("\n\tpc: %x; code: %x <%s>", maquina.current_frame->pc, ins , instructions[ins].nome);
+		printf("\n\tpc: %x; code: %x <%s>; current_frame: %p", maquina.current_frame->pc, ins , instructions[ins].nome, maquina.current_frame);
+		printf(" <%s>", maquina.current_frame->current_class->getName(maquina.current_frame->current_class));
+		
 		instructions[maquina.current_frame->code_attr->code[maquina.current_frame->pc]].call();
 	}
 	maquina.stack->have_returned = 0;
@@ -335,6 +338,7 @@ static uint64_t getNativeValueForStaticMethod(CLASS* class, struct _method_info*
 	uint64_t toReturn;
 	char* method_name = class->constant_pool->getUtf8String(class->constant_pool, method->name_index);
 	char* type_desc = class->constant_pool->getUtf8String(class->constant_pool, method->descriptor_index);
+	
 	if (!strcmp(class->getName(class), "java/lang/System") && !(strcmp(method_name, "currentTimeMillis"))
 		&& !(strcmp(type_desc, "()J"))) {
 		return 1;

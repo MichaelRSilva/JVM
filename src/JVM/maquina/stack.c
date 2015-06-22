@@ -1,24 +1,29 @@
 #include "maquina.h"
 
 void pushFrame(CLASS* class, struct _code_attribute* code_attr) {
-	// printf("\n\t\t\tentrou pushFrame:  %s", class->getName(class));
-	maquina.stack->proximo = maquina.stack;
-	maquina.stack->topo = initFRAME(class, code_attr);
-	maquina.current_frame = maquina.stack->topo;
+	printf("\n\t\t\tentrou pushFrame:  %s", class->getName(class));
+	struct _frame_pilha* newTopo = (struct _frame_pilha*)malloc(sizeof(struct _frame_pilha));
+
+	newTopo->value = initFRAME(class, code_attr);
+	newTopo->next = maquina.stack->topo;
+	maquina.stack->topo = newTopo;
+
+	maquina.current_frame = maquina.stack->topo->value;
 	maquina.stack->count++;
-	// printf("\n\t\t\tsaiu pushFrame:  %s", class->getName(class));
+	printf("\n\t\t\tsaiu pushFrame:  %s", class->getName(class));
 }
 
-FRAME* popFrame() {
-	// printf("\n\t\t\tentrou popFrame: current_frame: %p", maquina.current_frame);
-	FRAME* aux = maquina.stack->topo;
+void popFrame() {
+	printf("\n\t\t\tentrou popFrame: current_frame: %p", maquina.current_frame);
+	if (maquina.stack->count == 0) { printf("\nStack de Frames VAZIA!"); exit(123123);}
 
-	maquina.stack = maquina.stack->proximo;
-	maquina.current_frame = (maquina.stack != NULL) ? maquina.stack->topo : NULL;
+	struct _frame_pilha* aux = maquina.stack->topo->next;
+	free(maquina.stack->topo);
+	
+	maquina.stack->topo = aux;
 	maquina.stack->count--;
-
-	// printf("\n\t\t\tsaiu popFrame: current_frame: %p", maquina.current_frame);
-	return aux;
+	maquina.current_frame = (aux!=NULL)?aux->value:NULL;
+	printf("\n\t\t\tsaiu popFrame: current_frame: %p", maquina.current_frame);
 }
 
 /*!
@@ -29,7 +34,6 @@ STACK* initSTACK() {
 
 	// campos
 	toReturn->topo = NULL;
-	toReturn->proximo = NULL;
 	toReturn->count = 0;
 	toReturn->have_returned = 0;
 
