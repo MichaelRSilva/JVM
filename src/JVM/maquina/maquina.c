@@ -43,7 +43,6 @@ static void execute() {
 		instructions[maquina.current_frame->code_attr->code[maquina.current_frame->pc]].call();
 	}
 
-	maquina.stack->popFrame();
 	printf("\n\t\tsaiu execute: %p; stack_count: %d", maquina.current_frame, maquina.stack->count);
 }
 

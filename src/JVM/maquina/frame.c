@@ -20,15 +20,18 @@ static void push(uint64_t valor) {
 	desempilha um valor na pilha de operandos
 */
 static uint64_t pop() {
-	uint64_t* toReturn = (uint64_t*)malloc(sizeof(uint64_t)); // valor para retorno
+	printf("\n\t\tentrou no pop(); current_frame: %p",maquina.current_frame);
+	if (maquina.current_frame->operand_stack.topo == NULL) { printf("\nERRO: Operand Stack vazio"); exit(213123);}
+
+	uint64_t toReturn = maquina.current_frame->operand_stack.topo->value; // guarda valor do topo
 	struct _u4pilha* ref = maquina.current_frame->operand_stack.topo; // topo sera desalocado
 
-	memcpy(toReturn, &(maquina.current_frame->operand_stack.topo->value), sizeof(uint64_t)); // copia bits
 	maquina.current_frame->operand_stack.topo = maquina.current_frame->operand_stack.topo->next;
 	maquina.current_frame->operand_stack.allocated--;
 
 	free(ref); // desalocado topo
-	return *toReturn;
+	printf("\n\t\tsaiu no pop(); current_frame: %p",maquina.current_frame);
+	return toReturn;
 }
 /*!
 	empilha um valor na pilha de operandos

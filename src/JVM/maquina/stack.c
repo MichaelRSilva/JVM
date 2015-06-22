@@ -6,16 +6,18 @@ void pushFrame(CLASS* class, struct _code_attribute* code_attr) {
 	maquina.stack->topo = initFRAME(class, code_attr);
 	maquina.current_frame = maquina.stack->topo;
 	maquina.stack->count++;
-	printf("\n\t\t\tentrou pushFrame:  %s", class->getName(class));
+	printf("\n\t\t\tsaiu pushFrame:  %s", class->getName(class));
 }
 
-FRAME* popFrame(CLASS* class, struct _code_attribute* code_attr) {
+FRAME* popFrame() {
+	printf("\n\t\t\tentrou popFrame: current_frame: %p", maquina.current_frame);
 	FRAME* aux = maquina.stack->topo;
 
 	maquina.stack = maquina.stack->proximo;
 	maquina.current_frame = (maquina.stack != NULL) ? maquina.stack->topo : NULL;
 	maquina.stack->count--;
 
+	printf("\n\t\t\tsaiu popFrame: current_frame: %p", maquina.current_frame);
 	return aux;
 }
 

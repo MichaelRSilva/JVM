@@ -2470,8 +2470,6 @@ static void _getstatic() {
 	classIndexTemp = maquina.current_frame->runtime_constant_pool->constants[indice-1].type.FieldRef.classIndex;
 	className = maquina.current_frame->runtime_constant_pool->getUtf8String(maquina.current_frame->runtime_constant_pool, maquina.current_frame->runtime_constant_pool->constants[classIndexTemp-1].type.Class.nameIndex);
 	
-	printf("\n\t\t\t\t\t\t indice: %d", indice);
-	
 	nameTypeIndex = maquina.current_frame->runtime_constant_pool->constants[indice-1].type.FieldRef.nameTypeIndex;
 	name = maquina.current_frame->runtime_constant_pool->getUtf8String(maquina.current_frame->runtime_constant_pool, maquina.current_frame->runtime_constant_pool->constants[nameTypeIndex-1].type.NameType.nameIndex);
 	type = maquina.current_frame->runtime_constant_pool->getUtf8String(maquina.current_frame->runtime_constant_pool, maquina.current_frame->runtime_constant_pool->constants[nameTypeIndex-1].type.NameType.descriptorIndex);
@@ -2491,7 +2489,6 @@ static void _getstatic() {
 	}
 
 	maquina.current_frame->pc++;
-	printf("\n\t\t\t\nsaiu getstatic: %p", maquina.current_frame);
 }
 
 static void _putstatic() {
@@ -2515,23 +2512,23 @@ static void _putstatic() {
 	type = maquina.current_frame->runtime_constant_pool->getUtf8String(maquina.current_frame->runtime_constant_pool, maquina.current_frame->runtime_constant_pool->constants[nameTypeIndex-1].type.NameType.descriptorIndex);
 
 	field_index =  maquina.retrieveFieldIndex(className, name, strlen(name), type, strlen(type));
-	// while((field_index = maquina.retrieveFieldIndex(className, name, strlen(name), type, strlen(type))) == -1) {
-	// 	className = maquina.current_frame->current_class->getParentName(maquina.getClassByName(className));
-	// }
+	while((field_index = maquina.retrieveFieldIndex(className, name, strlen(name), type, strlen(type))) == -1) {
+		className = maquina.current_frame->current_class->getParentName(maquina.getClassByName(className));
+	}
 
-	// classIndex = maquina.loadClass(className);
+	classIndex = maquina.loadClass(className);
 
-	// if(type[0] == 'J' || type[0] == 'D') {
+	if(type[0] == 'J' || type[0] == 'D') {
 
 		valor  = maquina.current_frame->pop();
-		// valor2 = maquina.current_frame->pop();
-	// 	valor = valor | (valor2 << 32);
+		valor2 = maquina.current_frame->pop();
+		valor = valor | (valor2 << 32);
  
-	// } else {
-	// 	valor = maquina.current_frame->pop();
-	// }
+	} else {
+		valor = maquina.current_frame->pop();
+	}
 
-	// maquina.setStaticFieldVal(classIndex , field_index, valor);
+	maquina.setStaticFieldVal(classIndex , field_index, valor);
 	maquina.current_frame->pc++;
 	exit(-12323);
 }
@@ -2892,6 +2889,7 @@ static void _invokestatic() {
 	className = maquina.getNameConstants(maquina.current_frame->current_class, maquina.current_frame->runtime_constant_pool->constants[classIndexTemp-1].type.Class.nameIndex);
 	nameTypeIndex = maquina.current_frame->runtime_constant_pool->constants[indice-1].type.MethodRef.nameTypeIndex;
 
+	printf("\n\t\t\t METHOD_INFO: <%s.%d>", className, nameTypeIndex);
 
 	classIndex = maquina.loadClass(className);
 	class = maquina.method_area->classes[classIndex];
@@ -2905,6 +2903,7 @@ static void _invokestatic() {
 		fieldsTemp[i] = maquina.current_frame->pop();
 	}
 
+	printf("\n\t\t access_flags: %x; mask_native: %x; and %x", method->access_flags, mask_native, (method->access_flags) & mask_native);
 	if((method->access_flags) & mask_native) {
 		bytes = class->constant_pool->constants[(method->descriptor_index-1)].type.Utf8.bytes;
 		length = class->constant_pool->constants[(method->descriptor_index-1)].type.Utf8.tam;
@@ -2912,6 +2911,7 @@ static void _invokestatic() {
 		if(bytes[length-1] == 'D' || bytes[length-1] == 'J') {
 			maquina.current_frame->push2(0);
 		} else if(bytes[length-1] != 'V') {
+			printf("");
 			maquina.current_frame->push(0);
 		}
 
