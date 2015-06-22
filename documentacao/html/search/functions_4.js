@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['main',['main',['../_j_v_m_2main_8c.html#a3c04138a5bfe5d72780bb7e82a18e627',1,'main(int argc, char **argv):&#160;main.c'],['../_leitor_exibidor_2main_8c.html#a3c04138a5bfe5d72780bb7e82a18e627',1,'main(int argc, char **argv):&#160;main.c']]]
+  ['popframe',['popFrame',['../stack_8c.html#aca9cbfa46eaa4e3c07217b16d0c5212e',1,'stack.c']]],
+  ['pushframe',['pushFrame',['../stack_8c.html#ae1d730c889ce777e47b518b8288cf972',1,'stack.c']]]
 ];

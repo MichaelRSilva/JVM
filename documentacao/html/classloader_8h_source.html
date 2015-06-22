@@ -107,31 +107,31 @@ $(document).ready(function(){initNavTree('classloader_8h_source.html','');});
 </div><!--header-->
 <div class="contents">
 <a href="classloader_8h.html">Ir para a documentação deste ficheiro.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#ifndef MODULE_CLASS_LOADER</span></div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#define MODULE_CLASS_LOADER</span></div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor">    #include &quot;../Common/common.h&quot;</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#ifndef MODULE_CLASS_LOADER</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#define MODULE_CLASS_LOADER</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">    #include &quot;../Common/common.h&quot;</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor">    #include &quot;../Util/util.h&quot;</span></div>
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">    #include &quot;<a class="code" href="class_8h.html">Class/class.h</a>&quot;</span></div>
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;</div>
-<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="struct_c_l_a_s_s___l_o_a_d_e_r.html">   17</a></span>&#160;    <span class="keyword">typedef</span> <span class="keyword">struct </span>_class_loader {</div>
-<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="struct_c_l_a_s_s___l_o_a_d_e_r.html#aeecccd9c6f4b5bcfc39a19a19d1e8aca">   18</a></span>&#160;        <a class="code" href="struct_c_l_a_s_s.html">CLASS</a>* <span class="keyword">class</span>;</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;</div>
-<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="struct_c_l_a_s_s___l_o_a_d_e_r.html#a2f3bede63da285d239feca8e305852f7">   20</a></span>&#160;        int (*load)(<span class="keyword">struct </span>_class_loader*, <a class="code" href="struct_d_a_d_o_s.html">DADOS</a>);</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    } <a class="code" href="struct_c_l_a_s_s___l_o_a_d_e_r.html">CLASS_LOADER</a>;</div>
+<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="struct_c_l_a_s_s___l_o_a_d_e_r.html">   20</a></span>&#160;    <span class="keyword">typedef</span> <span class="keyword">struct </span>_class_loader {</div>
+<div class="line"><a name="l00021"></a><span class="lineno"><a class="line" href="struct_c_l_a_s_s___l_o_a_d_e_r.html#aeecccd9c6f4b5bcfc39a19a19d1e8aca">   21</a></span>&#160;        <a class="code" href="struct_c_l_a_s_s.html">CLASS</a>* <span class="keyword">class</span>;</div>
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    <a class="code" href="struct_c_l_a_s_s___l_o_a_d_e_r.html">CLASS_LOADER</a>* <a class="code" href="classloader_8h.html#a3694274de6131d32c803ef7e8d0ba71e">initCLASS_LOADER</a>();</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="struct_c_l_a_s_s___l_o_a_d_e_r.html#a005047d82e4ef6e47659343583b203e6">   23</a></span>&#160;        <a class="code" href="struct_c_l_a_s_s.html">CLASS</a>* (*load)(<span class="keyword">struct </span>_class_loader*, <span class="keywordtype">char</span>*);</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    } <a class="code" href="struct_c_l_a_s_s___l_o_a_d_e_r.html">CLASS_LOADER</a>;</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <a class="code" href="struct_c_l_a_s_s___l_o_a_d_e_r.html">CLASS_LOADER</a>* <a class="code" href="classloader_8h.html#a3694274de6131d32c803ef7e8d0ba71e">initCLASS_LOADER</a>();</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="ttc" id="class_8h_html"><div class="ttname"><a href="class_8h.html">class.h</a></div><div class="ttdoc">Definicoes de funcoes e inicializadores relacionados a classe associada ao arquivo ...</div></div>
-<div class="ttc" id="classloader_8h_html_a3694274de6131d32c803ef7e8d0ba71e"><div class="ttname"><a href="classloader_8h.html#a3694274de6131d32c803ef7e8d0ba71e">initCLASS_LOADER</a></div><div class="ttdeci">CLASS_LOADER * initCLASS_LOADER()</div><div class="ttdef"><b>Definition:</b> public.c:11</div></div>
-<div class="ttc" id="struct_c_l_a_s_s___l_o_a_d_e_r_html"><div class="ttname"><a href="struct_c_l_a_s_s___l_o_a_d_e_r.html">CLASS_LOADER</a></div><div class="ttdef"><b>Definition:</b> classloader.h:17</div></div>
-<div class="ttc" id="struct_d_a_d_o_s_html"><div class="ttname"><a href="struct_d_a_d_o_s.html">DADOS</a></div><div class="ttdoc">Estrutura para representação de dados como array de bytes. </div><div class="ttdef"><b>Definition:</b> common.h:50</div></div>
-<div class="ttc" id="struct_c_l_a_s_s_html"><div class="ttname"><a href="struct_c_l_a_s_s.html">CLASS</a></div><div class="ttdef"><b>Definition:</b> class.h:19</div></div>
+<div class="ttc" id="classloader_8h_html_a3694274de6131d32c803ef7e8d0ba71e"><div class="ttname"><a href="classloader_8h.html#a3694274de6131d32c803ef7e8d0ba71e">initCLASS_LOADER</a></div><div class="ttdeci">CLASS_LOADER * initCLASS_LOADER()</div><div class="ttdef"><b>Definition:</b> classloader.c:4</div></div>
+<div class="ttc" id="struct_c_l_a_s_s___l_o_a_d_e_r_html"><div class="ttname"><a href="struct_c_l_a_s_s___l_o_a_d_e_r.html">CLASS_LOADER</a></div><div class="ttdef"><b>Definition:</b> classloader.h:20</div></div>
+<div class="ttc" id="struct_c_l_a_s_s_html"><div class="ttname"><a href="struct_c_l_a_s_s.html">CLASS</a></div><div class="ttdef"><b>Definition:</b> class.h:23</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_aa427983f6aa32812208aea9bbd13b7a.html">ClassLoader</a></li><li class="navelem"><a class="el" href="classloader_8h.html">classloader.h</a></li>
-    <li class="footer">Gerado em Quarta, 3 de Junho de 2015 08:15:18 para JVM por
+    <li class="footer">Gerado em Segunda, 22 de Junho de 2015 08:29:04 para JVM por
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.9.1 </li>
   </ul>

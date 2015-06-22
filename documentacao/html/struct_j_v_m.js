@@ -1,0 +1,28 @@
+var struct_j_v_m =
+[
+    [ "construirFrame", "struct_j_v_m.html#a6659e2c9a575d7436d712494eb267e2f", null ],
+    [ "current_frame", "struct_j_v_m.html#a76571dd772a50d3e1ac7c48ae972d979", null ],
+    [ "execute", "struct_j_v_m.html#a089f1af07a2fb313dc36c268cbc073f2", null ],
+    [ "getClassByName", "struct_j_v_m.html#ac95ef4064ec308ea5097891988d1db2f", null ],
+    [ "getMethodByNameDesc", "struct_j_v_m.html#a9b3787c8fe9efb310c63bdfd5da7c337", null ],
+    [ "getNameConstants", "struct_j_v_m.html#accc6ffa53a0f19df61480ad40d2d2d8a", null ],
+    [ "getNativeValueForStaticMethod", "struct_j_v_m.html#a2312b9da9542f4d4e7ea3b755c7b8223", null ],
+    [ "getNumParameters", "struct_j_v_m.html#aa54d72e52b6aa6ddd566f2118c2a56dd", null ],
+    [ "getObjectField", "struct_j_v_m.html#ae5120eeacebc91268697a55610e92353", null ],
+    [ "getStaticFieldVal", "struct_j_v_m.html#a6ff51a182539be5358182db44e58d94b", null ],
+    [ "heap", "struct_j_v_m.html#a9574148dd37845d721902d2cde329256", null ],
+    [ "initialize", "struct_j_v_m.html#aa07c3d998219128b6ff2691a04accda6", null ],
+    [ "link", "struct_j_v_m.html#abe074a65aa046b80811faf3419400c17", null ],
+    [ "loadClass", "struct_j_v_m.html#a15ffdccb2279a74b5528b343ae3b51e9", null ],
+    [ "loadInterfaces", "struct_j_v_m.html#ae43c37db5704900c5161f2cf2517912a", null ],
+    [ "loadParentClasses", "struct_j_v_m.html#a844a68fb0eccf4f9130cbea411c5f8c2", null ],
+    [ "method_area", "struct_j_v_m.html#ab3c1432bed9954886501cf6bd01ef256", null ],
+    [ "prepare", "struct_j_v_m.html#a4dc0a0d34c9de64abbb11d57464dfe0c", null ],
+    [ "retrieveFieldIndex", "struct_j_v_m.html#a62dc8128db5cd282ea1ddaefa638864b", null ],
+    [ "run", "struct_j_v_m.html#afdc6648e91fd5086d9b758cbe226ef71", null ],
+    [ "searchStaticFieldVal", "struct_j_v_m.html#a7406b85851332449ea151f3eed3a7d2b", null ],
+    [ "setObjectField", "struct_j_v_m.html#aafdf6a71100830ab598667c44eed854a", null ],
+    [ "setStaticFieldVal", "struct_j_v_m.html#a92d70a835abb2e2ea77283a42548abda", null ],
+    [ "stack", "struct_j_v_m.html#a81b515bf53dc4b1502dc2c9dec691f0d", null ],
+    [ "verify", "struct_j_v_m.html#ab9f38067a69d8bb66b31cb2cfd919742", null ]
+];

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['learquivo',['LeArquivo',['../util_8c.html#a89963aeb64d7b09a0c3d0610a145b9b0',1,'util.c']]]
+  ['main',['main',['../_j_v_m_2main_8c.html#a3c04138a5bfe5d72780bb7e82a18e627',1,'main(int argc, char **argv):&#160;main.c'],['../_leitor_exibidor_2main_8c.html#a3c04138a5bfe5d72780bb7e82a18e627',1,'main(int argc, char **argv):&#160;main.c']]]
 ];

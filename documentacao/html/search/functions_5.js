@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['verificajvmcmdargs',['VerificaJVMCMDArgs',['../util_8c.html#ad37fc79e49b549304e02abdaa59e3339',1,'util.c']]],
-  ['verificaleitorexibidorcmdargs',['VerificaLeitorExibidorCMDArgs',['../util_8c.html#a509680c230737b8bf39ca590fecedfab',1,'util.c']]]
+  ['returnaccessflagsname',['returnAccessFlagsName',['../common_8c.html#a6a0091de1a99fa3b3d1ebf38e465c228',1,'returnAccessFlagsName(uint16_t hexadecimal):&#160;common.c'],['../common_8h.html#abfb93970903cac48ada4a833e0ed734d',1,'returnAccessFlagsName(uint16_t):&#160;common.c']]]
 ];
