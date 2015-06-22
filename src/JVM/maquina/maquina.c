@@ -365,7 +365,7 @@ static uint64_t getNativeValueForStaticMethod(CLASS* class, struct _method_info*
 /*!
 	inicia a JVM 
 */
-JVM initJVM() {
+JVM initJVM(char* class_name) {
 	JVM toReturn;
 	
 	// init campos

@@ -93,6 +93,31 @@ static int EscreveArquivo(DADOS d, char *arqName){
 	return E_SUCCESS;
 }
 
+char* getBasePath(char* pathName) {
+	int i = strlen(pathName), j = 0;
+	for (; i >= 0; --i) {
+		if (pathName[i] == '/') {
+			j++;
+			break;
+		} else if (pathName[i] == '\\') {
+			j++;
+			break;
+		}
+	}
+
+	int size = 0;
+	if (j == strlen(pathName)) {
+		size = j;
+	} else {
+		 size = strlen(pathName) - j + 1;
+	}
+	char* toReturn = (char*)malloc(size*sizeof(char));
+	toReturn[size-1] = '\0';
+	strncpy(toReturn, pathName, size);
+
+	return toReturn;
+}
+
 // inicializa uma estrutura do tipo UTIL
 UTIL getUTILInstance(void){
 	UTIL util;

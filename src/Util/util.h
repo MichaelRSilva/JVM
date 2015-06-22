@@ -62,4 +62,5 @@
 		@return Uma estrutura UTIL contendo os métodos auxiliares para IO
 	*/
 	UTIL getUTILInstance(void);
+	char* getBasePath(char*);
 #endif
