@@ -30,6 +30,7 @@ static void _nop() {
 static void _aconst_null() {
     maquina.current_frame->push(0);
     maquina.current_frame->pc++;
+    exit(1);
 }
 
 /*!
@@ -2003,7 +2004,7 @@ static void _ifgt() {
 static void _ifle() {
 	
 	uint8_t pathOne, pathTwo;
-	int16_t desloc;
+	uint16_t desloc;
 	int64_t value;
 
 	pathOne = maquina.current_frame->code_attr->code[(maquina.current_frame->pc)+1];
@@ -2011,10 +2012,9 @@ static void _ifle() {
 
 	value = (signed) maquina.current_frame->pop();
 	if(value <= 0) {
-		
-		desloc = pathTwo;
+		desloc = pathOne;
 		desloc = desloc << 8;
-		desloc = desloc | pathOne;
+		desloc = desloc | pathTwo;
 
 		maquina.current_frame->pc = maquina.current_frame->pc + desloc;
 
@@ -2451,7 +2451,7 @@ static void _return() {
 }
 
 static void _getstatic() {
-	printf("\n\t\t\t\tentrou getstatic: %p; method_area: %p", maquina.current_frame, maquina.method_area);
+	// printf("\n\t\t\t\tentrou getstatic: %p; method_area: %p", maquina.current_frame, maquina.method_area);
 	uint8_t index_1, index_2;
 	uint16_t indice, nameTypeIndex;
 	uint64_t classIndexTemp;
@@ -2863,7 +2863,7 @@ static void _invokespecial() {
 }
 
 static void _invokestatic() {
-	printf("\n\t\t\t\tentrou invokestatic: %p", maquina.current_frame);
+	// printf("\n\t\t\t\tentrou invokestatic: %p", maquina.current_frame);
 	uint64_t indice;
 	uint8_t low, high;
 	int64_t numParams, i;
@@ -2887,10 +2887,10 @@ static void _invokestatic() {
 	className = maquina.getNameConstants(maquina.current_frame->current_class, maquina.current_frame->runtime_constant_pool->constants[classIndexTemp-1].type.Class.nameIndex);
 	nameTypeIndex = maquina.current_frame->runtime_constant_pool->constants[indice-1].type.MethodRef.nameTypeIndex;
 
-	printf("\n\t\t\t METHOD_INFO: <%s.%d>", className, nameTypeIndex);
+	// printf("\n\t\t\t METHOD_INFO: <%s.%d>", className, nameTypeIndex);
 
 	classIndex = maquina.loadClass(className);
-	printf("\n\n\t CLASSINDEX: %d", (int)classIndex);
+	// printf("\n\n\t CLASSINDEX: %d", (int)classIndex);
 	class = maquina.method_area->classes[classIndex];
 
 
@@ -2902,7 +2902,7 @@ static void _invokestatic() {
 		fieldsTemp[i] = maquina.current_frame->pop();
 	}
 
-	printf("\n\t\t access_flags: %x; mask_native: %x; and %x", method->access_flags, mask_native, (method->access_flags) & mask_native);
+	// printf("\n\t\t access_flags: %x; mask_native: %x; and %x", method->access_flags, mask_native, (method->access_flags) & mask_native);
 	if((method->access_flags) & mask_native) {
 		bytes = class->constant_pool->constants[(method->descriptor_index-1)].type.Utf8.bytes;
 		length = class->constant_pool->constants[(method->descriptor_index-1)].type.Utf8.tam;
@@ -2910,12 +2910,12 @@ static void _invokestatic() {
 		if(bytes[length-1] == 'D' || bytes[length-1] == 'J') {
 			maquina.current_frame->push2(0);
 		} else if(bytes[length-1] != 'V') {
-			printf("");
 			maquina.current_frame->push(0);
 		}
 
 	} else {
 		maquina.construirFrame(class, method);
+		printf("\n\t\t\tconstruiu novo frame");
 		for(i = numParams; i > 0; i--) {
 			maquina.current_frame->local_variables[i] = fieldsTemp[i];
 		}
@@ -2923,7 +2923,7 @@ static void _invokestatic() {
 	}
 
 	maquina.current_frame->pc++;
-	printf("\n\t\t\t\nsaiu invokestatic: %p", maquina.current_frame);
+	// printf("\n\t\t\t\nsaiu invokestatic: %p", maquina.current_frame);
 }
 
 static void _invokeinterface() {
@@ -2984,7 +2984,7 @@ static void _invokeinterface() {
 }
 
 static void _new() {
-	printf("\n\t\t\tentrou _new");
+	// printf("\n\t\t\tentrou _new");
 	uint8_t low, high;
 	uint64_t indice;
 	char *className;	
@@ -3004,14 +3004,14 @@ static void _new() {
 	indice = value;
 	className = maquina.current_frame->runtime_constant_pool->getClassName(maquina.current_frame->runtime_constant_pool, indice);
 
-	printf("\n\t\t\t\tnew: className = %s", className);
+	// printf("\n\t\t\t\tnew: className = %s", className);
 	classIndex = maquina.loadClass(className);
 	class = maquina.method_area->classes[classIndex];
 	objeto = maquina.heap->newObject(class);
 
 	maquina.current_frame->push((uint64_t)(intptr_t)objeto);
 	maquina.current_frame->pc++;
-	printf("\n\t\t\tsaiu _new");
+	// printf("\n\t\t\tsaiu _new");
 }
 
 static void _newarray() {

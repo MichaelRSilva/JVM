@@ -17,7 +17,7 @@
 
 /// constroi e coloca no topo do stack de frames o frame relacionado com $metodo e $class
 static void construirFrame(CLASS* class, struct _method_info* metodo) {
-	printf("\n\t\tentrou construirFrame: %s", class->getName(class));
+	// printf("\n\t\tentrou construirFrame: %s", class->getName(class));
 	int flag = 0;
 	if (metodo->attributes_count > 0) { // indica nao ser nativo
 		for (int i = 0; i < metodo->attributes_count; i++) {
@@ -31,24 +31,24 @@ static void construirFrame(CLASS* class, struct _method_info* metodo) {
 	if (!flag) {
 
 	}
-	printf("\n\t\tsaiu construirFrame: %s", class->getName(class));
+	// printf("\n\t\tsaiu construirFrame: %s", class->getName(class));
 }
 
 /// executa o método do current frame
 static void execute() {
-	printf("\n\t\tentrou execute: %p; stack_count: %d", maquina.current_frame, maquina.stack->count);
+	// printf("\n\t\tentrou execute: %p; stack_count: %d", maquina.current_frame, maquina.stack->count);
 	while (maquina.current_frame != NULL && (maquina.current_frame->pc) < maquina.current_frame->code_attr->code_length) {
 		uint32_t ins = maquina.current_frame->code_attr->code[maquina.current_frame->pc];
-		printf("\n\t\t\tpc: %x; code: %x <%s>", maquina.current_frame->pc, ins , instructions[ins].nome);
+		printf("\n\tpc: %x; code: %x <%s>", maquina.current_frame->pc, ins , instructions[ins].nome);
 		instructions[maquina.current_frame->code_attr->code[maquina.current_frame->pc]].call();
 	}
 
-	printf("\n\t\tsaiu execute: %p; stack_count: %d", maquina.current_frame, maquina.stack->count);
+	// printf("\n\t\tsaiu execute: %p; stack_count: %d", maquina.current_frame, maquina.stack->count);
 }
 
 /// executa clinit
 static void initialize(int class_index) { 
-	printf("\n\tentrou initialize; class_index: %d", class_index);
+	// printf("\n\tentrou initialize; class_index: %d", class_index);
 	CLASS* class = maquina.method_area->classes[class_index];
 	struct _method_info* clinit = getclinit(class);
 	int flag = -1;
@@ -58,7 +58,7 @@ static void initialize(int class_index) {
 	construirFrame(class, clinit);
 	execute();
 
-	printf("\n\tsaiu initialize; class_index: %d", class_index);
+	// printf("\n\tsaiu initialize; class_index: %d", class_index);
 }
 
 
@@ -87,7 +87,7 @@ static void link(int class_index) {
 
 /// carrega as classes pai da classe na posicao maquina.classes.size - 1 no array de classes da area de metodo
 static int loadParentClasses() {
-	printf("\n\tentrou loadParentClasses");
+	// printf("\n\tentrou loadParentClasses");
 	CLASS* class = maquina.method_area->classes[maquina.method_area->classes_count-1];
 	char* parentName = class->getParentName(class);
 	int flag = 0;
@@ -108,7 +108,7 @@ static int loadParentClasses() {
 
 		free(cl);	
 	}
-	printf("\n\tentrou loadParentClasses");
+	// printf("\n\tentrou loadParentClasses");
 	return flag;
 }
 
@@ -136,7 +136,7 @@ static int loadInterfaces(CLASS* class) {
 	carrega uma classe que ainda nao foi carregada na memoria 
 */
 static int loadClass(char* name) {
-	printf("\nentrou loadClass: %s", name);
+	// printf("\nentrou loadClass: %s", name);
 	int toReturn = -1;
 	if ((toReturn = getClassIndex(name)) <= -1) {
 		CLASS_LOADER* cl = initCLASS_LOADER();
@@ -154,19 +154,19 @@ static int loadClass(char* name) {
 		free(cl);
 	}
 
-	printf("\nsaiu loadClass: %s; toReturn: %d", name, toReturn);
+	// printf("\nsaiu loadClass: %s; toReturn: %d", name, toReturn);
 	return toReturn;
 }
 
 /// executa o main
 static void run() {
-	printf("\nENTROU RUN");
+	// printf("\nENTROU RUN");
 	struct _method_info* main = getMainMethod();
 	if (main == NULL) {printf("Nao foi encontrado nenhuma main!"); exit(-1230);}
 
 	construirFrame(maquina.method_area->classes[0], main);
 	execute();
-	printf("\nSAIU RUN");
+	// printf("\nSAIU RUN");
 }
 
 /*!
@@ -262,15 +262,7 @@ static uint32_t retrieveFieldIndex(char *className, char *name, uint16_t nameLen
 	devolve um index de um nome de uma constant
 */
 static char * getNameConstants(CLASS *class, uint16_t nameIndex) {
-	
-	int i;
-	char *data = malloc((class->constant_pool->constants[nameIndex - 1]).type.Utf8.tam + 1);
-
-	for (i = 0; i < ( class->constant_pool->constants[nameIndex - 1]).type.Utf8.tam; i++) {
-		data[i] = (char) (class->constant_pool->constants[nameIndex - 1]).type.Utf8.bytes[i];
-	}
-
-	return data;
+	return  class->constant_pool->getUtf8String(class->constant_pool, nameIndex);
 }
 
 /*!
@@ -296,7 +288,7 @@ int32_t getNumParameters(CLASS *class, struct _method_info *method) {
 			parametros+=2;
 		}
 	}
-	printf("\n\t\t\tparametros: %d", parametros);
+	// printf("\n\t\t\tparametros: %d", parametros);
 	return parametros;
 }
 
@@ -349,7 +341,7 @@ JVM initJVM() {
 	toReturn.stack = initSTACK();
 	toReturn.current_frame = NULL;
 
-	// init funcoes
+	// init funcoes`
 	toReturn.loadClass = loadClass;
 	toReturn.link = link;
 	toReturn.initialize = initialize;

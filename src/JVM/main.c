@@ -20,13 +20,11 @@ int main(int argc, char **argv) {
 	UTIL util = getUTILInstance();
 
 	if(!(flag = util.VerificaLeitorExibidorCMDArgs(argc, argv))) {
-		maquina = initJVM();
+		
+		maquina = initJVM(); // inicializa a heap, o method_area, o stack e o current_frame com valores padrões
+		maquina.loadClass(argv[1]); // conduz o load, o link e o initialize da classe passada por linha de comando
+		maquina.run(); // executa a classe passada por linha de comando, a partir de seu metodo main (se existir)
 
-		/*!
-			carrega o .class passado por argumento
-		*/
-		maquina.loadClass(argv[1]);
-		maquina.run();
 	}
 	
 	printf("%s", errordesc[abs(flag)].message);
