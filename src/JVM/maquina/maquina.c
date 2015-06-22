@@ -39,12 +39,12 @@ static void execute() {
 	// printf("\n\t\tentrou execute: %p; stack_count: %d", maquina.current_frame, maquina.stack->count);
 	while (maquina.stack->have_returned == 0 
 		&& maquina.current_frame != NULL && (maquina.current_frame->pc) < maquina.current_frame->code_attr->code_length) {
-		printf("\n\n\t\t next opcode: %x", maquina.current_frame->code_attr->code[maquina.current_frame->pc]);
+		// printf("\n\n\t\t next opcode: %x", maquina.current_frame->code_attr->code[maquina.current_frame->pc]);
 	
 		uint32_t ins = maquina.current_frame->code_attr->code[maquina.current_frame->pc];
-		printf("\n\tpc: %x; code: %x <%s>; current_frame: %p", maquina.current_frame->pc, ins , instructions[ins].nome, maquina.current_frame);
-		printf(" <%s>", maquina.current_frame->current_class->getName(maquina.current_frame->current_class));
-		
+		// printf("\n\tpc: %x; code: %x <%s>; current_frame: %p", maquina.current_frame->pc, ins , instructions[ins].nome, maquina.current_frame);
+		// printf(" <%s>", maquina.current_frame->current_class->getName(maquina.current_frame->current_class));
+
 		instructions[maquina.current_frame->code_attr->code[maquina.current_frame->pc]].call();
 	}
 	maquina.stack->have_returned = 0;
@@ -200,6 +200,26 @@ static void setStaticFieldVal(uint32_t class_index, uint32_t field_index, uint64
 }
 
 /*!
+	pesquisa um valor de field de uma classe do method_area
+*/
+static uint32_t searchStaticFieldVal(uint32_t class_index, char* name,char* desc){
+	
+	for(int i =0; i<maquina.method_area->classes[class_index]->fields_count; i++){
+
+		struct _field_info* var = &(maquina.method_area->classes[class_index]->fields_pool->fields[i]);
+		char* fieldName = maquina.method_area->classes[class_index]->constant_pool->getUtf8String(maquina.method_area->classes[class_index]->constant_pool,var->name_index);
+		char* fieldDesc = maquina.method_area->classes[class_index]->constant_pool->getUtf8String(maquina.method_area->classes[class_index]->constant_pool,var->descriptor_index);
+
+		if ((strcmp(name,fieldName) == 0) && (strcmp(desc,fieldDesc) == 0)) {
+			return i;
+		}
+			
+	}
+
+	return -1;
+}
+
+/*!
 	dado um objeto devolve a referencia para um field desse objeto
 */
 static struct _field_info *getObjectField(struct _object *object, uint32_t name_index) {
@@ -242,19 +262,13 @@ static uint32_t retrieveFieldIndex(char *className, char *name, uint16_t nameLen
 	if (!main_class) {
 		return -2;
 	}
+
+	// printf("\n>>>> ClassName: %s ; Name: %s ; nameLen: %d ; Desc: %s ; DescLen: %d\n",className,name,nameLen,desc,descLen);
+
 	for (i = 0; main_class && i < main_class->fields_count; i++) {		
-		getName = main_class->constant_pool->constants[(main_class->fields_pool->fields[i].name_index-1)].type.Utf8.bytes;
-		tamName = main_class->constant_pool->constants[(main_class->fields_pool->fields[i].name_index-1)].type.Utf8.tam;
-		
+		getName = main_class->constant_pool->constants[(main_class->fields_pool->fields[i].name_index-1)].type.Utf8.bytes;		
 		getDesc = main_class->constant_pool->constants[(main_class->fields_pool->fields[i].descriptor_index-1)].type.Utf8.bytes;
-		tamDesc = main_class->constant_pool->constants[(main_class->fields_pool->fields[i].descriptor_index-1)].type.Utf8.tam;
 		
-		if (nameLen != tamDesc) {
-			continue;
-		}
-		if (descLen != tamDesc) {
-			continue;
-		}
 		if ((strcmp((char *)name, (char *)getName) == 0) && (strcmp((char *)desc, (char *)getDesc) == 0)) {
 			return i;
 		}
@@ -381,6 +395,9 @@ JVM initJVM() {
 	toReturn.loadParentClasses = loadParentClasses;
 	toReturn.loadInterfaces = loadInterfaces;
 	toReturn.getNativeValueForStaticMethod = getNativeValueForStaticMethod;
+	toReturn.searchStaticFieldVal = searchStaticFieldVal;
+
+	
 
 	return toReturn;
 }

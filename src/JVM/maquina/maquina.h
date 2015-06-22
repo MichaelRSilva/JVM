@@ -126,6 +126,8 @@
 			int (*loadParentClasses)();
 			int (*loadInterfaces)(CLASS*);
 			uint64_t (*getNativeValueForStaticMethod)(CLASS*, struct _method_info*);
+			uint32_t (*searchStaticFieldVal)(uint32_t,char*,char*);
+			
 
 		} JVM;
 	

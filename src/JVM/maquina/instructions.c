@@ -2415,11 +2415,11 @@ static void _lookupswitch() {
 static void _ireturn() {
 	uint64_t aux = maquina.current_frame->pop();
 
-	printf("\n\t\ticurrentFrame: %p", maquina.current_frame);
+	// printf("\n\t\ticurrentFrame: %p", maquina.current_frame);
 	maquina.stack->popFrame();
-	printf("\n\t\tacurrentFrame: %p", maquina.current_frame);
+	// printf("\n\t\tacurrentFrame: %p", maquina.current_frame);
 	maquina.stack->have_returned = 1;
-	printf("\ncurrent frame: %p; pc: %d", maquina.current_frame,maquina.current_frame->pc);
+	// printf("\ncurrent frame: %p; pc: %d", maquina.current_frame,maquina.current_frame->pc);
 
 	if (maquina.current_frame) {
 		maquina.current_frame->push(aux);
@@ -2454,8 +2454,6 @@ static void _areturn() {
 static void _return() {
 	maquina.stack->popFrame();
 	maquina.stack->have_returned = 1;
-	if (maquina.current_frame)
-		maquina.current_frame->pc++;
 }
 
 static void _getstatic() {
@@ -2463,7 +2461,7 @@ static void _getstatic() {
 	uint8_t index_1, index_2;
 	uint16_t indice, nameTypeIndex;
 	uint64_t classIndexTemp;
-	uint64_t classIndex, field_index;
+	int32_t classIndex, field_index;
 	uint64_t valor;
 	char *className, *name, *type;
 
@@ -2479,12 +2477,19 @@ static void _getstatic() {
 	nameTypeIndex = maquina.current_frame->runtime_constant_pool->constants[indice-1].type.FieldRef.nameTypeIndex;
 	name = maquina.current_frame->runtime_constant_pool->getUtf8String(maquina.current_frame->runtime_constant_pool, maquina.current_frame->runtime_constant_pool->constants[nameTypeIndex-1].type.NameType.nameIndex);
 	type = maquina.current_frame->runtime_constant_pool->getUtf8String(maquina.current_frame->runtime_constant_pool, maquina.current_frame->runtime_constant_pool->constants[nameTypeIndex-1].type.NameType.descriptorIndex);
+	
+	// printf("\nNAME: %s ; TYPE: %s\n",name,type);
 
 	while((field_index = maquina.retrieveFieldIndex(className, name, strlen(name), type, strlen(type))) == -1) {
 		className = maquina.current_frame->current_class->getParentName(maquina.getClassByName(className));
 	}
 
 	classIndex = maquina.loadClass(className);
+	//printf("\nFIELD INDEX%d\n",field_index);
+
+	if(field_index < 0){
+		field_index = maquina.searchStaticFieldVal(classIndex,name,type);
+	}
 
 	valor = maquina.getStaticFieldVal(classIndex , field_index);
 
@@ -2498,11 +2503,11 @@ static void _getstatic() {
 }
 
 static void _putstatic() {
-	printf("\n\nputstatic pc: %d", maquina.current_frame->pc);
+		
 	uint8_t index_1, index_2;
 	uint16_t indice, nameTypeIndex;
 	uint64_t classIndexTemp;
-	int64_t classIndex, field_index;
+	int32_t classIndex, field_index;
 	uint64_t valor,valor2;
 	char *className, *name, *type;
 
@@ -2517,7 +2522,6 @@ static void _putstatic() {
 	name = maquina.current_frame->runtime_constant_pool->getUtf8String(maquina.current_frame->runtime_constant_pool, maquina.current_frame->runtime_constant_pool->constants[nameTypeIndex-1].type.NameType.nameIndex);
 	type = maquina.current_frame->runtime_constant_pool->getUtf8String(maquina.current_frame->runtime_constant_pool, maquina.current_frame->runtime_constant_pool->constants[nameTypeIndex-1].type.NameType.descriptorIndex);
 
-	field_index =  maquina.retrieveFieldIndex(className, name, strlen(name), type, strlen(type));
 	while((field_index = maquina.retrieveFieldIndex(className, name, strlen(name), type, strlen(type))) == -1) {
 		className = maquina.current_frame->current_class->getParentName(maquina.getClassByName(className));
 	}
@@ -2646,7 +2650,7 @@ static void _putfield() {
 
 static void _invokevirtual() {
 	
-	uint64_t indice, valorHigh, valorLow, vU4, array_ref;
+	uint64_t indice, valorHigh, valorLow, vU8, array_ref;
 	uint64_t valor;
 	uint8_t low, high;
 	int64_t numParams, i, j;
@@ -2677,7 +2681,6 @@ static void _invokevirtual() {
 	methodDescriptorIndex = maquina.current_frame->runtime_constant_pool->constants[nameTypeIndex-1].type.NameType.descriptorIndex;
 	methodDesc = maquina.getNameConstants(maquina.current_frame->current_class, methodDescriptorIndex);
 	methodName = maquina.getNameConstants(maquina.current_frame->current_class, methodNameIndex);
-
 
 	if((strcmp(className, "java/io/PrintStream") == 0) && ((strcmp(methodName,"println") == 0) ||(strcmp(methodName,"print") == 0))){
 
@@ -2728,31 +2731,30 @@ static void _invokevirtual() {
 		
 		//Quando tem que imprimir float
 		}else if(strstr(methodDesc, "F") != NULL) {
-			vU4 = maquina.current_frame->pop();
-			memcpy(&vfloat, &vU4, sizeof(uint32_t));
+			vU8 = maquina.current_frame->pop();
+			memcpy(&vfloat, &vU8, sizeof(uint32_t));
 			printf("%f", vfloat);
 
 		//Quando tem que imprimir string
 		}else if(strstr(methodDesc, "Ljava/lang/String") != NULL) {
 			char* aux; 
-			vU4 = maquina.current_frame->pop();
-			memcpy(&aux, &vU4, sizeof(uint64_t));
-
-			printf("%s",aux);
+			vU8 = maquina.current_frame->pop();
+			memcpy(&aux, &vU8, sizeof(uint64_t));
+			printf("%s",maquina.current_frame->current_class->constant_pool->constants[vU8-1].type.Utf8.bytes);
 
 		//OBJECT
 		}else if(strstr(methodDesc, "Ljava/lang/Object") != NULL) {
 
 			void* aux; 
-			vU4 = maquina.current_frame->pop();
-			memcpy(&aux, &vU4, sizeof(uint64_t));
-
+			vU8 = maquina.current_frame->pop();
+			memcpy(&aux, &vU8, sizeof(uint64_t));
 			printf("%p",aux);
 		}
 
 		if(strcmp(methodName,"println") == 0) {
 			printf("\n");
 		}
+
 	} else {
 
 		classIndex = maquina.loadClass(className);
