@@ -19,7 +19,8 @@ const ERRORS errordesc[] = {
 	{ E_VERSION, "ERRO: minor_version precisa ser menor que major_version"},
 	{ W_NAOLIDOINTEIRO, "WARNING: bytecode nao lido completamente"},
 	{ E_OPCAO_NAO_EXISTENTE, "ERRO: opcao nao existente (ou '-tela' ou 'arquivo')"},
-	{ E_DOLAR_NOT_SUPPORTED, "ERRO: This JVM does not support file names with the character $. ABORT.\n"}
+	{ E_DOLAR_NOT_SUPPORTED, "ERRO: This JVM does not support file names with the character $. ABORT.\n"},
+	{ E_EMPTY_FRAME_STACK, "ERRO: Stack de Frames VAZIA!"}
 };
 
 void error(int errorcode) {

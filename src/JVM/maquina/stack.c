@@ -15,7 +15,7 @@ void pushFrame(CLASS* class, struct _code_attribute* code_attr) {
 
 void popFrame() {
 	// printf("\n\t\t\tentrou popFrame: current_frame: %p", maquina.current_frame);
-	if (maquina.stack->count == 0) { printf("\nStack de Frames VAZIA!"); exit(123123);}
+	if (maquina.stack->count == 0) error(E_EMPTY_FRAME_STACK);
 
 	struct _frame_pilha* aux = maquina.stack->topo->next;
 	free(maquina.stack->topo);
