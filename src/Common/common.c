@@ -18,8 +18,20 @@ const ERRORS errordesc[] = {
 	{ E_CAFEBABE, "ERRO: Isso nao eh uma classe java"},
 	{ E_VERSION, "ERRO: minor_version precisa ser menor que major_version"},
 	{ W_NAOLIDOINTEIRO, "WARNING: bytecode nao lido completamente"},
-	{ E_OPCAO_NAO_EXISTENTE, "ERRO: opcao nao existente (ou '-tela' ou 'arquivo')"}
+	{ E_OPCAO_NAO_EXISTENTE, "ERRO: opcao nao existente (ou '-tela' ou 'arquivo')"},
+	{ E_DOLAR_NOT_SUPPORTED, "ERRO: This JVM does not support file names with the character $. ABORT.\n"}
 };
+
+void error(int errorcode) {
+	printf("\n\n%s\n\n", errordesc[abs(errorcode)].message);
+	exit(errorcode);
+}
+
+void debug(char* msg) {
+	#if DEBUG
+		printf("%s", msg);
+	#endif
+}
 
 /*!
 	dado um hexadecimal, devolve uma string com o nome do acesso, principalmente para exibir no leitor-exibidor

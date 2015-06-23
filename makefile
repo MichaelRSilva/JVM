@@ -1,7 +1,7 @@
 all: JVM LeitorExibidor limpa
 
-DEBUG: Common.o Util.o ClassLoader.o JVM.o
-	gcc -g -std=c99 common.o util.o attributeinfo.o constantpool.o fieldinfo.o methodinfo.o class.o classloader.o jvm.o main.o -o JVM.exe
+debug: Common.o Util.o ClassLoader.o JVM.o
+	gcc -DDEBUG -g -std=c99 common.o util.o attributeinfo.o constantpool.o fieldinfo.o methodinfo.o class.o classloader.o jvm.o main.o -o JVM.exe
 
 JVM: Common.o Util.o ClassLoader.o JVM.o
 	gcc -std=c99 common.o util.o attributeinfo.o constantpool.o fieldinfo.o methodinfo.o class.o classloader.o jvm.o main.o -o JVM.exe

@@ -39,7 +39,7 @@
 		/// Associa inteiros com macros para melhor legibilidade dos erros.
 		enum _config_error {
 			E_SUCCESS = 0, E_INVALID_NUM_ARGS = -1, E_ARGV1_FILE_NOT_EXISTENT = -2, E_CAFEBABE = -3, E_VERSION = -4,
-			W_NAOLIDOINTEIRO = -5, E_OPCAO_NAO_EXISTENTE = -6
+			W_NAOLIDOINTEIRO = -5, E_OPCAO_NAO_EXISTENTE = -6, E_DOLAR_NOT_SUPPORTED = -7
 		};
 
 
@@ -56,6 +56,7 @@
 		long getLong(uint32_t highBytes, uint32_t lowBytes);
 		double getDouble(uint32_t highBytes, uint32_t lowBytes);
 		const char *returnAccessFlagsName(uint16_t);
+		void error(int errorcode);
 
 	/// Estrutura para representação de dados como array de bytes.
 	/*!

@@ -146,10 +146,7 @@ static int loadInterfaces(CLASS* class) {
 */
 static int loadClass(char* name) {
 	// printf("\nentrou loadClass: %s", name);
-	if (strchr(name, '$')) {
-		printf("\nThis JVM does not support file names with the character $. ABORT.\n");
-		exit(-2000);
-	}
+	if (strchr(name, '$')) error(E_DOLAR_NOT_SUPPORTED);
 	int toReturn = -1;
 	if ((toReturn = getClassIndex(name)) <= -1) {
 		CLASS_LOADER* cl = initCLASS_LOADER();

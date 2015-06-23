@@ -22,8 +22,6 @@ int main(int argc, char **argv) {
 	int flag;
 	UTIL util = getUTILInstance();
 
-	// printf("base path A/B/C/D.exe: %s", getBasePath("A/B/C/D/.exe"));
-
 	if((flag = util.VerificaJVMCMDArgs(argc, argv)) >= 0) {
 		if (flag > 0) {
 			CLASS_LOADER* cl = initCLASS_LOADER();
