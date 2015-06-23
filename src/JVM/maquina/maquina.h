@@ -136,5 +136,10 @@
 	FRAME* initFRAME(CLASS*, struct _code_attribute*);
 	JVM initJVM();
 
+	extern CLASS_LOADER Mclassloader;
+	extern CLASS Mclass;
+	extern METHOD_POOL Mmethodpool;
+	extern ATTRIBUTE_POOL Mattributepool;
+	extern CONSTANT_POOL Mconstantpool;
 	extern JVM maquina;
 #endif

@@ -17,7 +17,6 @@
 
 /// constroi e coloca no topo do stack de frames o frame relacionado com $metodo e $class
 static void construirFrame(CLASS* class, struct _method_info* metodo) {
-	// printf("\n\t\tentrou construirFrame: %s", class->getName(class));
 	int flag = 0;
 	if (metodo->attributes_count > 0) { // indica nao ser nativo
 		for (int i = 0; i < metodo->attributes_count; i++) {
@@ -27,6 +26,8 @@ static void construirFrame(CLASS* class, struct _method_info* metodo) {
 				break;
 			}
 		}
+		CONSTANT_POOL* cp = maquina.current_frame->runtime_constant_pool;
+		printf("\nI %s", cp->getUtf8String(cp, metodo->name_index));
 	} 
 	if (!flag) {
 
@@ -40,15 +41,16 @@ static void execute() {
 	while (maquina.stack->have_returned == 0 
 		&& maquina.current_frame != NULL && (maquina.current_frame->pc) < maquina.current_frame->code_attr->code_length) {
 		// printf("\n\n\t\t next opcode: %x", maquina.current_frame->code_attr->code[maquina.current_frame->pc]);
-	
+		printf("\n\tI INS");
 		uint32_t ins = maquina.current_frame->code_attr->code[maquina.current_frame->pc];
-		// printf("\n\tpc: %x; code: %x <%s>; current_frame: %p", maquina.current_frame->pc, ins , instructions[ins].nome, maquina.current_frame);
-		// printf(" <%s>", maquina.current_frame->current_class->getName(maquina.current_frame->current_class));
+		printf("\n\tpc: %x; code: %x <%s>; current_frame: %p", maquina.current_frame->pc, ins , instructions[ins].nome, maquina.current_frame);
+		printf(" <%s>", maquina.current_frame->current_class->getName(maquina.current_frame->current_class));
 
 		instructions[maquina.current_frame->code_attr->code[maquina.current_frame->pc]].call();
+		printf(" O");
 	}
 	maquina.stack->have_returned = 0;
-
+	printf("\nO");
 	// printf("\n\t\tsaiu execute: %p; stack_count: %d", maquina.current_frame, maquina.stack->count);
 }
 
@@ -105,6 +107,7 @@ static int loadParentClasses() {
 		expandClassArray();
 		cl->load(cl, getClassPath(parentName));
 		maquina.method_area->classes[maquina.method_area->classes_count++]= cl->class;
+
 		link(maquina.method_area->classes_count-1);
 		initialize(maquina.method_area->classes_count-1);
 
@@ -143,14 +146,20 @@ static int loadInterfaces(CLASS* class) {
 */
 static int loadClass(char* name) {
 	// printf("\nentrou loadClass: %s", name);
+	if (strchr(name, '$')) {
+		printf("\nThis JVM does not support file names with the character $. ABORT.\n");
+		exit(-2000);
+	}
 	int toReturn = -1;
 	if ((toReturn = getClassIndex(name)) <= -1) {
 		CLASS_LOADER* cl = initCLASS_LOADER();
 
 		cl->load(cl, getClassPath(name));
+
 		toReturn = maquina.method_area->classes_count;
 		expandClassArray();
 		maquina.method_area->classes[maquina.method_area->classes_count++] = cl->class;
+
 		link(maquina.method_area->classes_count-1);
 		initialize(maquina.method_area->classes_count-1);
 
@@ -196,7 +205,9 @@ static uint64_t getStaticFieldVal(uint32_t class_index, uint32_t field_index){
 	atribui um valor a um field estatico
 */
 static void setStaticFieldVal(uint32_t class_index, uint32_t field_index, uint64_t value){
+	printf("\t I SetStaticField");
 	maquina.method_area->classes[class_index]->fields_pool->fields[field_index].value = value;
+	printf(" O");
 }
 
 /*!

@@ -2452,8 +2452,10 @@ static void _areturn() {
 }
 
 static void _return() {
+	printf("\t I RETURN");
 	maquina.stack->popFrame();
 	maquina.stack->have_returned = 1;
+	printf(" O");
 }
 
 static void _getstatic() {
@@ -2503,7 +2505,6 @@ static void _getstatic() {
 }
 
 static void _putstatic() {
-		
 	uint8_t index_1, index_2;
 	uint16_t indice, nameTypeIndex;
 	uint64_t classIndexTemp;
@@ -2511,6 +2512,7 @@ static void _putstatic() {
 	uint64_t valor,valor2;
 	char *className, *name, *type;
 
+	printf("\t I PUSTATIC");
 	index_1 = (uint8_t) maquina.current_frame->code_attr->code[++(maquina.current_frame->pc)];
 	index_2 = (uint8_t) maquina.current_frame->code_attr->code[++(maquina.current_frame->pc)];
 	indice = ((uint16_t)index_1 << 8) |(uint16_t)index_2;
@@ -2540,6 +2542,7 @@ static void _putstatic() {
 
 	maquina.setStaticFieldVal(classIndex , field_index, valor);
 	maquina.current_frame->pc++;
+	printf(" O");
 }
 
 
@@ -3006,7 +3009,7 @@ static void _new() {
 	indice = value;
 	className = maquina.current_frame->runtime_constant_pool->getClassName(maquina.current_frame->runtime_constant_pool, indice);
 
-	// printf("\n\t\t\t\tnew: className = %s", className);
+	printf("\n\t\t\t\tnew: className = %s", className);
 	classIndex = maquina.loadClass(className);
 	class = maquina.method_area->classes[classIndex];
 	objeto = maquina.heap->newObject(class);

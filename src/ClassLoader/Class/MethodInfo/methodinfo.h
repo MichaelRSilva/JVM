@@ -29,6 +29,7 @@
 	*/
 	typedef struct _method {
 		struct _method_info* methods;
+
 		int (*addMethods)(struct _method*, CONSTANT_POOL*,int, DADOS*);
 	} METHOD_POOL;
 	

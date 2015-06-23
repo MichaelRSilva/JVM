@@ -67,6 +67,11 @@ static DADOS LeArquivo(char* arqNome) {
 	uint8_t value;
 	FILE *fp=fopen(arqNome,"rb");
 
+	printf("\nLENDO %s: %d", arqNome, (int)fp);
+	if (fp==NULL) {
+		printf("\nClass Not Found Exception: %s", arqNome);
+		exit(-2000);
+	} 
 	// leitura iterativa, byte a byte
 	while(fread(&value, sizeof(uint8_t), 1, fp)!=0){
 		*(d.bytes + i) = value; i++;
