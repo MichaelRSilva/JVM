@@ -21,7 +21,9 @@ const ERRORS errordesc[] = {
 	{ E_OPCAO_NAO_EXISTENTE, "ERRO: opcao nao existente (ou '-tela' ou 'arquivo')"},
 	{ E_DOLAR_NOT_SUPPORTED, "ERRO: This JVM does not support file names with the character $. ABORT.\n"},
 	{ E_EMPTY_FRAME_STACK, "ERRO: Stack de Frames VAZIA!"},
-	{ E_STACK_OVERFLOW, "ERRO: Stack Overflow!"}
+	{ E_STACK_OVERFLOW, "ERRO: Stack Overflow!"},
+	{ E_VOID_OP_STACK, "ERROR: Operand Stack Vazio"}
+	
 };
 
 void error(int errorcode) {

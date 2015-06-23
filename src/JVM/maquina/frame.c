@@ -20,9 +20,8 @@ static void push(uint64_t valor) {
 */
 static uint64_t pop() {
 	// printf("\n\t\tentrou no pop(); current_frame: %p",maquina.current_frame);
-	if (maquina.current_frame->operand_stack.topo == NULL || !maquina.current_frame->operand_stack.allocated) { 
-		printf("\nERRO: Operand Stack vazio"); exit(213123);
-	}
+	if (maquina.current_frame->operand_stack.topo == NULL || !maquina.current_frame->operand_stack.allocated) error(E_VOID_OP_STACK);
+
 
 	uint64_t toReturn = maquina.current_frame->operand_stack.topo->value; // guarda valor do topo
 	maquina.current_frame->operand_stack.topo = maquina.current_frame->operand_stack.topo->next;
