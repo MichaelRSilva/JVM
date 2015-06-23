@@ -5,10 +5,7 @@
 */
 static void push(uint64_t valor) {
 	// printf("\n\t\tentrou no push(); current_frame: %p",maquina.current_frame);
-	if (maquina.current_frame->operand_stack.allocated >= maquina.current_frame->code_attr->max_stack) {
-		printf("Stack Overflow!");
-		exit(-1000);
-	}
+	if (maquina.current_frame->operand_stack.allocated >= maquina.current_frame->code_attr->max_stack) error(E_STACK_OVERFLOW);
 	struct _u4pilha* ref = maquina.current_frame->operand_stack.topo; // armazena referencia ao antigo topo
 
 	maquina.current_frame->operand_stack.topo++; // sobe no stack
