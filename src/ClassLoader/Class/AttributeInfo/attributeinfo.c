@@ -8,7 +8,7 @@ static void addAttribute(ATTRIBUTE_POOL* this, CONSTANT_POOL* cp, int ordem, DAD
 	this->attributes[ordem].attributeNameIndex = getAttributeNameIndex(d);
 	this->attributes[ordem].attributeLength = getAttributeLength(d);
 
-	char* tipoNome = (char*)malloc(cp->constants[this->attributes[ordem].attributeNameIndex - 1].type.Utf8.tam * sizeof(char));
+	char* tipoNome = (char*)malloc((cp->constants[this->attributes[ordem].attributeNameIndex - 1].type.Utf8.tam + 1)* sizeof(char));
 	strcpy(tipoNome, (char*)cp->constants[this->attributes[ordem].attributeNameIndex - 1].type.Utf8.bytes);
 	
 	/*!

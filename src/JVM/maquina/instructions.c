@@ -425,7 +425,6 @@ static void _laload() {
 
 	printf("\nlaload: indice: %llx, aux: %llx, arrayRef: %p, values: %p\n", indice, aux, arrayRef, arrayRef->values);
 	maquina.current_frame->push2(arrayRef->values[indice]);
-	exit(-1);
 	maquina.current_frame->pc++;
 }
 

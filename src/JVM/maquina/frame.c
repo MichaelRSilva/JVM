@@ -22,7 +22,7 @@ static void push(uint64_t valor) {
 	if (maquina.current_frame->operand_stack.allocated >= maquina.current_frame->code_attr->max_stack) error(E_STACK_OVERFLOW);
 	struct _u4pilha* ref = maquina.current_frame->operand_stack.topo; // armazena referencia ao antigo topo
 
-	maquina.current_frame->operand_stack.topo++; // sobe no stack
+	maquina.current_frame->operand_stack.topo = (struct _u4pilha*)malloc(sizeof(struct _u4pilha));
 	maquina.current_frame->operand_stack.topo->next = ref; // guarda referencia para o proximo topo
 	maquina.current_frame->operand_stack.topo->value = valor; // guarda o valor do topo
 	maquina.current_frame->operand_stack.allocated++;
@@ -59,7 +59,8 @@ FRAME* initFRAME(CLASS* class, struct _code_attribute* code_attr) {
 	frame->local_variables = (uint64_t*)malloc(code_attr->max_locals*sizeof(uint64_t));
 
 	frame->operand_stack.allocated = 0;
-	frame->operand_stack.topo = (struct _u4pilha*)malloc(code_attr->max_stack*sizeof(struct _u4pilha));
+	frame->operand_stack.topo = NULL;
+	printf("\n max stack: %d\n", code_attr->max_stack);
 
 	frame->runtime_constant_pool = class->constant_pool;
 	frame->code_attr = code_attr;

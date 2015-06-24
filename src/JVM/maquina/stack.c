@@ -18,7 +18,7 @@ void popFrame() {
 	if (maquina.stack->count == 0) error(E_EMPTY_FRAME_STACK);
 
 	struct _frame_pilha* aux = maquina.stack->topo->next;
-	free(maquina.stack->topo);
+	// free(maquina.stack->topo);
 	
 	maquina.stack->topo = aux;
 	maquina.stack->count--;

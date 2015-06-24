@@ -8,7 +8,7 @@
 
 	JVM - Software Basico 1/2015
 */
-#include "../util/util.h"
+#include "../Util/util.h"
 #include "misc.c"
 
 int main(int argc, char **argv) {

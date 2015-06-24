@@ -109,7 +109,7 @@ static int loadParentClasses() {
 			flag = loadParentClasses(maquina);
 		}
 
-		free(cl);	
+		// free(cl);	
 	}
 	return flag;
 }
@@ -130,7 +130,7 @@ static int loadInterfaces(CLASS* class) {
 		
 	}
 
-	free(cl);
+	// free(cl);
 	return E_SUCCESS;
 }
 
@@ -156,7 +156,7 @@ static int loadClass(char* name) {
  		loadParentClasses(); // insere em maquina.classes todas as classes pai ainda nao carregadas em maquina.clasess
  		loadInterfaces(cl->class); // insere em maquinas.interfaces todas as interfaces ainda nao carregadas em maquina.interfaces
 
-		free(cl);
+		// free(cl);
 	}
 
 	// printf("\nsaiu loadClass: %s; toReturn: %d", name, toReturn);

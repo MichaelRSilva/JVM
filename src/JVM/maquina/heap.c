@@ -36,7 +36,7 @@ static struct _object* newObject(CLASS* class) {
 	devolve uma instancia de um array, do tipo passado por parametro
 */
 static struct _array* newArray(uint32_t count, uint32_t tipo) {
-	struct _array* toReturn = (struct _array*)malloc(sizeof(struct _array));
+	struct _array* toReturn = (struct _array*)malloc(2*sizeof(struct _array));
 	
 	toReturn->quantidade = count;
 	toReturn->tipo = tipo;
@@ -74,7 +74,7 @@ static struct _array* newArray(uint32_t count, uint32_t tipo) {
 	toReturn->values = malloc(count*sizeof(toReturn->element_size));
 	maquina.heap->array_count++;
 
-	printf("\nnew array: %p; TIPO: %d; COUNT: %d; values: %p", toReturn,tipo,count, toReturn->values);
+	// printf("\nnew array: %p; TIPO: %d; COUNT: %d; values: %p", toReturn,tipo,count, toReturn->values);
 	return toReturn;
 }
 
