@@ -27,36 +27,33 @@ static void construirFrame(CLASS* class, struct _method_info* metodo) {
 			}
 		}
 		CONSTANT_POOL* cp = maquina.current_frame->runtime_constant_pool;
-		printf("\nI %s", cp->getUtf8String(cp, metodo->name_index));
+		sprintf(debugbuffer,"\nI %s", cp->getUtf8String(cp, metodo->name_index));
+		debug(debugbuffer);
 	} 
 	if (!flag) {
 
 	}
-	// printf("\n\t\tsaiu construirFrame: %s", class->getName(class));
 }
 
 /// executa o método do current frame
 static void execute() {
-	// printf("\n\t\tentrou execute: %p; stack_count: %d", maquina.current_frame, maquina.stack->count);
+
 	while (maquina.stack->have_returned == 0 
 		&& maquina.current_frame != NULL && (maquina.current_frame->pc) < maquina.current_frame->code_attr->code_length) {
-		// printf("\n\n\t\t next opcode: %x", maquina.current_frame->code_attr->code[maquina.current_frame->pc]);
-		printf("\n\tI INS");
 		uint32_t ins = maquina.current_frame->code_attr->code[maquina.current_frame->pc];
-		printf("\n\tpc: %x; code: %x <%s>; current_frame: %p", maquina.current_frame->pc, ins , instructions[ins].nome, maquina.current_frame);
-		printf(" <%s>", maquina.current_frame->current_class->getName(maquina.current_frame->current_class));
+		
+		#ifdef DEBUG
+			printf("\n\tpc: %x; code: %x <%s>; current_frame: %p", maquina.current_frame->pc, ins , instructions[ins].nome, maquina.current_frame);
+			printf(" <%s>", maquina.current_frame->current_class->getName(maquina.current_frame->current_class));
+		#endif
 
 		instructions[maquina.current_frame->code_attr->code[maquina.current_frame->pc]].call();
-		printf(" O");
 	}
 	maquina.stack->have_returned = 0;
-	printf("\nO");
-	// printf("\n\t\tsaiu execute: %p; stack_count: %d", maquina.current_frame, maquina.stack->count);
 }
 
 /// executa clinit
 static void initialize(int class_index) { 
-	// printf("\n\tentrou initialize; class_index: %d", class_index);
 	CLASS* class = maquina.method_area->classes[class_index];
 	struct _method_info* clinit = getclinit(class);
 	int flag = -1;
@@ -66,15 +63,13 @@ static void initialize(int class_index) {
 	construirFrame(class, clinit);
 	execute();
 
-	// printf("\n\tsaiu initialize; class_index: %d", class_index);
 }
 
 
 /// aloca e inicializa valores default para os fields estaticos da classe indicada por $index
 static void prepare(uint32_t index) {
-	// maquina.classes.array = realloc(maquina.classes.fields, (maquina.classes.size+1)*sizeof(struct _runtime_field));
-	
 	int count = 0;
+
 	for (int j = 0; j < maquina.method_area->classes[index]->fields_count; j++) {
 		if (checkIfFieldIsStatic(maquina.method_area->classes[index]->fields_pool->fields[j].access_flags)) {
 			maquina.method_area->classes[index]->fields_pool->fields[j].value = 0;
@@ -95,7 +90,6 @@ static void link(int class_index) {
 
 /// carrega as classes pai da classe na posicao maquina.classes.size - 1 no array de classes da area de metodo
 static int loadParentClasses() {
-	// printf("\n\tentrou loadParentClasses");
 	CLASS* class = maquina.method_area->classes[maquina.method_area->classes_count-1];
 	char* parentName = class->getParentName(class);
 	int flag = 0;
@@ -117,7 +111,6 @@ static int loadParentClasses() {
 
 		free(cl);	
 	}
-	// printf("\n\tentrou loadParentClasses");
 	return flag;
 }
 
@@ -172,13 +165,18 @@ static int loadClass(char* name) {
 
 /// executa o main
 static void run() {
-	// printf("\nENTROU RUN");
+#ifdef DEBUG
+	printf("\nENTROU RUN");
+#endif
 	struct _method_info* main = getMainMethod();
-	if (main == NULL) {printf("Nao foi encontrado nenhuma main!"); exit(-1230);}
+	if (main == NULL) error(E_NO_MAIN_FOUND);
 
 	construirFrame(maquina.method_area->classes[0], main);
 	execute();
-	// printf("\nSAIU RUN");
+
+#ifdef DEBUG
+	printf("\nSAIU RUN");
+#endif
 }
 
 /*!
@@ -202,9 +200,7 @@ static uint64_t getStaticFieldVal(uint32_t class_index, uint32_t field_index){
 	atribui um valor a um field estatico
 */
 static void setStaticFieldVal(uint32_t class_index, uint32_t field_index, uint64_t value){
-	printf("\t I SetStaticField");
 	maquina.method_area->classes[class_index]->fields_pool->fields[field_index].value = value;
-	printf(" O");
 }
 
 /*!
@@ -271,8 +267,6 @@ static uint32_t retrieveFieldIndex(char *className, char *name, uint16_t nameLen
 		return -2;
 	}
 
-	// printf("\n>>>> ClassName: %s ; Name: %s ; nameLen: %d ; Desc: %s ; DescLen: %d\n",className,name,nameLen,desc,descLen);
-
 	for (i = 0; main_class && i < main_class->fields_count; i++) {		
 		getName = main_class->constant_pool->constants[(main_class->fields_pool->fields[i].name_index-1)].type.Utf8.bytes;		
 		getDesc = main_class->constant_pool->constants[(main_class->fields_pool->fields[i].descriptor_index-1)].type.Utf8.bytes;
@@ -281,7 +275,6 @@ static uint32_t retrieveFieldIndex(char *className, char *name, uint16_t nameLen
 			return i;
 		}
 	}
-	// exit(-24242);
 
 	return -1;
 }

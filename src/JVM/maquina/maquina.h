@@ -32,6 +32,7 @@
 				uint32_t quantidade;
 				uint32_t tipo;
 				uint32_t element_size;	
+				uint64_t* values;
 			}** arrays;
 
 			uint32_t object_count;

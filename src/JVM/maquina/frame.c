@@ -3,8 +3,22 @@
 /*!
 	empilha um valor na pilha de operandos
 */
+
+static void printOperantStack(char* func) {
+#ifdef DEBUG
+	printf("\n%s: OPERAND STACK (%p):", func, maquina.current_frame);
+	struct _u4pilha aux = *maquina.current_frame->operand_stack.topo;
+	
+	for (int i = 0; i < maquina.current_frame->operand_stack.allocated; i++) {
+		printf(" %llx", aux.value);
+		aux = *aux.next;
+	}	
+	printf("\n");
+#endif
+}
+
 static void push(uint64_t valor) {
-	// printf("\n\t\tentrou no push(); current_frame: %p",maquina.current_frame);
+	printOperantStack("push");
 	if (maquina.current_frame->operand_stack.allocated >= maquina.current_frame->code_attr->max_stack) error(E_STACK_OVERFLOW);
 	struct _u4pilha* ref = maquina.current_frame->operand_stack.topo; // armazena referencia ao antigo topo
 
@@ -12,23 +26,20 @@ static void push(uint64_t valor) {
 	maquina.current_frame->operand_stack.topo->next = ref; // guarda referencia para o proximo topo
 	maquina.current_frame->operand_stack.topo->value = valor; // guarda o valor do topo
 	maquina.current_frame->operand_stack.allocated++;
-	// printf("\n\t\tsaiu no push(); valor: %llx;  current_frame: %p", valor, maquina.current_frame);
 }
 
 /*!
 	desempilha um valor na pilha de operandos
 */
 static uint64_t pop() {
-	// printf("\n\t\tentrou no pop(); current_frame: %p",maquina.current_frame);
-	if (maquina.current_frame->operand_stack.topo == NULL || !maquina.current_frame->operand_stack.allocated) error(E_VOID_OP_STACK);
+	printOperantStack("pop");
 
+	if (maquina.current_frame->operand_stack.topo == NULL || !maquina.current_frame->operand_stack.allocated) error(E_EMPTY_STACK);
 
 	uint64_t toReturn = maquina.current_frame->operand_stack.topo->value; // guarda valor do topo
 	maquina.current_frame->operand_stack.topo = maquina.current_frame->operand_stack.topo->next;
 	maquina.current_frame->operand_stack.allocated--;
 
-	// free(ref); // desalocado topo
-	// printf("\n\t\tsaiu no pop(); valor: %llx; current_frame: %p", toReturn,maquina.current_frame);
 	return toReturn;
 }
 /*!

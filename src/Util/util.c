@@ -67,7 +67,9 @@ static DADOS LeArquivo(char* arqNome) {
 	uint8_t value;
 	FILE *fp=fopen(arqNome,"rb");
 
+#ifdef DEBUG
 	printf("\nLENDO %s: %d", arqNome, (int)fp);
+#endif
 	if (fp==NULL) {
 		printf("\nClass Not Found Exception: %s", arqNome);
 		exit(-2000);

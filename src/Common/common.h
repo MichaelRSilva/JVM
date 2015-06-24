@@ -16,6 +16,7 @@
 	#include <inttypes.h>
 	#include <string.h>
 	#include <math.h>
+	#define DEBUG
 
 	/*!
 		facilitar o uso para comparacao de access flags
@@ -40,7 +41,7 @@
 		enum _config_error {
 			E_SUCCESS = 0, E_INVALID_NUM_ARGS = -1, E_ARGV1_FILE_NOT_EXISTENT = -2, E_CAFEBABE = -3, E_VERSION = -4,
 			W_NAOLIDOINTEIRO = -5, E_OPCAO_NAO_EXISTENTE = -6, E_DOLAR_NOT_SUPPORTED = -7, E_EMPTY_FRAME_STACK = -8,
-			E_STACK_OVERFLOW = -9, E_VOID_OP_STACK = -10
+			E_STACK_OVERFLOW = -9, E_NO_MAIN_FOUND = -10, E_EMPTY_STACK = -11
 		};
 
 
@@ -58,6 +59,7 @@
 		double getDouble(uint32_t highBytes, uint32_t lowBytes);
 		const char *returnAccessFlagsName(uint16_t);
 		void error(int errorcode);
+		void debug(char*);
 
 	/// Estrutura para representação de dados como array de bytes.
 	/*!
@@ -78,4 +80,5 @@
 	// funcoes comuns a todos os modulos
 
 		DADOS initDADOS();
+		extern char* debugbuffer;
 #endif

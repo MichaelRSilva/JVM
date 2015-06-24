@@ -20,6 +20,7 @@ void imprimeHelper();
 */
 int main(int argc, char **argv) {
 	int flag;
+	debugbuffer = (char*)malloc(1024*sizeof(char));
 	UTIL util = getUTILInstance();
 
 	if((flag = util.VerificaJVMCMDArgs(argc, argv)) >= 0) {

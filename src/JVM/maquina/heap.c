@@ -27,7 +27,8 @@ static struct _object* newObject(CLASS* class) {
 	struct _object* toReturn = (struct _object*)malloc(sizeof(struct _object));
 	toReturn->class = class;
 	toReturn->super = newObject(maquina.method_area->classes[maquina.loadClass(class->getParentName(class))]);
-	
+	maquina.heap->object_count++;
+
 	return toReturn;
 }
 
@@ -70,7 +71,10 @@ static struct _array* newArray(uint32_t count, uint32_t tipo) {
 		default:
 			break;
 	}
+	toReturn->values = malloc(count*sizeof(toReturn->element_size));
+	maquina.heap->array_count++;
 
+	printf("\nnew array: %p", toReturn);
 	return toReturn;
 }
 

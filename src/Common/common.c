@@ -19,11 +19,11 @@ const ERRORS errordesc[] = {
 	{ E_VERSION, "ERRO: minor_version precisa ser menor que major_version"},
 	{ W_NAOLIDOINTEIRO, "WARNING: bytecode nao lido completamente"},
 	{ E_OPCAO_NAO_EXISTENTE, "ERRO: opcao nao existente (ou '-tela' ou 'arquivo')"},
-	{ E_DOLAR_NOT_SUPPORTED, "ERRO: This JVM does not support file names with the character $. ABORT.\n"},
+	{ E_DOLAR_NOT_SUPPORTED, "ERRO: This JVM does not support file names with the character $. ABORT."},
 	{ E_EMPTY_FRAME_STACK, "ERRO: Stack de Frames VAZIA!"},
 	{ E_STACK_OVERFLOW, "ERRO: Stack Overflow!"},
-	{ E_VOID_OP_STACK, "ERROR: Operand Stack Vazio"}
-	
+	{ E_NO_MAIN_FOUND, "ERRO: Nao foi encontrado nenhuma main!"},
+	{ E_EMPTY_STACK, "ERRO: Operand Stack vazio!"}
 };
 
 void error(int errorcode) {
@@ -32,7 +32,7 @@ void error(int errorcode) {
 }
 
 void debug(char* msg) {
-	#if DEBUG
+	#ifdef DEBUG
 		printf("%s", msg);
 	#endif
 }
