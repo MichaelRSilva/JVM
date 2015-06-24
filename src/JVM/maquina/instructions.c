@@ -163,8 +163,15 @@ static void _dconst_1() {
 */
 static void _bipush() {
     //Pula os 8 bits codigo da instrucao contida no array de codes
+    int8_t var = 0;
+    int64_t aux;
+
     maquina.current_frame->pc++;
-    maquina.current_frame->push(maquina.current_frame->code_attr->code[maquina.current_frame->pc]);
+    var = maquina.current_frame->code_attr->code[maquina.current_frame->pc];
+
+    aux = (int64_t) var;    
+    maquina.current_frame->push(aux);
+    
     maquina.current_frame->pc++;
 }
 
@@ -182,7 +189,7 @@ static void _sipush() {
 	auxiliar_16 <<= 8;
 	auxiliar_16 |= low;
 	
-	t = auxiliar_16;
+	t = (int64_t)auxiliar_16;
 
 	maquina.current_frame->push(auxiliar_16);
 	maquina.current_frame->pc++;
@@ -505,12 +512,12 @@ static void _saload() {
 
 static void _istore() {
     uint16_t indice;
-    uint64_t value;
+    int64_t value;
 
     maquina.current_frame->pc++;
 
     indice = maquina.current_frame->code_attr->code[maquina.current_frame->pc];
-    value = maquina.current_frame->pop();
+    value = (int64_t)maquina.current_frame->pop();
 
     maquina.current_frame->local_variables[indice] = value;
     maquina.current_frame->pc++;
@@ -564,7 +571,7 @@ static void _istore_0() {
 }
 
 static void _istore_1() {
-    uint64_t value = maquina.current_frame->pop();
+    int64_t value = maquina.current_frame->pop();
 
     maquina.current_frame->local_variables[1] = value;
     maquina.current_frame->pc++;
@@ -986,7 +993,7 @@ static void _isub() {
 	uint64_t op,opp;
 	op  = maquina.current_frame->pop();
 	opp = maquina.current_frame->pop();
-	maquina.current_frame->push(op-opp);
+	maquina.current_frame->push(opp-op);
 	maquina.current_frame->pc++;
 }	
 
@@ -1124,7 +1131,7 @@ static void _idiv() {
 	uint64_t op,opp;
 	op  = (int64_t)maquina.current_frame->pop();
 	opp = (int64_t)maquina.current_frame->pop();
-	maquina.current_frame->push(op/opp);
+	maquina.current_frame->push(opp/op);
 	maquina.current_frame->pc++;
 }	
 
@@ -1192,7 +1199,7 @@ static void _irem() {
 	uint64_t op,opp;
 	op  = maquina.current_frame->pop();
 	opp = maquina.current_frame->pop();
-	maquina.current_frame->push(op%opp);
+	maquina.current_frame->push(opp%op);
 	maquina.current_frame->pc++;
 }	
 
@@ -1257,9 +1264,13 @@ static void _drem() {
 }	
 
 static void _ineg() {
-	uint64_t op;
-	op  = maquina.current_frame->pop();
-	maquina.current_frame->push((uint64_t)(-op));
+	int64_t op;
+	uint64_t aux = 0;
+	
+	op  = -maquina.current_frame->pop();
+	memcpy(&aux, &op, sizeof(uint64_t));
+	maquina.current_frame->push(aux);
+
 	maquina.current_frame->pc++;
 }	
 
@@ -1349,14 +1360,20 @@ static void _lshl() {
 }	
 
 static void _ishr() {
-	uint64_t value1, value2,lowFive = 0x1f;
+
+	int32_t value1,lowFive = 0x1f;
+	int32_t value2;
+	int neg = 0;
+	
 	value1 = maquina.current_frame->pop();
 	value1 = value1 & lowFive;
-	value2 = (int64_t)maquina.current_frame->pop();
+	value2 = (signed)(int32_t)maquina.current_frame->pop();
 	
 	for(int j = 0; j < value1; j++) {
 		value2 = value2 / 2;
 	}
+
+	
 
 	maquina.current_frame->push((int64_t)value2);
 	maquina.current_frame->pc++;
