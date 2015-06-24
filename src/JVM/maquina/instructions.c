@@ -678,7 +678,7 @@ static void _iastore() {
 	
 	memcpy(&arrayRef, &aux, sizeof(uint64_t));
 
-	arrayRef->values[indice] = value;
+	((uint32_t*)arrayRef->values)[indice] = value;
 	maquina.current_frame->pc++;
 }
 
@@ -698,7 +698,7 @@ static void _lastore() {
     aux = maquina.current_frame->pop();
     memcpy(&arrayRef, &aux, sizeof(uint64_t));
 
-    arrayRef->values[indice] = value;
+    ((uint64_t*)arrayRef->values)[indice] = value;
     maquina.current_frame->pc++;
 }
 
@@ -712,7 +712,7 @@ static void _fastore() {
 	
 	memcpy(&arrayRef, &aux, sizeof(uint64_t));
 
-	arrayRef->values[indice] = value;
+	((uint32_t*)arrayRef->values)[indice] = value;
 	maquina.current_frame->pc++;
 }
 
@@ -730,7 +730,7 @@ static void _dastore() {
     aux = maquina.current_frame->pop();
     memcpy(&arrayRef, &aux, sizeof(uint64_t));
 
-    arrayRef->values[indice] = value;
+    ((uint64_t*)arrayRef->values)[indice] = value;
     maquina.current_frame->pc++;
 }
 
@@ -743,7 +743,7 @@ static void _aastore() {
 	aux = maquina.current_frame->pop();
 	memcpy(&arrayRef, &aux, sizeof(uint64_t));
 
-	arrayRef->values[indice] = value;
+	((uint64_t*)arrayRef->values)[indice] = value;
 	maquina.current_frame->pc++;
 }
 
@@ -757,21 +757,21 @@ static void _bastore() {
 	aux = maquina.current_frame->pop();
 	memcpy(&arrayRef, &aux, sizeof(uint64_t));
 
-	arrayRef->values[indice] = (uint8_t)value;
+	((uint8_t*)arrayRef->values)[indice] = (uint8_t)value;
 
 	maquina.current_frame->pc++;
 }
 
 static void _castore() {
-	uint64_t indice,aux;
-	uint16_t* arrayRef, value;
+	uint64_t indice,aux, value;
+	struct _array* arrayRef;
 
 	value = maquina.current_frame->pop();
 	indice = maquina.current_frame->pop();
 	aux = maquina.current_frame->pop();
 	memcpy(&arrayRef, &aux, sizeof(uint64_t));
 
-	arrayRef[indice] = value;
+	((uint16_t*)arrayRef->values)[indice] = value;
 
 	maquina.current_frame->pc++;
 }
