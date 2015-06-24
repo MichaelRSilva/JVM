@@ -1018,7 +1018,7 @@ static void _fsub() {
 	other = maquina.current_frame->pop();
 	memcpy(&opp, &other, sizeof(uint32_t));
 
-	sum = op - opp;
+	sum = opp - op;
 
 	memcpy(&result, &sum, sizeof(uint32_t));
 	maquina.current_frame->push(result);
@@ -1157,7 +1157,7 @@ static void _fdiv() {
 	other = maquina.current_frame->pop();
 	memcpy(&opp, &other, sizeof(uint32_t));
 
-	mult = op / opp;
+	mult = opp/op;
 
 	memcpy(&result, &mult, sizeof(uint32_t));
 	maquina.current_frame->push((uint64_t)(result));
@@ -1216,15 +1216,15 @@ static void _lrem() {
 
 static void _frem() {
 	float op, opp, mod;
-	uint64_t value, other, result;
+	uint64_t value2, value1, result;
 
-	value = maquina.current_frame->pop();
-	memcpy(&op, &value, sizeof(uint32_t));
+	value2 = maquina.current_frame->pop();
+	memcpy(&op, &value2, sizeof(uint32_t));
 
-	other = maquina.current_frame->pop();
-	memcpy(&opp, &other, sizeof(uint32_t));
+	value1 = maquina.current_frame->pop();
+	memcpy(&opp, &value1, sizeof(uint32_t));
 
-	mod = fmodf(op , opp);
+	mod = fmodf(opp , op);
 	memcpy(&result, &mod, sizeof(uint32_t));
 
 	maquina.current_frame->push(result);
