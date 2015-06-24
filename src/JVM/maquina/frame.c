@@ -60,7 +60,7 @@ FRAME* initFRAME(CLASS* class, struct _code_attribute* code_attr) {
 
 	frame->operand_stack.allocated = 0;
 	frame->operand_stack.topo = NULL;
-	printf("\n max stack: %d\n", code_attr->max_stack);
+	//printf("\n max stack: %d\n", code_attr->max_stack);
 
 	frame->runtime_constant_pool = class->constant_pool;
 	frame->code_attr = code_attr;

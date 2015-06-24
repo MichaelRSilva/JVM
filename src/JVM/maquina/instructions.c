@@ -423,7 +423,7 @@ static void _laload() {
 	aux = maquina.current_frame->pop();
 	memcpy(&arrayRef, &aux, sizeof(uint64_t)); // convert to pointer
 
-	printf("\nlaload: indice: %llx, aux: %llx, arrayRef: %p, values: %p\n", indice, aux, arrayRef, arrayRef->values);
+	//printf("\nlaload: indice: %llx, aux: %llx, arrayRef: %p, values: %p\n", indice, aux, arrayRef, arrayRef->values);
 	maquina.current_frame->push2(((uint64_t*)arrayRef->values)[indice]);
 	maquina.current_frame->pc++;
 }
