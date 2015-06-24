@@ -20,7 +20,7 @@ static int verifyVersion(uint16_t minor_version, uint16_t major_version) {
 			return E_SUCCESS;
 		}
 	}
-	return E_VERSION;
+	error(E_NOTSUPPORTED_VERSION);
 }
 
 /*!
