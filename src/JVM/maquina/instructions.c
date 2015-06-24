@@ -110,7 +110,7 @@ static void _lconst_1() {
 */
 static void _fconst_0() {
     float float_number = 0.0;
-    maquina.current_frame->push(float_number);
+    maquina.current_frame->push(*((uint64_t*)&float_number));
     maquina.current_frame->pc++;
 }
 
@@ -119,7 +119,7 @@ static void _fconst_0() {
 */
 static void _fconst_1() {
     float float_number = 1.0;
-    maquina.current_frame->push(float_number);
+    maquina.current_frame->push(*((uint64_t*)&float_number));
     maquina.current_frame->pc++;
 }
 
@@ -128,9 +128,7 @@ static void _fconst_1() {
 */
 static void _fconst_2() {
     float float_number = 2.0;
-    uint64_t value;
-    memcpy(&value, &float_number, sizeof(uint32_t));
-    maquina.current_frame->push(float_number);
+    maquina.current_frame->push(*((uint64_t*)&float_number));
     maquina.current_frame->pc++;
 }
 
@@ -676,7 +674,7 @@ static void _iastore() {
 	indice = maquina.current_frame->pop();
 	aux = maquina.current_frame->pop();
 	
-	memcpy(&arrayRef, &aux, sizeof(uint32_t));
+	memcpy(&arrayRef, &aux, sizeof(uint64_t));
 
 	arrayRef->values[indice] = value;
 	maquina.current_frame->pc++;
@@ -710,10 +708,8 @@ static void _fastore() {
 	indice = maquina.current_frame->pop();
 	aux = maquina.current_frame->pop();
 	
-	memcpy(&arrayRef, &aux, sizeof(uint32_t));
+	memcpy(&arrayRef, &aux, sizeof(uint64_t));
 
-	printf("\narray ref: quantidade: %d, tipo: %d", arrayRef->quantidade, arrayRef->tipo);
-	exit(-1);
 	arrayRef->values[indice] = value;
 	maquina.current_frame->pc++;
 }
@@ -757,7 +753,7 @@ static void _bastore() {
 	value = maquina.current_frame->pop();
 	indice = maquina.current_frame->pop();
 	aux = maquina.current_frame->pop();
-	memcpy(&arrayRef, &aux, sizeof(uint8_t));
+	memcpy(&arrayRef, &aux, sizeof(uint64_t));
 
 	arrayRef->values[indice] = (uint8_t)value;
 
@@ -771,7 +767,7 @@ static void _castore() {
 	value = maquina.current_frame->pop();
 	indice = maquina.current_frame->pop();
 	aux = maquina.current_frame->pop();
-	memcpy(&arrayRef, &aux, sizeof(uint16_t));
+	memcpy(&arrayRef, &aux, sizeof(uint64_t));
 
 	arrayRef[indice] = value;
 
