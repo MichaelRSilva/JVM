@@ -2475,7 +2475,6 @@ static void _lreturn() {
 	uint64_t high = maquina.current_frame->pop();
 	maquina.stack->popFrame();
 	maquina.stack->have_returned = 1;
-	maquina.current_frame->pc++;
 
 	if (maquina.current_frame) {
 		maquina.current_frame->push2(getLong(high,low));
@@ -2487,7 +2486,14 @@ static void _freturn() {
 }
 
 static void _dreturn() {
-	_lreturn();
+	uint64_t low = maquina.current_frame->pop();
+	uint64_t high = maquina.current_frame->pop();
+	maquina.stack->popFrame();
+	maquina.stack->have_returned = 1;
+
+	if (maquina.current_frame) {
+		maquina.current_frame->push2(getDouble(high,low));
+	}
 }
 
 static void _areturn() {
