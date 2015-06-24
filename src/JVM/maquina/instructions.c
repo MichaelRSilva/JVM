@@ -171,6 +171,7 @@ static void _bipush() {
 static void _sipush() {
 	uint8_t high,low;
 	int16_t auxiliar_16;
+	int64_t t;
 	
 	maquina.current_frame->pc++;	
 	high = maquina.current_frame->code_attr->code[maquina.current_frame->pc];
@@ -181,7 +182,9 @@ static void _sipush() {
 	auxiliar_16 <<= 8;
 	auxiliar_16 |= low;
 	
-	maquina.current_frame->push((int16_t)auxiliar_16);
+	t = auxiliar_16;
+
+	maquina.current_frame->push(auxiliar_16);
 	maquina.current_frame->pc++;
 }
 
@@ -487,13 +490,15 @@ static void _caload() {
 
 static void _saload() {
 	uint64_t indice,aux;
+	int64_t t;
 	struct _array* arrayRef;
 
 	indice = maquina.current_frame->pop();
 	aux = maquina.current_frame->pop();
 	memcpy(&arrayRef, &aux, sizeof(uint64_t));
 
-	maquina.current_frame->push((int16_t)((int16_t*)arrayRef->values)[indice]);
+	t = ((int16_t*)arrayRef->values)[indice];
+	maquina.current_frame->push(t);
 	maquina.current_frame->pc++;
 }
 
@@ -799,7 +804,8 @@ static void _castore() {
 }
 
 static void _sastore() {
-	uint64_t indice,aux, value;
+	uint64_t indice,aux;
+	int64_t value;
 	struct _array* arrayRef;
 
 	value = maquina.current_frame->pop();
@@ -1095,7 +1101,8 @@ static void _fmul() {
 
 static void _dmul() {
 	int64_t hop, lop, hopp, lopp;
-	double op, opp, mult,final;
+	double op, opp, mult;
+	uint64_t final;
 
 	lop  = maquina.current_frame->pop();
 	hop  = maquina.current_frame->pop();
@@ -1107,7 +1114,7 @@ static void _dmul() {
 	mult = op*opp;
 
 	memcpy(&final, &mult, sizeof(int64_t));
-	maquina.current_frame->push2((int64_t)(final));
+	maquina.current_frame->push2((final));
 
 	maquina.current_frame->pc++;
 }	
@@ -2705,7 +2712,7 @@ static void _invokevirtual() {
 			valorLow = maquina.current_frame->pop();
 			valorHigh = maquina.current_frame->pop();
 
-			printf("%f", getDouble(valorHigh,valorLow));
+			printf("%f", (double)getDouble(valorHigh,valorLow));
 
 		//Quando tem que imprimir boolean
 		} else if(strstr(methodDesc, "Z") != NULL) {
