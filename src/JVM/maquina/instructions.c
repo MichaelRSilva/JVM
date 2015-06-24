@@ -403,38 +403,41 @@ static void _aload_3() {
 }
 
 static void _iaload() {
-    uint64_t indice;
-    uint64_t *arrayRef, aux;
+    uint64_t indice, aux;
+    struct _array *arrayRef;
 
     indice 	 = maquina.current_frame->pop();
     aux = maquina.current_frame->pop();
     memcpy(&arrayRef, &aux, sizeof(uint64_t));
 
-    maquina.current_frame->push(((uint64_t*)arrayRef)[indice]);
+    maquina.current_frame->push(arrayRef->values[indice]);
+
     maquina.current_frame->pc++;
 }
 
 static void _laload() {
 	uint64_t indice, aux;
-	void *arrayRef;
+	struct _array *arrayRef;
 
 	indice = maquina.current_frame->pop();
 	aux = maquina.current_frame->pop();
 	memcpy(&arrayRef, &aux, sizeof(uint64_t)); // convert to pointer
 
-	maquina.current_frame->push2(((uint64_t*)arrayRef)[indice]);
+	printf("\nlaload: indice: %llx, aux: %llx, arrayRef: %p, values: %p\n", indice, aux, arrayRef, arrayRef->values);
+	maquina.current_frame->push2(arrayRef->values[indice]);
+	exit(-1);
 	maquina.current_frame->pc++;
 }
 
 static void _faload() {
     uint64_t indice, aux;
-    void* arrayRef;
+    struct _array* arrayRef;
 
     indice = maquina.current_frame->pop();
     aux = maquina.current_frame->pop();
     memcpy(&arrayRef, &aux, sizeof(uint64_t)); // convert to pointer
 
-    maquina.current_frame->push(((uint64_t*)arrayRef)[indice]);
+    maquina.current_frame->push(arrayRef->values[indice]);
 	maquina.current_frame->pc++;
 }
 
@@ -448,26 +451,26 @@ static void _aaload() {
 
 static void _baload() {
 	uint64_t indice,aux;
-	void* arrayRef;
+	struct _array* arrayRef;
 
 	indice = maquina.current_frame->pop();
 	aux = maquina.current_frame->pop();
 	memcpy(&arrayRef, &aux, sizeof(uint64_t));
 
-	maquina.current_frame->push(((uint8_t*)arrayRef)[indice]);
+	maquina.current_frame->push(arrayRef->values[indice]);
 	maquina.current_frame->pc++;
 
 }
 
 static void _caload() {
     uint64_t indice,aux;
-	void* arrayRef;
+	struct _array* arrayRef;
 
 	indice = maquina.current_frame->pop();
 	aux = maquina.current_frame->pop();
 	memcpy(&arrayRef, &aux, sizeof(uint64_t));
 
-	maquina.current_frame->push(((uint16_t*)arrayRef)[indice]);
+	maquina.current_frame->push(arrayRef->values[indice]);
 	maquina.current_frame->pc++;
 }
 
@@ -871,8 +874,10 @@ static void _iadd() {
 	uint64_t op,opp;
 	op  = maquina.current_frame->pop();
 	opp = maquina.current_frame->pop();
+
 	maquina.current_frame->push(op+opp);
 	maquina.current_frame->pc++;
+
 }	
 
 static void _ladd() {
@@ -1862,9 +1867,9 @@ static void _ifeq() {
 	value = (signed) maquina.current_frame->pop();
 	if(value == 0) {
 		
-		desloc = pathTwo;
+		desloc = pathOne;
 		desloc = desloc << 8;
-		desloc = desloc | pathOne;
+		desloc = desloc | pathTwo;
 
 		maquina.current_frame->pc = maquina.current_frame->pc + desloc;
 
@@ -1886,9 +1891,9 @@ static void _ifne() {
 	value = (signed) maquina.current_frame->pop();
 	if(value != 0) {
 		
-		desloc = pathTwo;
+		desloc = pathOne;
 		desloc = desloc << 8;
-		desloc = desloc | pathOne;
+		desloc = desloc | pathTwo;
 
 		maquina.current_frame->pc = maquina.current_frame->pc + desloc;
 
@@ -1909,9 +1914,9 @@ static void _iflt() {
 	value = (signed) maquina.current_frame->pop();
 	if(value < 0) {
 		
-		desloc = pathTwo;
+		desloc = pathOne;
 		desloc = desloc << 8;
-		desloc = desloc | pathOne;
+		desloc = desloc | pathTwo;
 
 		maquina.current_frame->pc = maquina.current_frame->pc + desloc;
 
@@ -1932,9 +1937,9 @@ static void _ifge() {
 	value = (signed) maquina.current_frame->pop();
 	if(value >= 0) {
 		
-		desloc = pathTwo;
+		desloc = pathOne;
 		desloc = desloc << 8;
-		desloc = desloc | pathOne;
+		desloc = desloc | pathTwo;
 
 		maquina.current_frame->pc = maquina.current_frame->pc + desloc;
 
@@ -1956,9 +1961,9 @@ static void _ifgt() {
 	value = (signed) maquina.current_frame->pop();
 	if(value > 0) {
 		
-		desloc = pathTwo;
+		desloc = pathOne;
 		desloc = desloc << 8;
-		desloc = desloc | pathOne;
+		desloc = desloc | pathTwo;
 
 		maquina.current_frame->pc = maquina.current_frame->pc + desloc;
 
@@ -2005,9 +2010,9 @@ static void _if_icmpeq() {
 
 	if(value1 == value2) {
 		
-		desloc = pathTwo;
+		desloc = pathOne;
 		desloc = desloc << 8;
-		desloc = desloc | pathOne;
+		desloc = desloc | pathTwo;
 
 		maquina.current_frame->pc = maquina.current_frame->pc + desloc;
 
@@ -2031,9 +2036,9 @@ static void _if_icmpne() {
 	
 	if(value1 != value2) {
 		
-		desloc = pathTwo;
+		desloc = pathOne;
 		desloc = desloc << 8;
-		desloc = desloc | pathOne;
+		desloc = desloc | pathTwo;
 
 		maquina.current_frame->pc = maquina.current_frame->pc + desloc;
 
@@ -2057,9 +2062,9 @@ static void _if_icmplt() {
 
 	if(value1 < value2) {
 		
-		desloc = pathTwo;
+		desloc = pathOne;
 		desloc = desloc << 8;
-		desloc = desloc | pathOne;
+		desloc = desloc | pathTwo;
 
 		maquina.current_frame->pc = maquina.current_frame->pc + desloc;
 
@@ -2083,9 +2088,9 @@ static void _if_icmpge() {
 
 	if(value1 >= value2) {
 		
-		desloc = pathTwo;
+		desloc = pathOne;
 		desloc = desloc << 8;
-		desloc = desloc | pathOne;
+		desloc = desloc | pathTwo;
 
 		maquina.current_frame->pc = maquina.current_frame->pc + desloc;
 
@@ -2109,9 +2114,9 @@ static void _if_icmpgt() {
 
 	if(value1 > value2) {
 		
-		desloc = pathTwo;
+		desloc = pathOne;
 		desloc = desloc << 8;
-		desloc = desloc | pathOne;
+		desloc = desloc | pathTwo;
 
 		maquina.current_frame->pc = maquina.current_frame->pc + desloc;
 
@@ -2135,9 +2140,9 @@ static void _if_icmple() {
 
 	if(value1 <= value2) {
 		
-		desloc = pathTwo;
+		desloc = pathOne;
 		desloc = desloc << 8;
-		desloc = desloc | pathOne;
+		desloc = desloc | pathTwo;
 
 		maquina.current_frame->pc = maquina.current_frame->pc + desloc;
 
@@ -2161,9 +2166,9 @@ static void _if_acmpeg() {
 
 	if(value1 == value2) {
 		
-		desloc = pathTwo;
+		desloc = pathOne;
 		desloc = desloc << 8;
-		desloc = desloc | pathOne;
+		desloc = desloc | pathTwo;
 
 		maquina.current_frame->pc = maquina.current_frame->pc + desloc;
 
@@ -2187,9 +2192,9 @@ int8_t pathOne, pathTwo;
 	
 	if(value1 != value2) {
 		
-		desloc = pathTwo;
+		desloc = pathOne;
 		desloc = desloc << 8;
-		desloc = desloc | pathOne;
+		desloc = desloc | pathTwo;
 
 		maquina.current_frame->pc = maquina.current_frame->pc + desloc;
 
@@ -2205,9 +2210,9 @@ static void _goto() {
 	pathOne = maquina.current_frame->code_attr->code[(maquina.current_frame->pc)+1];
 	pathTwo = maquina.current_frame->code_attr->code[(maquina.current_frame->pc)+2];
 	
-	desloc = pathTwo;
+	desloc = pathOne;
 	desloc = desloc << 8;
-	desloc = desloc | pathOne;
+	desloc = desloc | pathTwo;
 
 	maquina.current_frame->pc += desloc;
 }
@@ -2221,9 +2226,9 @@ static void _jsr() {
 	pathOne = maquina.current_frame->code_attr->code[(maquina.current_frame->pc)+1];
 	pathOne = maquina.current_frame->code_attr->code[(maquina.current_frame->pc)+2];
 
-	desloc = pathTwo;
-	desloc = desloc << 8;
-	desloc = desloc | pathOne;
+	desloc = pathOne;
+		desloc = desloc << 8;
+		desloc = desloc | pathTwo;
 	
 	maquina.current_frame->pc = maquina.current_frame->pc + desloc;
 

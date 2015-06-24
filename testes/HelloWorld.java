@@ -33,116 +33,54 @@ Passou !(<=)
 class HelloWorld{
 	
 	public static void main(String[] args){
-		int num = 2;
-		int res;
-		res = num+num;
-		if(res>num){
-			System.out.println("Passou >");
+		
+		int array[] = new int[10];
+		double array2[] = {2.0,3.0,-5.0};
+		long array3[] = {-5, 3, 6426246, -433242};
+		float array4[] = {2.0f,3.0f,-5.0f};
+		byte array5[] = {-2, 4, 0};
+		char array6[] = {'a', '0', ')'};
+		short array7[] = {15, 1000, -2};
+	
+		for (int i = 0; i < 10; i++){
+			array[i] = i;
 		}
+		array[0] += 100000;
+		for (int i = 0; i < 10; i++){
+			System.out.println(array[i]);
+		}
+		System.out.println();
 
-		res = num-num;
-		if(res<num){
-			System.out.println("Passou <");
-		}
-		res = num*num;
-		if(res == res){
-			System.out.println("Passou ==");
-		}
-		res = num/num;
-		res = res<<1;
-		res = res|1;
-		res = res&3;
-		res = ~res;
-		res = ~res;
-		res = res^3;
-		if(res <= num){
-			System.out.println("Passou <=");
-		}
-		res = num%num;
-		if(!(res >= num)){
-			System.out.println("Passou !(<=)");
-		}
 
-		System.out.println("Agora com long");
-		long numl = 2;
-		long resl;
-		resl = numl+numl;
-		if(resl>numl){
-			System.out.println("Passou >");
+		for (int i = 0; i < 3; i++){
+			System.out.println(array2[i]);
 		}
-		resl = numl-numl;
-		if(resl<numl){
-			System.out.println("Passou <");
+		System.out.println();
+		
+		for (int i = 0; i < 4; i++){
+			System.out.println(array3[i]);
 		}
-		resl = numl*numl;
-		if(resl == resl){
-			System.out.println("Passou ==");
-		}
-		resl = numl/numl;
-		resl = resl<<1;
-		resl = resl|1;
-		resl = resl&3;
-		resl = ~resl;
-		resl = ~resl;
-		resl = resl^3;
-		if(resl <= numl){
-			System.out.println("Passou <=");
-		}
-		resl = numl%numl;
-		if(!(resl >= numl)){
-			System.out.println("Passou !(<=)");
-		}
+		System.out.println();
 
-		System.out.println("Agora com float");
-		float numf = 2.0F;
-		float resf;
-		resf = numf+numf;
-		if(resf>numf){
-			System.out.println("Passou >");
+		for (int i = 0; i < 3; i++){
+			System.out.println(array4[i]);
 		}
-		resf = numf-numf;
-		if(resf<numf){
-			System.out.println("Passou <");
-		}
-		resf = numf*numf;
-		if(resf == resf){
-			System.out.println("Passou ==");
-		}
-		resf = numf/numf;
-		resf = -resf;
-		resf = -resf;
-		if(resf <= numf){
-			System.out.println("Passou <=");
-		}
-		resf = numf%numf;
-		if(!(resf >= numf)){
-			System.out.println("Passou !(<=)");
-		}
+		System.out.println();
 
-		System.out.println("Agora com double");
-		double numd = 2.0;
-		double resd;
-		resd = numd+numd;
-		if(resd>numd){
-			System.out.println("Passou >");
+		for (int i = 0; i < 3; i++){
+			System.out.println(array5[i]);
 		}
-		resd = numd-numd;
-		if(resd<numd){
-			System.out.println("Passou <");
+		System.out.println();
+
+		for (int i = 0; i < 3; i++){
+			System.out.println(array6[i]);
 		}
-		resd = numd*numd;
-		if(resd == resd){
-			System.out.println("Passou ==");
+		System.out.println();
+
+		for (int i = 0; i < 3; i++){
+			System.out.println(array7[i]);
 		}
-		resd = numd/numd;
-		resd = -resd;
-		resd = -resd;
-		if(resd <= numd){
-			System.out.println("Passou <=");
-		}
-		resd = numd%numd;
-		if(!(resd >= numd)){
-			System.out.println("Passou !(<=)");
-		}
+		System.out.println();
 	}
+
 }

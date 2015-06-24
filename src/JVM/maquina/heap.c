@@ -74,7 +74,7 @@ static struct _array* newArray(uint32_t count, uint32_t tipo) {
 	toReturn->values = malloc(count*sizeof(toReturn->element_size));
 	maquina.heap->array_count++;
 
-	//printf("\nnew array: %p", toReturn);
+	printf("\nnew array: %p; TIPO: %d; COUNT: %d; values: %p", toReturn,tipo,count, toReturn->values);
 	return toReturn;
 }
 
