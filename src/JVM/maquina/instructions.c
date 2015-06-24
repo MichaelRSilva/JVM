@@ -243,11 +243,8 @@ static void _ldc2_w() {
     uint8_t type;
     uint64_t high, low, completeValue;
     
-    maquina.current_frame->pc++;
-    
-    high = maquina.current_frame->code_attr->code[maquina.current_frame->pc];
-    maquina.current_frame->pc++;
-    low = maquina.current_frame->code_attr->code[maquina.current_frame->pc];
+    high = maquina.current_frame->code_attr->code[++maquina.current_frame->pc];
+    low = maquina.current_frame->code_attr->code[++maquina.current_frame->pc];
     
     indice = high;
     indice = indice << 8;
@@ -259,10 +256,10 @@ static void _ldc2_w() {
         maquina.current_frame->push(maquina.current_frame->runtime_constant_pool->constants[indice-1].type.Long.highBytes);
         maquina.current_frame->push(maquina.current_frame->runtime_constant_pool->constants[indice-1].type.Long.lowBytes);
 
-    }else if(type == tDouble){
-        
-        maquina.current_frame->push(maquina.current_frame->runtime_constant_pool->constants[indice-1].type.Double.highBytes);
-        maquina.current_frame->push(maquina.current_frame->runtime_constant_pool->constants[indice-1].type.Double.lowBytes);
+    }else if(type == tDouble){	
+    	high = maquina.current_frame->runtime_constant_pool->constants[indice-1].type.Double.highBytes;
+    	low = maquina.current_frame->runtime_constant_pool->constants[indice-1].type.Double.lowBytes;
+    	maquina.current_frame->push2(getDouble(high, low));
     }
     
     maquina.current_frame->pc++;

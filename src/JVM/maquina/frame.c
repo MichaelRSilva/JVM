@@ -4,21 +4,21 @@
 	empilha um valor na pilha de operandos
 */
 
-static void printOperantStack(char* func) {
+static void printOperandStack(char* func) {
 #ifdef DEBUG
 	printf("\n%s: OPERAND STACK (%p):", func, maquina.current_frame);
-	struct _u4pilha aux = *maquina.current_frame->operand_stack.topo;
+	struct _u4pilha *aux = maquina.current_frame->operand_stack.topo;
 	
 	for (int i = 0; i < maquina.current_frame->operand_stack.allocated; i++) {
-		printf(" %llx", aux.value);
-		aux = *aux.next;
+		printf(" %llx", aux->value);
+		aux = aux->next;
 	}	
 	printf("\n");
 #endif
 }
 
 static void push(uint64_t valor) {
-	printOperantStack("push");
+	printOperandStack("push");
 	if (maquina.current_frame->operand_stack.allocated >= maquina.current_frame->code_attr->max_stack) error(E_STACK_OVERFLOW);
 	struct _u4pilha* ref = maquina.current_frame->operand_stack.topo; // armazena referencia ao antigo topo
 
@@ -32,7 +32,7 @@ static void push(uint64_t valor) {
 	desempilha um valor na pilha de operandos
 */
 static uint64_t pop() {
-	printOperantStack("pop");
+	printOperandStack("pop");
 
 	if (maquina.current_frame->operand_stack.topo == NULL || !maquina.current_frame->operand_stack.allocated) error(E_EMPTY_STACK);
 
