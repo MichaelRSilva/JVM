@@ -1595,41 +1595,40 @@ static void _l2i() {
 	high = maquina.current_frame->pop();
 	maquina.current_frame->push(low);
 	maquina.current_frame->pc++;
-
-	maquina.current_frame->pc++;
 }
 
 static void _l2f() {
-
-	uint64_t low, high;
+	uint64_t low, high, toPush;
+	long val;
 	float number;
 	
 	low = maquina.current_frame->pop();
 	high = maquina.current_frame->pop();
 	
-	number = (float)getLong(high, low);
+	val = getLong(high, low);
+	number = (float)val/100000000.f;
+	memcpy(&toPush, &number, sizeof(uint32_t));
 
-	maquina.current_frame->push(number); 
+	maquina.current_frame->push(toPush); 
 	maquina.current_frame->pc++;
-
-
 }
 
 
 static void _l2d() {
-
-	uint64_t low, high;
-	double value;
-
+	uint64_t low, high, toPush = 0;
+	long val;
+	double number;
+	
 	low = maquina.current_frame->pop();
 	high = maquina.current_frame->pop();
+	
+	val = getLong(high, low);
 
-	value = (double)getLong(high, low);
+	number = (double)val/100000000.;
+	memcpy(&toPush, &number, sizeof(uint64_t));
 
-	maquina.current_frame->push2(value);
+	maquina.current_frame->push2(toPush); 
 	maquina.current_frame->pc++;
-
-
 }
 
 static void _f2i() {

@@ -16,7 +16,7 @@
 	#include <inttypes.h>
 	#include <string.h>
 	#include <math.h>
-	#define DEBUG
+	// #define DEBUG
 
 	/*!
 		facilitar o uso para comparacao de access flags
