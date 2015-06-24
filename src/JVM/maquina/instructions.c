@@ -1345,16 +1345,19 @@ static void _lshl() {
 
 	result = maquina.current_frame->pop();
 	result = result & lowSix;
+
+
 	low = maquina.current_frame->pop();
 	high = maquina.current_frame->pop();
+
+
 
 	bigBits = high;
 	bigBits = bigBits << 32;
 	bigBits = (signed)(bigBits + low);
-
-
 	bigBits = bigBits << result;
-	maquina.current_frame->push2((uint64_t)bigBits);
+
+	maquina.current_frame->push2(bigBits);
 
 	maquina.current_frame->pc++;
 }	
@@ -1401,7 +1404,7 @@ static void _lshr() {
 		var = var | allOne;
 	}
 
-	maquina.current_frame->push((uint64_t)var);
+	maquina.current_frame->push2((uint64_t)var);
 
 	maquina.current_frame->pc++;
 }	
@@ -1597,30 +1600,36 @@ static void _l2i() {
 }
 
 static void _l2f() {
-	uint64_t low, high, *parse;
+
+	uint64_t low, high;
 	float number;
+	
 	low = maquina.current_frame->pop();
 	high = maquina.current_frame->pop();
+	
 	number = (float)getLong(high, low);
 
 	maquina.current_frame->push(number); 
 	maquina.current_frame->pc++;
+
+
 }
 
 
 static void _l2d() {
 
 	uint64_t low, high;
-	uint64_t *other;
 	double value;
 
 	low = maquina.current_frame->pop();
 	high = maquina.current_frame->pop();
 
-	value =  (double)getLong(high, low);
+	value = (double)getLong(high, low);
 
 	maquina.current_frame->push2(value);
 	maquina.current_frame->pc++;
+
+
 }
 
 static void _f2i() {
