@@ -1,5 +1,13 @@
 #include "private.c"
 
+CLASS* criaSystem() {
+	CLASS* toReturn = initCLASS();
+
+	
+
+	return toReturn;
+}
+
 /*!
 	carrega uma classe na memoria, eh dado o nome de um arquivo .class
 */

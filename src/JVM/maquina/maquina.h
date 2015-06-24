@@ -105,6 +105,7 @@
 			HEAP* heap;
 			STACK* stack;
 			FRAME* current_frame;
+			char* basePath;
 
 			// funcoes
 			int (*loadClass)(char*);

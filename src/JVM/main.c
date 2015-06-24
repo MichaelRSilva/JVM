@@ -69,6 +69,7 @@ void imprimeHelper() {
 	printf("\nUSO Geral: JVM.exe <input> [opcoes]\n\n");
 	printf("OPCOES:\n");
 	printf("\t--help\t\t\t\t'lista as linhas de comando disponiveis'\n" );
-	printf("\t-p [both|tela|arquivo]\t\tc'indica querer exibir Leitor/Exibidor de Bytecode'\n" );
+	printf("\t-p [both|tela|arquivo]\t\t'indica querer exibir Leitor/Exibidor de Bytecode'\n" );
+	printf("\t-b <java base path>\t\t'indica o path para obter o Object.class'");
 	printf("----------\n\n");
 }

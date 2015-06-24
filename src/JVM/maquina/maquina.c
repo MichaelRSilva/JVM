@@ -373,6 +373,7 @@ JVM initJVM(char* class_name) {
 	toReturn.method_area = initMETHOD_AREA();
 	toReturn.heap = initHEAP();
 	toReturn.stack = initSTACK();
+	toReturn.basePath = (char*)malloc(1024*sizeof(char));
 	toReturn.current_frame = NULL;
 
 	// init funcoes`
