@@ -410,7 +410,7 @@ static void _iaload() {
     aux = maquina.current_frame->pop();
     memcpy(&arrayRef, &aux, sizeof(uint64_t));
 
-    maquina.current_frame->push(arrayRef->values[indice]);
+    maquina.current_frame->push(((uint32_t*)arrayRef->values)[indice]);
 
     maquina.current_frame->pc++;
 }
@@ -424,7 +424,7 @@ static void _laload() {
 	memcpy(&arrayRef, &aux, sizeof(uint64_t)); // convert to pointer
 
 	printf("\nlaload: indice: %llx, aux: %llx, arrayRef: %p, values: %p\n", indice, aux, arrayRef, arrayRef->values);
-	maquina.current_frame->push2(arrayRef->values[indice]);
+	maquina.current_frame->push2(((uint64_t*)arrayRef->values)[indice]);
 	maquina.current_frame->pc++;
 }
 
@@ -436,7 +436,7 @@ static void _faload() {
     aux = maquina.current_frame->pop();
     memcpy(&arrayRef, &aux, sizeof(uint64_t)); // convert to pointer
 
-    maquina.current_frame->push(arrayRef->values[indice]);
+    maquina.current_frame->push(((uint32_t*)arrayRef->values)[indice]);
 	maquina.current_frame->pc++;
 }
 
@@ -456,7 +456,7 @@ static void _baload() {
 	aux = maquina.current_frame->pop();
 	memcpy(&arrayRef, &aux, sizeof(uint64_t));
 
-	maquina.current_frame->push(arrayRef->values[indice]);
+	maquina.current_frame->push(((uint8_t*)arrayRef->values)[indice]);
 	maquina.current_frame->pc++;
 
 }
@@ -469,7 +469,7 @@ static void _caload() {
 	aux = maquina.current_frame->pop();
 	memcpy(&arrayRef, &aux, sizeof(uint64_t));
 
-	maquina.current_frame->push(arrayRef->values[indice]);
+	maquina.current_frame->push(((uint16_t*)arrayRef->values)[indice]);
 	maquina.current_frame->pc++;
 }
 
