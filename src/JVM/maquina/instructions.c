@@ -1657,36 +1657,42 @@ static void _f2d() {
 
 static void _d2i() {
 
-	uint64_t low, high;
-	int64_t resp;
-	uint64_t auxiliar;
-	double double_number;
+	int64_t hop, lop, hopp, lopp;
+	double op, opp, mult;
+	uint64_t final;
+	int64_t int_number;
 
-	low = maquina.current_frame->pop();
-	high = maquina.current_frame->pop();
+	lop  = maquina.current_frame->pop();
+	hop  = maquina.current_frame->pop();
 
-	auxiliar = getDouble(low, high);
-	memcpy(&double_number, &auxiliar, sizeof(uint64_t));
+	op  = getDouble(hop,lop);
+	
+	int_number = (int64_t)op;
 
-	resp = (int64_t) double_number;
-	maquina.current_frame->push((uint64_t)resp);
+	memcpy(&final, &int_number, sizeof(int64_t));
+
+	maquina.current_frame->push2((final));
 
 	maquina.current_frame->pc++;
 }
 
 static void _d2l() {
 
-	uint64_t low, high;
-	uint64_t aux;
-	double value;
-	
-	low = maquina.current_frame->pop();
-	high = maquina.current_frame->pop();
+	int64_t hop, lop, hopp, lopp;
+	double op, opp, mult;
+	uint64_t final;
+	long long_number;
 
-	aux = getDouble(low, high);
-	memcpy(&value, &aux, sizeof(uint64_t));
-	aux = (uint64_t) value;
-	maquina.current_frame->push(aux);
+	lop  = maquina.current_frame->pop();
+	hop  = maquina.current_frame->pop();
+
+	op  = getDouble(hop,lop);
+	
+	long_number = (long)op;
+
+	memcpy(&final, &long_number, sizeof(int64_t));
+
+	maquina.current_frame->push2((final));
 
 	maquina.current_frame->pc++;
 
@@ -1694,21 +1700,20 @@ static void _d2l() {
 
 static void _d2f() {
 
-	uint64_t low, high, result;
-	uint64_t value;
-	double double_number;
+	int64_t hop, lop, hopp, lopp;
+	double op, opp, mult;
+	uint32_t final;
 	float float_number;
 
-	low = maquina.current_frame->pop();
-	high = maquina.current_frame->pop();
-	value = getDouble(low, high);
+	lop  = maquina.current_frame->pop();
+	hop  = maquina.current_frame->pop();
 
-	memcpy(&double_number, &value, sizeof(uint64_t));
-	float_number = (float) double_number;
+	op  = getDouble(hop,lop);
+	
+	float_number = (float) op;
 
-	memcpy(&result, &float_number, sizeof(uint64_t));
-
-	maquina.current_frame->push(result);
+	memcpy(&final, &float_number, sizeof(int32_t));
+	maquina.current_frame->push((final));
 
 	maquina.current_frame->pc++;
 }

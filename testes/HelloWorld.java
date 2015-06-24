@@ -1,12 +1,14 @@
 class HelloWorld{
 	public static void main(String args[]){
-		double a=98.24;
-		double b=134.87;
-		System.out.println(a+b);
-		System.out.println(a-b);
-		System.out.println(a*b);
-		System.out.println(a/b);
-		System.out.println(-a);
-		System.out.println(b%a);
+		double a= 1.0;
+		double b=2.0;
+	
+		/*dcmp*/
+
+		if (b>a)  System.out.println(b);
+		if (a<b)  System.out.println(a);
+		if (a!=b) System.out.println(0);
+		
+		
 	}
 }
