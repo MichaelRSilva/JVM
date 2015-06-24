@@ -21,6 +21,7 @@ static int verifyVersion(uint16_t minor_version, uint16_t major_version) {
 		}
 	}
 	error(E_NOTSUPPORTED_VERSION);
+	return E_NOTSUPPORTED_VERSION;
 }
 
 /*!

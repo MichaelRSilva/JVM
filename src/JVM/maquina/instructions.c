@@ -1015,7 +1015,7 @@ static void _lsub() {
 	opp = opp << 32;
 	opp = opp + low;
 
-	maquina.current_frame->push2(op-opp);
+	maquina.current_frame->push2(opp-op);
 	maquina.current_frame->pc++;
 }	
 
@@ -1153,7 +1153,7 @@ static void _ldiv() {
 	opp  = opp << 32;
 	opp  = opp + lopp;
 
-	maquina.current_frame->push2((int64_t)(op/opp));
+	maquina.current_frame->push2((int64_t)(opp/op));
 
 	maquina.current_frame->pc++;
 }	
@@ -1221,7 +1221,7 @@ static void _lrem() {
 	opp = opp << 32;
 	opp = opp + low;
 
-	maquina.current_frame->push2(op%opp);
+	maquina.current_frame->push2(opp%op);
 	maquina.current_frame->pc++;
 }	
 
@@ -1372,8 +1372,6 @@ static void _ishr() {
 	for(int j = 0; j < value1; j++) {
 		value2 = value2 / 2;
 	}
-
-	
 
 	maquina.current_frame->push((int64_t)value2);
 	maquina.current_frame->pc++;
