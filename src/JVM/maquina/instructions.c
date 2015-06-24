@@ -239,9 +239,8 @@ static void _ldc_w() {
 
 static void _ldc2_w() {
     
-    uint64_t indice;
+    uint64_t indice, high, low, completeValue = 0;
     uint8_t type;
-    uint64_t high, low, completeValue;
     
     high = maquina.current_frame->code_attr->code[++maquina.current_frame->pc];
     low = maquina.current_frame->code_attr->code[++maquina.current_frame->pc];
@@ -253,13 +252,18 @@ static void _ldc2_w() {
     type = maquina.current_frame->runtime_constant_pool->constants[indice-1].tag;
 
     if(type == tLong){
-        maquina.current_frame->push(maquina.current_frame->runtime_constant_pool->constants[indice-1].type.Long.highBytes);
-        maquina.current_frame->push(maquina.current_frame->runtime_constant_pool->constants[indice-1].type.Long.lowBytes);
+    	high = maquina.current_frame->runtime_constant_pool->constants[indice-1].type.Long.highBytes;
+    	low = maquina.current_frame->runtime_constant_pool->constants[indice-1].type.Long.lowBytes;
+    	long l = getLong(high, low);
+    	memcpy(&completeValue, &l, sizeof(uint64_t));
+    	maquina.current_frame->push2(completeValue);
 
     }else if(type == tDouble){	
     	high = maquina.current_frame->runtime_constant_pool->constants[indice-1].type.Double.highBytes;
     	low = maquina.current_frame->runtime_constant_pool->constants[indice-1].type.Double.lowBytes;
-    	maquina.current_frame->push2(getDouble(high, low));
+    	double d = getDouble(high, low);
+    	memcpy(&completeValue, &d, sizeof(uint64_t));
+    	maquina.current_frame->push2(completeValue);
     }
     
     maquina.current_frame->pc++;
@@ -1039,7 +1043,7 @@ static void _dsub() {
 	high = maquina.current_frame->pop();
 	opp = getDouble(high,low);
 
-	sum = op - opp;
+	sum = opp - op;
 
 	memcpy(&result, &sum, sizeof(uint64_t));
 	maquina.current_frame->push2(result);
@@ -1166,8 +1170,8 @@ static void _fdiv() {
 }	
 
 static void _ddiv() {
-	int64_t hop, lop, hopp, lopp;
-	double op, opp, mult,final;
+	int64_t hop, lop, hopp, lopp, final;
+	double op, opp, div;
 
 	lop  = maquina.current_frame->pop();
 	hop  = maquina.current_frame->pop();
@@ -1176,10 +1180,10 @@ static void _ddiv() {
 
 	op  = getDouble(hop,lop);
 	opp  = getDouble(hopp,lopp);
-	mult = op/opp;
+	div = opp/op;
 
-	memcpy(&final, &mult, sizeof(int64_t));
-	maquina.current_frame->push2((int64_t)(final));
+	memcpy(&final, &div, sizeof(int64_t));
+	maquina.current_frame->push2(final);
 
 	maquina.current_frame->pc++;
 }	
@@ -1233,22 +1237,22 @@ static void _frem() {
 }	
 
 static void _drem() {
-	int64_t hop, lop, hopp, lopp;
+	uint64_t hop, lop, hopp, lopp;
 	double op, opp, mod;
-	int64_t final;
+	uint64_t final;
 
 	lop  = maquina.current_frame->pop();
 	hop  = maquina.current_frame->pop();
 	lopp = maquina.current_frame->pop();
 	hopp = maquina.current_frame->pop();
 
-	op  = getDouble(lop,hop);
-	opp  = getDouble(lopp,hopp);
-	mod = fmod(op,opp);
+	op  = getDouble(hop,lop);
+	opp  = getDouble(hopp,lopp);
+	mod = fmod(opp,op);
 
-	memcpy(&final, &mod, sizeof(int64_t));
+	memcpy(&final, &mod, sizeof(uint64_t));
 
-	maquina.current_frame->push2((int64_t)(final));
+	maquina.current_frame->push2(final);
 	maquina.current_frame->pc++;
 }	
 

@@ -1,7 +1,7 @@
 class HelloWorld{
 	public static void main(String args[]){
-		float a=100.4f;
-		float b=20.3f;
+		double a=98.24;
+		double b=134.87;
 		System.out.println(a+b);
 		System.out.println(a-b);
 		System.out.println(a*b);
