@@ -181,7 +181,7 @@ static void _sipush() {
 	auxiliar_16 <<= 8;
 	auxiliar_16 |= low;
 	
-	maquina.current_frame->push(auxiliar_16);
+	maquina.current_frame->push((int16_t)auxiliar_16);
 	maquina.current_frame->pc++;
 }
 
@@ -193,7 +193,7 @@ static void _ldc() {
     type = maquina.current_frame->runtime_constant_pool->constants[indice-1].tag;
     
     if(type == tInteger){
-        maquina.current_frame->push(maquina.current_frame->runtime_constant_pool->constants[indice-1].type.Integer.bytes);
+        maquina.current_frame->push((int64_t)maquina.current_frame->runtime_constant_pool->constants[indice-1].type.Integer.bytes);
     }else if(type == tFloat){
         maquina.current_frame->push(maquina.current_frame->runtime_constant_pool->constants[indice-1].type.Float.bytes);
     }else if(type == tString){
@@ -222,7 +222,7 @@ static void _ldc_w() {
 	type = maquina.current_frame->runtime_constant_pool->constants[indice-1].tag;
 
 	if(type == tInteger){
-		maquina.current_frame->push(maquina.current_frame->runtime_constant_pool->constants[indice-1].type.Integer.bytes);
+		maquina.current_frame->push((int64_t)maquina.current_frame->runtime_constant_pool->constants[indice-1].type.Integer.bytes);
 	}
 	if(type == tFloat){
 		maquina.current_frame->push(maquina.current_frame->runtime_constant_pool->constants[indice-1].type.Float.bytes);
@@ -249,13 +249,15 @@ static void _ldc2_w() {
     indice = high;
     indice = indice << 8;
     indice = indice | low;
-    
+
     type = maquina.current_frame->runtime_constant_pool->constants[indice-1].tag;
 
     if(type == tLong){
         maquina.current_frame->push(maquina.current_frame->runtime_constant_pool->constants[indice-1].type.Long.highBytes);
         maquina.current_frame->push(maquina.current_frame->runtime_constant_pool->constants[indice-1].type.Long.lowBytes);
+
     }else if(type == tDouble){
+        
         maquina.current_frame->push(maquina.current_frame->runtime_constant_pool->constants[indice-1].type.Double.highBytes);
         maquina.current_frame->push(maquina.current_frame->runtime_constant_pool->constants[indice-1].type.Double.lowBytes);
     }
@@ -291,9 +293,11 @@ static void _lload() {
         indice = indice | maquina.current_frame->code_attr->code[maquina.current_frame->pc];
         WIDE = 0;
     }
-    
+
     maquina.current_frame->push(maquina.current_frame->local_variables[indice]);
     maquina.current_frame->push(maquina.current_frame->local_variables[indice+1]);
+
+
     maquina.current_frame->pc++;
     
 }
@@ -441,7 +445,15 @@ static void _faload() {
 }
 
 static void _daload() {
-	_laload();
+	uint64_t indice, aux;
+	struct _array *arrayRef;
+
+	indice = maquina.current_frame->pop();
+	aux = maquina.current_frame->pop();
+	memcpy(&arrayRef, &aux, sizeof(uint64_t)); // convert to pointer
+
+	maquina.current_frame->push2(((uint64_t*)arrayRef->values)[indice]);
+	maquina.current_frame->pc++;
 }
 
 static void _aaload() {
@@ -456,7 +468,7 @@ static void _baload() {
 	aux = maquina.current_frame->pop();
 	memcpy(&arrayRef, &aux, sizeof(uint64_t));
 
-	maquina.current_frame->push(((uint8_t*)arrayRef->values)[indice]);
+	maquina.current_frame->push(((int8_t*)arrayRef->values)[indice]);
 	maquina.current_frame->pc++;
 
 }
@@ -474,7 +486,15 @@ static void _caload() {
 }
 
 static void _saload() {
-	_caload();
+	uint64_t indice,aux;
+	struct _array* arrayRef;
+
+	indice = maquina.current_frame->pop();
+	aux = maquina.current_frame->pop();
+	memcpy(&arrayRef, &aux, sizeof(uint64_t));
+
+	maquina.current_frame->push((int16_t)((int16_t*)arrayRef->values)[indice]);
+	maquina.current_frame->pc++;
 }
 
 static void _istore() {
@@ -717,14 +737,16 @@ static void _fastore() {
 }
 
 static void _dastore() {
-	uint64_t indice, low, high, aux;
-    double value;
+	uint64_t indice, low, high, aux,value;
     struct _array* arrayRef;
 
 
     low = maquina.current_frame->pop();
     high = maquina.current_frame->pop();
-    value = getDouble(high, low);
+
+    value = high;
+	value <<= 32;
+	value += low;
 
     indice = maquina.current_frame->pop();
     aux = maquina.current_frame->pop();
@@ -777,7 +799,17 @@ static void _castore() {
 }
 
 static void _sastore() {
-	_castore();
+	uint64_t indice,aux, value;
+	struct _array* arrayRef;
+
+	value = maquina.current_frame->pop();
+	indice = maquina.current_frame->pop();
+	aux = maquina.current_frame->pop();
+	memcpy(&arrayRef, &aux, sizeof(uint64_t));
+
+	((int16_t*)arrayRef->values)[indice] = (int16_t)value;
+
+	maquina.current_frame->pc++;
 }
 
 static void _pop() {
@@ -2665,13 +2697,14 @@ static void _invokevirtual() {
 			valorLow = maquina.current_frame->pop();
 			valorHigh = maquina.current_frame->pop();
 
-			printf("%lu",getLong(valorHigh,valorLow));
+			printf("%ld",(long)getLong(valorHigh,valorLow));
 
 		//Quando tem que imprimir double
 		} else if(strstr(methodDesc, "D") != NULL) {
+
 			valorLow = maquina.current_frame->pop();
 			valorHigh = maquina.current_frame->pop();
-			
+
 			printf("%f", getDouble(valorHigh,valorLow));
 
 		//Quando tem que imprimir boolean
@@ -2703,7 +2736,7 @@ static void _invokevirtual() {
 
 		//Quando tem que imprimir inteiro
 		}else if(strstr(methodDesc, "I") != NULL) {
-			printf("%"PRIi64,(int64_t)maquina.current_frame->pop());
+			printf("%d",(int)maquina.current_frame->pop());
 		
 		//Quando tem que imprimir float
 		}else if(strstr(methodDesc, "F") != NULL) {
