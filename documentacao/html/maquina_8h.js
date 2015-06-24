@@ -34,5 +34,10 @@ var maquina_8h =
     [ "initJVM", "maquina_8h.html#a72b9088b3d6e90cc4cd0d24952be24bd", null ],
     [ "initSTACK", "maquina_8h.html#a5a7896806f46e29206a26eaa1d62951d", null ],
     [ "instructions", "maquina_8h.html#a54ee0d9775b499d224529c57e40a100e", null ],
-    [ "maquina", "maquina_8h.html#ad7fdd1ebb8a72ccff0ecf76b8451d76e", null ]
+    [ "maquina", "maquina_8h.html#ad7fdd1ebb8a72ccff0ecf76b8451d76e", null ],
+    [ "Mattributepool", "maquina_8h.html#a785b775ddc7fc604e77aed6e7bc24908", null ],
+    [ "Mclass", "maquina_8h.html#aa017a483ea1faf897127a339896f89f2", null ],
+    [ "Mclassloader", "maquina_8h.html#a9fc71eb93bece6d6561845e266d39cd1", null ],
+    [ "Mconstantpool", "maquina_8h.html#ae05a481cdf6e77710d7aae766c3784fa", null ],
+    [ "Mmethodpool", "maquina_8h.html#a051c9753d03eea4c85bf4c72ed21f01f", null ]
 ];

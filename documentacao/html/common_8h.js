@@ -21,8 +21,16 @@ var common_8h =
       [ "E_CAFEBABE", "common_8h.html#a34753b0bbe7e878508c8338f40433fe4aab89597d5054c02c938acf41850758d2", null ],
       [ "E_VERSION", "common_8h.html#a34753b0bbe7e878508c8338f40433fe4af292ef15e3e11ac7ec5d0772ee9745c4", null ],
       [ "W_NAOLIDOINTEIRO", "common_8h.html#a34753b0bbe7e878508c8338f40433fe4a10d3f70ed3a9f49f0400acf5cb7a46e3", null ],
-      [ "E_OPCAO_NAO_EXISTENTE", "common_8h.html#a34753b0bbe7e878508c8338f40433fe4a9ede723d00e28e6034ad8591e2864c07", null ]
+      [ "E_OPCAO_NAO_EXISTENTE", "common_8h.html#a34753b0bbe7e878508c8338f40433fe4a9ede723d00e28e6034ad8591e2864c07", null ],
+      [ "E_DOLAR_NOT_SUPPORTED", "common_8h.html#a34753b0bbe7e878508c8338f40433fe4a86b7e06f025001af455810e28271bc1c", null ],
+      [ "E_EMPTY_FRAME_STACK", "common_8h.html#a34753b0bbe7e878508c8338f40433fe4a7e82f5997b6f56e2bb68099c8f658636", null ],
+      [ "E_STACK_OVERFLOW", "common_8h.html#a34753b0bbe7e878508c8338f40433fe4a3d8b96b82b0cbde16c0b7e172d6b7e89", null ],
+      [ "E_NO_MAIN_FOUND", "common_8h.html#a34753b0bbe7e878508c8338f40433fe4a3f13f4a9345a0967705497ccadcec805", null ],
+      [ "E_EMPTY_STACK", "common_8h.html#a34753b0bbe7e878508c8338f40433fe4a4e63e2d4bab8e8674b5cdd51a8f64fbe", null ],
+      [ "E_NOTSUPPORTED_VERSION", "common_8h.html#a34753b0bbe7e878508c8338f40433fe4a8fb2003b872b20668cc1beffa11fd93a", null ]
     ] ],
+    [ "debug", "common_8h.html#a9c69211b9164a589c738e58c5d44b957", null ],
+    [ "error", "common_8h.html#a6a99c69202056e789fd253104785ddb1", null ],
     [ "getDouble", "common_8h.html#a97bf6fcfa047bc2acd5880222fa7efe6", null ],
     [ "getLong", "common_8h.html#a649e497f7a134e61541a1c57c422aa14", null ],
     [ "initDADOS", "common_8h.html#a49a635a07acdf10dadb8fc132b070d65", null ],
