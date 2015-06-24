@@ -27,8 +27,6 @@ static void construirFrame(CLASS* class, struct _method_info* metodo) {
 			}
 		}
 		CONSTANT_POOL* cp = maquina.current_frame->runtime_constant_pool;
-		sprintf(debugbuffer,"\nI %s", cp->getUtf8String(cp, metodo->name_index));
-		debug(debugbuffer);
 	} 
 	if (!flag) {
 
@@ -373,7 +371,7 @@ JVM initJVM(char* class_name) {
 	toReturn.method_area = initMETHOD_AREA();
 	toReturn.heap = initHEAP();
 	toReturn.stack = initSTACK();
-	toReturn.basePath = (char*)malloc(1024*sizeof(char));
+	toReturn.basePath = (char*)calloc(1024,sizeof(char));
 	toReturn.current_frame = NULL;
 
 	// init funcoes`

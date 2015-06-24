@@ -31,7 +31,7 @@
 			@param %2 os argumentos passado por linha de comando.
 			@return Código de erro, onde sucesso é representado por E_SUCCESS
 		*/
-		int (*VerificaJVMCMDArgs)(int, char**);
+		int (*VerificaJVMCMDArgs)(int, char**, char**);
 
 		/// Verifica se os argumentos passados por linha de comando para o Leitor/Exibidor de bytecode estão ok.
 		/*!

@@ -20,40 +20,48 @@ void imprimeHelper();
 */
 int main(int argc, char **argv) {
 	int flag;
-	debugbuffer = (char*)malloc(1024*sizeof(char));
 	UTIL util = getUTILInstance();
+	maquina = initJVM();
 
-	if((flag = util.VerificaJVMCMDArgs(argc, argv)) >= 0) {
+	if((flag = util.VerificaJVMCMDArgs(argc, argv, &maquina.basePath)) >= 0) {
 		if (flag > 0) {
-			CLASS_LOADER* cl = initCLASS_LOADER();
-			cl->load(cl, argv[1]);	
-
 			switch (flag) {
 				case 1:
 					imprimeHelper(); 
 					return 0;
 					break;
 				case 2: {
+					CLASS_LOADER* cl = initCLASS_LOADER();
+					cl->load(cl, argv[1]);
 					FILE* fp = fopen("output.txt","w");
 					PrintClass(cl->class, stdout);
 					PrintClass(cl->class, fp);
 					fclose(fp);
+					return 0;
 					break;
 				}
 				case 3: {
+					CLASS_LOADER* cl = initCLASS_LOADER();
+					cl->load(cl, argv[1]);
 					PrintClass(cl->class, stdout);
+					return 0;
 					break;
 				}
 				case 4: {
 					FILE* fp = fopen("output.txt","w");
+					CLASS_LOADER* cl = initCLASS_LOADER();
+					cl->load(cl, argv[1]);
 					PrintClass(cl->class, fp);
 					fclose(fp);
+					return 0;
 					break;
 				}
+				default: {
+					break;
+				}	
 			}
 		}
 
-		maquina = initJVM(); // inicializa a heap, o method_area, o stack e o current_frame com valores padrões
 		maquina.loadClass(argv[1]); // conduz o load, o link e o initialize da classe passada por linha de comando
 		maquina.run(); // executa a classe passada por linha de comando, a partir de seu metodo main (se existir)
 
@@ -70,6 +78,6 @@ void imprimeHelper() {
 	printf("OPCOES:\n");
 	printf("\t--help\t\t\t\t'lista as linhas de comando disponiveis'\n" );
 	printf("\t-p [both|tela|arquivo]\t\t'indica querer exibir Leitor/Exibidor de Bytecode'\n" );
-	printf("\t-b <java base path>\t\t'indica o path para obter o Object.class'");
+	printf("\t-b <java base path>\t\t'indica o path para obter o Object.class\n\t\t\t\t\t(caso vazio, assume a pasta de execucao da JVM)\n'");
 	printf("----------\n\n");
 }

@@ -14,7 +14,6 @@
 #include "maquina.h"
 
 JVM maquina;
-char *debugbuffer;
 
 uint8_t WIDE = 0;
 

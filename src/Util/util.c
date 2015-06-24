@@ -34,27 +34,35 @@ static int VerificaLeitorExibidorCMDArgs(int argc, char **argv){
 /*!
 	trata se os argumentos passados para o executavel, se esta correto
 */
-static int VerificaJVMCMDArgs(int argc, char** argv){
+static int VerificaJVMCMDArgs(int argc, char** argv, char** basePath){
 	FILE *fp;
     char *arq1name;
     int i;
 
-    if (argc < JVMCMDARGCOUNT + 1 || argc > JVMCMDARGCOUNT + 3){
+    if (argc < JVMCMDARGCOUNT + 1 || argc > JVMCMDARGCOUNT + 5){
         return E_INVALID_NUM_ARGS; /*ERRO 1: invalido numero de argumentos*/
     }
+
+	for (int i = JVMCMDARGCOUNT; i < JVMCMDARGCOUNT+5; i++) {
+		if (argv[i] != NULL) {
+			if (!strcmp(argv[i], "--help")){
+				return 1;
+			} else if ( argv[i+1] != NULL && !strcmp(argv[i], "-p")) {
+				if (!strcmp(argv[i+1], "both")) return 2;
+				else if (!strcmp(argv[i+1], "tela")) return 3;
+				else if (!strcmp(argv[i+1], "arquivo")) return 4;
+				else return E_OPCAO_NAO_EXISTENTE;
+			} else if ( argv[i+1] != NULL && !strcmp(argv[i], "-b")) {
+				strcpy(*basePath, argv[i+1]);
+				break;
+			}
+		}
+	}
+
 	if ((fp=fopen(argv[1],"rb"))==NULL) {
 		return E_ARGV1_FILE_NOT_EXISTENT; /*ERRO 2: argv[2] invalido: arquivo nao existente*/
 	}else{
 		fclose(fp);
-	}
-	if (argc > JVMCMDARGCOUNT + 1) {
-		if (!strcmp(argv[2],"--help")) {
-			return 1;
-		}else if ( argc > JVMCMDARGCOUNT + 2 && !strcmp(argv[2], "-p")) {
-			if (!strcmp(argv[3], "both")) return 2;
-			if (!strcmp(argv[3], "tela")) return 3;
-			if (!strcmp(argv[3], "arquivo")) return 4;
-		}
 	}
 	return E_SUCCESS;
 }
@@ -98,31 +106,6 @@ static int EscreveArquivo(DADOS d, char *arqName){
 
 	fclose(fp);
 	return E_SUCCESS;
-}
-
-char* getBasePath(char* pathName) {
-	int i = strlen(pathName), j = 0;
-	for (; i >= 0; --i) {
-		if (pathName[i] == '/') {
-			j++;
-			break;
-		} else if (pathName[i] == '\\') {
-			j++;
-			break;
-		}
-	}
-
-	int size = 0;
-	if (j == strlen(pathName)) {
-		size = j;
-	} else {
-		 size = strlen(pathName) - j + 1;
-	}
-	char* toReturn = (char*)malloc(size*sizeof(char));
-	toReturn[size-1] = '\0';
-	strncpy(toReturn, pathName, size);
-
-	return toReturn;
 }
 
 // inicializa uma estrutura do tipo UTIL

@@ -41,9 +41,17 @@ int checkIfFieldIsStatic(uint16_t access_flags) {
 
 /// retorna a concatenacao do nome qualificado da classe com .class
 static char* getClassPath(char* class_name) {
-	char* path = (char*)malloc(strlen(class_name) + 7);
+	char* path = (char*)malloc(strlen(maquina.basePath)+strlen(class_name) + 7);
 	if (strstr(class_name,".class") != NULL) return class_name;
-	sprintf(path, "%s.class", class_name);
+	if (!strcmp(class_name,"java/lang/Object") 
+		|| !strcmp(class_name,"java/lang/System") 
+		|| !strcmp(class_name,"java/io/PrintStream")
+		|| !strcmp(class_name,"java/lang/String")) {
+
+		sprintf(path, "%s.class", class_name);
+		return path;	
+	} 
+	sprintf(path, "%s/%s.class", maquina.basePath, class_name);
 	return path;
 }
 

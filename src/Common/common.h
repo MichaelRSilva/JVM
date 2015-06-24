@@ -80,5 +80,4 @@
 	// funcoes comuns a todos os modulos
 
 		DADOS initDADOS();
-		extern char* debugbuffer;
 #endif

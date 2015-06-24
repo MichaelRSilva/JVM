@@ -18,7 +18,7 @@ const ERRORS errordesc[] = {
 	{ E_CAFEBABE, "ERRO: Isso nao eh uma classe java"},
 	{ E_VERSION, "ERRO: minor_version precisa ser menor que major_version"},
 	{ W_NAOLIDOINTEIRO, "WARNING: bytecode nao lido completamente"},
-	{ E_OPCAO_NAO_EXISTENTE, "ERRO: opcao nao existente (ou '-tela' ou 'arquivo')"},
+	{ E_OPCAO_NAO_EXISTENTE, "ERRO: opcao nao existente (ou 'tela' ou 'arquivo' ou 'both')"},
 	{ E_DOLAR_NOT_SUPPORTED, "ERRO: This JVM does not support file names with the character $. ABORT."},
 	{ E_EMPTY_FRAME_STACK, "ERRO: Stack de Frames VAZIA!"},
 	{ E_STACK_OVERFLOW, "ERRO: Stack Overflow!"},
