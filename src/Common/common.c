@@ -92,31 +92,27 @@ long getLong(uint32_t highBytes, uint32_t lowBytes) {
 	pega e trata um double que esta na class, principalmente para exibir e tratar operacoes
 */
 double getDouble(uint32_t highBytes, uint32_t lowBytes) {
+	
 	uint64_t var = 0, auxVar;
 	int sinal = 0, expoente = 0;
 	uint64_t mantissa = 0;
+	double toReturn;
 
 	var = var | (uint64_t)highBytes;
 	var = var << 32;
 	var = var | (uint64_t)lowBytes;
 
-	auxVar = var >> 63;
 
-	if(auxVar == 0){
-		sinal = 1;
-	}else{
-		sinal = -1;
-	}
+	double *double_value = malloc(sizeof(double));
 
-	expoente = ((var >> 52) & 0x7ffL);
 
-	if(expoente == 0){
-		mantissa = (var & 0xfffffffffffffLL) << 1;
-	}else{
-		mantissa = (var & 0xfffffffffffffLL) | 0x10000000000000LL;
-	}
-	
-	double toReturn = sinal*mantissa*(pow(2,(expoente-1075)));
+	auxVar = (uint64_t)highBytes;
+	auxVar = auxVar << 32;
+	auxVar |= (uint64_t)lowBytes;
+
+	memcpy(double_value, &auxVar, sizeof(double));
+
+	toReturn = *double_value;
 	return toReturn;
 }
 

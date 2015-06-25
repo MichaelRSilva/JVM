@@ -265,10 +265,13 @@ static void _ldc2_w() {
     	maquina.current_frame->push2(completeValue);
 
     }else if(type == tDouble){	
+
     	high = maquina.current_frame->runtime_constant_pool->constants[indice-1].type.Double.highBytes;
     	low = maquina.current_frame->runtime_constant_pool->constants[indice-1].type.Double.lowBytes;
+
     	double d = getDouble(high, low);
     	memcpy(&completeValue, &d, sizeof(uint64_t));
+    	
     	maquina.current_frame->push2(completeValue);
     }
     
