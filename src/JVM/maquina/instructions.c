@@ -216,7 +216,7 @@ static void _ldc() {
 static void _ldc_w() {
 	uint64_t indice;
 	uint8_t type;
-	uint64_t high, low, completeValue;
+	uint64_t high, low;
 	
 	maquina.current_frame->pc++;
 
@@ -224,9 +224,9 @@ static void _ldc_w() {
 	maquina.current_frame->pc++;
 	low = maquina.current_frame->code_attr->code[maquina.current_frame->pc];
 
-	completeValue = high;
-	completeValue = completeValue << 8;
-	completeValue = completeValue | low;
+	indice = high;
+	indice = indice << 8;
+	indice = indice | low;
 
 	type = maquina.current_frame->runtime_constant_pool->constants[indice-1].tag;
 
@@ -721,7 +721,6 @@ static void _iastore() {
 static void _lastore() {
     uint64_t indice, low, high, aux;
     long value;
-    uint64_t auxValue;
     struct _array* arrayRef;
 
 
@@ -1295,7 +1294,7 @@ static void _lneg() {
 
 static void _fneg() {
 	float op, negative;
-	uint64_t value, other,result;
+	uint64_t value, result;
 
 	value = maquina.current_frame->pop();
 	memcpy(&op, &value, sizeof(uint32_t));
@@ -1368,7 +1367,6 @@ static void _ishr() {
 
 	int32_t value1,lowFive = 0x1f;
 	int32_t value2;
-	int neg = 0;
 	
 	value1 = maquina.current_frame->pop();
 	value1 = value1 & lowFive;
@@ -1565,14 +1563,14 @@ static void _i2l() {
 
 static void _i2f() {
 	int64_t value;
-	uint64_t value2;
+	uint64_t value2 = 0;
 	
 	float number;
 	value = (int64_t)maquina.current_frame->pop();
 	
 	number = (float)value;
 
-	memcpy(&value, &number, sizeof(int64_t));
+	memcpy(&value2, &number, sizeof(int64_t));
 	maquina.current_frame->push(value2);
 
 	maquina.current_frame->pc++;
@@ -1581,7 +1579,6 @@ static void _i2f() {
 static void _i2d() {
 	int64_t value1;
 	double value2;
-	uint64_t bigBits;
 	
 	value1 = maquina.current_frame->pop();
 	value2 = (double)value1;
@@ -1682,8 +1679,8 @@ static void _f2d() {
 
 static void _d2i() {
 
-	int64_t hop, lop, hopp, lopp;
-	double op, opp, mult;
+	int64_t hop, lop;
+	double op;
 	uint64_t final;
 	int64_t int_number;
 
@@ -1703,8 +1700,8 @@ static void _d2i() {
 
 static void _d2l() {
 
-	int64_t hop, lop, hopp, lopp;
-	double op, opp, mult;
+	int64_t hop, lop;
+	double op;
 	uint64_t final;
 	long long_number;
 
@@ -1725,8 +1722,8 @@ static void _d2l() {
 
 static void _d2f() {
 
-	int64_t hop, lop, hopp, lopp;
-	double op, opp, mult;
+	int64_t hop, lop;
+	double op;
 	uint32_t final;
 	float float_number;
 
@@ -2293,7 +2290,7 @@ static void _jsr() {
 
 	maquina.current_frame->push((maquina.current_frame->pc) + 3);
 	pathOne = maquina.current_frame->code_attr->code[(maquina.current_frame->pc)+1];
-	pathOne = maquina.current_frame->code_attr->code[(maquina.current_frame->pc)+2];
+	pathTwo = maquina.current_frame->code_attr->code[(maquina.current_frame->pc)+2];
 
 	desloc = pathOne;
 		desloc = desloc << 8;
@@ -2322,7 +2319,7 @@ static void _tableswitch() {
 	
 	int64_t *tabela;
 	int64_t defaultSwitch, min, max, indice;
-	uint64_t byte[12], genericByte[5],stopped,desloc;
+	uint64_t byte[12], genericByte[5],stopped;
 
 	indice = (int64_t)maquina.current_frame->pop();
 	stopped = maquina.current_frame->pc;
@@ -2609,9 +2606,8 @@ static void _getfield() {
 	int64_t classIndex, field_index, nameIndex, aux;
 	uint16_t nameTypeIndex;
 	char *className, *name, *type;
-	struct _object *objeto;
+	struct _object *objeto = NULL;
 	struct _field_info* aux2;
-	uint64_t valor;
 
 	high = maquina.current_frame->code_attr->code[++(maquina.current_frame->pc)];
 	low = maquina.current_frame->code_attr->code[++(maquina.current_frame->pc)];
@@ -2654,11 +2650,10 @@ static void _putfield() {
 	
 	uint8_t low, high;
 	uint64_t indice;
-	int64_t classIndex, field_index, nameIndex, aux, val_1,val_2;
+	int64_t classIndex, field_index, nameIndex, aux, val_1;
 	uint16_t nameTypeIndex;
 	char *className, *name, *type;
-	struct _object *objeto;
-	struct _field_info* aux2;
+	struct _object *objeto = NULL;
 	uint64_t valor,valor2;
 
 	high = maquina.current_frame->code_attr->code[++(maquina.current_frame->pc)];
@@ -2710,7 +2705,6 @@ static void _putfield() {
 static void _invokevirtual() {
 	
 	uint64_t indice, valorHigh, valorLow, vU8, array_ref;
-	uint64_t valor;
 	uint8_t low, high;
 	int64_t numParams, i, j;
 	int64_t classIndex, classIndexTemp;
@@ -3198,21 +3192,20 @@ static void _wide() {
 }
 
 static void _multianewarray() {
-	uint16_t byte1indice, byte2indice, indice, type, size;
+	uint8_t indexByte1 = 0, indexByte2 = 0, dimensions = 0;
+	uint16_t indice, type, size;
 	uint8_t quantidades;
 	uint64_t i, quantidade, tamanho;
 	void *array_reference;
 	char *array_type;
 
-	maquina.current_frame->pc++;
-	byte1indice = maquina.current_frame->code_attr->code[(maquina.current_frame->pc)];	  
-	maquina.current_frame->pc++;
-	byte1indice = maquina.current_frame->code_attr->code[(maquina.current_frame->pc)];
-	maquina.current_frame->pc++;
-	byte1indice = maquina.current_frame->code_attr->code[(maquina.current_frame->pc)];
-	maquina.current_frame->pc++;
+
+	indexByte1 = maquina.current_frame->code_attr->code[++maquina.current_frame->pc];	  
+	indexByte2 = maquina.current_frame->code_attr->code[++maquina.current_frame->pc];
+	dimensions = maquina.current_frame->code_attr->code[++maquina.current_frame->pc];
+
 	quantidades = maquina.current_frame->code_attr->code[(maquina.current_frame->pc)];
-	indice = ((byte1indice & 0xFF) << 8) |(byte2indice & 0xFF);
+	indice = ((indexByte1 << 8) | indexByte2);
 
 	quantidade = maquina.current_frame->pop();
 	array_reference = maquina.heap->newArray(quantidade,tREFERENCIA);

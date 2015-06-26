@@ -26,7 +26,6 @@ static void construirFrame(CLASS* class, struct _method_info* metodo) {
 				break;
 			}
 		}
-		CONSTANT_POOL* cp = maquina.current_frame->runtime_constant_pool;
 	} 
 	if (!flag) {
 
@@ -54,7 +53,6 @@ static void execute() {
 static void initialize(int class_index) { 
 	CLASS* class = maquina.method_area->classes[class_index];
 	struct _method_info* clinit = getclinit(class);
-	int flag = -1;
 
 	if (clinit == NULL) return; // classe abstrata ou interface
 	
@@ -66,7 +64,6 @@ static void initialize(int class_index) {
 
 /// aloca e inicializa valores default para os fields estaticos da classe indicada por $index
 static void prepare(uint32_t index) {
-	int count = 0;
 
 	for (int j = 0; j < maquina.method_area->classes[index]->fields_count; j++) {
 		if (checkIfFieldIsStatic(maquina.method_area->classes[index]->fields_pool->fields[j].access_flags)) {
@@ -257,7 +254,6 @@ static uint32_t retrieveFieldIndex(char *className, char *name, uint16_t nameLen
 	int32_t i;
 	CLASS *main_class;
 	uint8_t *getName, *getDesc;
-	uint16_t tamName, tamDesc;
 
 	main_class = getClassByName(className);
 	
@@ -348,7 +344,6 @@ struct _method_info *getMethodByNameDesc(CLASS *main_class, CLASS *name_type_cla
 }
 
 static uint64_t getNativeValueForStaticMethod(CLASS* class, struct _method_info* method) {
-	uint64_t toReturn;
 	char* method_name = class->constant_pool->getUtf8String(class->constant_pool, method->name_index);
 	char* type_desc = class->constant_pool->getUtf8String(class->constant_pool, method->descriptor_index);
 	

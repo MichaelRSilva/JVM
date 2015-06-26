@@ -94,8 +94,6 @@ long getLong(uint32_t highBytes, uint32_t lowBytes) {
 double getDouble(uint32_t highBytes, uint32_t lowBytes) {
 	
 	uint64_t var = 0, auxVar;
-	int sinal = 0, expoente = 0;
-	uint64_t mantissa = 0;
 	double toReturn;
 
 	var = var | (uint64_t)highBytes;
@@ -103,7 +101,7 @@ double getDouble(uint32_t highBytes, uint32_t lowBytes) {
 	var = var | (uint64_t)lowBytes;
 
 
-	double *double_value = malloc(sizeof(double));
+	double *double_value = (double*)malloc(sizeof(double));
 
 
 	auxVar = (uint64_t)highBytes;
