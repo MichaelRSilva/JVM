@@ -14,7 +14,7 @@ CLASS* criaSystem() {
 // funcoes somente visiveis a struct classloader
 static CLASS* load(CLASS_LOADER* this, char* fileName) {
 	DADOS d = getUTILInstance().LeArquivo(fileName);
-	int flag = 0, contador = 0, cp_size = 0;
+	int flag = 0;
 	uint8_t* base_pointer = d.bytes;
 
 	this->class->magic = getMagicNumber(&d);

@@ -113,7 +113,6 @@ static void addExtended(CONSTANT_POOL* cp, int ordem) {
 */
 static CONSTANT_POOL* populateConstantPool(CLASS* this, DADOS* d){
 	CONSTANT_POOL* toReturn = initCONSTANT_POOL(this->constant_pool_count);
-	int returnContinued = 0;
 	
 	for (int i = 0; i < this->constant_pool_count - 1; i++) {
 		if(toReturn->addConstant(toReturn, i, d) == 1){

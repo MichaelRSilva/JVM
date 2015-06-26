@@ -15,8 +15,6 @@
 */
 static int VerificaLeitorExibidorCMDArgs(int argc, char **argv){
 	FILE *fp;
-    char *arq1name;
-    int i;
 
     if (argc < LEITOREXIBIDORCMDARGCOUNT + 1 || argc > LEITOREXIBIDORCMDARGCOUNT + 2){
         return E_INVALID_NUM_ARGS; /*ERRO 1: invalido numero de argumentos*/
@@ -36,8 +34,6 @@ static int VerificaLeitorExibidorCMDArgs(int argc, char **argv){
 */
 static int VerificaJVMCMDArgs(int argc, char** argv, char** basePath){
 	FILE *fp;
-    char *arq1name;
-    int i;
 
     if (argc < JVMCMDARGCOUNT + 1 || argc > JVMCMDARGCOUNT + 5){
         return E_INVALID_NUM_ARGS; /*ERRO 1: invalido numero de argumentos*/

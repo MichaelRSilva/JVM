@@ -7,6 +7,7 @@ static void printConstantValue(struct _attribute_info attr, char *tab, CONSTANT_
 	fprintf(output,"%s[%d]%s\n", tab, ordem,cp->constants[attr.attributeNameIndex-1].type.Utf8.bytes);
 	fprintf(output,"%s\tAttribute name index: %d\n", tab,attr.attributeNameIndex);
 	fprintf(output,"%s\tAttribute length: %d\n", tab,attr.attributeLength);
+	
 
 	fprintf(output,"%s\tConstant value index: %d\n", tab,attr.info.ConstantValueAttribute.constantvalue_index);
 }

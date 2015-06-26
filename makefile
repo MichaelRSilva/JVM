@@ -1,4 +1,4 @@
-parmes = gcc -g -std=c99
+parmes = gcc -g -std=c99 -Wall
 final = -lm
 
 all: JVM LeitorExibidor limpa
