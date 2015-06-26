@@ -79,4 +79,5 @@
 	} CONSTANT_POOL;
 	
 	CONSTANT_POOL* initCONSTANT_POOL(int);
+	extern CONSTANT_POOL Mconstantpool;
 #endif

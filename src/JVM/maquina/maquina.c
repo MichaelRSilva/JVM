@@ -15,6 +15,7 @@
 #include "frame.c"
 #include "method_area.c"
 
+
 /// constroi e coloca no topo do stack de frames o frame relacionado com $metodo e $class
 static void construirFrame(CLASS* class, struct _method_info* metodo) {
 	int flag = 0;
@@ -94,7 +95,7 @@ static int loadParentClasses() {
 		CLASS_LOADER *cl = initCLASS_LOADER();
 
 		expandClassArray();
-		cl->load(cl, getClassPath(parentName));
+		cl->load(cl, Mutil.getClassPath(maquina.basePath,parentName));
 		maquina.method_area->classes[maquina.method_area->classes_count++]= cl->class;
 
 		link(maquina.method_area->classes_count-1);
@@ -119,7 +120,7 @@ static int loadInterfaces(CLASS* class) {
 		
 		if (getInterfceIndex(name) == -1) {
 			expandInterfaceArray();
-			cl->load(cl, getClassPath(name));
+			cl->load(cl, Mutil.getClassPath(maquina.basePath, name));
 			maquina.method_area->interfaces[maquina.method_area->interfaces_count++] = cl->class;
 		}
 		
@@ -139,7 +140,7 @@ static int loadClass(char* name) {
 	if ((toReturn = getClassIndex(name)) <= -1) {
 		CLASS_LOADER* cl = initCLASS_LOADER();
 
-		cl->load(cl, getClassPath(name));
+		cl->load(cl, Mutil.getClassPath(maquina.basePath, name));
 
 		toReturn = maquina.method_area->classes_count;
 		expandClassArray();
@@ -370,7 +371,7 @@ JVM initJVM(char* class_name) {
 	toReturn.basePath[0] = '\0';
 	toReturn.current_frame = NULL;
 
-	// init funcoes`
+	// init funcoes
 	toReturn.loadClass = loadClass;
 	toReturn.link = link;
 	toReturn.initialize = initialize;
@@ -392,8 +393,6 @@ JVM initJVM(char* class_name) {
 	toReturn.loadInterfaces = loadInterfaces;
 	toReturn.getNativeValueForStaticMethod = getNativeValueForStaticMethod;
 	toReturn.searchStaticFieldVal = searchStaticFieldVal;
-
-	
 
 	return toReturn;
 }

@@ -107,4 +107,5 @@
 	} ATTRIBUTE_POOL;
 
 	ATTRIBUTE_POOL* initATTRIBUTE_POOL(int);
+	extern ATTRIBUTE_POOL Mattributepool;
 #endif

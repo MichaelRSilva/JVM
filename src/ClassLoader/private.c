@@ -1,4 +1,5 @@
 #include "classloader.h"
+UTIL Mutil;
 
 /*!
 	verifica se eh um .class valido, para isso os primeiros 32bits tem que ser 0xCAFEBABE

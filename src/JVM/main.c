@@ -13,6 +13,7 @@
 #include "maquina/maquina.h"
 #include "misc.c"
 
+UTIL Mutil;
 void imprimeHelper();
 
 /*!
@@ -20,10 +21,10 @@ void imprimeHelper();
 */
 int main(int argc, char **argv) {
 	int flag;
-	UTIL util = getUTILInstance();
+	Mutil = initUTIL();
 	maquina = initJVM();
 
-	if((flag = util.VerificaJVMCMDArgs(argc, argv, &maquina.basePath)) >= 0) {
+	if((flag = Mutil.VerificaJVMCMDArgs(argc, argv, &maquina.basePath)) >= 0) {
 		if (flag > 0) {
 			switch (flag) {
 				case 1:

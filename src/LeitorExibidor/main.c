@@ -13,7 +13,7 @@
 
 int main(int argc, char **argv) {
 	int flag;
-	UTIL util = getUTILInstance();
+	UTIL util = initUTIL();
 	CLASS_LOADER* cl = initCLASS_LOADER();
 
 	if(!(flag = util.VerificaLeitorExibidorCMDArgs(argc, argv))) {

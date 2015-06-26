@@ -9,6 +9,7 @@
 	JVM - Software Basico 1/2015
 */
 #include "util.h"
+UTIL Mutil;
 
 /*!
 	trata se os argumentos passados para o executavel, se esta correto
@@ -27,6 +28,22 @@ static int VerificaLeitorExibidorCMDArgs(int argc, char **argv){
 		fclose(fp);
 	}
 	return E_SUCCESS;
+}
+
+/// retorna a concatenacao do nome qualificado da classe com .class
+static char* getClassPath(char* base_path, char* class_name) {
+	char* path = (char*)malloc(strlen(base_path)+strlen(class_name) + 7);
+	if (strstr(class_name,".class") != NULL) return class_name;
+	if (!strcmp(class_name,"java/lang/Object") 
+		|| !strcmp(class_name,"java/lang/System") 
+		|| !strcmp(class_name,"java/io/PrintStream")
+		|| !strcmp(class_name,"java/lang/String")) {
+
+		sprintf(path, "%s.class", class_name);
+		return path;	
+	} 
+	sprintf(path, "%s/%s.class", base_path, class_name);
+	return path;
 }
 
 /*!
@@ -55,7 +72,7 @@ static int VerificaJVMCMDArgs(int argc, char** argv, char** basePath){
 		}
 	}
 
-	if ((fp=fopen(argv[1],"rb"))==NULL) {
+	if ((fp=fopen(getClassPath(*basePath,argv[1]),"rb"))==NULL) {
 		return E_ARGV1_FILE_NOT_EXISTENT; /*ERRO 2: argv[2] invalido: arquivo nao existente*/
 	}else{
 		fclose(fp);
@@ -105,9 +122,10 @@ static int EscreveArquivo(DADOS d, char *arqName){
 }
 
 // inicializa uma estrutura do tipo UTIL
-UTIL getUTILInstance(void){
+UTIL initUTIL(void){
 	UTIL util;
 	
+	util.getClassPath = getClassPath;
 	util.VerificaJVMCMDArgs = VerificaJVMCMDArgs;
 	util.VerificaLeitorExibidorCMDArgs = VerificaLeitorExibidorCMDArgs;
 	util.LeArquivo = LeArquivo;

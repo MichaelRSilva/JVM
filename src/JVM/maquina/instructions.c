@@ -13,6 +13,11 @@
 
 #include "maquina.h"
 
+UTIL Mutil;
+CLASS Mclass;
+METHOD_POOL Mmethodpool;
+ATTRIBUTE_POOL Mattributepool;
+CONSTANT_POOL Mconstantpool;
 JVM maquina;
 
 uint8_t WIDE = 0;

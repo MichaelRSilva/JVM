@@ -28,5 +28,5 @@
 	} FIELD_POOL;
 	
 	FIELD_POOL* initFIELD_POOL(int);
-
+	extern FIELD_POOL Mfieldpool;
 #endif

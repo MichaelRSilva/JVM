@@ -16,6 +16,7 @@ var searchData=
   ['initmethod_5farea',['initMETHOD_AREA',['../method__area_8c.html#a8ca7d2ec7784acdd23909b8ca9306300',1,'method_area.c']]],
   ['initmethod_5fpool',['initMETHOD_POOL',['../methodinfo_8c.html#abd19cd80bf6b3ed846202b11898f6fc8',1,'initMETHOD_POOL(int count):&#160;methodinfo.c'],['../methodinfo_8h.html#aa8ee180bc68d7a767036d5a0265b9837',1,'initMETHOD_POOL(int):&#160;methodinfo.c']]],
   ['initstack',['initSTACK',['../maquina_8h.html#a5a7896806f46e29206a26eaa1d62951d',1,'initSTACK():&#160;stack.c'],['../stack_8c.html#a5a7896806f46e29206a26eaa1d62951d',1,'initSTACK():&#160;stack.c']]],
+  ['initutil',['initUTIL',['../util_8c.html#a4129d1fa22cda2bf2e9e132f6e76e340',1,'initUTIL(void):&#160;util.c'],['../util_8h.html#a4129d1fa22cda2bf2e9e132f6e76e340',1,'initUTIL(void):&#160;util.c']]],
   ['inner_5fclass_5faccess_5fflags',['inner_class_access_flags',['../struct__classes.html#a61688546a450886a7ca2a9bd23950b2b',1,'_classes']]],
   ['inner_5fclass_5finfo_5findex',['inner_class_info_index',['../struct__classes.html#a9b58e71fe70ff125d9b02c41d241802d',1,'_classes']]],
   ['inner_5fname_5findex',['inner_name_index',['../struct__classes.html#a1e414ee4b11b18f465cc89e1efe3a179',1,'_classes']]],

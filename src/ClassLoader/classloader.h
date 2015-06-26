@@ -24,4 +24,5 @@
 	} CLASS_LOADER;
 
 	CLASS_LOADER* initCLASS_LOADER();
+	extern CLASS_LOADER Mclassloader;
 #endif

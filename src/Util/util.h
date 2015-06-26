@@ -25,6 +25,8 @@
 		Isso traz mais legibilidade ao código.
 	*/	
 	typedef struct _util {
+		char* (*getClassPath)(char*,char*);
+
 		/// Verifica se os argumentos passados por linha de comando para a JVM estão ok.
 		/*!
 			@param %1 quantidade de argumentos.
@@ -61,6 +63,6 @@
 	/*!
 		@return Uma estrutura UTIL contendo os métodos auxiliares para IO
 	*/
-	UTIL getUTILInstance(void);
+	UTIL initUTIL(void);
 	char* getBasePath(char*);
 #endif

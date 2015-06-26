@@ -12,5 +12,6 @@ var searchData=
   ['initjvm',['initJVM',['../maquina_8c.html#a1922d703fdf365ee00a3fd0a9e89508c',1,'initJVM(char *class_name):&#160;maquina.c'],['../maquina_8h.html#a72b9088b3d6e90cc4cd0d24952be24bd',1,'initJVM():&#160;maquina.h']]],
   ['initmethod_5farea',['initMETHOD_AREA',['../method__area_8c.html#a8ca7d2ec7784acdd23909b8ca9306300',1,'method_area.c']]],
   ['initmethod_5fpool',['initMETHOD_POOL',['../methodinfo_8c.html#abd19cd80bf6b3ed846202b11898f6fc8',1,'initMETHOD_POOL(int count):&#160;methodinfo.c'],['../methodinfo_8h.html#aa8ee180bc68d7a767036d5a0265b9837',1,'initMETHOD_POOL(int):&#160;methodinfo.c']]],
-  ['initstack',['initSTACK',['../maquina_8h.html#a5a7896806f46e29206a26eaa1d62951d',1,'initSTACK():&#160;stack.c'],['../stack_8c.html#a5a7896806f46e29206a26eaa1d62951d',1,'initSTACK():&#160;stack.c']]]
+  ['initstack',['initSTACK',['../maquina_8h.html#a5a7896806f46e29206a26eaa1d62951d',1,'initSTACK():&#160;stack.c'],['../stack_8c.html#a5a7896806f46e29206a26eaa1d62951d',1,'initSTACK():&#160;stack.c']]],
+  ['initutil',['initUTIL',['../util_8c.html#a4129d1fa22cda2bf2e9e132f6e76e340',1,'initUTIL(void):&#160;util.c'],['../util_8h.html#a4129d1fa22cda2bf2e9e132f6e76e340',1,'initUTIL(void):&#160;util.c']]]
 ];

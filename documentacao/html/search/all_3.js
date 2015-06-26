@@ -28,7 +28,6 @@ var searchData=
   ['constantvalueattribute',['ConstantValueAttribute',['../struct__attribute__info.html#a02bb67bfbb9b78ca07a464d4d38cd0d2',1,'_attribute_info']]],
   ['construirframe',['construirFrame',['../struct_j_v_m.html#a6659e2c9a575d7436d712494eb267e2f',1,'JVM']]],
   ['count',['count',['../struct_s_t_a_c_k.html#ab0a0d83d6aa686cfbcadadf6462d21d1',1,'STACK']]],
-  ['criasystem',['criaSystem',['../public_8c.html#a2d22ab34e946e8121865baa8ca444f70',1,'public.c']]],
   ['current_5fclass',['current_class',['../struct_f_r_a_m_e.html#a9532d23856bceb718a4c9469cf35cafa',1,'FRAME']]],
   ['current_5fframe',['current_frame',['../struct_j_v_m.html#a76571dd772a50d3e1ac7c48ae972d979',1,'JVM']]]
 ];

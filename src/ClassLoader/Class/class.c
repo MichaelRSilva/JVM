@@ -1,4 +1,8 @@
 #include "class.h"
+ATTRIBUTE_POOL Mattributepool;
+CONSTANT_POOL Mconstantpool;
+FIELD_POOL Mfieldpool;
+METHOD_POOL Mmethodpool;
 
 /*!
 	devolve o nome de uma classe recebida
