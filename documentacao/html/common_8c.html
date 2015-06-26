@@ -116,6 +116,16 @@ $(document).ready(function(){initNavTree('common_8c.html','');});
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Funções</h2></td></tr>
+<tr class="memitem:a6a99c69202056e789fd253104785ddb1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="common_8c.html#a6a99c69202056e789fd253104785ddb1">error</a> (int errorcode)</td></tr>
+<tr class="separator:a6a99c69202056e789fd253104785ddb1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae3d4e23b24e8d9748ca5a107a7340195"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="common_8c.html#ae3d4e23b24e8d9748ca5a107a7340195">debug</a> (char *msg)</td></tr>
+<tr class="separator:ae3d4e23b24e8d9748ca5a107a7340195"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6a0091de1a99fa3b3d1ebf38e465c228"><td class="memItemLeft" align="right" valign="top">const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="common_8c.html#a6a0091de1a99fa3b3d1ebf38e465c228">returnAccessFlagsName</a> (uint16_t hexadecimal)</td></tr>
+<tr class="separator:a6a0091de1a99fa3b3d1ebf38e465c228"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a649e497f7a134e61541a1c57c422aa14"><td class="memItemLeft" align="right" valign="top">long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="common_8c.html#a649e497f7a134e61541a1c57c422aa14">getLong</a> (uint32_t highBytes, uint32_t lowBytes)</td></tr>
+<tr class="separator:a649e497f7a134e61541a1c57c422aa14"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a97bf6fcfa047bc2acd5880222fa7efe6"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="common_8c.html#a97bf6fcfa047bc2acd5880222fa7efe6">getDouble</a> (uint32_t highBytes, uint32_t lowBytes)</td></tr>
+<tr class="separator:a97bf6fcfa047bc2acd5880222fa7efe6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a49a635a07acdf10dadb8fc132b070d65"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_d_a_d_o_s.html">DADOS</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="common_8c.html#a49a635a07acdf10dadb8fc132b070d65">initDADOS</a> ()</td></tr>
 <tr class="memdesc:a49a635a07acdf10dadb8fc132b070d65"><td class="mdescLeft">&#160;</td><td class="mdescRight">inicializa uma estrutura do tipo <a class="el" href="struct_d_a_d_o_s.html" title="Estrutura para representação de dados como array de bytes. ">DADOS</a>.  <a href="#a49a635a07acdf10dadb8fc132b070d65">Mais...</a><br /></td></tr>
 <tr class="separator:a49a635a07acdf10dadb8fc132b070d65"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -133,8 +143,93 @@ Variáveis</h2></td></tr>
 <li>Marcus da Silva Ferreira - 10/0056881</li>
 <li>Michael Rodrigues - 09/0126432</li>
 </ul>
-<p>JVM - Software Basico 1/2015 </p>
+<p><a class="el" href="struct_j_v_m.html">JVM</a> - Software Basico 1/2015 </p>
 </div><h2 class="groupheader">Documentação das funções</h2>
+<a class="anchor" id="ae3d4e23b24e8d9748ca5a107a7340195"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void debug </td>
+          <td>(</td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>msg</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a6a99c69202056e789fd253104785ddb1"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void error </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>errorcode</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a97bf6fcfa047bc2acd5880222fa7efe6"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double getDouble </td>
+          <td>(</td>
+          <td class="paramtype">uint32_t&#160;</td>
+          <td class="paramname"><em>highBytes</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t&#160;</td>
+          <td class="paramname"><em>lowBytes</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>pega e trata um double que esta na class, principalmente para exibir e tratar operacoes </p>
+
+</div>
+</div>
+<a class="anchor" id="a649e497f7a134e61541a1c57c422aa14"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">long getLong </td>
+          <td>(</td>
+          <td class="paramtype">uint32_t&#160;</td>
+          <td class="paramname"><em>highBytes</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t&#160;</td>
+          <td class="paramname"><em>lowBytes</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a class="anchor" id="a49a635a07acdf10dadb8fc132b070d65"></a>
 <div class="memitem">
 <div class="memproto">
@@ -152,6 +247,23 @@ Variáveis</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="a6a0091de1a99fa3b3d1ebf38e465c228"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const char* returnAccessFlagsName </td>
+          <td>(</td>
+          <td class="paramtype">uint16_t&#160;</td>
+          <td class="paramname"><em>hexadecimal</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>dado um hexadecimal, devolve uma string com o nome do acesso, principalmente para exibir no leitor-exibidor </p>
+
+</div>
+</div>
 <h2 class="groupheader">Documentação das variáveis</h2>
 <a class="anchor" id="a689f73905e587e3f0ec800857c9f7499"></a>
 <div class="memitem">
@@ -165,11 +277,31 @@ Variáveis</h2></td></tr>
 <b>Valor inicial:</b><div class="fragment"><div class="line">= {</div>
 <div class="line">    { <a class="code" href="common_8h.html#a34753b0bbe7e878508c8338f40433fe4ac3121e429a129b2ccb51a92b7c78c4b4">E_SUCCESS</a>, <span class="stringliteral">&quot;&quot;</span>},</div>
 <div class="line">    { <a class="code" href="common_8h.html#a34753b0bbe7e878508c8338f40433fe4a1b7ea43957a152b7b32d7d21a6fb8ad1">E_INVALID_NUM_ARGS</a>, <span class="stringliteral">&quot;ERRO: numero de argumentos invalido&quot;</span>},</div>
-<div class="line">    { <a class="code" href="common_8h.html#a34753b0bbe7e878508c8338f40433fe4aebee5a6b3088571da0adece036d7f46f">E_ARGV1_FILE_NOT_EXISTENT</a>, <span class="stringliteral">&quot;ERRO: arquivo nao existente&quot;</span>}</div>
+<div class="line">    { <a class="code" href="common_8h.html#a34753b0bbe7e878508c8338f40433fe4aebee5a6b3088571da0adece036d7f46f">E_ARGV1_FILE_NOT_EXISTENT</a>, <span class="stringliteral">&quot;ERRO: arquivo nao existente&quot;</span>},</div>
+<div class="line">    { <a class="code" href="common_8h.html#a34753b0bbe7e878508c8338f40433fe4aab89597d5054c02c938acf41850758d2">E_CAFEBABE</a>, <span class="stringliteral">&quot;ERRO: Isso nao eh uma classe java&quot;</span>},</div>
+<div class="line">    { <a class="code" href="common_8h.html#a34753b0bbe7e878508c8338f40433fe4af292ef15e3e11ac7ec5d0772ee9745c4">E_VERSION</a>, <span class="stringliteral">&quot;ERRO: minor_version precisa ser menor que major_version&quot;</span>},</div>
+<div class="line">    { <a class="code" href="common_8h.html#a34753b0bbe7e878508c8338f40433fe4a10d3f70ed3a9f49f0400acf5cb7a46e3">W_NAOLIDOINTEIRO</a>, <span class="stringliteral">&quot;WARNING: bytecode nao lido completamente&quot;</span>},</div>
+<div class="line">    { <a class="code" href="common_8h.html#a34753b0bbe7e878508c8338f40433fe4a9ede723d00e28e6034ad8591e2864c07">E_OPCAO_NAO_EXISTENTE</a>, <span class="stringliteral">&quot;ERRO: opcao nao existente (ou &#39;tela&#39; ou &#39;arquivo&#39; ou &#39;both&#39;)&quot;</span>},</div>
+<div class="line">    { <a class="code" href="common_8h.html#a34753b0bbe7e878508c8338f40433fe4a86b7e06f025001af455810e28271bc1c">E_DOLAR_NOT_SUPPORTED</a>, <span class="stringliteral">&quot;ERRO: This JVM does not support file names with the character $. ABORT.&quot;</span>},</div>
+<div class="line">    { <a class="code" href="common_8h.html#a34753b0bbe7e878508c8338f40433fe4a7e82f5997b6f56e2bb68099c8f658636">E_EMPTY_FRAME_STACK</a>, <span class="stringliteral">&quot;ERRO: Stack de Frames VAZIA!&quot;</span>},</div>
+<div class="line">    { <a class="code" href="common_8h.html#a34753b0bbe7e878508c8338f40433fe4a3d8b96b82b0cbde16c0b7e172d6b7e89">E_STACK_OVERFLOW</a>, <span class="stringliteral">&quot;ERRO: Stack Overflow!&quot;</span>},</div>
+<div class="line">    { <a class="code" href="common_8h.html#a34753b0bbe7e878508c8338f40433fe4a3f13f4a9345a0967705497ccadcec805">E_NO_MAIN_FOUND</a>, <span class="stringliteral">&quot;ERRO: Nao foi encontrado nenhuma main!&quot;</span>},</div>
+<div class="line">    { <a class="code" href="common_8h.html#a34753b0bbe7e878508c8338f40433fe4a4e63e2d4bab8e8674b5cdd51a8f64fbe">E_EMPTY_STACK</a>, <span class="stringliteral">&quot;ERRO: Operand Stack vazio!&quot;</span>},</div>
+<div class="line">    { <a class="code" href="common_8h.html#a34753b0bbe7e878508c8338f40433fe4a8fb2003b872b20668cc1beffa11fd93a">E_NOTSUPPORTED_VERSION</a>, <span class="stringliteral">&quot;ERRO: Versao Java nao suportada!&quot;</span>}</div>
 <div class="line">}</div>
-<div class="ttc" id="common_8h_html_a34753b0bbe7e878508c8338f40433fe4a1b7ea43957a152b7b32d7d21a6fb8ad1"><div class="ttname"><a href="common_8h.html#a34753b0bbe7e878508c8338f40433fe4a1b7ea43957a152b7b32d7d21a6fb8ad1">E_INVALID_NUM_ARGS</a></div><div class="ttdef"><b>Definition:</b> common.h:24</div></div>
-<div class="ttc" id="common_8h_html_a34753b0bbe7e878508c8338f40433fe4ac3121e429a129b2ccb51a92b7c78c4b4"><div class="ttname"><a href="common_8h.html#a34753b0bbe7e878508c8338f40433fe4ac3121e429a129b2ccb51a92b7c78c4b4">E_SUCCESS</a></div><div class="ttdef"><b>Definition:</b> common.h:23</div></div>
-<div class="ttc" id="common_8h_html_a34753b0bbe7e878508c8338f40433fe4aebee5a6b3088571da0adece036d7f46f"><div class="ttname"><a href="common_8h.html#a34753b0bbe7e878508c8338f40433fe4aebee5a6b3088571da0adece036d7f46f">E_ARGV1_FILE_NOT_EXISTENT</a></div><div class="ttdef"><b>Definition:</b> common.h:25</div></div>
+<div class="ttc" id="common_8h_html_a34753b0bbe7e878508c8338f40433fe4a1b7ea43957a152b7b32d7d21a6fb8ad1"><div class="ttname"><a href="common_8h.html#a34753b0bbe7e878508c8338f40433fe4a1b7ea43957a152b7b32d7d21a6fb8ad1">E_INVALID_NUM_ARGS</a></div><div class="ttdef"><b>Definition:</b> common.h:42</div></div>
+<div class="ttc" id="common_8h_html_a34753b0bbe7e878508c8338f40433fe4af292ef15e3e11ac7ec5d0772ee9745c4"><div class="ttname"><a href="common_8h.html#a34753b0bbe7e878508c8338f40433fe4af292ef15e3e11ac7ec5d0772ee9745c4">E_VERSION</a></div><div class="ttdef"><b>Definition:</b> common.h:42</div></div>
+<div class="ttc" id="common_8h_html_a34753b0bbe7e878508c8338f40433fe4a7e82f5997b6f56e2bb68099c8f658636"><div class="ttname"><a href="common_8h.html#a34753b0bbe7e878508c8338f40433fe4a7e82f5997b6f56e2bb68099c8f658636">E_EMPTY_FRAME_STACK</a></div><div class="ttdef"><b>Definition:</b> common.h:43</div></div>
+<div class="ttc" id="common_8h_html_a34753b0bbe7e878508c8338f40433fe4a8fb2003b872b20668cc1beffa11fd93a"><div class="ttname"><a href="common_8h.html#a34753b0bbe7e878508c8338f40433fe4a8fb2003b872b20668cc1beffa11fd93a">E_NOTSUPPORTED_VERSION</a></div><div class="ttdef"><b>Definition:</b> common.h:44</div></div>
+<div class="ttc" id="common_8h_html_a34753b0bbe7e878508c8338f40433fe4a10d3f70ed3a9f49f0400acf5cb7a46e3"><div class="ttname"><a href="common_8h.html#a34753b0bbe7e878508c8338f40433fe4a10d3f70ed3a9f49f0400acf5cb7a46e3">W_NAOLIDOINTEIRO</a></div><div class="ttdef"><b>Definition:</b> common.h:43</div></div>
+<div class="ttc" id="common_8h_html_a34753b0bbe7e878508c8338f40433fe4aab89597d5054c02c938acf41850758d2"><div class="ttname"><a href="common_8h.html#a34753b0bbe7e878508c8338f40433fe4aab89597d5054c02c938acf41850758d2">E_CAFEBABE</a></div><div class="ttdef"><b>Definition:</b> common.h:42</div></div>
+<div class="ttc" id="common_8h_html_a34753b0bbe7e878508c8338f40433fe4a3d8b96b82b0cbde16c0b7e172d6b7e89"><div class="ttname"><a href="common_8h.html#a34753b0bbe7e878508c8338f40433fe4a3d8b96b82b0cbde16c0b7e172d6b7e89">E_STACK_OVERFLOW</a></div><div class="ttdef"><b>Definition:</b> common.h:44</div></div>
+<div class="ttc" id="common_8h_html_a34753b0bbe7e878508c8338f40433fe4a9ede723d00e28e6034ad8591e2864c07"><div class="ttname"><a href="common_8h.html#a34753b0bbe7e878508c8338f40433fe4a9ede723d00e28e6034ad8591e2864c07">E_OPCAO_NAO_EXISTENTE</a></div><div class="ttdef"><b>Definition:</b> common.h:43</div></div>
+<div class="ttc" id="common_8h_html_a34753b0bbe7e878508c8338f40433fe4a86b7e06f025001af455810e28271bc1c"><div class="ttname"><a href="common_8h.html#a34753b0bbe7e878508c8338f40433fe4a86b7e06f025001af455810e28271bc1c">E_DOLAR_NOT_SUPPORTED</a></div><div class="ttdef"><b>Definition:</b> common.h:43</div></div>
+<div class="ttc" id="common_8h_html_a34753b0bbe7e878508c8338f40433fe4a4e63e2d4bab8e8674b5cdd51a8f64fbe"><div class="ttname"><a href="common_8h.html#a34753b0bbe7e878508c8338f40433fe4a4e63e2d4bab8e8674b5cdd51a8f64fbe">E_EMPTY_STACK</a></div><div class="ttdef"><b>Definition:</b> common.h:44</div></div>
+<div class="ttc" id="common_8h_html_a34753b0bbe7e878508c8338f40433fe4ac3121e429a129b2ccb51a92b7c78c4b4"><div class="ttname"><a href="common_8h.html#a34753b0bbe7e878508c8338f40433fe4ac3121e429a129b2ccb51a92b7c78c4b4">E_SUCCESS</a></div><div class="ttdef"><b>Definition:</b> common.h:42</div></div>
+<div class="ttc" id="common_8h_html_a34753b0bbe7e878508c8338f40433fe4aebee5a6b3088571da0adece036d7f46f"><div class="ttname"><a href="common_8h.html#a34753b0bbe7e878508c8338f40433fe4aebee5a6b3088571da0adece036d7f46f">E_ARGV1_FILE_NOT_EXISTENT</a></div><div class="ttdef"><b>Definition:</b> common.h:42</div></div>
+<div class="ttc" id="common_8h_html_a34753b0bbe7e878508c8338f40433fe4a3f13f4a9345a0967705497ccadcec805"><div class="ttname"><a href="common_8h.html#a34753b0bbe7e878508c8338f40433fe4a3f13f4a9345a0967705497ccadcec805">E_NO_MAIN_FOUND</a></div><div class="ttdef"><b>Definition:</b> common.h:44</div></div>
 </div><!-- fragment -->
 <p>Variável global para acessar as mensagens de erro dado um código. </p>
 
@@ -181,7 +313,7 @@ Variáveis</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_ba210d1fa67db7bee1bb22e0a3c11d9f.html">Common</a></li><li class="navelem"><a class="el" href="common_8c.html">common.c</a></li>
-    <li class="footer">Gerado em Sábado, 25 de Abril de 2015 23:36:08 para JVM por
+    <li class="footer">Gerado em Quarta, 24 de Junho de 2015 14:43:28 para JVM por
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.9.1 </li>
   </ul>

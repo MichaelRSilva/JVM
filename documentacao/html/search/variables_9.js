@@ -1,13 +1,23 @@
 var searchData=
 [
-  ['magic',['magic',['../struct_c_l_a_s_s.html#a7a1782746495c6d7816e672559f91791',1,'CLASS']]],
-  ['major_5fversion',['major_version',['../struct_c_l_a_s_s.html#a949d5b8f4ea8f506d3baffdff9cdd343',1,'CLASS']]],
-  ['max_5flocals',['max_locals',['../struct__attribute__info.html#a38abc68ae5fa15aa3a90b273e4058a26',1,'_attribute_info']]],
-  ['max_5fstack',['max_stack',['../struct__attribute__info.html#a75b7e4caf58bcd5cfb51b85b83785de0',1,'_attribute_info']]],
-  ['message',['message',['../struct_e_r_r_o_r_s.html#a2db230ecb811414cd5efae1a88431345',1,'ERRORS']]],
-  ['methodref',['MethodRef',['../struct__constant__info.html#af0d9dc67a96272417d39c6f73551db57',1,'_constant_info']]],
-  ['methods',['methods',['../struct_m_e_t_h_o_d___p_o_o_l.html#a27caa7382e44e917d9023f42aea30e70',1,'METHOD_POOL']]],
-  ['methods_5fcount',['methods_count',['../struct_c_l_a_s_s.html#ac255dba34ea9d30e85eaf801bcf9c9d1',1,'CLASS']]],
-  ['methods_5fpool',['methods_pool',['../struct_c_l_a_s_s.html#ad8335e49bbd4d014605fc39a555016b6',1,'CLASS']]],
-  ['minor_5fversion',['minor_version',['../struct_c_l_a_s_s.html#a41cd75d7348aa41445f4c6ab91429cdd',1,'CLASS']]]
+  ['le1byte',['le1Byte',['../struct_d_a_d_o_s.html#a90828def35fd4741440ceff145cc81a2',1,'DADOS']]],
+  ['le2bytes',['le2Bytes',['../struct_d_a_d_o_s.html#a66f5a233163d19e1f4630af0781deb35',1,'DADOS']]],
+  ['le4bytes',['le4Bytes',['../struct_d_a_d_o_s.html#ad5e767009adc81bc4efd6b6b94929200',1,'DADOS']]],
+  ['learquivo',['LeArquivo',['../struct_u_t_i_l.html#a16725d3171ac05ebf3cc0cb10ddca065',1,'UTIL']]],
+  ['length',['length',['../struct__local__variable__table.html#a67a7bdec9a705f7f83dc4ef3b3a03967',1,'_local_variable_table']]],
+  ['line_5fnumber',['line_number',['../struct__line__number__table.html#a8e87d5d8f9097ea2a600565c7ffed8fc',1,'_line_number_table']]],
+  ['line_5fnumber_5ftable',['line_number_table',['../struct__attribute__info.html#a3f7303f79db0cd61b1c46c2931b3d372',1,'_attribute_info']]],
+  ['linenumbertableattribute',['LineNumberTableAttribute',['../struct__attribute__info.html#aee1034b84453b4238d38d85ff8c10786',1,'_attribute_info']]],
+  ['liner_5fnumber_5ftable_5flength',['liner_number_table_length',['../struct__attribute__info.html#a3585c6c74e8364e4aae13de1197007b4',1,'_attribute_info']]],
+  ['link',['link',['../struct_j_v_m.html#abe074a65aa046b80811faf3419400c17',1,'JVM']]],
+  ['load',['load',['../struct_c_l_a_s_s___l_o_a_d_e_r.html#a005047d82e4ef6e47659343583b203e6',1,'CLASS_LOADER']]],
+  ['loadclass',['loadClass',['../struct_j_v_m.html#a15ffdccb2279a74b5528b343ae3b51e9',1,'JVM']]],
+  ['loadinterfaces',['loadInterfaces',['../struct_j_v_m.html#ae43c37db5704900c5161f2cf2517912a',1,'JVM']]],
+  ['loadparentclasses',['loadParentClasses',['../struct_j_v_m.html#a844a68fb0eccf4f9130cbea411c5f8c2',1,'JVM']]],
+  ['local_5fvariable_5ftable',['local_variable_table',['../struct__attribute__info.html#a77425f68cc26e3ef29b0297b8836ddb4',1,'_attribute_info']]],
+  ['local_5fvariable_5ftable_5flength',['local_variable_table_length',['../struct__attribute__info.html#a8d2521aa93e9eb130637dac34fe71605',1,'_attribute_info']]],
+  ['local_5fvariables',['local_variables',['../struct_f_r_a_m_e.html#aab89a9a60f863687421106efad8b93aa',1,'FRAME']]],
+  ['localvariabletableattribute',['LocalVariableTableAttribute',['../struct__attribute__info.html#a10f59462e22ec8faa3e06f84579750a8',1,'_attribute_info']]],
+  ['long',['Long',['../struct__constant__info.html#af58d08fe89806218002d37b0633cd84b',1,'_constant_info']]],
+  ['lowbytes',['lowBytes',['../struct__constant__info.html#a77ebbdbce32a0a8a09960f441378ac90',1,'_constant_info']]]
 ];

@@ -1,41 +1,46 @@
+parmes = gcc -g -std=c99 -Wall
+final = -lm
+
 all: JVM LeitorExibidor limpa
 
+debug: Common.o Util.o ClassLoader.o JVM.o
+	$(parmes) common.o util.o attributeinfo.o constantpool.o fieldinfo.o methodinfo.o class.o classloader.o jvm.o main.o -o JVM.exe $(final)
+
 JVM: Common.o Util.o ClassLoader.o JVM.o
-	gcc -std=c99 common.o util.o attributeinfo.o constantpool.o fieldinfo.o methodinfo.o class.o classloader.o jvm.o main.o -o JVM.exe
+	$(parmes) common.o util.o attributeinfo.o constantpool.o fieldinfo.o methodinfo.o class.o classloader.o jvm.o main.o -o JVM.exe $(final)
 
 LeitorExibidor: Common.o Util.o ClassLoader.o LeitorExibidor.o
-	gcc -std=c99 common.o util.o attributeinfo.o constantpool.o fieldinfo.o methodinfo.o class.o classloader.o LeitorExibidor.o -o LeitorExibidor.exe
-
-JVM.o: src/JVM/main.c src/JVM/jvm.c
-	gcc -std=c99 -c src/JVM/main.c -o main.o
-	gcc -std=c99 -c src/JVM/jvm.c -o jvm.o
+	$(parmes) common.o util.o attributeinfo.o constantpool.o fieldinfo.o methodinfo.o class.o classloader.o main.o -o LeitorExibidor.exe $(final)
+JVM.o: src/JVM/main.c src/JVM/maquina/maquina.c
+	$(parmes) -c src/JVM/maquina/maquina.c -o jvm.o $(final)
+	$(parmes) -c src/JVM/main.c -o main.o $(final)
 
 LeitorExibidor.o: src/LeitorExibidor/main.c
-	gcc -std=c99 -c src/LeitorExibidor/main.c -o leitorexibidor.o
+	$(parmes) -c src/LeitorExibidor/main.c -o main.o $(final)
 
-ClassLoader.o: src/ClassLoader/public.c Class.o AttributeInfo.o ConstantPool.o FieldInfo.o MethodInfo.o
-	gcc -std=c99 -c src/ClassLoader/public.c -o classloader.o
+ClassLoader.o: src/ClassLoader/classloader.c Class.o AttributeInfo.o ConstantPool.o FieldInfo.o MethodInfo.o 
+	$(parmes) -c src/ClassLoader/classloader.c -o classloader.o $(final)
 
-Class.o: src/ClassLoader/Class/public.c
-	gcc -std=c99 -c src/ClassLoader/Class/public.c -o class.o
+Class.o: src/ClassLoader/Class/class.c
+	$(parmes) -c src/ClassLoader/Class/class.c -o class.o $(final)
 
-AttributeInfo.o: src/ClassLoader/Class/AttributeInfo/public.c
-	gcc -std=c99 -c src/ClassLoader/Class/AttributeInfo/public.c -o attributeinfo.o
+AttributeInfo.o: src/ClassLoader/Class/AttributeInfo/attributeinfo.c
+	$(parmes) -c src/ClassLoader/Class/AttributeInfo/attributeinfo.c -o attributeinfo.o $(final)
 
-ConstantPool.o: src/ClassLoader/Class/ConstantPool/public.c
-	gcc -std=c99 -c src/ClassLoader/Class/ConstantPool/public.c -o constantpool.o
+ConstantPool.o: src/ClassLoader/Class/ConstantPool/constantpool.c
+	$(parmes) -c src/ClassLoader/Class/ConstantPool/constantpool.c -o constantpool.o $(final)
 
-FieldInfo.o: src/ClassLoader/Class/FieldInfo/public.c
-	gcc -std=c99 -c src/ClassLoader/Class/FieldInfo/public.c -o fieldinfo.o
+FieldInfo.o: src/ClassLoader/Class/FieldInfo/fieldinfo.c
+	$(parmes) -c src/ClassLoader/Class/FieldInfo/fieldinfo.c -o fieldinfo.o $(final)
 
-MethodInfo.o: src/ClassLoader/Class/MethodInfo/public.c
-	gcc -std=c99 -c src/ClassLoader/Class/MethodInfo/public.c -o methodinfo.o
+MethodInfo.o: src/ClassLoader/Class/MethodInfo/methodinfo.c
+	$(parmes) -c src/ClassLoader/Class/MethodInfo/methodinfo.c -o methodinfo.o $(final)
 
-Common.o: src/Common/public.c
-	gcc -std=c99 -c src/Common/public.c -o common.o
+Common.o: src/Common/common.c
+	$(parmes) -c src/Common/common.c -o common.o $(final)
 
-Util.o: src/util/public.c
-	gcc -std=c99 -c src/util/public.c -o util.o
+Util.o: src/Util/util.c
+	$(parmes) -c src/Util/util.c -o util.o $(final)
 
 limpa: 
 	rm *.o

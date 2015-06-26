@@ -131,12 +131,25 @@ Estruturas de Dados</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_d_a_d_o_s.html">DADOS</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Estrutura para representação de dados como array de bytes.  <a href="struct_d_a_d_o_s.html#details">Mais...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_j_v_m___i_n_s_t_r_u_c_t_i_o_n_s.html">JVM_INSTRUCTIONS</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Estrutura para representacao de uma instrucao JVM.  <a href="struct_j_v_m___i_n_s_t_r_u_c_t_i_o_n_s.html#details">Mais...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
 Enumerações</h2></td></tr>
+<tr class="memitem:a954b2d534b86b9ecc80843426948d774"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="common_8h.html#a954b2d534b86b9ecc80843426948d774">_ACCESS_FLAGS</a> { <br />
+&#160;&#160;<a class="el" href="common_8h.html#a954b2d534b86b9ecc80843426948d774a81ebcc82e0b84d121d2e1645e867d67d">mask_public</a> = 0x0001, 
+<a class="el" href="common_8h.html#a954b2d534b86b9ecc80843426948d774a76145385225834e0ca10c54084ac3d4a">mask_private</a> = 0x0002, 
+<a class="el" href="common_8h.html#a954b2d534b86b9ecc80843426948d774adf1337e4e98bdf6d5767c5988aa08a5f">mask_protected</a> = 0x0004, 
+<a class="el" href="common_8h.html#a954b2d534b86b9ecc80843426948d774af428f96c4584f4c2ffd83f401704d67c">mask_static</a> = 0x0008, 
+<br />
+&#160;&#160;<a class="el" href="common_8h.html#a954b2d534b86b9ecc80843426948d774a2b43d8da3d660e01c20dc8d6b162c49e">mask_final</a> = 0x0010, 
+<a class="el" href="common_8h.html#a954b2d534b86b9ecc80843426948d774acf3ef6b76b3aa09618cd35aeda9088da">mask_interface</a> = 0x0200, 
+<a class="el" href="common_8h.html#a954b2d534b86b9ecc80843426948d774a588a03a59ab58fdeb058f428a079c433">mask_abstract</a> = 0x0400, 
+<a class="el" href="common_8h.html#a954b2d534b86b9ecc80843426948d774a28ab2eb852d6595cfdb49f64e2d94d0a">mask_volatile</a> = 0x0040, 
+<br />
+&#160;&#160;<a class="el" href="common_8h.html#a954b2d534b86b9ecc80843426948d774a5dfb214c77a0a6bfaec04a55b9f94503">mask_transient</a> = 0x0080, 
+<a class="el" href="common_8h.html#a954b2d534b86b9ecc80843426948d774aeca23fa1a008f71734856eccf4af7985">mask_native</a> = 0x0100
+<br />
+ }</td></tr>
+<tr class="separator:a954b2d534b86b9ecc80843426948d774"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a34753b0bbe7e878508c8338f40433fe4"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="common_8h.html#a34753b0bbe7e878508c8338f40433fe4">_config_error</a> { <br />
 &#160;&#160;<a class="el" href="common_8h.html#a34753b0bbe7e878508c8338f40433fe4ac3121e429a129b2ccb51a92b7c78c4b4">E_SUCCESS</a> = 0, 
 <a class="el" href="common_8h.html#a34753b0bbe7e878508c8338f40433fe4a1b7ea43957a152b7b32d7d21a6fb8ad1">E_INVALID_NUM_ARGS</a> = -1, 
@@ -144,7 +157,16 @@ Enumerações</h2></td></tr>
 <a class="el" href="common_8h.html#a34753b0bbe7e878508c8338f40433fe4aab89597d5054c02c938acf41850758d2">E_CAFEBABE</a> = -3, 
 <br />
 &#160;&#160;<a class="el" href="common_8h.html#a34753b0bbe7e878508c8338f40433fe4af292ef15e3e11ac7ec5d0772ee9745c4">E_VERSION</a> = -4, 
-<a class="el" href="common_8h.html#a34753b0bbe7e878508c8338f40433fe4a10d3f70ed3a9f49f0400acf5cb7a46e3">W_NAOLIDOINTEIRO</a> = -5
+<a class="el" href="common_8h.html#a34753b0bbe7e878508c8338f40433fe4a10d3f70ed3a9f49f0400acf5cb7a46e3">W_NAOLIDOINTEIRO</a> = -5, 
+<a class="el" href="common_8h.html#a34753b0bbe7e878508c8338f40433fe4a9ede723d00e28e6034ad8591e2864c07">E_OPCAO_NAO_EXISTENTE</a> = -6, 
+<a class="el" href="common_8h.html#a34753b0bbe7e878508c8338f40433fe4a86b7e06f025001af455810e28271bc1c">E_DOLAR_NOT_SUPPORTED</a> = -7, 
+<br />
+&#160;&#160;<a class="el" href="common_8h.html#a34753b0bbe7e878508c8338f40433fe4a7e82f5997b6f56e2bb68099c8f658636">E_EMPTY_FRAME_STACK</a> = -8, 
+<a class="el" href="common_8h.html#a34753b0bbe7e878508c8338f40433fe4a3d8b96b82b0cbde16c0b7e172d6b7e89">E_STACK_OVERFLOW</a> = -9, 
+<a class="el" href="common_8h.html#a34753b0bbe7e878508c8338f40433fe4a3f13f4a9345a0967705497ccadcec805">E_NO_MAIN_FOUND</a> = -10, 
+<a class="el" href="common_8h.html#a34753b0bbe7e878508c8338f40433fe4a4e63e2d4bab8e8674b5cdd51a8f64fbe">E_EMPTY_STACK</a> = -11, 
+<br />
+&#160;&#160;<a class="el" href="common_8h.html#a34753b0bbe7e878508c8338f40433fe4a8fb2003b872b20668cc1beffa11fd93a">E_NOTSUPPORTED_VERSION</a> = -12
 <br />
  }</td></tr>
 <tr class="memdesc:a34753b0bbe7e878508c8338f40433fe4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Associa inteiros com macros para melhor legibilidade dos erros.  <a href="common_8h.html#a34753b0bbe7e878508c8338f40433fe4">Mais...</a><br /></td></tr>
@@ -156,6 +178,12 @@ Funções</h2></td></tr>
 <tr class="separator:a649e497f7a134e61541a1c57c422aa14"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a97bf6fcfa047bc2acd5880222fa7efe6"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="common_8h.html#a97bf6fcfa047bc2acd5880222fa7efe6">getDouble</a> (uint32_t highBytes, uint32_t lowBytes)</td></tr>
 <tr class="separator:a97bf6fcfa047bc2acd5880222fa7efe6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abfb93970903cac48ada4a833e0ed734d"><td class="memItemLeft" align="right" valign="top">const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="common_8h.html#abfb93970903cac48ada4a833e0ed734d">returnAccessFlagsName</a> (uint16_t)</td></tr>
+<tr class="separator:abfb93970903cac48ada4a833e0ed734d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6a99c69202056e789fd253104785ddb1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="common_8h.html#a6a99c69202056e789fd253104785ddb1">error</a> (int errorcode)</td></tr>
+<tr class="separator:a6a99c69202056e789fd253104785ddb1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9c69211b9164a589c738e58c5d44b957"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="common_8h.html#a9c69211b9164a589c738e58c5d44b957">debug</a> (char *)</td></tr>
+<tr class="separator:a9c69211b9164a589c738e58c5d44b957"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a49a635a07acdf10dadb8fc132b070d65"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_d_a_d_o_s.html">DADOS</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="common_8h.html#a49a635a07acdf10dadb8fc132b070d65">initDADOS</a> ()</td></tr>
 <tr class="memdesc:a49a635a07acdf10dadb8fc132b070d65"><td class="mdescLeft">&#160;</td><td class="mdescRight">inicializa uma estrutura do tipo <a class="el" href="struct_d_a_d_o_s.html" title="Estrutura para representação de dados como array de bytes. ">DADOS</a>.  <a href="#a49a635a07acdf10dadb8fc132b070d65">Mais...</a><br /></td></tr>
 <tr class="separator:a49a635a07acdf10dadb8fc132b070d65"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -165,9 +193,6 @@ Variáveis</h2></td></tr>
 <tr class="memitem:a689f73905e587e3f0ec800857c9f7499"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="struct_e_r_r_o_r_s.html">ERRORS</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="common_8h.html#a689f73905e587e3f0ec800857c9f7499">errordesc</a> []</td></tr>
 <tr class="memdesc:a689f73905e587e3f0ec800857c9f7499"><td class="mdescLeft">&#160;</td><td class="mdescRight">Variável global para acessar as mensagens de erro dado um código.  <a href="#a689f73905e587e3f0ec800857c9f7499">Mais...</a><br /></td></tr>
 <tr class="separator:a689f73905e587e3f0ec800857c9f7499"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af96327682135c16f217410f5f232faf3"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="struct_j_v_m___i_n_s_t_r_u_c_t_i_o_n_s.html">JVM_INSTRUCTIONS</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="common_8h.html#af96327682135c16f217410f5f232faf3">instructions</a> []</td></tr>
-<tr class="memdesc:af96327682135c16f217410f5f232faf3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Variável global para acessar as JVM instructions.  <a href="#af96327682135c16f217410f5f232faf3">Mais...</a><br /></td></tr>
-<tr class="separator:af96327682135c16f217410f5f232faf3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Descrição detalhada</h2>
 <div class="textblock"><p>Definicoes de funcoes e inicializadores comuns a todos os modulos. </p>
@@ -176,8 +201,43 @@ Variáveis</h2></td></tr>
 <li>Marcus da Silva Ferreira - 10/0056881</li>
 <li>Michael Rodrigues - 09/0126432</li>
 </ul>
-<p>JVM - Software Basico 1/2015 </p>
+<p><a class="el" href="struct_j_v_m.html">JVM</a> - Software Basico 1/2015 </p>
 </div><h2 class="groupheader">Documentação dos valores da enumeração</h2>
+<a class="anchor" id="a954b2d534b86b9ecc80843426948d774"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="common_8h.html#a954b2d534b86b9ecc80843426948d774">_ACCESS_FLAGS</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>facilitar o uso para comparacao de access flags </p>
+<table class="fieldtable">
+<tr><th colspan="2">Valores de enumerações</th></tr><tr><td class="fieldname"><a class="anchor" id="a954b2d534b86b9ecc80843426948d774a81ebcc82e0b84d121d2e1645e867d67d"></a>mask_public&#160;</td><td class="fielddoc">
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="a954b2d534b86b9ecc80843426948d774a76145385225834e0ca10c54084ac3d4a"></a>mask_private&#160;</td><td class="fielddoc">
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="a954b2d534b86b9ecc80843426948d774adf1337e4e98bdf6d5767c5988aa08a5f"></a>mask_protected&#160;</td><td class="fielddoc">
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="a954b2d534b86b9ecc80843426948d774af428f96c4584f4c2ffd83f401704d67c"></a>mask_static&#160;</td><td class="fielddoc">
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="a954b2d534b86b9ecc80843426948d774a2b43d8da3d660e01c20dc8d6b162c49e"></a>mask_final&#160;</td><td class="fielddoc">
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="a954b2d534b86b9ecc80843426948d774acf3ef6b76b3aa09618cd35aeda9088da"></a>mask_interface&#160;</td><td class="fielddoc">
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="a954b2d534b86b9ecc80843426948d774a588a03a59ab58fdeb058f428a079c433"></a>mask_abstract&#160;</td><td class="fielddoc">
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="a954b2d534b86b9ecc80843426948d774a28ab2eb852d6595cfdb49f64e2d94d0a"></a>mask_volatile&#160;</td><td class="fielddoc">
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="a954b2d534b86b9ecc80843426948d774a5dfb214c77a0a6bfaec04a55b9f94503"></a>mask_transient&#160;</td><td class="fielddoc">
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="a954b2d534b86b9ecc80843426948d774aeca23fa1a008f71734856eccf4af7985"></a>mask_native&#160;</td><td class="fielddoc">
+</td></tr>
+</table>
+
+</div>
+</div>
 <a class="anchor" id="a34753b0bbe7e878508c8338f40433fe4"></a>
 <div class="memitem">
 <div class="memproto">
@@ -202,11 +262,57 @@ Variáveis</h2></td></tr>
 </td></tr>
 <tr><td class="fieldname"><a class="anchor" id="a34753b0bbe7e878508c8338f40433fe4a10d3f70ed3a9f49f0400acf5cb7a46e3"></a>W_NAOLIDOINTEIRO&#160;</td><td class="fielddoc">
 </td></tr>
+<tr><td class="fieldname"><a class="anchor" id="a34753b0bbe7e878508c8338f40433fe4a9ede723d00e28e6034ad8591e2864c07"></a>E_OPCAO_NAO_EXISTENTE&#160;</td><td class="fielddoc">
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="a34753b0bbe7e878508c8338f40433fe4a86b7e06f025001af455810e28271bc1c"></a>E_DOLAR_NOT_SUPPORTED&#160;</td><td class="fielddoc">
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="a34753b0bbe7e878508c8338f40433fe4a7e82f5997b6f56e2bb68099c8f658636"></a>E_EMPTY_FRAME_STACK&#160;</td><td class="fielddoc">
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="a34753b0bbe7e878508c8338f40433fe4a3d8b96b82b0cbde16c0b7e172d6b7e89"></a>E_STACK_OVERFLOW&#160;</td><td class="fielddoc">
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="a34753b0bbe7e878508c8338f40433fe4a3f13f4a9345a0967705497ccadcec805"></a>E_NO_MAIN_FOUND&#160;</td><td class="fielddoc">
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="a34753b0bbe7e878508c8338f40433fe4a4e63e2d4bab8e8674b5cdd51a8f64fbe"></a>E_EMPTY_STACK&#160;</td><td class="fielddoc">
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="a34753b0bbe7e878508c8338f40433fe4a8fb2003b872b20668cc1beffa11fd93a"></a>E_NOTSUPPORTED_VERSION&#160;</td><td class="fielddoc">
+</td></tr>
 </table>
 
 </div>
 </div>
 <h2 class="groupheader">Documentação das funções</h2>
+<a class="anchor" id="a9c69211b9164a589c738e58c5d44b957"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void debug </td>
+          <td>(</td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a6a99c69202056e789fd253104785ddb1"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void error </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>errorcode</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a class="anchor" id="a97bf6fcfa047bc2acd5880222fa7efe6"></a>
 <div class="memitem">
 <div class="memproto">
@@ -230,6 +336,7 @@ Variáveis</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>pega e trata um double que esta na class, principalmente para exibir e tratar operacoes </p>
 
 </div>
 </div>
@@ -276,6 +383,23 @@ Variáveis</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="abfb93970903cac48ada4a833e0ed734d"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const char* returnAccessFlagsName </td>
+          <td>(</td>
+          <td class="paramtype">uint16_t&#160;</td>
+          <td class="paramname"><em>hexadecimal</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>dado um hexadecimal, devolve uma string com o nome do acesso, principalmente para exibir no leitor-exibidor </p>
+
+</div>
+</div>
 <h2 class="groupheader">Documentação das variáveis</h2>
 <a class="anchor" id="a689f73905e587e3f0ec800857c9f7499"></a>
 <div class="memitem">
@@ -291,27 +415,13 @@ Variáveis</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="af96327682135c16f217410f5f232faf3"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">const <a class="el" href="struct_j_v_m___i_n_s_t_r_u_c_t_i_o_n_s.html">JVM_INSTRUCTIONS</a> instructions[]</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Variável global para acessar as JVM instructions. </p>
-
-</div>
-</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_ba210d1fa67db7bee1bb22e0a3c11d9f.html">Common</a></li><li class="navelem"><a class="el" href="common_8h.html">common.h</a></li>
-    <li class="footer">Gerado em Quarta, 3 de Junho de 2015 08:15:18 para JVM por
+    <li class="footer">Gerado em Quarta, 24 de Junho de 2015 14:43:28 para JVM por
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.9.1 </li>
   </ul>

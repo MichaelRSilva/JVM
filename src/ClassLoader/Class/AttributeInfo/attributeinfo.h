@@ -13,6 +13,9 @@
 	#include "../../../Common/common.h"
 	#include "../ConstantPool/constantpool.h"
 
+	/*!
+		especificacoes de um provavel funcoes try e catch no codigo java
+	*/
 	struct _exception_table {
 		uint16_t start_pc;
 		uint16_t end_pc;
@@ -20,6 +23,9 @@
 		uint16_t catch_type;
 	};
 
+	/*!
+		classes internas
+	*/
 	struct _classes {
 		uint16_t inner_class_info_index;
 		uint16_t outer_class_info_index;
@@ -27,6 +33,9 @@
 		uint16_t inner_class_access_flags;
 	};
 
+	/*!
+		variaveis locais do metodo
+	*/
 	struct _local_variable_table {
 		uint16_t start_pc;
 		uint16_t length;
@@ -35,11 +44,31 @@
 		uint16_t index;
 	};
 
+	/*!
+		extremos do pc usado no code de cada metodo da class
+	*/
 	struct _line_number_table {
 		uint16_t start_pc;
 		uint16_t line_number;
 	};
 	
+	/*!
+		informacoes do code 
+	*/
+	struct _code_attribute {
+		uint16_t max_stack;
+		uint16_t max_locals;
+		uint32_t code_length;
+		uint8_t* code;
+		uint16_t exception_table_length;
+		struct _exception_table *exception_table;
+		uint16_t attributes_count;
+		struct _attribute_info* attributes; 
+	};
+	
+	/*!
+		struct do attribute_info contendo todas as sub-estruturas acima
+	*/
 	struct _attribute_info {
 		uint16_t attributeNameIndex;
 		uint32_t attributeLength;
@@ -47,16 +76,7 @@
 			struct {
 				uint16_t constantvalue_index;
 			} ConstantValueAttribute;
-			struct {
-				uint16_t max_stack;
-				uint16_t max_locals;
-				uint32_t code_length;
-				uint8_t* code;
-				uint16_t exception_table_length;
-				struct _exception_table *exception_table;
-				uint16_t attributes_count;
-				struct _attribute_info* attributes; 
-			} CodeAttribute;
+			struct _code_attribute CodeAttribute;
 			struct {
 				uint16_t number_of_exceptions;
 				uint16_t* exception_index_table;

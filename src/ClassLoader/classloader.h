@@ -11,12 +11,16 @@
 #ifndef MODULE_CLASS_LOADER
 #define MODULE_CLASS_LOADER
 	#include "../Common/common.h"
+	#include "../Util/util.h"
 	#include "Class/class.h"
 
+	/*! @class
+		class_loader tem uma array de classes
+	*/
 	typedef struct _class_loader {
 		CLASS* class;
 
-		int (*load)(struct _class_loader*, DADOS);
+		CLASS* (*load)(struct _class_loader*, char*);
 	} CLASS_LOADER;
 
 	CLASS_LOADER* initCLASS_LOADER();

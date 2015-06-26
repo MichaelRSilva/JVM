@@ -1,6 +1,7 @@
 var searchData=
 [
-  ['parsedotclass',['parseDotClass',['../struct_c_l_a_s_s.html#a2e4ff73724dc7e17e3d890e7bb7b85c2',1,'CLASS']]],
-  ['printclass',['PrintClass',['../struct_u_t_i_l.html#a2b1aec2d613ebf0140c36b7a6501fede',1,'UTIL']]],
-  ['printhtml',['PrintHTML',['../struct_u_t_i_l.html#a12185f6fe7c1ba31e8ca86c9db6923c5',1,'UTIL']]]
+  ['object_5fcount',['object_count',['../struct_h_e_a_p.html#a432d8e32c301467baf54920b1e1e08a4',1,'HEAP']]],
+  ['objects',['objects',['../struct_h_e_a_p.html#af9f412b33fe51e4d3d52ef0cb19691ce',1,'HEAP']]],
+  ['operand_5fstack',['operand_stack',['../struct_f_r_a_m_e.html#aa20b4106d29e08ad4f72c71279ca73e2',1,'FRAME']]],
+  ['outer_5fclass_5finfo_5findex',['outer_class_info_index',['../struct__classes.html#a50d2128891cc10c488922feeb862e83f',1,'_classes']]]
 ];
