@@ -2531,18 +2531,25 @@ static void _getstatic() {
 	
 	// printf("\nNAME: %s ; TYPE: %s\n",name,type);
 
+	
+
 	while((field_index = maquina.retrieveFieldIndex(className, name, strlen(name), type, strlen(type))) == -1) {
 		className = maquina.current_frame->current_class->getParentName(maquina.getClassByName(className));
 	}
 
 	classIndex = maquina.loadClass(className);
-	//printf("\nFIELD INDEX%d\n",field_index);
 
 	if(field_index < 0){
 		field_index = maquina.searchStaticFieldVal(classIndex,name,type);
 	}
-
+	
 	valor = maquina.getStaticFieldVal(classIndex , field_index);
+
+	if(type[0] == 'J' || type[0] == 'D') {
+		maquina.current_frame->push2(valor);
+	} else {
+		maquina.current_frame->push(valor);
+	}
 
 	maquina.current_frame->pc++;
 }
