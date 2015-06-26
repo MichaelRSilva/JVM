@@ -3,20 +3,20 @@
 /*!
 	adiciona um objeto na heap
 */
-static struct _object* addObject(struct _object* obj) {
-	maquina.heap->objects = realloc(maquina.heap->objects, (maquina.heap->object_count+1)*sizeof(struct _object*));
-	maquina.heap->objects[maquina.heap->object_count++] = obj;
-	return obj;
-}
+// static struct _object* addObject(struct _object* obj) {
+// 	maquina.heap->objects = realloc(maquina.heap->objects, (maquina.heap->object_count+1)*sizeof(struct _object*));
+// 	maquina.heap->objects[maquina.heap->object_count++] = obj;
+// 	return obj;
+//}
 
 /*!
 	adiciona um array na heap
 */
-static struct _array* addArray(struct _array* arr) {
-	maquina.heap->arrays = realloc(maquina.heap->arrays, (maquina.heap->array_count+1)*sizeof(struct _array*));
-	maquina.heap->arrays[maquina.heap->array_count++] = arr;
-	return arr;
-}
+// static struct _array* addArray(struct _array* arr) {
+// 	maquina.heap->arrays = realloc(maquina.heap->arrays, (maquina.heap->array_count+1)*sizeof(struct _array*));
+// 	maquina.heap->arrays[maquina.heap->array_count++] = arr;
+// 	return arr;
+// }
 
 /*!
 	cria um novo objeto, alocando espaco na memoria para ele
