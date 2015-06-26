@@ -8,26 +8,28 @@
 
 	JVM - Software Basico 1/2015
 */
-#include "../util/util.h"
+#include "../Util/util.h"
+#include "misc.c"
 
 int main(int argc, char **argv) {
 	int flag;
 	UTIL util = getUTILInstance();
 	CLASS_LOADER* cl = initCLASS_LOADER();
 
-	if(!(flag = util.VerificaLeitorExibidorCMDArgs(argc, argv)) && !(flag = cl->load(cl, util.LeArquivo(argv[1])))) {
+	if(!(flag = util.VerificaLeitorExibidorCMDArgs(argc, argv))) {
+		cl->load(cl, argv[1]);
 		if (argv[2] != NULL) {
 			if (!strcmp(argv[2],"-tela")){
-				util.PrintClass(cl->class, stdout);
+				PrintClass(cl->class, stdout);
 			} else {
 				FILE* fp = fopen("output.txt","w");
-				util.PrintClass(cl->class, fp);
+				PrintClass(cl->class, fp);
 				fclose(fp);
 			}
 		} else {
 			FILE* fp = fopen("output.txt","w");
-			util.PrintClass(cl->class, stdout);
-			util.PrintClass(cl->class, fp);
+			PrintClass(cl->class, stdout);
+			PrintClass(cl->class, fp);
 			fclose(fp);
 		}
 	}

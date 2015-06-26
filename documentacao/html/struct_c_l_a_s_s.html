@@ -148,8 +148,12 @@ Campos de Dados</h2></td></tr>
 <tr class="separator:a4c9ce24fb4e4c7abab2c9a16b8221b02"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1808484084d71f5e0fc80229c1336537"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_a_t_t_r_i_b_u_t_e___p_o_o_l.html">ATTRIBUTE_POOL</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_c_l_a_s_s.html#a1808484084d71f5e0fc80229c1336537">attribute_pool</a></td></tr>
 <tr class="separator:a1808484084d71f5e0fc80229c1336537"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2e4ff73724dc7e17e3d890e7bb7b85c2"><td class="memItemLeft" align="right" valign="top">int(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_c_l_a_s_s.html#a2e4ff73724dc7e17e3d890e7bb7b85c2">parseDotClass</a> )(struct _class *, <a class="el" href="struct_d_a_d_o_s.html">DADOS</a>)</td></tr>
-<tr class="separator:a2e4ff73724dc7e17e3d890e7bb7b85c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6b3a0314d8a050044e6ab5c62ef9c9ee"><td class="memItemLeft" align="right" valign="top">char *(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_c_l_a_s_s.html#a6b3a0314d8a050044e6ab5c62ef9c9ee">getParentName</a> )(struct _class *)</td></tr>
+<tr class="separator:a6b3a0314d8a050044e6ab5c62ef9c9ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3176ae48332a1017f01bdbff6051bf40"><td class="memItemLeft" align="right" valign="top">char *(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_c_l_a_s_s.html#a3176ae48332a1017f01bdbff6051bf40">getName</a> )(struct _class *)</td></tr>
+<tr class="separator:a3176ae48332a1017f01bdbff6051bf40"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a19c8e309495320c323ad37046a15f38a"><td class="memItemLeft" align="right" valign="top">char *(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_c_l_a_s_s.html#a19c8e309495320c323ad37046a15f38a">getInterfaceName</a> )(struct _class *, int)</td></tr>
+<tr class="separator:a19c8e309495320c323ad37046a15f38a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Documentação dos campos e atributos</h2>
 <a class="anchor" id="a562525337a49b849ecf0c05031e125de"></a>
@@ -248,6 +252,42 @@ Campos de Dados</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="a19c8e309495320c323ad37046a15f38a"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">char*(* CLASS::getInterfaceName) (struct _class *, int)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a3176ae48332a1017f01bdbff6051bf40"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">char*(* CLASS::getName) (struct _class *)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a6b3a0314d8a050044e6ab5c62ef9c9ee"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">char*(* CLASS::getParentName) (struct _class *)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a class="anchor" id="aa4b5ab59b744a26184a6d4387ed1fcde"></a>
 <div class="memitem">
 <div class="memproto">
@@ -332,18 +372,6 @@ Campos de Dados</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a2e4ff73724dc7e17e3d890e7bb7b85c2"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int(* CLASS::parseDotClass) (struct _class *, <a class="el" href="struct_d_a_d_o_s.html">DADOS</a>)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
 <a class="anchor" id="a689f8cd8b8edd6f8e9f6f59e0a3a7024"></a>
 <div class="memitem">
 <div class="memproto">
@@ -377,7 +405,7 @@ Campos de Dados</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="struct_c_l_a_s_s.html">CLASS</a></li>
-    <li class="footer">Gerado em Quarta, 3 de Junho de 2015 08:15:18 para JVM por
+    <li class="footer">Gerado em Quarta, 24 de Junho de 2015 14:43:28 para JVM por
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.9.1 </li>
   </ul>

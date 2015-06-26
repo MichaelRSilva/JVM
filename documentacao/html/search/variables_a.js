@@ -1,10 +1,20 @@
 var searchData=
 [
-  ['name_5findex',['name_index',['../struct__local__variable__table.html#aba18435719897eb0cb867946fe1d5d70',1,'_local_variable_table::name_index()'],['../struct__field__info.html#aec61778e73a4a7d3d684497dedfbdcc1',1,'_field_info::name_index()'],['../struct__method__info.html#ac25b4e272523f4c2b16737fab4c0ad38',1,'_method_info::name_index()']]],
-  ['nameindex',['nameIndex',['../struct__constant__info.html#a94fcc03e438aefd545fa79083b855482',1,'_constant_info']]],
-  ['nametype',['NameType',['../struct__constant__info.html#a1225d284101edf60f9473d901fb9d5b0',1,'_constant_info']]],
-  ['nametypeindex',['nameTypeIndex',['../struct__constant__info.html#ab8a0e9752f1a10ca8e42038ee6a78498',1,'_constant_info']]],
-  ['nome',['nome',['../struct_j_v_m___i_n_s_t_r_u_c_t_i_o_n_s.html#acfb410cdd3a1f900594c2006bbbdca3e',1,'JVM_INSTRUCTIONS']]],
-  ['number_5fof_5fclasses',['number_of_classes',['../struct__attribute__info.html#a3a06ab28b87b0ff28acf131e265b9c27',1,'_attribute_info']]],
-  ['number_5fof_5fexceptions',['number_of_exceptions',['../struct__attribute__info.html#aba397d5ff775d162ad16045c4e771a4a',1,'_attribute_info']]]
+  ['magic',['magic',['../struct_c_l_a_s_s.html#a7a1782746495c6d7816e672559f91791',1,'CLASS']]],
+  ['major_5fversion',['major_version',['../struct_c_l_a_s_s.html#a949d5b8f4ea8f506d3baffdff9cdd343',1,'CLASS']]],
+  ['maquina',['maquina',['../instructions_8c.html#ad7fdd1ebb8a72ccff0ecf76b8451d76e',1,'maquina():&#160;instructions.c'],['../maquina_8h.html#ad7fdd1ebb8a72ccff0ecf76b8451d76e',1,'maquina():&#160;instructions.c']]],
+  ['mattributepool',['Mattributepool',['../maquina_8h.html#a785b775ddc7fc604e77aed6e7bc24908',1,'maquina.h']]],
+  ['max_5flocals',['max_locals',['../struct__code__attribute.html#ab04c96e7c689a706f283add0eafd1502',1,'_code_attribute']]],
+  ['max_5fstack',['max_stack',['../struct__code__attribute.html#a07c2e53a744d82ffe401eb958b0e8334',1,'_code_attribute']]],
+  ['mclass',['Mclass',['../maquina_8h.html#aa017a483ea1faf897127a339896f89f2',1,'maquina.h']]],
+  ['mclassloader',['Mclassloader',['../maquina_8h.html#a9fc71eb93bece6d6561845e266d39cd1',1,'maquina.h']]],
+  ['mconstantpool',['Mconstantpool',['../maquina_8h.html#ae05a481cdf6e77710d7aae766c3784fa',1,'maquina.h']]],
+  ['message',['message',['../struct_e_r_r_o_r_s.html#a2db230ecb811414cd5efae1a88431345',1,'ERRORS']]],
+  ['method_5farea',['method_area',['../struct_j_v_m.html#ab3c1432bed9954886501cf6bd01ef256',1,'JVM']]],
+  ['methodref',['MethodRef',['../struct__constant__info.html#a4a14d5dff11339f2743e3447f3cf40e5',1,'_constant_info']]],
+  ['methods',['methods',['../struct_m_e_t_h_o_d___p_o_o_l.html#a27caa7382e44e917d9023f42aea30e70',1,'METHOD_POOL']]],
+  ['methods_5fcount',['methods_count',['../struct_c_l_a_s_s.html#ac255dba34ea9d30e85eaf801bcf9c9d1',1,'CLASS']]],
+  ['methods_5fpool',['methods_pool',['../struct_c_l_a_s_s.html#ad8335e49bbd4d014605fc39a555016b6',1,'CLASS']]],
+  ['minor_5fversion',['minor_version',['../struct_c_l_a_s_s.html#a41cd75d7348aa41445f4c6ab91429cdd',1,'CLASS']]],
+  ['mmethodpool',['Mmethodpool',['../maquina_8h.html#a051c9753d03eea4c85bf4c72ed21f01f',1,'maquina.h']]]
 ];

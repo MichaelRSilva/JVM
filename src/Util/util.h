@@ -11,7 +11,7 @@
 #ifndef MODULE_UTIL
 	#define MODULE_UTIL
 	#include "../Common/common.h"
-	#include "../ClassLoader/classloader.h"
+	#include "../ClassLoader/Class/class.h"
 	
 	// Macros
 		#define JVMCMDARGCOUNT 1 /// Quantidade de argumentos que a JVM aceita.
@@ -31,7 +31,7 @@
 			@param %2 os argumentos passado por linha de comando.
 			@return Código de erro, onde sucesso é representado por E_SUCCESS
 		*/
-		int (*VerificaJVMCMDArgs)(int, char**);
+		int (*VerificaJVMCMDArgs)(int, char**, char**);
 
 		/// Verifica se os argumentos passados por linha de comando para o Leitor/Exibidor de bytecode estão ok.
 		/*!
@@ -55,31 +55,6 @@
 			@return Código de erro, onde sucesso é representado por E_SUCCESS
 		*/
 		int (*EscreveArquivo)(DADOS, char*); // escreverArquivo(dados, nome do arquivo) retorna codigo de erro ou sucesso
-
-		//Imprime conteudo do .class no FILE*
-		/*!
-			@param %1 a struct que representa a classe do java
-			@return 0
-		*/
-		int (*PrintClass)(CLASS*, FILE*);
-
-
-		//Imprime conteudo do .class em html
-		/*!
-			@param %1 a struct que representa a classe do java
-			@return 0
-		*/
-		int (*PrintHTML)(CLASS*);
-
-		//Dada uma chave, retorna uma string com o bytecode correspondente
-		/*!
-			@param %1 string de retorno (bytecode)
-			@param %2 chave inteira correspondente
-			@return 0
-		*/
-		void (*BytecodeTable)(char **,int);
-
-
 	} UTIL;
 
 	/// "instancia" uma nova "classe" util
@@ -87,4 +62,5 @@
 		@return Uma estrutura UTIL contendo os métodos auxiliares para IO
 	*/
 	UTIL getUTILInstance(void);
+	char* getBasePath(char*);
 #endif

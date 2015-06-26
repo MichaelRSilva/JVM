@@ -2,6 +2,7 @@ var annotated =
 [
     [ "_attribute_info", "struct__attribute__info.html", "struct__attribute__info" ],
     [ "_classes", "struct__classes.html", "struct__classes" ],
+    [ "_code_attribute", "struct__code__attribute.html", "struct__code__attribute" ],
     [ "_constant_info", "struct__constant__info.html", "struct__constant__info" ],
     [ "_exception_table", "struct__exception__table.html", "struct__exception__table" ],
     [ "_field_info", "struct__field__info.html", "struct__field__info" ],
@@ -15,7 +16,12 @@ var annotated =
     [ "DADOS", "struct_d_a_d_o_s.html", "struct_d_a_d_o_s" ],
     [ "ERRORS", "struct_e_r_r_o_r_s.html", "struct_e_r_r_o_r_s" ],
     [ "FIELD_POOL", "struct_f_i_e_l_d___p_o_o_l.html", "struct_f_i_e_l_d___p_o_o_l" ],
-    [ "JVM_INSTRUCTIONS", "struct_j_v_m___i_n_s_t_r_u_c_t_i_o_n_s.html", "struct_j_v_m___i_n_s_t_r_u_c_t_i_o_n_s" ],
+    [ "FRAME", "struct_f_r_a_m_e.html", "struct_f_r_a_m_e" ],
+    [ "HEAP", "struct_h_e_a_p.html", "struct_h_e_a_p" ],
+    [ "JVM", "struct_j_v_m.html", "struct_j_v_m" ],
+    [ "JVM_INSTRUCTION", "struct_j_v_m___i_n_s_t_r_u_c_t_i_o_n.html", "struct_j_v_m___i_n_s_t_r_u_c_t_i_o_n" ],
+    [ "METHOD_AREA", "struct_m_e_t_h_o_d___a_r_e_a.html", "struct_m_e_t_h_o_d___a_r_e_a" ],
     [ "METHOD_POOL", "struct_m_e_t_h_o_d___p_o_o_l.html", "struct_m_e_t_h_o_d___p_o_o_l" ],
+    [ "STACK", "struct_s_t_a_c_k.html", "struct_s_t_a_c_k" ],
     [ "UTIL", "struct_u_t_i_l.html", "struct_u_t_i_l" ]
 ];
