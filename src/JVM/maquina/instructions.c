@@ -1698,7 +1698,7 @@ static void _d2i() {
 
 	memcpy(&final, &int_number, sizeof(int64_t));
 
-	maquina.current_frame->push2((final));
+	maquina.current_frame->push((final));
 
 	maquina.current_frame->pc++;
 }

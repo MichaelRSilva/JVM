@@ -18,10 +18,10 @@ OK:
 	- static_test.class
 	- testeLogArit.class
 	- vetor.class
+	- double_cast.class
 
 NOK:
 	- HarmonicSeries.class
-	- double_cast.class
 	- method_test.class
 	- objeto_teste.class
 	- short_cast.class
