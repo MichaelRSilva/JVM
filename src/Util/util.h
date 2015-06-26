@@ -64,5 +64,5 @@
 		@return Uma estrutura UTIL contendo os métodos auxiliares para IO
 	*/
 	UTIL initUTIL(void);
-	char* getBasePath(char*);
+	extern UTIL Mutil;
 #endif

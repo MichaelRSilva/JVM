@@ -1,7 +1,7 @@
 parmes = gcc -g -std=c99 -Wall
 final = -lm
 
-all: JVM LeitorExibidor limpa
+all: JVM limpa
 
 debug: Common.o Util.o ClassLoader.o JVM.o
 	$(parmes) common.o util.o attributeinfo.o constantpool.o fieldinfo.o methodinfo.o class.o classloader.o jvm.o main.o -o JVM.exe $(final)
@@ -9,14 +9,9 @@ debug: Common.o Util.o ClassLoader.o JVM.o
 JVM: Common.o Util.o ClassLoader.o JVM.o
 	$(parmes) common.o util.o attributeinfo.o constantpool.o fieldinfo.o methodinfo.o class.o classloader.o jvm.o main.o -o JVM.exe $(final)
 
-LeitorExibidor: Common.o Util.o ClassLoader.o LeitorExibidor.o
-	$(parmes) common.o util.o attributeinfo.o constantpool.o fieldinfo.o methodinfo.o class.o classloader.o main.o -o LeitorExibidor.exe $(final)
 JVM.o: src/JVM/main.c src/JVM/maquina/maquina.c
 	$(parmes) -c src/JVM/maquina/maquina.c -o jvm.o $(final)
 	$(parmes) -c src/JVM/main.c -o main.o $(final)
-
-LeitorExibidor.o: src/LeitorExibidor/main.c
-	$(parmes) -c src/LeitorExibidor/main.c -o main.o $(final)
 
 ClassLoader.o: src/ClassLoader/classloader.c Class.o AttributeInfo.o ConstantPool.o FieldInfo.o MethodInfo.o 
 	$(parmes) -c src/ClassLoader/classloader.c -o classloader.o $(final)
