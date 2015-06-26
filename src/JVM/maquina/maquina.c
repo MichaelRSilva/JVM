@@ -44,7 +44,7 @@ static void execute() {
 			printf(" <%s>", maquina.current_frame->current_class->getName(maquina.current_frame->current_class));
 		#endif
 
-		instructions[maquina.current_frame->code_attr->code[maquina.current_frame->pc]].call();
+		instructions[ins].call();
 	}
 	maquina.stack->have_returned = 0;
 }

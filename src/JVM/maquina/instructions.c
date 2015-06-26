@@ -1605,7 +1605,7 @@ static void _l2f() {
 	high = maquina.current_frame->pop();
 	
 	val = getLong(high, low);
-	number = (float)val/100000000.f;
+	number = (float)val;
 	memcpy(&toPush, &number, sizeof(uint32_t));
 
 	maquina.current_frame->push(toPush); 
@@ -1623,7 +1623,7 @@ static void _l2d() {
 	
 	val = getLong(high, low);
 
-	number = (double)val/100000000.;
+	number = (double)val;
 	memcpy(&toPush, &number, sizeof(uint64_t));
 
 	maquina.current_frame->push2(toPush); 
@@ -2457,11 +2457,8 @@ static void _lookupswitch() {
 static void _ireturn() {
 	uint64_t aux = maquina.current_frame->pop();
 
-	// printf("\n\t\ticurrentFrame: %p", maquina.current_frame);
 	maquina.stack->popFrame();
-	// printf("\n\t\tacurrentFrame: %p", maquina.current_frame);
 	maquina.stack->have_returned = 1;
-	// printf("\ncurrent frame: %p; pc: %d", maquina.current_frame,maquina.current_frame->pc);
 
 	if (maquina.current_frame) {
 		maquina.current_frame->push(aux);
@@ -2517,17 +2514,12 @@ static void _getstatic() {
 	index_2 = (uint8_t) maquina.current_frame->code_attr->code[++(maquina.current_frame->pc)];
 	indice = ((uint16_t)index_1 << 8) |(uint16_t)index_2;
 	
-	
-	
 	classIndexTemp = maquina.current_frame->runtime_constant_pool->constants[indice-1].type.FieldRef.classIndex;
 	className = maquina.current_frame->runtime_constant_pool->getUtf8String(maquina.current_frame->runtime_constant_pool, maquina.current_frame->runtime_constant_pool->constants[classIndexTemp-1].type.Class.nameIndex);
 	
 	nameTypeIndex = maquina.current_frame->runtime_constant_pool->constants[indice-1].type.FieldRef.nameTypeIndex;
 	name = maquina.current_frame->runtime_constant_pool->getUtf8String(maquina.current_frame->runtime_constant_pool, maquina.current_frame->runtime_constant_pool->constants[nameTypeIndex-1].type.NameType.nameIndex);
 	type = maquina.current_frame->runtime_constant_pool->getUtf8String(maquina.current_frame->runtime_constant_pool, maquina.current_frame->runtime_constant_pool->constants[nameTypeIndex-1].type.NameType.descriptorIndex);
-	
-	// printf("\nNAME: %s ; TYPE: %s\n",name,type);
-
 	
 
 	while((field_index = maquina.retrieveFieldIndex(className, name, strlen(name), type, strlen(type))) == -1) {
@@ -2724,7 +2716,6 @@ static void _invokevirtual() {
 	indice <<= 8;
 	indice = indice | low;
 
-
 	classIndexTemp = maquina.current_frame->runtime_constant_pool->constants[indice-1].type.MethodRef.classIndex;
 	className = maquina.getNameConstants(maquina.current_frame->current_class, maquina.current_frame->runtime_constant_pool->constants[classIndexTemp-1].type.Class.nameIndex);
 
@@ -2838,11 +2829,11 @@ static void _invokevirtual() {
 			bytes = class->constant_pool->constants[(method->descriptor_index-1)].type.Utf8.bytes;
 			length = class->constant_pool->constants[(method->descriptor_index-1)].type.Utf8.tam;
 
-			if(bytes[length-1] == 'D' || bytes[length-1] == 'J') {
-				maquina.current_frame->push2(0);
-			} else if(bytes[length-1] != 'V') {
-				maquina.current_frame->push(0);
-			}
+			// if(bytes[length-1] == 'D' || bytes[length-1] == 'J') {
+			// 	maquina.current_frame->push2(0);
+			// } else if(bytes[length-1] != 'V') {
+			// 	maquina.current_frame->push(0);
+			// }
 
 		} else {
 			maquina.construirFrame(class, method);
@@ -2853,6 +2844,7 @@ static void _invokevirtual() {
 		}
 	}
 
+	maquina.current_frame->pop();
 	maquina.current_frame->pc++;
 
 }
@@ -2907,11 +2899,11 @@ static void _invokespecial() {
 		bytes = class->constant_pool->constants[(method->descriptor_index-1)].type.Utf8.bytes;
 		length = class->constant_pool->constants[(method->descriptor_index-1)].type.Utf8.tam;
 
-		if(bytes[length-1] == 'D' || bytes[length-1] == 'J') {
-			maquina.current_frame->push2(0);
-		} else if(bytes[length-1] != 'V') {
-			maquina.current_frame->push(0);
-		}
+		// if(bytes[length-1] == 'D' || bytes[length-1] == 'J') {
+		// 	maquina.current_frame->push2(0);
+		// } else if(bytes[length-1] != 'V') {
+		// 	maquina.current_frame->push(0);
+		// }
 
 	} else {
 		maquina.construirFrame(class, method);
@@ -2921,6 +2913,7 @@ static void _invokespecial() {
 		maquina.execute();
 	}
 
+	maquina.current_frame->pop();
 	maquina.current_frame->pc++;
 
 }
@@ -2966,11 +2959,11 @@ static void _invokestatic() {
 		bytes = class->constant_pool->constants[(method->descriptor_index-1)].type.Utf8.bytes;
 		length = class->constant_pool->constants[(method->descriptor_index-1)].type.Utf8.tam;
 
-		if(bytes[length-1] == 'D' || bytes[length-1] == 'J') {
-			maquina.current_frame->push2(maquina.getNativeValueForStaticMethod(class, method));
-		} else if(bytes[length-1] != 'V') {
-			maquina.current_frame->push(maquina.getNativeValueForStaticMethod(class, method));
-		}
+		// if(bytes[length-1] == 'D' || bytes[length-1] == 'J') {
+		// 	maquina.current_frame->push2(maquina.getNativeValueForStaticMethod(class, method));
+		// } else if(bytes[length-1] != 'V') {
+		// 	maquina.current_frame->push(maquina.getNativeValueForStaticMethod(class, method));
+		// }
 
 	} else {
 		maquina.construirFrame(class, method);
@@ -3034,7 +3027,7 @@ static void _invokeinterface() {
 		maquina.current_frame->local_variables[i] = fieldsTemp[i];
 	}
 	maquina.execute();
-
+	maquina.current_frame->pop();
 	maquina.current_frame->pc++;
 
 }
@@ -3114,7 +3107,6 @@ static void _arraylength() {
 			maquina.current_frame->pc++;
 			return;
 		}
-		maquina.current_frame->pc++;	
 	}
 	maquina.current_frame->push(0);
 	maquina.current_frame->pc++;
@@ -3194,7 +3186,6 @@ static void _wide() {
 static void _multianewarray() {
 	uint8_t indexByte1 = 0, indexByte2 = 0, dimensions = 0;
 	uint16_t indice, type, size;
-	uint8_t quantidades;
 	uint64_t i, quantidade, tamanho;
 	void *array_reference;
 	char *array_type;
@@ -3204,7 +3195,6 @@ static void _multianewarray() {
 	indexByte2 = maquina.current_frame->code_attr->code[++maquina.current_frame->pc];
 	dimensions = maquina.current_frame->code_attr->code[++maquina.current_frame->pc];
 
-	quantidades = maquina.current_frame->code_attr->code[(maquina.current_frame->pc)];
 	indice = ((indexByte1 << 8) | indexByte2);
 
 	quantidade = maquina.current_frame->pop();
@@ -3258,7 +3248,7 @@ static void _multianewarray() {
 			size = tREFERENCIA_SIZE;
 	}
 
-	for(i = 0; i < quantidades; i++)	{
+	for(i = 0; i < dimensions; i++)	{
 		tamanho = maquina.current_frame->pop();
 		if(tamanho == 0) {
 			break;
