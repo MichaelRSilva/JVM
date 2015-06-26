@@ -111,6 +111,7 @@ double getDouble(uint32_t highBytes, uint32_t lowBytes) {
 	memcpy(double_value, &auxVar, sizeof(double));
 
 	toReturn = *double_value;
+	
 	return toReturn;
 }
 

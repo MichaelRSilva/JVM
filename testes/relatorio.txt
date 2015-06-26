@@ -19,11 +19,11 @@ OK:
 	- testeLogArit.class
 	- vetor.class
 	- double_cast.class
+	- short_cast.class
 
 NOK:
 	- HarmonicSeries.class
 	- method_test.class
 	- objeto_teste.class
-	- short_cast.class
 	- testeArray.class
 	- testeStatic.class

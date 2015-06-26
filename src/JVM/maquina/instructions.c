@@ -1567,28 +1567,35 @@ static void _i2l() {
 }
 
 static void _i2f() {
-	int64_t value;
+
+	uint64_t value;
 	uint64_t value2 = 0;
 	
 	float number;
-	value = (int64_t)maquina.current_frame->pop();
+
+	value = maquina.current_frame->pop();
 	
 	number = (float)value;
 
-	memcpy(&value2, &number, sizeof(int64_t));
+	memcpy(&value2, &number, sizeof(float));
 	maquina.current_frame->push(value2);
 
 	maquina.current_frame->pc++;
 }
 
 static void _i2d() {
-	int64_t value1;
-	double value2;
-	
-	value1 = maquina.current_frame->pop();
-	value2 = (double)value1;
 
-	memcpy(&value2, &value1, sizeof(uint32_t));
+	uint64_t value;
+	uint64_t value2 = 0;
+	
+	double number;
+
+	value = maquina.current_frame->pop();
+	
+	number = (double)value;
+
+	memcpy(&value2, &number, sizeof(double));
+	maquina.current_frame->push2(value2);
 
 	maquina.current_frame->pc++;
 }
