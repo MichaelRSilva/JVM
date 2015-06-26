@@ -367,6 +367,7 @@ JVM initJVM(char* class_name) {
 	toReturn.heap = initHEAP();
 	toReturn.stack = initSTACK();
 	toReturn.basePath = (char*)calloc(1024,sizeof(char));
+	toReturn.basePath[0] = '\0';
 	toReturn.current_frame = NULL;
 
 	// init funcoes`
