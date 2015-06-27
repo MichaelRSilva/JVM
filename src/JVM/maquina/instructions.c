@@ -1601,10 +1601,11 @@ static void _i2d() {
 }
 
 static void _l2i() {
-	uint64_t low, high;
+	uint64_t low;
 	low = maquina.current_frame->pop();
-	high = maquina.current_frame->pop();
+	maquina.current_frame->pop();
 	maquina.current_frame->push(low);
+
 	maquina.current_frame->pc++;
 }
 
@@ -2701,8 +2702,6 @@ static void _invokevirtual() {
 	char *className = NULL, *methodName = NULL, *methodDesc = NULL;
 	uint64_t *fieldsTemp = NULL;
 	float vfloat = 0;
-	uint8_t *bytes = NULL;
-	uint8_t length = 0;
 	CLASS *class = NULL;
 	struct _method_info  *method = NULL;
 
@@ -2817,8 +2816,6 @@ static void _invokevirtual() {
 		}
 
 		if(((method->access_flags) & mask_native) || strcmp("println", maquina.getNameConstants(class, method->name_index)) == 0) {
-			bytes = class->constant_pool->constants[(method->descriptor_index-1)].type.Utf8.bytes;
-			length = class->constant_pool->constants[(method->descriptor_index-1)].type.Utf8.tam;
 			maquina.current_frame->pop();
 
 			// implementar aqui codigo para lidar com metodos nativos
@@ -2837,16 +2834,11 @@ static void _invokevirtual() {
 }
 
 static void _invokespecial() {
-	
-	uint64_t indice;
+	uint64_t indice, *fieldsTemp;;
 	uint8_t low, high;
-	int64_t numParams, i;
-	int64_t classIndex, classIndexTemp;
+	int64_t numParams, i, classIndex, classIndexTemp;
 	uint16_t nameTypeIndex;
 	char *className;
-	uint64_t *fieldsTemp;
-	uint8_t *bytes;
-	uint16_t length;
 	CLASS *class;
 	struct _method_info *method;
 
@@ -2884,8 +2876,6 @@ static void _invokespecial() {
 	}
 
 	if((method->access_flags) & mask_native) {
-		bytes = class->constant_pool->constants[(method->descriptor_index-1)].type.Utf8.bytes;
-		length = class->constant_pool->constants[(method->descriptor_index-1)].type.Utf8.tam;
 		maquina.current_frame->pop();
 
 		// implementar aqui codigo para lidar com metodos nativos
@@ -2905,15 +2895,11 @@ static void _invokespecial() {
 
 static void _invokestatic() {
 	// printf("\n\t\t\t\tentrou invokestatic: %p", maquina.current_frame);
-	uint64_t indice;
+	uint64_t indice, *fieldsTemp;
 	uint8_t low, high;
-	int64_t numParams, i;
-	int64_t classIndex, classIndexTemp;
+	int64_t numParams, i, classIndex, classIndexTemp;
 	uint16_t nameTypeIndex;
 	char *className;
-	uint64_t *fieldsTemp;
-	uint8_t *bytes;
-	uint16_t length;
 	CLASS *class;
 	struct _method_info *method;
 
@@ -2941,8 +2927,6 @@ static void _invokestatic() {
 	}
 
 	if((method->access_flags) & mask_native) {
-		bytes = class->constant_pool->constants[(method->descriptor_index-1)].type.Utf8.bytes;
-		length = class->constant_pool->constants[(method->descriptor_index-1)].type.Utf8.tam;
 
 		// implementar aqui codigo para lidar com metodos nativos
 
@@ -2957,13 +2941,11 @@ static void _invokestatic() {
 }
 
 static void _invokeinterface() {
-	
-	uint64_t indice;
-	uint8_t low, high, args_count, nothing;
+	uint64_t indice, *fieldsTemp;
+	uint8_t low, high, args_count;
 	int64_t classIndex, classIndexTemp, i;
 	uint16_t nameTypeIndex;
 	char *className;
-	uint64_t *fieldsTemp;
 	CLASS *class;
 	struct _method_info *method;
 
@@ -2977,7 +2959,7 @@ static void _invokeinterface() {
 	if (!indice) error(E_NOTVALID_CP_INDEX);
 
 	args_count = maquina.current_frame->code_attr->code[++(maquina.current_frame->pc)];
-	nothing = maquina.current_frame->code_attr->code[++(maquina.current_frame->pc)];
+	maquina.current_frame->pc++;
 
 	fieldsTemp = calloc(sizeof(uint64_t),args_count+1);
 
@@ -2999,15 +2981,15 @@ static void _invokeinterface() {
 	}
 
 	if(class == NULL) {
-		printf("Metodo nao encontrando.\n");
+		printf("Metodo nao encontrado.\n");
 	}
 
 	maquina.construirFrame(class, method);
 	for(i = args_count; i > 0; i--) {
 		maquina.current_frame->local_variables[i] = fieldsTemp[i];
 	}
+	maquina.current_frame->local_variables[0] = maquina.current_frame->pop();
 	maquina.execute();
-	maquina.current_frame->pop();
 	maquina.current_frame->pc++;
 
 }

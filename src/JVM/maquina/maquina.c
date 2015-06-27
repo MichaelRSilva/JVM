@@ -298,6 +298,11 @@ int32_t getNumParameters(CLASS *class, struct _method_info *method) {
 				i++;
 			}
 			parametros++;
+		}else if (bytes[i] == '[') {
+			parametros++;
+			while(bytes[i] != ';' && bytes[i] != ')') {
+				i++;
+			}
 		} else if((bytes[i] == 'B')||(bytes[i] == 'C')||(bytes[i] == 'F')|| (bytes[i] == 'I')||(bytes[i] == 'S')||(bytes[i] == 'Z') ) {
 			parametros++;
 		} else if((bytes[i] == 'D')||(bytes[i] == 'J')) {
