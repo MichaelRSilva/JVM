@@ -23,8 +23,8 @@ OK:
 	- HarmonicSeries.class
 	- testeArray.class
 	- testeStatic.class
+	- method_test.class
 
 NOK:
 	
-	- method_test.class
 	- objeto_teste.class

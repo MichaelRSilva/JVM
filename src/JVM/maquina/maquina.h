@@ -80,6 +80,7 @@
 			void (*push)(uint64_t);
 			uint64_t (*pop)();
 			void (*push2)(uint64_t);
+			uint64_t (*pop2)();
 		} FRAME;		
 
 	// method_area

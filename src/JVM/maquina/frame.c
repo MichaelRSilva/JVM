@@ -51,6 +51,25 @@ static void push2(uint64_t valor) {
 }
 
 /*!
+	desempilha um valor na pilha de operandos 64 bits
+*/
+static uint64_t pop2() {
+	printOperandStack("pop");
+
+	uint64_t var1,var2;
+	uint64_t toReturn = 0;
+
+	var1 = pop();
+	var2 = pop();
+
+    toReturn = var2;
+	toReturn <<= 32;
+	toReturn += var1;
+
+	return toReturn;
+}
+
+/*!
 	incicia e alococa o frame inicial na memoria
 */
 FRAME* initFRAME(CLASS* class, struct _code_attribute* code_attr) {
@@ -71,6 +90,7 @@ FRAME* initFRAME(CLASS* class, struct _code_attribute* code_attr) {
 	frame->pop = pop;
 	frame->push = push;
 	frame->push2 = push2;
+	frame->pop2 = pop2;
 
 	return frame;
 }

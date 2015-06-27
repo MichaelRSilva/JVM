@@ -275,6 +275,7 @@ static void _ldc2_w() {
     	low = maquina.current_frame->runtime_constant_pool->constants[indice-1].type.Double.lowBytes;
 
     	double d = getDouble(high, low);
+
     	memcpy(&completeValue, &d, sizeof(uint64_t));
     	
     	maquina.current_frame->push2(completeValue);
@@ -975,22 +976,20 @@ static void _fadd() {
 }	
 
 static void _dadd() {
-	double op, opp, sum;
-	uint64_t result;
-	uint64_t high,low;
 
-	low  = maquina.current_frame->pop();
-	high = maquina.current_frame->pop();
-	op = getDouble(high,low);
+	uint64_t hiOp,loOp,hiOpp,loOpp;
+	double sum;
+	uint64_t completeValue = 0;
 
-	low  = maquina.current_frame->pop();
-	high = maquina.current_frame->pop();
-	opp = getDouble(high,low);
+	loOp = maquina.current_frame->pop();
+	hiOp = maquina.current_frame->pop();
+	loOpp = maquina.current_frame->pop();
+	hiOpp = maquina.current_frame->pop();
 
-	sum = op + opp;
+	sum = getDouble(hiOp,loOp) + getDouble(hiOpp,loOpp);
+	memcpy(&completeValue, &sum, sizeof(uint64_t));
 
-	memcpy(&result, &sum, sizeof(uint64_t));
-	maquina.current_frame->push2(result);
+    maquina.current_frame->push2(completeValue);
 	
 	maquina.current_frame->pc++;
 }	
@@ -2497,12 +2496,16 @@ static void _freturn() {
 static void _dreturn() {
 	uint64_t low = maquina.current_frame->pop();
 	uint64_t high = maquina.current_frame->pop();
+
 	maquina.stack->popFrame();
 	maquina.stack->have_returned = 1;
 
 	if (maquina.current_frame) {
-		maquina.current_frame->push2(getDouble(high,low));
+
+		maquina.current_frame->push(high);
+		maquina.current_frame->push(low);
 	}
+
 }
 
 static void _areturn() {
