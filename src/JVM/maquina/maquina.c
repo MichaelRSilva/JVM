@@ -135,6 +135,11 @@ static int loadInterfaces(CLASS* class) {
 */
 static int loadClass(char* name) {
 	// printf("\nentrou loadClass: %s", name);
+
+	if(name == NULL){
+		return -1;
+	}
+
 	if (strchr(name, '$')) error(E_DOLAR_NOT_SUPPORTED);
 	int toReturn = -1;
 	if ((toReturn = getClassIndex(name)) <= -1) {

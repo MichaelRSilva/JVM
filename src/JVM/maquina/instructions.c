@@ -2885,6 +2885,7 @@ static void _invokespecial() {
 
 	} else {
 		maquina.construirFrame(class, method);
+		
 		for(i = numParams; i > 0; i--) {
 			maquina.current_frame->local_variables[i] = fieldsTemp[i];
 		}
@@ -3014,12 +3015,16 @@ static void _new() {
 	indice <<= 8;
 	indice |= low;
 
+
 	if (!indice) error(E_NOTVALID_CP_INDEX);
 	className = maquina.current_frame->runtime_constant_pool->getClassName(maquina.current_frame->runtime_constant_pool, indice);
 
 	classIndex = maquina.loadClass(className);
+
 	class = maquina.method_area->classes[classIndex];
+
 	objeto = maquina.heap->newObject(class);
+
 
 	maquina.current_frame->push((uint64_t)(intptr_t)objeto);
 	maquina.current_frame->pc++;

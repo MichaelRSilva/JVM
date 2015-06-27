@@ -25,11 +25,23 @@ static struct _object* newObject(CLASS* class) {
 	if (!class) return NULL;
 
 	struct _object* toReturn = (struct _object*)malloc(sizeof(struct _object));
+	CLASS* parentClass;
+	int index;
+	
 	toReturn->class = class;
-	toReturn->super = newObject(maquina.method_area->classes[maquina.loadClass(class->getParentName(class))]);
-	maquina.heap->object_count++;
 
-	return toReturn;
+	index = maquina.loadClass(class->getParentName(class));
+
+	if(index >0 ){
+		parentClass = maquina.method_area->classes[index];		
+
+		toReturn->super = newObject(parentClass);
+		maquina.heap->object_count++;
+
+		return toReturn;
+	}else{
+		return NULL;
+	}
 }
 
 /*!
