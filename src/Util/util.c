@@ -37,7 +37,7 @@ static int VerificaJVMCMDArgs(int argc, char** argv, char** basePath){
         return E_INVALID_NUM_ARGS; /*ERRO 1: invalido numero de argumentos*/
     }
 
-	for (int i = JVMCMDARGCOUNT; i < JVMCMDARGCOUNT+5; i++) {
+	for (int i = 1; i <= argc; i++) {
 		if (argv[i] != NULL) {
 			if (!strcmp(argv[i], "--help")){
 				return 1;
