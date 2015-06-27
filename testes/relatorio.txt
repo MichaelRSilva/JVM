@@ -20,9 +20,10 @@ OK:
 	- vetor.class
 	- double_cast.class
 	- short_cast.class
+	- HarmonicSeries.class
 
 NOK:
-	- HarmonicSeries.class
+	
 	- method_test.class
 	- objeto_teste.class
 	- testeArray.class
