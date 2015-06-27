@@ -33,7 +33,7 @@ int main(int argc, char **argv) {
 					break;
 				case 2: {
 					CLASS_LOADER* cl = initCLASS_LOADER();
-					cl->load(cl, argv[1]);
+					cl->load(cl, MUTIL.getClassPath(maquina.basePath,argv[1]));
 					FILE* fp = fopen("output.txt","w");
 					PrintClass(cl->class, stdout);
 					PrintClass(cl->class, fp);
@@ -43,7 +43,7 @@ int main(int argc, char **argv) {
 				}
 				case 3: {
 					CLASS_LOADER* cl = initCLASS_LOADER();
-					cl->load(cl, argv[1]);
+					cl->load(cl, MUTIL.getClassPath(maquina.basePath,argv[1]));
 					PrintClass(cl->class, stdout);
 					return 0;
 					break;
@@ -51,7 +51,7 @@ int main(int argc, char **argv) {
 				case 4: {
 					FILE* fp = fopen("output.txt","w");
 					CLASS_LOADER* cl = initCLASS_LOADER();
-					cl->load(cl, argv[1]);
+					cl->load(cl, MUTIL.getClassPath(maquina.basePath,argv[1]));
 					PrintClass(cl->class, fp);
 					fclose(fp);
 					return 0;
@@ -75,10 +75,12 @@ int main(int argc, char **argv) {
 void imprimeHelper() {
 	printf("JVM - Abilio, Marcus e Michael @ UnB\n");
 	printf("----------\n");
-	printf("\nUSO Geral: JVM.exe <input> [opcoes]\n\n");
+	printf("\nUSO Geral: JVM.exe <nome da classe>.class [opcoes]\n\n");
 	printf("OPCOES:\n");
-	printf("\t--help\t\t\t\t'lista as linhas de comando disponiveis'\n" );
-	printf("\t-p [both|tela|arquivo]\t\t'indica querer exibir Leitor/Exibidor de Bytecode'\n" );
-	printf("\t-b <java base path>\t\t'indica o path para obter o Object.class\n\t\t\t\t\t(caso vazio, assume a pasta de execucao da JVM)\n'");
-	printf("----------\n\n");
+	printf("  --help\t\t\t'lista as linhas de comando disponiveis'\n" );
+	printf("  -p <[both|tela|arquivo]>\t'indica querer ler e exibir Bytecode'\n" );
+	printf("  -b <base path>\t\t'indica o diretorio onde a classe se encontra'\n");
+	printf("\t\t\t\t (caso vazio, assume a pasta de execucao da JVM)\n");
+	printf("\t\t\t\t (c.c., nome da classe nao pode conter path)\n");
+	printf("----------\n");
 }

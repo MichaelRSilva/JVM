@@ -15,7 +15,10 @@ UTIL MUTIL;
 static char* getClassPath(char* base_path, char* class_name) {
 	char* path = (char*)malloc(strlen(base_path)+strlen(class_name) + 7);
 	if (strstr(class_name,".class") != NULL) {
-		sprintf(path, "%s/%s", base_path, class_name);
+		if (strlen(base_path)==0)
+			sprintf(path, "%s%s", base_path, class_name);
+		else
+			sprintf(path, "%s/%s", base_path, class_name);
 		return path;
 	}
 	else if (!strcmp(class_name,"java/lang/Object") 
@@ -52,7 +55,7 @@ static int VerificaJVMCMDArgs(int argc, char** argv, char** basePath){
 				else return E_OPCAO_NAO_EXISTENTE;
 			} else if ( argv[i+1] != NULL && !strcmp(argv[i], "-b")) {
 				strcpy(*basePath, argv[i+1]);
-				break;
+				i++;
 			}
 		}
 	}
