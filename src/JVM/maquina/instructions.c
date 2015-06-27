@@ -2934,10 +2934,9 @@ static void _invokestatic() {
 	class = maquina.method_area->classes[classIndex];
 
 	method = maquina.getMethodByNameDesc(class, maquina.current_frame->current_class, nameTypeIndex);
-
 	numParams = maquina.getNumParameters(class , method);
 	fieldsTemp = calloc(sizeof(uint64_t),numParams+1);
-	for(i = numParams; i > 0; i--) {
+	for(i = numParams - 1; i >= 0; i--) {
 		fieldsTemp[i] = maquina.current_frame->pop();
 	}
 
@@ -2949,7 +2948,7 @@ static void _invokestatic() {
 
 	} else {
 		maquina.construirFrame(class, method);
-		for(i = numParams; i > 0; i--) {
+		for(i = numParams - 1; i >= 0; i--) {
 			maquina.current_frame->local_variables[i] = fieldsTemp[i];
 		}
 		maquina.execute();
