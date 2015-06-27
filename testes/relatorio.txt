@@ -21,10 +21,10 @@ OK:
 	- double_cast.class
 	- short_cast.class
 	- HarmonicSeries.class
+	- testeArray.class
+	- testeStatic.class
 
 NOK:
 	
 	- method_test.class
 	- objeto_teste.class
-	- testeArray.class
-	- testeStatic.class
