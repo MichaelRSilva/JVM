@@ -24,7 +24,8 @@ const ERRORS errordesc[] = {
 	{ E_STACK_OVERFLOW, "ERRO: Stack Overflow!"},
 	{ E_NO_MAIN_FOUND, "ERRO: Nao foi encontrado nenhuma main!"},
 	{ E_EMPTY_STACK, "ERRO: Operand Stack vazio!"},
-	{ E_NOTSUPPORTED_VERSION, "ERRO: Versao Java nao suportada!"}
+	{ E_NOTSUPPORTED_VERSION, "ERRO: Versao Java nao suportada!"},
+	{ E_NOTVALID_CP_INDEX, "ERRO: Indice para constante pool nao valido!"}
 };
 
 void error(int errorcode) {

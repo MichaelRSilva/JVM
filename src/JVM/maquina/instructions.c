@@ -2563,14 +2563,12 @@ static void _putstatic() {
 	uint64_t valor,valor2;
 	char *className, *name, *type;
 
-#ifdef DEBUG
-	printf("\t I PUSTATIC");
-#endif
-
 	index_1 = (uint8_t) maquina.current_frame->code_attr->code[++(maquina.current_frame->pc)];
 	index_2 = (uint8_t) maquina.current_frame->code_attr->code[++(maquina.current_frame->pc)];
 	indice = ((uint16_t)index_1 << 8) |(uint16_t)index_2;
 	
+	if (!indice) error(E_NOTVALID_CP_INDEX);
+
 	classIndexTemp = maquina.current_frame->runtime_constant_pool->constants[indice-1].type.FieldRef.classIndex;
 	className = maquina.current_frame->runtime_constant_pool->getUtf8String(maquina.current_frame->runtime_constant_pool, maquina.current_frame->runtime_constant_pool->constants[classIndexTemp-1].type.Class.nameIndex);
 	
@@ -2585,26 +2583,19 @@ static void _putstatic() {
 	classIndex = maquina.loadClass(className);
 
 	if(type[0] == 'J' || type[0] == 'D') {
-
 		valor  = maquina.current_frame->pop();
 		valor2 = maquina.current_frame->pop();
 		valor = valor | (valor2 << 32);
- 
 	} else {
 		valor = maquina.current_frame->pop();
 	}
 
 	maquina.setStaticFieldVal(classIndex , field_index, valor);
 	maquina.current_frame->pc++;
-
-#ifdef DEBUG
-	printf(" O");
-#endif
 }
 
 
 static void _getfield() {
-	
 	uint8_t low, high;
 	uint64_t indice;
 	int64_t classIndex, field_index, nameIndex, aux;
@@ -2620,6 +2611,7 @@ static void _getfield() {
 	indice <<= 8;
 	indice = indice | low;
 
+	if (!indice) error(E_NOTVALID_CP_INDEX);
 
 	classIndex = maquina.current_frame->runtime_constant_pool->constants[indice-1].type.FieldRef.classIndex;
 	className = maquina.current_frame->runtime_constant_pool->getUtf8String(maquina.current_frame->runtime_constant_pool, maquina.current_frame->runtime_constant_pool->constants[classIndex-1].type.Class.nameIndex);
@@ -2667,15 +2659,14 @@ static void _putfield() {
 	indice <<= 8;
 	indice = indice | low;
 
+	if (!indice) error(E_NOTVALID_CP_INDEX);
 
 	classIndex = maquina.current_frame->runtime_constant_pool->constants[indice-1].type.FieldRef.classIndex;
 	className = maquina.current_frame->runtime_constant_pool->getUtf8String(maquina.current_frame->runtime_constant_pool, maquina.current_frame->runtime_constant_pool->constants[classIndex-1].type.Class.nameIndex);
 
-
 	nameTypeIndex = maquina.current_frame->runtime_constant_pool->constants[indice-1].type.FieldRef.nameTypeIndex;
 	name = maquina.current_frame->runtime_constant_pool->getUtf8String(maquina.current_frame->runtime_constant_pool, maquina.current_frame->runtime_constant_pool->constants[nameTypeIndex-1].type.NameType.nameIndex);
 	type = maquina.current_frame->runtime_constant_pool->getUtf8String(maquina.current_frame->runtime_constant_pool, maquina.current_frame->runtime_constant_pool->constants[nameTypeIndex-1].type.NameType.descriptorIndex);
-
 
 	while((field_index = maquina.retrieveFieldIndex(className, name, strlen(name), type, strlen(type))) == -1) {
 		className = maquina.current_frame->current_class->getParentName(maquina.getClassByName(className));
@@ -2684,42 +2675,36 @@ static void _putfield() {
 	nameIndex = maquina.current_frame->current_class->fields_pool->fields[field_index].name_index;
 
 	if(type[0] == 'J' || type[0] == 'D') {
-		
-
 		valor  = maquina.current_frame->pop();
 		valor2 = maquina.current_frame->pop();
 
 		valor = valor | (valor2 << 32);
 		maquina.setObjectField(objeto, nameIndex, valor);
-
 	} else {
-		
 		val_1 = maquina.current_frame->pop();
 		
 		aux = maquina.current_frame->pop();
 		memcpy(objeto, &aux, sizeof(uint64_t));
 
 		maquina.setObjectField(objeto, nameIndex, val_1);
-
 	}
 
 	maquina.current_frame->pc++;
 }
 
 static void _invokevirtual() {
-	
-	uint64_t indice, valorHigh, valorLow, vU8, array_ref;
-	uint8_t low, high;
-	int64_t numParams, i, j;
-	int64_t classIndex, classIndexTemp;
-	uint16_t nameTypeIndex, methodNameIndex, methodDescriptorIndex;
-	char *className, *methodName, *methodDesc;
-	uint64_t *fieldsTemp;
-	float vfloat;
-	uint8_t *bytes;
-	uint8_t length;
-	CLASS *class;
-	struct _method_info  *method;
+	uint64_t indice = 0, valorHigh = 0, valorLow = 0, vU8 = 0, array_ref = 0;
+	uint8_t low = 0, high = 0;
+	int64_t numParams = 0, i = 0, j = 0;
+	int64_t classIndex = 0, classIndexTemp = 0;
+	uint16_t nameTypeIndex = 0, methodNameIndex = 0, methodDescriptorIndex = 0;
+	char *className = NULL, *methodName = NULL, *methodDesc = NULL;
+	uint64_t *fieldsTemp = NULL;
+	float vfloat = 0;
+	uint8_t *bytes = NULL;
+	uint8_t length = 0;
+	CLASS *class = NULL;
+	struct _method_info  *method = NULL;
 
 	high = maquina.current_frame->code_attr->code[++(maquina.current_frame->pc)];
 	low = maquina.current_frame->code_attr->code[++(maquina.current_frame->pc)];
@@ -2728,9 +2713,10 @@ static void _invokevirtual() {
 	indice <<= 8;
 	indice = indice | low;
 
+	if (!indice) error(E_NOTVALID_CP_INDEX);
+
 	classIndexTemp = maquina.current_frame->runtime_constant_pool->constants[indice-1].type.MethodRef.classIndex;
 	className = maquina.getNameConstants(maquina.current_frame->current_class, maquina.current_frame->runtime_constant_pool->constants[classIndexTemp-1].type.Class.nameIndex);
-
 	nameTypeIndex = maquina.current_frame->runtime_constant_pool->constants[indice-1].type.MethodRef.nameTypeIndex;
 
 	methodNameIndex = maquina.current_frame->runtime_constant_pool->constants[nameTypeIndex-1].type.NameType.nameIndex;
@@ -2749,7 +2735,6 @@ static void _invokevirtual() {
 
 		//Quando tem que imprimir double
 		} else if(strstr(methodDesc, "D") != NULL) {
-
 			valorLow = maquina.current_frame->pop();
 			valorHigh = maquina.current_frame->pop();
 
@@ -2794,15 +2779,12 @@ static void _invokevirtual() {
 
 		//Quando tem que imprimir string
 		}else if(strstr(methodDesc, "Ljava/lang/String") != NULL) {
-			char* aux; 
 			vU8 = maquina.current_frame->pop();
-			memcpy(&aux, &vU8, sizeof(uint64_t));
 			printf("%s",maquina.current_frame->current_class->constant_pool->constants[vU8-1].type.Utf8.bytes);
 
 		//OBJECT
 		}else if(strstr(methodDesc, "Ljava/lang/Object") != NULL) {
-
-			void* aux; 
+			void* aux = NULL; 
 			vU8 = maquina.current_frame->pop();
 			memcpy(&aux, &vU8, sizeof(uint64_t));
 			printf("%p",aux);
@@ -2812,26 +2794,23 @@ static void _invokevirtual() {
 			printf("\n");
 		}
 
+		maquina.current_frame->pop();
 	} else {
-
 		classIndex = maquina.loadClass(className);
 		class = maquina.method_area->classes[classIndex];
 
-
 		while(class != NULL && (method = maquina.getMethodByNameDesc(class, maquina.current_frame->current_class, nameTypeIndex)) == NULL) {
-			
 			className = class->getParentName(class);
 			classIndex = maquina.loadClass(className);
-
 			class = maquina.method_area->classes[classIndex];
 		}
 
 		if(class == NULL) {
-			printf(" Erro: Metodo nao encontrando.\n");
+			printf("Erro: Metodo nao encontrando.\n");
 			exit(1);
 		}
 
-		numParams = maquina.getNumParameters(class , method);
+		numParams = maquina.getNumParameters(class, method);
 		fieldsTemp = calloc(sizeof(uint64_t),numParams+1);
 		for(i = numParams; i > 0; i--) {
 			fieldsTemp[i] = maquina.current_frame->pop();
@@ -2840,25 +2819,21 @@ static void _invokevirtual() {
 		if(((method->access_flags) & mask_native) || strcmp("println", maquina.getNameConstants(class, method->name_index)) == 0) {
 			bytes = class->constant_pool->constants[(method->descriptor_index-1)].type.Utf8.bytes;
 			length = class->constant_pool->constants[(method->descriptor_index-1)].type.Utf8.tam;
+			maquina.current_frame->pop();
 
-			// if(bytes[length-1] == 'D' || bytes[length-1] == 'J') {
-			// 	maquina.current_frame->push2(0);
-			// } else if(bytes[length-1] != 'V') {
-			// 	maquina.current_frame->push(0);
-			// }
+			// implementar aqui codigo para lidar com metodos nativos
 
 		} else {
 			maquina.construirFrame(class, method);
 			for(i = numParams; i > 0; i--) {
 				maquina.current_frame->local_variables[i] = fieldsTemp[i];
 			}
+			maquina.current_frame->local_variables[0] = maquina.current_frame->pop();
 			maquina.execute();
 		}
 	}
 
-	maquina.current_frame->pop();
 	maquina.current_frame->pc++;
-
 }
 
 static void _invokespecial() {
@@ -2882,11 +2857,12 @@ static void _invokespecial() {
 	indice <<= 8;
 	indice = indice | low;
 
+	if (!indice) error(E_NOTVALID_CP_INDEX);
+
 	classIndexTemp = maquina.current_frame->runtime_constant_pool->constants[indice-1].type.MethodRef.classIndex;
 	className = maquina.getNameConstants(maquina.current_frame->current_class, maquina.current_frame->runtime_constant_pool->constants[classIndexTemp-1].type.Class.nameIndex);
 
 	nameTypeIndex = maquina.current_frame->runtime_constant_pool->constants[indice-1].type.MethodRef.nameTypeIndex;
-
 
 	classIndex = maquina.loadClass(className);
 	class = maquina.method_area->classes[classIndex];
@@ -2910,22 +2886,19 @@ static void _invokespecial() {
 	if((method->access_flags) & mask_native) {
 		bytes = class->constant_pool->constants[(method->descriptor_index-1)].type.Utf8.bytes;
 		length = class->constant_pool->constants[(method->descriptor_index-1)].type.Utf8.tam;
+		maquina.current_frame->pop();
 
-		// if(bytes[length-1] == 'D' || bytes[length-1] == 'J') {
-		// 	maquina.current_frame->push2(0);
-		// } else if(bytes[length-1] != 'V') {
-		// 	maquina.current_frame->push(0);
-		// }
+		// implementar aqui codigo para lidar com metodos nativos
 
 	} else {
 		maquina.construirFrame(class, method);
 		for(i = numParams; i > 0; i--) {
 			maquina.current_frame->local_variables[i] = fieldsTemp[i];
 		}
+		maquina.current_frame->local_variables[0] = maquina.current_frame->pop();
 		maquina.execute();
 	}
 
-	maquina.current_frame->pop();
 	maquina.current_frame->pc++;
 
 }
@@ -2951,13 +2924,14 @@ static void _invokestatic() {
 	indice <<= 8;
 	indice = indice | low;
 
+	if (!indice) error(E_NOTVALID_CP_INDEX);
+
 	classIndexTemp = maquina.current_frame->runtime_constant_pool->constants[indice-1].type.MethodRef.classIndex;
 	className = maquina.getNameConstants(maquina.current_frame->current_class, maquina.current_frame->runtime_constant_pool->constants[classIndexTemp-1].type.Class.nameIndex);
 	nameTypeIndex = maquina.current_frame->runtime_constant_pool->constants[indice-1].type.MethodRef.nameTypeIndex;
 
 	classIndex = maquina.loadClass(className);
 	class = maquina.method_area->classes[classIndex];
-
 
 	method = maquina.getMethodByNameDesc(class, maquina.current_frame->current_class, nameTypeIndex);
 
@@ -2971,11 +2945,7 @@ static void _invokestatic() {
 		bytes = class->constant_pool->constants[(method->descriptor_index-1)].type.Utf8.bytes;
 		length = class->constant_pool->constants[(method->descriptor_index-1)].type.Utf8.tam;
 
-		// if(bytes[length-1] == 'D' || bytes[length-1] == 'J') {
-		// 	maquina.current_frame->push2(maquina.getNativeValueForStaticMethod(class, method));
-		// } else if(bytes[length-1] != 'V') {
-		// 	maquina.current_frame->push(maquina.getNativeValueForStaticMethod(class, method));
-		// }
+		// implementar aqui codigo para lidar com metodos nativos
 
 	} else {
 		maquina.construirFrame(class, method);
@@ -3005,11 +2975,12 @@ static void _invokeinterface() {
 	indice <<= 8;
 	indice = indice | low;
 
+	if (!indice) error(E_NOTVALID_CP_INDEX);
+
 	args_count = maquina.current_frame->code_attr->code[++(maquina.current_frame->pc)];
 	nothing = maquina.current_frame->code_attr->code[++(maquina.current_frame->pc)];
 
 	fieldsTemp = calloc(sizeof(uint64_t),args_count+1);
-
 
 	for(i = args_count; i > 0; i--) {
 		fieldsTemp[i] = maquina.current_frame->pop();
@@ -3019,10 +2990,8 @@ static void _invokeinterface() {
 	className = maquina.getNameConstants(maquina.current_frame->current_class, maquina.current_frame->runtime_constant_pool->constants[classIndexTemp-1].type.Class.nameIndex);
 	nameTypeIndex = maquina.current_frame->runtime_constant_pool->constants[indice-1].type.MethodRef.nameTypeIndex;
 
-
 	classIndex = maquina.loadClass(className);
 	class = maquina.method_area->classes[classIndex];
-
 
 	while(class != NULL && (method = maquina.getMethodByNameDesc(class, maquina.current_frame->current_class, nameTypeIndex)) == NULL) {
 		className = class->getParentName(class);
@@ -3057,22 +3026,19 @@ static void _new() {
 	high = maquina.current_frame->code_attr->code[++(maquina.current_frame->pc)];
 	low = maquina.current_frame->code_attr->code[++(maquina.current_frame->pc)];
 
-	uint64_t value;
-	value = high;
-	value <<= 8;
-	value |= low;
+	indice = high;
+	indice <<= 8;
+	indice |= low;
 
-	indice = value;
+	if (!indice) error(E_NOTVALID_CP_INDEX);
 	className = maquina.current_frame->runtime_constant_pool->getClassName(maquina.current_frame->runtime_constant_pool, indice);
 
-	printf("\n\t\t\t\tnew: className = %s", className);
 	classIndex = maquina.loadClass(className);
 	class = maquina.method_area->classes[classIndex];
 	objeto = maquina.heap->newObject(class);
 
 	maquina.current_frame->push((uint64_t)(intptr_t)objeto);
 	maquina.current_frame->pc++;
-	// printf("\n\t\t\tsaiu _new");
 }
 
 static void _newarray() {

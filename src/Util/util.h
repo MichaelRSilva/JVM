@@ -15,7 +15,6 @@
 	
 	// Macros
 		#define JVMCMDARGCOUNT 1 /// Quantidade de argumentos que a JVM aceita.
-		#define LEITOREXIBIDORCMDARGCOUNT 1 /// Quantidade de argumentos que o Leitor/Exibidor de bytecode aceita.
 
 	/// Encapsulamento das funcoes do modulo util.
 	/*!
@@ -64,5 +63,5 @@
 		@return Uma estrutura UTIL contendo os métodos auxiliares para IO
 	*/
 	UTIL initUTIL(void);
-	extern UTIL Mutil;
+	extern UTIL MUTIL;
 #endif

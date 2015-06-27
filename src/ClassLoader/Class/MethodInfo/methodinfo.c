@@ -1,5 +1,6 @@
 #include "methodinfo.h"
 
+/*##########################################CLASS LOADER RELATED METHODS########################################################*/
 /*!
 	devolve as flags de acesso de um metodo
 */
@@ -47,6 +48,7 @@ static int addMethods(METHOD_POOL* this, CONSTANT_POOL* cp, int ordem, DADOS* d)
 	return E_SUCCESS;
 }
 
+/*##########################################OTHER STUFF########################################################*/
 /*!
 	incia o nosso ponto de metodos
 */

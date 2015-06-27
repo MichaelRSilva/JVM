@@ -9,26 +9,7 @@
 	JVM - Software Basico 1/2015
 */
 #include "util.h"
-UTIL Mutil;
-
-/*!
-	trata se os argumentos passados para o executavel, se esta correto
-*/
-static int VerificaLeitorExibidorCMDArgs(int argc, char **argv){
-	FILE *fp;
-
-    if (argc < LEITOREXIBIDORCMDARGCOUNT + 1 || argc > LEITOREXIBIDORCMDARGCOUNT + 2){
-        return E_INVALID_NUM_ARGS; /*ERRO 1: invalido numero de argumentos*/
-    }
-	if ((fp=fopen(argv[1],"rb"))==NULL) {
-		return E_ARGV1_FILE_NOT_EXISTENT; /*ERRO 2: argv[2] invalido: arquivo nao existente*/
-	}else if (argv[2] != NULL && (strcmp(argv[2],"-tela") && strcmp(argv[2],"-arquivo"))){
-		return E_OPCAO_NAO_EXISTENTE; /*ERRO 6: opcao nao existente*/
-	} else {
-		fclose(fp);
-	}
-	return E_SUCCESS;
-}
+UTIL MUTIL;
 
 /// retorna a concatenacao do nome qualificado da classe com .class
 static char* getClassPath(char* base_path, char* class_name) {
@@ -127,7 +108,6 @@ UTIL initUTIL(void){
 	
 	util.getClassPath = getClassPath;
 	util.VerificaJVMCMDArgs = VerificaJVMCMDArgs;
-	util.VerificaLeitorExibidorCMDArgs = VerificaLeitorExibidorCMDArgs;
 	util.LeArquivo = LeArquivo;
 	util.EscreveArquivo = EscreveArquivo;
 

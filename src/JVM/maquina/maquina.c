@@ -95,7 +95,7 @@ static int loadParentClasses() {
 		CLASS_LOADER *cl = initCLASS_LOADER();
 
 		expandClassArray();
-		cl->load(cl, Mutil.getClassPath(maquina.basePath,parentName));
+		cl->load(cl, MUTIL.getClassPath(maquina.basePath,parentName));
 		maquina.method_area->classes[maquina.method_area->classes_count++]= cl->class;
 
 		link(maquina.method_area->classes_count-1);
@@ -120,7 +120,7 @@ static int loadInterfaces(CLASS* class) {
 		
 		if (getInterfceIndex(name) == -1) {
 			expandInterfaceArray();
-			cl->load(cl, Mutil.getClassPath(maquina.basePath, name));
+			cl->load(cl, MUTIL.getClassPath(maquina.basePath, name));
 			maquina.method_area->interfaces[maquina.method_area->interfaces_count++] = cl->class;
 		}
 		
@@ -140,7 +140,7 @@ static int loadClass(char* name) {
 	if ((toReturn = getClassIndex(name)) <= -1) {
 		CLASS_LOADER* cl = initCLASS_LOADER();
 
-		cl->load(cl, Mutil.getClassPath(maquina.basePath, name));
+		cl->load(cl, MUTIL.getClassPath(maquina.basePath, name));
 
 		toReturn = maquina.method_area->classes_count;
 		expandClassArray();
