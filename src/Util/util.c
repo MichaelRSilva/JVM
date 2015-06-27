@@ -14,17 +14,21 @@ UTIL MUTIL;
 /// retorna a concatenacao do nome qualificado da classe com .class
 static char* getClassPath(char* base_path, char* class_name) {
 	char* path = (char*)malloc(strlen(base_path)+strlen(class_name) + 7);
-	if (strstr(class_name,".class") != NULL) return class_name;
-	if (!strcmp(class_name,"java/lang/Object") 
+	if (strstr(class_name,".class") != NULL) {
+		sprintf(path, "%s/%s", base_path, class_name);
+		return path;
+	}
+	else if (!strcmp(class_name,"java/lang/Object") 
 		|| !strcmp(class_name,"java/lang/System") 
 		|| !strcmp(class_name,"java/io/PrintStream")
 		|| !strcmp(class_name,"java/lang/String")) {
 
 		sprintf(path, "%s.class", class_name);
 		return path;	
-	} 
-	sprintf(path, "%s/%s.class", base_path, class_name);
-	return path;
+	} else {
+		sprintf(path, "%s/%s.class", base_path, class_name);
+		return path;
+	}
 }
 
 /*!
