@@ -2829,11 +2829,12 @@ static void _invokevirtual() {
 			// implementar aqui codigo para lidar com metodos nativos
 
 		} else {
+			uint64_t objectref = maquina.current_frame->pop();
 			maquina.construirFrame(class, method);
 			for(i = numParams; i > 0; i--) {
 				maquina.current_frame->local_variables[i] = fieldsTemp[i];
 			}
-			maquina.current_frame->local_variables[0] = maquina.current_frame->pop();
+			maquina.current_frame->local_variables[0] = objectref;
 			maquina.execute();
 		}
 	}
@@ -2892,15 +2893,14 @@ static void _invokespecial() {
 		// implementar aqui codigo para lidar com metodos nativos
 
 	} else {
-
+		uint64_t objectref = maquina.current_frame->pop();
 		maquina.construirFrame(class, method);
 
 		for(i = numParams; i > 0; i--) {
 			maquina.current_frame->local_variables[i] = fieldsTemp[i];
 		}
-		
-		maquina.current_frame->local_variables[0] = maquina.current_frame->pop();
-		
+
+		maquina.current_frame->local_variables[0] = objectref;
 		maquina.execute();
 	}
 
@@ -2999,11 +2999,12 @@ static void _invokeinterface() {
 		printf("Metodo nao encontrado.\n");
 	}
 
+	uint64_t objectref = maquina.current_frame->pop();
 	maquina.construirFrame(class, method);
 	for(i = args_count; i > 0; i--) {
 		maquina.current_frame->local_variables[i] = fieldsTemp[i];
 	}
-	maquina.current_frame->local_variables[0] = maquina.current_frame->pop();
+	maquina.current_frame->local_variables[0] = objectref;
 	maquina.execute();
 	maquina.current_frame->pc++;
 
