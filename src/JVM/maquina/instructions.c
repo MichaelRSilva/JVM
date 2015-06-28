@@ -2634,7 +2634,7 @@ static void _getfield() {
 	}
 
 	aux = maquina.current_frame->pop();
-	memcpy(objeto, &aux, sizeof(uint64_t));
+	memcpy(&objeto, &aux, sizeof(uint64_t));
 
 	nameIndex = maquina.current_frame->current_class->fields_pool->fields[field_index].name_index;
 	aux2 = maquina.getObjectField(objeto, nameIndex);
@@ -2686,8 +2686,10 @@ static void _putfield() {
 	if(type[0] == 'J' || type[0] == 'D') {
 		valor  = maquina.current_frame->pop();
 		valor2 = maquina.current_frame->pop();
-
 		valor = valor | (valor2 << 32);
+
+		aux = maquina.current_frame->pop();
+		memcpy(&objeto, &aux, sizeof(uint64_t));
 		maquina.setObjectField(objeto, nameIndex, valor);
 
 	} else {
