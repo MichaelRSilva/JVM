@@ -81,6 +81,7 @@
 			uint64_t (*pop)();
 			void (*push2)(uint64_t);
 			uint64_t (*pop2)();
+			void (*printOperandStack)(char*);
 		} FRAME;		
 
 	// method_area

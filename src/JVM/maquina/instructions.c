@@ -182,7 +182,7 @@ static void _bipush() {
 static void _sipush() {
 	uint8_t high,low;
 	int16_t auxiliar_16;
-	int64_t t;
+	//int64_t t;
 	
 	maquina.current_frame->pc++;	
 	high = maquina.current_frame->code_attr->code[maquina.current_frame->pc];
@@ -193,7 +193,7 @@ static void _sipush() {
 	auxiliar_16 <<= 8;
 	auxiliar_16 |= low;
 	
-	t = (int64_t)auxiliar_16;
+	//t = (int64_t)auxiliar_16;
 
 	maquina.current_frame->push(auxiliar_16);
 	maquina.current_frame->pc++;
@@ -263,11 +263,14 @@ static void _ldc2_w() {
     type = maquina.current_frame->runtime_constant_pool->constants[indice-1].tag;
 
     if(type == tLong){
+    	
     	high = maquina.current_frame->runtime_constant_pool->constants[indice-1].type.Long.highBytes;
     	low = maquina.current_frame->runtime_constant_pool->constants[indice-1].type.Long.lowBytes;
     	long l = getLong(high, low);
     	memcpy(&completeValue, &l, sizeof(uint64_t));
+
     	maquina.current_frame->push2(completeValue);
+
 
     }else if(type == tDouble){	
 
@@ -2649,8 +2652,8 @@ static void _getfield() {
 static void _putfield() {
 	
 	uint8_t low, high;
-	uint64_t indice;
-	int64_t classIndex, field_index, nameIndex, aux, val_1;
+	uint64_t indice,aux;
+	int64_t classIndex, field_index, nameIndex, val_1;
 	uint16_t nameTypeIndex;
 	char *className, *name, *type;
 	struct _object *objeto = NULL;
@@ -2662,6 +2665,7 @@ static void _putfield() {
 	indice = high;
 	indice <<= 8;
 	indice = indice | low;
+
 
 	if (!indice) error(E_NOTVALID_CP_INDEX);
 
@@ -2678,18 +2682,19 @@ static void _putfield() {
 	
 	nameIndex = maquina.current_frame->current_class->fields_pool->fields[field_index].name_index;
 
+
 	if(type[0] == 'J' || type[0] == 'D') {
 		valor  = maquina.current_frame->pop();
 		valor2 = maquina.current_frame->pop();
 
 		valor = valor | (valor2 << 32);
 		maquina.setObjectField(objeto, nameIndex, valor);
+
 	} else {
 		val_1 = maquina.current_frame->pop();
-		
 		aux = maquina.current_frame->pop();
-		memcpy(objeto, &aux, sizeof(uint64_t));
 
+		memcpy(&objeto, &aux, sizeof(uint64_t));
 		maquina.setObjectField(objeto, nameIndex, val_1);
 	}
 
@@ -2839,11 +2844,12 @@ static void _invokevirtual() {
 static void _invokespecial() {
 	uint64_t indice, *fieldsTemp;;
 	uint8_t low, high;
-	int64_t numParams, i, classIndex, classIndexTemp;
+	int64_t i, classIndex, classIndexTemp;
 	uint16_t nameTypeIndex;
 	char *className;
 	CLASS *class;
 	struct _method_info *method;
+	int numParams;
 
 	high = maquina.current_frame->code_attr->code[++(maquina.current_frame->pc)];
 	low = maquina.current_frame->code_attr->code[++(maquina.current_frame->pc)];
@@ -2873,6 +2879,8 @@ static void _invokespecial() {
 	}
 
 	numParams = maquina.getNumParameters(class , method);
+	
+
 	fieldsTemp = calloc(sizeof(uint64_t),numParams+1);
 	for(i = numParams; i > 0; i--) {
 		fieldsTemp[i] = maquina.current_frame->pop();
@@ -2884,12 +2892,15 @@ static void _invokespecial() {
 		// implementar aqui codigo para lidar com metodos nativos
 
 	} else {
+
 		maquina.construirFrame(class, method);
-		
+
 		for(i = numParams; i > 0; i--) {
 			maquina.current_frame->local_variables[i] = fieldsTemp[i];
 		}
+		
 		maquina.current_frame->local_variables[0] = maquina.current_frame->pop();
+		
 		maquina.execute();
 	}
 

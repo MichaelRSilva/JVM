@@ -91,6 +91,7 @@ FRAME* initFRAME(CLASS* class, struct _code_attribute* code_attr) {
 	frame->push = push;
 	frame->push2 = push2;
 	frame->pop2 = pop2;
+	frame->printOperandStack = printOperandStack;
 
 	return frame;
 }
