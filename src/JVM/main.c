@@ -22,7 +22,7 @@ void imprimeHelper();
 int main(int argc, char **argv) {
 	int flag;
 	_MUTIL = initUTIL();
-	_MCONSTANTP = *(initCONSTANT_POOL(0));
+	_MCONSTANTP = *(initCONSTANT_POOL(1));
 	_MCLASS = *(initCLASS());
 	_MCLASSL = *(initCLASS_LOADER());
 	maquina = initJVM();

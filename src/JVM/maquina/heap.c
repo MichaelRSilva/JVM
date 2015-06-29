@@ -50,7 +50,7 @@ static struct _array* newArray(uint32_t count, uint32_t tipo) {
 	newArr->tipo = tipo;
 	switch(tipo) {
 		case tREFERENCIA:
-			newArr->element_size = sizeof(uint32_t);
+			newArr->element_size = sizeof(uint64_t);
 			break;
 		case tBOOLEAN:
 			newArr->element_size = sizeof(uint8_t);
@@ -79,7 +79,7 @@ static struct _array* newArray(uint32_t count, uint32_t tipo) {
 		default:
 			break;
 	}
-	newArr->values = malloc(count* newArr->element_size);
+	newArr->values = calloc(count, newArr->element_size);
 
 	return addArray(newArr);
 }

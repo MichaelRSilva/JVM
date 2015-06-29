@@ -16,7 +16,7 @@
 	#include <inttypes.h>
 	#include <string.h>
 	#include <math.h>
-	#define DEBUG
+	// #define DEBUG
 
 	/*!
 		Enumeração dos valores das access flags assim como definido no capítulo 4 da especificação;

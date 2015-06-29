@@ -479,7 +479,16 @@ static void _daload() {
 }
 
 static void _aaload() {
-    _iaload();
+    uint64_t indice, aux;
+    struct _array *arrayRef;
+
+    indice = maquina.current_frame->pop();
+    aux = maquina.current_frame->pop();
+    memcpy(&arrayRef, &aux, sizeof(uint64_t));
+
+    maquina.current_frame->push(((uint64_t*)arrayRef->values)[indice]);
+
+    maquina.current_frame->pc++;
 }
 
 static void _baload() {
