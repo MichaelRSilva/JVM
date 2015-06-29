@@ -40,11 +40,11 @@ static void printCode(struct _attribute_info attr, char *tab, CONSTANT_POOL* cp,
 		fprintf(output, "%s\t[%d]LineNumberTable:\n", tab, i);
 		fprintf(output, "%s\t\tAttribute name index:\t%d\n", tab, attr.info.CodeAttribute.attributes[i].attributeNameIndex);
 		fprintf(output, "%s\t\tAttribute length:\t%d\n\n", tab, attr.info.CodeAttribute.attributes[i].attributeLength);
-		fprintf(output, "%s\t\t\t|Nr.\t|start_pc\t|line_number\t\t|\n", tab);
+		fprintf(output, "%s\t\t\t|Nr.\t|start_pc\t|line_number\t|\n", tab);
 
 		for (int j = 0; j < attr.info.CodeAttribute.attributes[i].info.LineNumberTableAttribute.liner_number_table_length; j++) {
 			struct _line_number_table* var = attr.info.CodeAttribute.attributes[i].info.LineNumberTableAttribute.line_number_table;
-			fprintf(output, "%s\t\t\t|%d\t|%d\t\t|%d\t\t\t|\n", tab, j, var[j].start_pc, var[j].line_number);
+			fprintf(output, "%s\t\t\t|%d\t|%d\t\t|%d\t\t|\n", tab, j, var[j].start_pc, var[j].line_number);
 		}
 	}
 	

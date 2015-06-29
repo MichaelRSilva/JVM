@@ -16,7 +16,7 @@
 	#include <inttypes.h>
 	#include <string.h>
 	#include <math.h>
-	// #define DEBUG
+	#define DEBUG
 
 	/*!
 		Enumeração dos valores das access flags assim como definido no capítulo 4 da especificação;
@@ -72,7 +72,7 @@
 			E_SUCCESS = 0, E_INVALID_NUM_ARGS = -1, E_ARGV1_FILE_NOT_EXISTENT = -2, E_CAFEBABE = -3, E_VERSION = -4,
 			W_NAOLIDOINTEIRO = -5, E_OPCAO_NAO_EXISTENTE = -6, E_DOLAR_NOT_SUPPORTED = -7, E_EMPTY_FRAME_STACK = -8,
 			E_STACK_OVERFLOW = -9, E_NO_MAIN_FOUND = -10, E_EMPTY_STACK = -11, E_NOTSUPPORTED_VERSION = -12,
-			E_NOTVALID_CP_INDEX = -13
+			E_NOTVALID_CP_INDEX = -13, E_NEG_ARR_SIZE = -14, E_NULL_POINTER = -15, E_ARR_NOT_FOUND = -16
 		};
 
 

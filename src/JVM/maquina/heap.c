@@ -44,7 +44,7 @@ static struct _object* newObject(CLASS* class) {
 	devolve uma instancia de um array, do tipo passado por parametro
 */
 static struct _array* newArray(uint32_t count, uint32_t tipo) {
-	struct _array* newArr = (struct _array*)malloc(2*sizeof(struct _array));
+	struct _array* newArr = (struct _array*)malloc(sizeof(struct _array));
 	
 	newArr->quantidade = count;
 	newArr->tipo = tipo;
@@ -84,6 +84,14 @@ static struct _array* newArray(uint32_t count, uint32_t tipo) {
 	return addArray(newArr);
 }
 
+static struct _array* newRefArray(uint32_t count, char* className) {
+	struct _array* newArr = newArray(count, tREFERENCIA);
+
+	maquina.loadClass(className);
+
+	return newArr;
+}
+
 /*!
 	incicia e aloca o heap inicial na memoria
 */
@@ -99,5 +107,6 @@ HEAP* initHEAP() {
 	// funcoes
 	toReturn->newObject = newObject;
 	toReturn->newArray = newArray;
+	toReturn->newRefArray = newRefArray;
 	return toReturn;
 }

@@ -21,5 +21,6 @@ var maquina_8c =
     [ "searchStaticFieldVal", "maquina_8c.html#a3017108418c1af5624852e1b2fbdb04e", null ],
     [ "setObjectField", "maquina_8c.html#aa57d77fff82d509f82b3a1f83230b6d3", null ],
     [ "setStaticFieldVal", "maquina_8c.html#a5f0424b17f8c14af21fe7d370efd87f6", null ],
-    [ "verify", "maquina_8c.html#a2edc0d6f30ce37b06f4ad028906db411", null ]
+    [ "verify", "maquina_8c.html#a2edc0d6f30ce37b06f4ad028906db411", null ],
+    [ "_MCLASSL", "maquina_8c.html#a29599e290057ea113e44014d8c7d120f", null ]
 ];

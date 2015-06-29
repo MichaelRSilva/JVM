@@ -1,7 +1,5 @@
 var _class_loader_2_class_2_attribute_info_2private_8c =
 [
-    [ "getAttributeLength", "_class_loader_2_class_2_attribute_info_2private_8c.html#a095976503ea711d1d73cd6069432e11a", null ],
-    [ "getAttributeNameIndex", "_class_loader_2_class_2_attribute_info_2private_8c.html#a722d3ca3404c5577af2bdb8c8887b537", null ],
     [ "populateCodeAttribute", "_class_loader_2_class_2_attribute_info_2private_8c.html#a884782dec15d351ca668c5d7f1e75b73", null ],
     [ "populateConstantValueAttribute", "_class_loader_2_class_2_attribute_info_2private_8c.html#a5225f654aa90e3cdcc3c5cc5ad14bd63", null ],
     [ "populateDeprecated", "_class_loader_2_class_2_attribute_info_2private_8c.html#a3e27157ffbd03e004059fa07fbc4b9be", null ],

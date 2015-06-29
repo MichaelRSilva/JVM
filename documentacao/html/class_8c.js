@@ -4,8 +4,8 @@ var class_8c =
     [ "getName", "class_8c.html#a7c05738574be3a78931f5dfa27bbee22", null ],
     [ "getParentName", "class_8c.html#a8bdef6420eeb5681bfab8511b42e3df6", null ],
     [ "initCLASS", "class_8c.html#abf96fcdf53f62fc6667c5e5303553898", null ],
-    [ "Mattributepool", "class_8c.html#a785b775ddc7fc604e77aed6e7bc24908", null ],
-    [ "Mconstantpool", "class_8c.html#ae05a481cdf6e77710d7aae766c3784fa", null ],
-    [ "Mfieldpool", "class_8c.html#aab7495eb76f1076e547bcb5a24e75192", null ],
-    [ "Mmethodpool", "class_8c.html#a051c9753d03eea4c85bf4c72ed21f01f", null ]
+    [ "_MATTRIBUTEP", "class_8c.html#af24283f3d2a93f5da42bb4e6e194b7b6", null ],
+    [ "_MCONSTANTP", "class_8c.html#ac664513e898a9645c757f9066e526cc6", null ],
+    [ "_MFIELDP", "class_8c.html#af0c13998c12e99ebc18069ee4d3265a4", null ],
+    [ "_MMETHODP", "class_8c.html#a4f678ef10934e093702d7a618da7aab6", null ]
 ];

@@ -3,7 +3,7 @@ var searchData=
   ['call',['call',['../struct_j_v_m___i_n_s_t_r_u_c_t_i_o_n.html#af8f1b86afad919fa02ebcd5298123303',1,'JVM_INSTRUCTION']]],
   ['catch_5ftype',['catch_type',['../struct__exception__table.html#aef2a00af919a009828c0a2a1e6cc2146',1,'_exception_table']]],
   ['checkiffieldisstatic',['checkIfFieldIsStatic',['../_j_v_m_2maquina_2private_8c.html#afe60c6d8ba56ba3c3909eb4b67e75658',1,'private.c']]],
-  ['class',['CLASS',['../struct_c_l_a_s_s.html',1,'CLASS'],['../struct__constant__info.html#a614a0f01937220a61dd2ad2ff1690a24',1,'_constant_info::Class()'],['../struct_c_l_a_s_s___l_o_a_d_e_r.html#aeecccd9c6f4b5bcfc39a19a19d1e8aca',1,'CLASS_LOADER::class()'],['../struct_h_e_a_p_1_1__object.html#ad984f4f2e1f69cb4dd1163ecb350a49e',1,'HEAP::_object::class()']]],
+  ['class',['CLASS',['../struct_c_l_a_s_s.html',1,'CLASS'],['../struct__constant__info.html#a614a0f01937220a61dd2ad2ff1690a24',1,'_constant_info::Class()'],['../struct_h_e_a_p_1_1__object.html#ad984f4f2e1f69cb4dd1163ecb350a49e',1,'HEAP::_object::class()']]],
   ['class_2ec',['class.c',['../class_8c.html',1,'']]],
   ['class_2eh',['class.h',['../class_8h.html',1,'']]],
   ['class_5ffile',['class_file',['../struct_c_l_a_s_s.html#ae33fbccd20cae2d1e9379a4ee47e0054',1,'CLASS']]],

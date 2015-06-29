@@ -1,16 +1,10 @@
 var searchData=
 [
-  ['access_5fflags',['access_flags',['../struct_c_l_a_s_s.html#a562525337a49b849ecf0c05031e125de',1,'CLASS::access_flags()'],['../struct__field__info.html#a7f5fd269186e4937583114c73de5acff',1,'_field_info::access_flags()'],['../struct__method__info.html#af03b1a905b342757e55e6273cee2037f',1,'_method_info::access_flags()']]],
-  ['addattribute',['addAttribute',['../struct_a_t_t_r_i_b_u_t_e___p_o_o_l.html#a1abb2686718134cffcfcf4ddedaa1690',1,'ATTRIBUTE_POOL']]],
-  ['addconstant',['addConstant',['../struct_c_o_n_s_t_a_n_t___p_o_o_l.html#a4c6240253c04833d874de35ca93a6774',1,'CONSTANT_POOL']]],
-  ['addfield',['addField',['../struct_f_i_e_l_d___p_o_o_l.html#af82eb3ce1a2c0e07299865744fdf156b',1,'FIELD_POOL']]],
-  ['addmethods',['addMethods',['../struct_m_e_t_h_o_d___p_o_o_l.html#a4f0af426be06ebf5e71775e6c36ea661',1,'METHOD_POOL']]],
-  ['allocated',['allocated',['../struct_f_r_a_m_e_1_1__operand__stack.html#a9cfd514d63754de1b259e7610a74ccf9',1,'FRAME::_operand_stack']]],
-  ['array_5fcount',['array_count',['../struct_h_e_a_p.html#ab988b28e3bb4e377131f4bcd4935e342',1,'HEAP']]],
-  ['arrays',['arrays',['../struct_h_e_a_p.html#a942d318eb4e120a0ede3328875ad9b97',1,'HEAP']]],
-  ['attribute_5fpool',['attribute_pool',['../struct_c_l_a_s_s.html#a1808484084d71f5e0fc80229c1336537',1,'CLASS']]],
-  ['attributelength',['attributeLength',['../struct__attribute__info.html#af99e2336e49ba630220c74fd69e4b6ec',1,'_attribute_info']]],
-  ['attributenameindex',['attributeNameIndex',['../struct__attribute__info.html#a02b6a4ef00c916538d6753b6b9caf98c',1,'_attribute_info']]],
-  ['attributes',['attributes',['../struct__code__attribute.html#afc98339cafbb2e04b269a96dbfdd454b',1,'_code_attribute::attributes()'],['../struct_a_t_t_r_i_b_u_t_e___p_o_o_l.html#a1d544c2996a608ec0a905fa32d239b9f',1,'ATTRIBUTE_POOL::attributes()'],['../struct__field__info.html#ade84083de810d94a129d14a4cf16c639',1,'_field_info::attributes()'],['../struct__method__info.html#aeb1e1c6e89d42501f4fcb71e090f41d4',1,'_method_info::attributes()']]],
-  ['attributes_5fcount',['attributes_count',['../struct__code__attribute.html#a28c5bd95f6c0c1b91291437b25487b5d',1,'_code_attribute::attributes_count()'],['../struct_c_l_a_s_s.html#a4c9ce24fb4e4c7abab2c9a16b8221b02',1,'CLASS::attributes_count()'],['../struct__field__info.html#a4a6d78f067e297a94d2c60956d010d6b',1,'_field_info::attributes_count()'],['../struct__method__info.html#acc38d6f82cad862d8946bd44a2de3939',1,'_method_info::attributes_count()']]]
+  ['_5fmattributep',['_MATTRIBUTEP',['../attributeinfo_8h.html#af24283f3d2a93f5da42bb4e6e194b7b6',1,'_MATTRIBUTEP():&#160;class.c'],['../class_8c.html#af24283f3d2a93f5da42bb4e6e194b7b6',1,'_MATTRIBUTEP():&#160;class.c'],['../instructions_8c.html#af24283f3d2a93f5da42bb4e6e194b7b6',1,'_MATTRIBUTEP():&#160;instructions.c']]],
+  ['_5fmclass',['_MCLASS',['../class_8h.html#a2e97d15a077114e92e2c8e33a4a55298',1,'_MCLASS():&#160;instructions.c'],['../instructions_8c.html#a2e97d15a077114e92e2c8e33a4a55298',1,'_MCLASS():&#160;instructions.c']]],
+  ['_5fmclassl',['_MCLASSL',['../classloader_8h.html#a29599e290057ea113e44014d8c7d120f',1,'_MCLASSL():&#160;maquina.c'],['../maquina_8c.html#a29599e290057ea113e44014d8c7d120f',1,'_MCLASSL():&#160;maquina.c']]],
+  ['_5fmconstantp',['_MCONSTANTP',['../class_8c.html#ac664513e898a9645c757f9066e526cc6',1,'_MCONSTANTP():&#160;class.c'],['../constantpool_8h.html#ac664513e898a9645c757f9066e526cc6',1,'_MCONSTANTP():&#160;class.c'],['../classloader_8c.html#ac664513e898a9645c757f9066e526cc6',1,'_MCONSTANTP():&#160;classloader.c'],['../instructions_8c.html#ac664513e898a9645c757f9066e526cc6',1,'_MCONSTANTP():&#160;instructions.c']]],
+  ['_5fmfieldp',['_MFIELDP',['../class_8c.html#af0c13998c12e99ebc18069ee4d3265a4',1,'_MFIELDP():&#160;class.c'],['../fieldinfo_8h.html#af0c13998c12e99ebc18069ee4d3265a4',1,'_MFIELDP():&#160;class.c']]],
+  ['_5fmmethodp',['_MMETHODP',['../class_8c.html#a4f678ef10934e093702d7a618da7aab6',1,'_MMETHODP():&#160;class.c'],['../methodinfo_8h.html#a4f678ef10934e093702d7a618da7aab6',1,'_MMETHODP():&#160;class.c'],['../instructions_8c.html#a4f678ef10934e093702d7a618da7aab6',1,'_MMETHODP():&#160;instructions.c']]],
+  ['_5fmutil',['_MUTIL',['../classloader_8c.html#a1ad900414f3028f86547540d6654e339',1,'_MUTIL():&#160;classloader.c'],['../main_8c.html#a1ad900414f3028f86547540d6654e339',1,'_MUTIL():&#160;main.c'],['../instructions_8c.html#a1ad900414f3028f86547540d6654e339',1,'_MUTIL():&#160;instructions.c'],['../util_8c.html#a1ad900414f3028f86547540d6654e339',1,'_MUTIL():&#160;util.c'],['../util_8h.html#a1ad900414f3028f86547540d6654e339',1,'_MUTIL():&#160;classloader.c']]]
 ];

@@ -201,12 +201,12 @@ var instructions_8c =
     [ "_swap", "instructions_8c.html#aade261127321750795c217264ee42685", null ],
     [ "_tableswitch", "instructions_8c.html#ad8f148dcd8067b028a21a2cdfdbc3c8c", null ],
     [ "_wide", "instructions_8c.html#a41b2bafb33423c4e743c161b84a4a4cf", null ],
+    [ "_MATTRIBUTEP", "instructions_8c.html#af24283f3d2a93f5da42bb4e6e194b7b6", null ],
+    [ "_MCLASS", "instructions_8c.html#a2e97d15a077114e92e2c8e33a4a55298", null ],
+    [ "_MCONSTANTP", "instructions_8c.html#ac664513e898a9645c757f9066e526cc6", null ],
+    [ "_MMETHODP", "instructions_8c.html#a4f678ef10934e093702d7a618da7aab6", null ],
+    [ "_MUTIL", "instructions_8c.html#a1ad900414f3028f86547540d6654e339", null ],
     [ "instructions", "instructions_8c.html#a54ee0d9775b499d224529c57e40a100e", null ],
     [ "maquina", "instructions_8c.html#ad7fdd1ebb8a72ccff0ecf76b8451d76e", null ],
-    [ "Mattributepool", "instructions_8c.html#a785b775ddc7fc604e77aed6e7bc24908", null ],
-    [ "Mclass", "instructions_8c.html#aa017a483ea1faf897127a339896f89f2", null ],
-    [ "Mconstantpool", "instructions_8c.html#ae05a481cdf6e77710d7aae766c3784fa", null ],
-    [ "Mmethodpool", "instructions_8c.html#a051c9753d03eea4c85bf4c72ed21f01f", null ],
-    [ "_MUTIL", "instructions_8c.html#a1365dba1632d3331791bd48585ad76dc", null ],
     [ "WIDE", "instructions_8c.html#a742df3db81ef851ef55e93efd8557569", null ]
 ];

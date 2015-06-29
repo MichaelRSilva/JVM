@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['retrievefieldindex',['retrieveFieldIndex',['../struct_j_v_m.html#a62dc8128db5cd282ea1ddaefa638864b',1,'JVM']]],
-  ['run',['run',['../struct_j_v_m.html#afdc6648e91fd5086d9b758cbe226ef71',1,'JVM']]],
-  ['runtime_5fconstant_5fpool',['runtime_constant_pool',['../struct_f_r_a_m_e.html#aec810e420896363c391b7d08ef2e6d3e',1,'FRAME']]]
+  ['qtd_5foperandos',['qtd_operandos',['../struct_j_v_m___i_n_s_t_r_u_c_t_i_o_n.html#a4bfc5408a03df9b4b3468f0b81a31995',1,'JVM_INSTRUCTION']]],
+  ['quantidade',['quantidade',['../struct_h_e_a_p_1_1__array.html#adf0503d175f5ad4a6f5b395de8ba8997',1,'HEAP::_array']]]
 ];

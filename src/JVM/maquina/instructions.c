@@ -432,7 +432,7 @@ static void _iaload() {
     uint64_t indice, aux;
     struct _array *arrayRef;
 
-    indice 	 = maquina.current_frame->pop();
+    indice = maquina.current_frame->pop();
     aux = maquina.current_frame->pop();
     memcpy(&arrayRef, &aux, sizeof(uint64_t));
 
@@ -3045,24 +3045,23 @@ static void _newarray() {
 	maquina.current_frame->pc++;
 
 	type = maquina.current_frame->code_attr->code[(maquina.current_frame->pc)];
-	
-	if(count < 0) {
-		printf("Erro: Invalid Array Size\n");
-	}
+	if (count < 0) error(E_NEG_ARR_SIZE);
+
 	maquina.current_frame->push((uint64_t)(intptr_t)maquina.heap->newArray(count,type));
 	maquina.current_frame->pc++;
 }
 
 static void _anewarray() {
-	int count;
-	count = maquina.current_frame->pop();
-	maquina.current_frame->pc += 2;
-	
-	if(count < 0){
-		printf("Erro: Invalid Array Size\n");
-	}
+	int count = maquina.current_frame->pop();
+	if (count < 0) error(E_NEG_ARR_SIZE);
 
-	void* pointer = maquina.heap->newArray(count,tREFERENCIA);
+	uint8_t index_byte1 = maquina.current_frame->code_attr->code[++maquina.current_frame->pc];
+	uint8_t index_byte2 = maquina.current_frame->code_attr->code[++maquina.current_frame->pc];
+	uint16_t indice = index_byte1; indice = indice << 8 | index_byte2;
+
+	char* className = _MCONSTANTP.getClassName(maquina.current_frame->runtime_constant_pool, indice);
+
+	void* pointer = maquina.heap->newRefArray(count,className);
 	uint64_t toPush = 0;
 	memcpy(&toPush, &pointer, sizeof(uint64_t));
 
@@ -3071,20 +3070,20 @@ static void _anewarray() {
 }
 
 static void _arraylength() {
-	uint64_t reference;
+	uint64_t reference = maquina.current_frame->pop();
+	if (reference == 0) error(E_NULL_POINTER);
 
-	int i;
-	reference = maquina.current_frame->pop();
-	for(i=0;i < maquina.heap->array_count; i++){
+	for(int i=0;i < maquina.heap->array_count; i++){
 
+		// push somente a quantidade do array correto
 		if(!memcmp(&maquina.heap->arrays[i], &reference, sizeof(uint64_t))) {
 			maquina.current_frame->push(maquina.heap->arrays[i]->quantidade);
 			maquina.current_frame->pc++;
 			return;
 		}
 	}
-	maquina.current_frame->push(0);
-	maquina.current_frame->pc++;
+
+	error(E_ARR_NOT_FOUND);
 }
 
 static void _athrow() {

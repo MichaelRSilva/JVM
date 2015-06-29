@@ -25,7 +25,10 @@ const ERRORS errordesc[] = {
 	{ E_NO_MAIN_FOUND, "ERRO: Nao foi encontrado nenhuma main!"},
 	{ E_EMPTY_STACK, "ERRO: Operand Stack vazio!"},
 	{ E_NOTSUPPORTED_VERSION, "ERRO: Versao Java nao suportada!"},
-	{ E_NOTVALID_CP_INDEX, "ERRO: Indice para constante pool nao valido!"}
+	{ E_NOTVALID_CP_INDEX, "ERRO: Indice para constante pool nao valido!"},
+	{ E_NEG_ARR_SIZE, "ERRO: NegativeArraySizeException"},
+	{ E_NULL_POINTER, "ERRO: NullPointerException"},
+	{ E_ARR_NOT_FOUND, "ERRO: Array não encontrado" }
 };
 
 void error(int errorcode) {

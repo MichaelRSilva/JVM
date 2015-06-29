@@ -1,8 +1,6 @@
 var searchData=
 [
   ['getaccessflags',['getAccessFlags',['../fieldinfo_8c.html#a60e0e4186389a827a51d3ffad806053f',1,'getAccessFlags(DADOS *d):&#160;fieldinfo.c'],['../methodinfo_8c.html#a60e0e4186389a827a51d3ffad806053f',1,'getAccessFlags(DADOS *d):&#160;methodinfo.c']]],
-  ['getattributelength',['getAttributeLength',['../_class_loader_2_class_2_attribute_info_2private_8c.html#a095976503ea711d1d73cd6069432e11a',1,'private.c']]],
-  ['getattributenameindex',['getAttributeNameIndex',['../_class_loader_2_class_2_attribute_info_2private_8c.html#a722d3ca3404c5577af2bdb8c8887b537',1,'private.c']]],
   ['getattributescount',['getAttributesCount',['../fieldinfo_8c.html#a2a00ee3f361b48b270b5cf75a34c8807',1,'getAttributesCount(DADOS *d):&#160;fieldinfo.c'],['../methodinfo_8c.html#a2a00ee3f361b48b270b5cf75a34c8807',1,'getAttributesCount(DADOS *d):&#160;methodinfo.c']]],
   ['getattributetype',['getAttributeType',['../struct_c_o_n_s_t_a_n_t___p_o_o_l.html#a3d3e43ca1891224914864c54145bef25',1,'CONSTANT_POOL::getAttributeType()'],['../constantpool_8c.html#a372a4d0e5819c731f02294aef7c111a3',1,'getAttributeType():&#160;constantpool.c']]],
   ['getclassbyname',['getClassByName',['../struct_j_v_m.html#ac95ef4064ec308ea5097891988d1db2f',1,'JVM::getClassByName()'],['../maquina_8c.html#a5e2b424f723fae9949a106833df3d46f',1,'getClassByName():&#160;maquina.c']]],

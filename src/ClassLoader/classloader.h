@@ -22,6 +22,6 @@
 		CLASS* (*load)(char*);
 	} CLASS_LOADER;
 
-	CLASS_LOADER* initCLASS_LOADER();
-	extern CLASS_LOADER _MCLASSL;
+	CLASS_LOADER* initCLASS_LOADER(); /// construtor da "classe" CLASS_LOADER
+	extern CLASS_LOADER _MCLASSL; /// variável global para acessar as funções do módulo
 #endif

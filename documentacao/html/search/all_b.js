@@ -10,7 +10,7 @@ var searchData=
   ['linenumbertableattribute',['LineNumberTableAttribute',['../struct__attribute__info.html#aee1034b84453b4238d38d85ff8c10786',1,'_attribute_info']]],
   ['liner_5fnumber_5ftable_5flength',['liner_number_table_length',['../struct__attribute__info.html#a3585c6c74e8364e4aae13de1197007b4',1,'_attribute_info']]],
   ['link',['link',['../struct_j_v_m.html#abe074a65aa046b80811faf3419400c17',1,'JVM::link()'],['../maquina_8c.html#a87d384a5f7530ac369b5c5920a38bba3',1,'link():&#160;maquina.c']]],
-  ['load',['load',['../struct_c_l_a_s_s___l_o_a_d_e_r.html#a005047d82e4ef6e47659343583b203e6',1,'CLASS_LOADER::load()'],['../classloader_8c.html#a82145b9a4531ca37458135a6cc40bc91',1,'load():&#160;classloader.c']]],
+  ['load',['load',['../struct_c_l_a_s_s___l_o_a_d_e_r.html#a433ad073fa0c659d01535864e94961c7',1,'CLASS_LOADER::load()'],['../classloader_8c.html#a7f7e37f08ce79d2f4fb16f953b0de23f',1,'load():&#160;classloader.c']]],
   ['loadclass',['loadClass',['../struct_j_v_m.html#a15ffdccb2279a74b5528b343ae3b51e9',1,'JVM::loadClass()'],['../maquina_8c.html#afabd057cbb0355529e7da74ac6359fb9',1,'loadClass():&#160;maquina.c']]],
   ['loadinterfaces',['loadInterfaces',['../struct_j_v_m.html#ae43c37db5704900c5161f2cf2517912a',1,'JVM::loadInterfaces()'],['../maquina_8c.html#a8a60dbbdcd2774adeefaf01b9f90140a',1,'loadInterfaces():&#160;maquina.c']]],
   ['loadparentclasses',['loadParentClasses',['../struct_j_v_m.html#a844a68fb0eccf4f9130cbea411c5f8c2',1,'JVM::loadParentClasses()'],['../maquina_8c.html#a9a586c4e3938a914e6d8803b8d56235e',1,'loadParentClasses():&#160;maquina.c']]],

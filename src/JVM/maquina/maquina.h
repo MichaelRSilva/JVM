@@ -31,6 +31,7 @@
 			// funções associadas
 				struct _object* (*newObject)(CLASS*);
 				struct _array* (*newArray)(uint32_t, uint32_t);
+				struct _array* (*newRefArray)(uint32_t, char*);
 		} HEAP;
 
 	// stack

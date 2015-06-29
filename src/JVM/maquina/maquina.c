@@ -153,7 +153,6 @@ static int loadClass(char* name) {
 
 	}
 
-	// printf("\nsaiu loadClass: %s; toReturn: %d", name, toReturn);
 	return toReturn;
 }
 
@@ -293,7 +292,7 @@ int32_t getNumParameters(CLASS *class, struct _method_info *method) {
 			parametros+=2;
 		}
 	}
-	// printf("\n\t\t\tparametros: %d", parametros);
+	
 	return parametros;
 }
 
