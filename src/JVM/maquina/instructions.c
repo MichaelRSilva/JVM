@@ -2605,11 +2605,11 @@ static void _putstatic() {
 static void _getfield() {
 	uint8_t low, high;
 	uint64_t indice;
-	int64_t classIndex, field_index, nameIndex, aux;
+	int64_t classIndex, field_index, aux;
 	uint16_t nameTypeIndex;
 	char *className, *name, *type;
 	struct _object *objeto = NULL;
-	struct _field_info* aux2;
+	uint64_t aux2;
 
 	high = maquina.current_frame->code_attr->code[++(maquina.current_frame->pc)];
 	low = maquina.current_frame->code_attr->code[++(maquina.current_frame->pc)];
@@ -2636,14 +2636,12 @@ static void _getfield() {
 	aux = maquina.current_frame->pop();
 	memcpy(&objeto, &aux, sizeof(uint64_t));
 
-	nameIndex = maquina.current_frame->current_class->fields_pool->fields[field_index].name_index;
-	aux2 = maquina.getObjectField(objeto, nameIndex);
-
+	aux2 = maquina.getObjectField(objeto, field_index);
 
 	if(type[0] == 'J' || type[0] == 'D') {
-		maquina.current_frame->push2(aux2->value);
+		maquina.current_frame->push2(aux2);
 	} else {
-		maquina.current_frame->push(aux2->value);
+		maquina.current_frame->push(aux2);
 	}
 
 	maquina.current_frame->pc++;
@@ -2653,7 +2651,7 @@ static void _putfield() {
 	
 	uint8_t low, high;
 	uint64_t indice,aux;
-	int64_t classIndex, field_index, nameIndex, val_1;
+	int64_t classIndex, field_index, val_1;
 	uint16_t nameTypeIndex;
 	char *className, *name, *type;
 	struct _object *objeto = NULL;
@@ -2665,7 +2663,6 @@ static void _putfield() {
 	indice = high;
 	indice <<= 8;
 	indice = indice | low;
-
 
 	if (!indice) error(E_NOTVALID_CP_INDEX);
 
@@ -2679,9 +2676,6 @@ static void _putfield() {
 	while((field_index = maquina.retrieveFieldIndex(className, name, strlen(name), type, strlen(type))) == -1) {
 		className = maquina.current_frame->current_class->getParentName(maquina.getClassByName(className));
 	}
-	
-	nameIndex = maquina.current_frame->current_class->fields_pool->fields[field_index].name_index;
-
 
 	if(type[0] == 'J' || type[0] == 'D') {
 		valor  = maquina.current_frame->pop();
@@ -2690,14 +2684,14 @@ static void _putfield() {
 
 		aux = maquina.current_frame->pop();
 		memcpy(&objeto, &aux, sizeof(uint64_t));
-		maquina.setObjectField(objeto, nameIndex, valor);
+		maquina.setObjectField(objeto, field_index, valor);
 
 	} else {
 		val_1 = maquina.current_frame->pop();
 		aux = maquina.current_frame->pop();
 
 		memcpy(&objeto, &aux, sizeof(uint64_t));
-		maquina.setObjectField(objeto, nameIndex, val_1);
+		maquina.setObjectField(objeto, field_index, val_1);
 	}
 
 	maquina.current_frame->pc++;

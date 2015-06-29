@@ -227,29 +227,15 @@ static uint32_t searchStaticFieldVal(uint32_t class_index, char* name,char* desc
 /*!
 	dado um objeto devolve a referencia para um field desse objeto
 */
-static struct _field_info *getObjectField(struct _object *object, uint32_t name_index) {
-
-	int32_t i = 0;
-
-	while (object->class->fields_pool->fields[i].name_index != name_index) {
-		i++;
-	}
-	return &(object->class->fields_pool->fields[i]);
+static uint64_t getObjectField(struct _object *object, uint32_t field_index) {
+	return object->fields[field_index];
 }
 
 /*!
 	seta um valor a um field que estah instanciado
 */
-static void setObjectField(struct _object *object, uint32_t name_index, uint64_t value) {
-
-	int32_t i = 0;
-
-	while (object->class->fields_pool->fields[i].name_index != name_index) {
-		i++;
-	}
-	
-	object->class->fields_pool->fields[i].value = value;
-
+static void setObjectField(struct _object *object, uint32_t field_index, uint64_t value) {
+	object->fields[field_index] = value;
 }
 
 /*!

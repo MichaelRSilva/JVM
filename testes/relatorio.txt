@@ -24,7 +24,7 @@ OK:
 	- testeArray.class
 	- testeStatic.class
 	- method_test.class
+	- objeto_teste.class
 
 NOK:
-	
-	- objeto_teste.class
+	- testeHer.class
