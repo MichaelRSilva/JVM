@@ -25,6 +25,5 @@ OK:
 	- testeStatic.class
 	- method_test.class
 	- objeto_teste.class
-
-NOK:
 	- testeHer.class
+NOK:

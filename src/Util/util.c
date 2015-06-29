@@ -11,7 +11,9 @@
 #include "util.h"
 UTIL MUTIL;
 
-/// retorna a concatenacao do nome qualificado da classe com .class
+/*! 
+	retorna a concatenacao do nome qualificado da classe com base_path e com .class
+*/
 static char* getClassPath(char* base_path, char* class_name) {
 	char* path = (char*)malloc(strlen(base_path)+strlen(class_name) + 8);
 	if (strstr(class_name,".class") != NULL) {

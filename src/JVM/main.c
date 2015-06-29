@@ -75,7 +75,7 @@ int main(int argc, char **argv) {
 void imprimeHelper() {
 	printf("JVM - Abilio, Marcus e Michael @ UnB\n");
 	printf("----------\n");
-	printf("\nUSO Geral: JVM.exe <nome da classe>.class [opcoes]\n\n");
+	printf("\nUSO Geral: JVM.exe <nome da classe> [opcoes]\n\n");
 	printf("OPCOES:\n");
 	printf("  --help\t\t\t'lista as linhas de comando disponiveis'\n" );
 	printf("  -p <[both|tela|arquivo]>\t'indica querer ler e exibir Bytecode'\n" );
