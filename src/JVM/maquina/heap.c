@@ -28,7 +28,7 @@ static struct _object* newObject(CLASS* class) {
 	newObj->class = class;
 	newObj->fields = (uint64_t*)malloc(class->fields_count*sizeof(uint64_t));
 
-	int index = maquina.loadClass(class->getParentName(class));
+	int index = maquina.loadClass(_MCLASS.getParentName(class));
 
 	if(index > -1 ){
 		CLASS* parentClass = maquina.method_area->classes[index];		

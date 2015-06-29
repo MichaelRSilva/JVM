@@ -18,11 +18,10 @@
 		class_loader tem uma array de classes
 	*/
 	typedef struct _class_loader {
-		CLASS* class;
-
-		CLASS* (*load)(struct _class_loader*, char*);
+		// funcao
+		CLASS* (*load)(char*);
 	} CLASS_LOADER;
 
 	CLASS_LOADER* initCLASS_LOADER();
-	extern CLASS_LOADER Mclassloader;
+	extern CLASS_LOADER _MCLASSL;
 #endif

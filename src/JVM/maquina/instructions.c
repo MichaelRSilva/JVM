@@ -2542,7 +2542,7 @@ static void _getstatic() {
 	
 
 	while((field_index = maquina.retrieveFieldIndex(className, name, strlen(name), type, strlen(type))) == -1) {
-		className = maquina.current_frame->current_class->getParentName(maquina.getClassByName(className));
+		className = _MCLASS.getParentName(maquina.getClassByName(className));
 	}
 
 	classIndex = maquina.loadClass(className);
@@ -2584,7 +2584,7 @@ static void _putstatic() {
 	type = maquina.current_frame->runtime_constant_pool->getUtf8String(maquina.current_frame->runtime_constant_pool, maquina.current_frame->runtime_constant_pool->constants[nameTypeIndex-1].type.NameType.descriptorIndex);
 
 	while((field_index = maquina.retrieveFieldIndex(className, name, strlen(name), type, strlen(type))) == -1) {
-		className = maquina.current_frame->current_class->getParentName(maquina.getClassByName(className));
+		className = _MCLASS.getParentName(maquina.getClassByName(className));
 	}
 
 	classIndex = maquina.loadClass(className);
@@ -2630,7 +2630,7 @@ static void _getfield() {
 
 
 	while((field_index = maquina.retrieveFieldIndex(className, name, strlen(name), type, strlen(type))) == -1) {
-		className = maquina.current_frame->current_class->getParentName(maquina.getClassByName(className));
+		className = _MCLASS.getParentName(maquina.getClassByName(className));
 	}
 
 	aux = maquina.current_frame->pop();
@@ -2674,7 +2674,7 @@ static void _putfield() {
 	type = maquina.current_frame->runtime_constant_pool->getUtf8String(maquina.current_frame->runtime_constant_pool, maquina.current_frame->runtime_constant_pool->constants[nameTypeIndex-1].type.NameType.descriptorIndex);
 
 	while((field_index = maquina.retrieveFieldIndex(className, name, strlen(name), type, strlen(type))) == -1) {
-		className = maquina.current_frame->current_class->getParentName(maquina.getClassByName(className));
+		className = _MCLASS.getParentName(maquina.getClassByName(className));
 	}
 
 	if(type[0] == 'J' || type[0] == 'D') {
@@ -2803,7 +2803,7 @@ static void _invokevirtual() {
 		class = maquina.method_area->classes[classIndex];
 
 		while(class != NULL && (method = maquina.getMethodByNameDesc(class, maquina.current_frame->current_class, nameTypeIndex)) == NULL) {
-			className = class->getParentName(class);
+			className = _MCLASS.getParentName(class);
 			classIndex = maquina.loadClass(className);
 			class = maquina.method_area->classes[classIndex];
 		}
@@ -2866,7 +2866,7 @@ static void _invokespecial() {
 	class = maquina.method_area->classes[classIndex];
 
 	while(class != NULL && (method = maquina.getMethodByNameDesc(class, maquina.current_frame->current_class, nameTypeIndex)) == NULL) {
-		className = class->getParentName(class);
+		className = _MCLASS.getParentName(class);
 		classIndex = maquina.loadClass(className);
 		class = maquina.method_area->classes[classIndex];
 	}
@@ -2986,7 +2986,7 @@ static void _invokeinterface() {
 	class = maquina.method_area->classes[classIndex];
 
 	while(class != NULL && (method = maquina.getMethodByNameDesc(class, maquina.current_frame->current_class, nameTypeIndex)) == NULL) {
-		className = class->getParentName(class);
+		className = _MCLASS.getParentName(class);
 		classIndex = maquina.loadClass(className);
 		class = maquina.method_area->classes[classIndex];
 	}

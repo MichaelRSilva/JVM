@@ -104,42 +104,40 @@ static ATTRIBUTE_POOL* populateAttributePool(CLASS* this, DADOS* d) {
 	carrega uma classe na memoria, eh dado o nome de um arquivo .class
 */
 // funcoes somente visiveis a struct classloader
-static CLASS* load(CLASS_LOADER* this, char* fileName) {
+static CLASS* load(char* fileName) {
+	CLASS* toReturn = initCLASS();
 	DADOS d = _MUTIL.LeArquivo(fileName);
 	int flag = 0;
 	uint8_t* base_pointer = d.bytes;
 
-	this->class->magic = d.le4Bytes(&d);
-	if (!(flag = verifyCAFEBABE(this->class->magic))) {
-		this->class->minor_version = d.le2Bytes(&d);
-		this->class->major_version = d.le2Bytes(&d);
-		if (!(flag = verifyVersion(this->class->minor_version, this->class->major_version))) {
-			this->class->constant_pool_count = d.le2Bytes(&d);
-			this->class->constant_pool = populateConstantPool(this->class, &d);
-			this->class->access_flags = d.le2Bytes(&d);
-			this->class->this_class = d.le2Bytes(&d);
-			this->class->super_class = d.le2Bytes(&d);
-			this->class->interfaces_count = d.le2Bytes(&d);
-			if (!(flag = populateInterfaces(this->class, &d))) {
-				this->class->fields_count = d.le2Bytes(&d);
-				this->class->fields_pool = populateFieldPool(this->class,&d);
-				this->class->methods_count = d.le2Bytes(&d);
-				this->class->methods_pool = populateMethodsPool(this->class, &d);
-				this->class->attributes_count = d.le2Bytes(&d);
-				this->class->attribute_pool = populateAttributePool(this->class, &d);
+	toReturn->magic = d.le4Bytes(&d);
+	if (!(flag = verifyCAFEBABE(toReturn->magic))) {
+		toReturn->minor_version = d.le2Bytes(&d);
+		toReturn->major_version = d.le2Bytes(&d);
+		if (!(flag = verifyVersion(toReturn->minor_version, toReturn->major_version))) {
+			toReturn->constant_pool_count = d.le2Bytes(&d);
+			toReturn->constant_pool = populateConstantPool(toReturn, &d);
+			toReturn->access_flags = d.le2Bytes(&d);
+			toReturn->this_class = d.le2Bytes(&d);
+			toReturn->super_class = d.le2Bytes(&d);
+			toReturn->interfaces_count = d.le2Bytes(&d);
+			if (!(flag = populateInterfaces(toReturn, &d))) {
+				toReturn->fields_count = d.le2Bytes(&d);
+				toReturn->fields_pool = populateFieldPool(toReturn,&d);
+				toReturn->methods_count = d.le2Bytes(&d);
+				toReturn->methods_pool = populateMethodsPool(toReturn, &d);
+				toReturn->attributes_count = d.le2Bytes(&d);
+				toReturn->attribute_pool = populateAttributePool(toReturn, &d);
 			}
 		}
 	}
 
-	return ((int)(d.bytes - base_pointer) != d.tamanho)?NULL:this->class;
+	return ((int)(d.bytes - base_pointer) != d.tamanho)?NULL:toReturn;
 }
 
 // funcoes visiveis publicamente
 CLASS_LOADER* initCLASS_LOADER() {
 	CLASS_LOADER* toReturn = (CLASS_LOADER*)malloc(sizeof(CLASS_LOADER));
-
-	// inicializacao dos campos
-		toReturn->class = initCLASS();
 
 	// inicializacao dos metodos
 		toReturn->load = load;

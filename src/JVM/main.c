@@ -21,39 +21,39 @@ void imprimeHelper();
 */
 int main(int argc, char **argv) {
 	int flag;
-	_MCONSTANTP = *(initCONSTANT_POOL(0));
 	_MUTIL = initUTIL();
+	_MCONSTANTP = *(initCONSTANT_POOL(0));
+	_MCLASS = *(initCLASS());
+	_MCLASSL = *(initCLASS_LOADER());
 	maquina = initJVM();
 
 	if((flag = _MUTIL.VerificaJVMCMDArgs(argc, argv, &maquina.basePath)) >= 0) {
 		if (flag > 0) {
+			CLASS* toPrint;
 			switch (flag) {
 				case 1:
 					imprimeHelper(); 
 					return 0;
 					break;
 				case 2: {
-					CLASS_LOADER* cl = initCLASS_LOADER();
-					cl->load(cl, _MUTIL.getClassPath(maquina.basePath,argv[1]));
 					FILE* fp = fopen("output.txt","w");
-					PrintClass(cl->class, stdout);
-					PrintClass(cl->class, fp);
+					toPrint = _MCLASSL.load(_MUTIL.getClassPath(maquina.basePath,argv[1]));
+					PrintClass(toPrint, stdout);
+					PrintClass(toPrint, fp);
 					fclose(fp);
 					return 0;
 					break;
 				}
 				case 3: {
-					CLASS_LOADER* cl = initCLASS_LOADER();
-					cl->load(cl, _MUTIL.getClassPath(maquina.basePath,argv[1]));
-					PrintClass(cl->class, stdout);
+					toPrint = _MCLASSL.load(_MUTIL.getClassPath(maquina.basePath,argv[1]));
+					PrintClass(toPrint, stdout);
 					return 0;
 					break;
 				}
 				case 4: {
 					FILE* fp = fopen("output.txt","w");
-					CLASS_LOADER* cl = initCLASS_LOADER();
-					cl->load(cl, _MUTIL.getClassPath(maquina.basePath,argv[1]));
-					PrintClass(cl->class, fp);
+					toPrint = _MCLASSL.load(_MUTIL.getClassPath(maquina.basePath,argv[1]));
+					PrintClass(toPrint, fp);
 					fclose(fp);
 					return 0;
 					break;

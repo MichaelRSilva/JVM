@@ -55,6 +55,6 @@
 	} CLASS;
 
 	CLASS* initCLASS();
-	extern CLASS Mclass;
+	extern CLASS _MCLASS;
 
 #endif

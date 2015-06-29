@@ -15,6 +15,7 @@
 #include "frame.c"
 #include "method_area.c"
 
+CLASS_LOADER _MCLASSL;
 
 /// constroi e coloca no topo do stack de frames o frame relacionado com $metodo e $class
 static void construirFrame(CLASS* class, struct _method_info* metodo) {
@@ -87,16 +88,14 @@ static void link(int class_index) {
 /// carrega as classes pai da classe na posicao maquina.classes.size - 1 no array de classes da area de metodo
 static int loadParentClasses() {
 	CLASS* class = maquina.method_area->classes[maquina.method_area->classes_count-1];
-	char* parentName = class->getParentName(class);
+	char* parentName = _MCLASS.getParentName(class);
 	int flag = 0;
 
 	// insere parent em maquina.method_area->classes caso parent ainda nao esteja carregado 
 	if (getClassIndex(parentName) == -1) {
-		CLASS_LOADER *cl = initCLASS_LOADER();
 
 		expandClassArray();
-		cl->load(cl, _MUTIL.getClassPath(maquina.basePath,parentName));
-		maquina.method_area->classes[maquina.method_area->classes_count++]= cl->class;
+		maquina.method_area->classes[maquina.method_area->classes_count++] = _MCLASSL.load(_MUTIL.getClassPath(maquina.basePath, parentName));
 
 		link(maquina.method_area->classes_count-1);
 		initialize(maquina.method_area->classes_count-1);
@@ -113,15 +112,13 @@ static int loadParentClasses() {
 /// carrega as interfaces da classe na posicao maquina.classes.size - 1 no array de interfaces da area de metodo 
 static int loadInterfaces(CLASS* class) {
 	int interfacesCount = class->interfaces_count;
-	CLASS_LOADER *cl = initCLASS_LOADER();
 
 	for(int i=0; i<interfacesCount; i++){
 		char* name = class->getInterfaceName(class, i);
 		
 		if (getInterfceIndex(name) == -1) {
 			expandInterfaceArray();
-			cl->load(cl, _MUTIL.getClassPath(maquina.basePath, name));
-			maquina.method_area->interfaces[maquina.method_area->interfaces_count++] = cl->class;
+			maquina.method_area->interfaces[maquina.method_area->interfaces_count++] = _MCLASSL.load(_MUTIL.getClassPath(maquina.basePath, name));
 		}
 		
 	}
@@ -143,21 +140,17 @@ static int loadClass(char* name) {
 	if (strchr(name, '$')) error(E_DOLAR_NOT_SUPPORTED);
 	int toReturn = -1;
 	if ((toReturn = getClassIndex(name)) <= -1) {
-		CLASS_LOADER* cl = initCLASS_LOADER();
-
-		cl->load(cl, _MUTIL.getClassPath(maquina.basePath, name));
 
 		toReturn = maquina.method_area->classes_count;
 		expandClassArray();
-		maquina.method_area->classes[maquina.method_area->classes_count++] = cl->class;
+		maquina.method_area->classes[maquina.method_area->classes_count++] =_MCLASSL.load(_MUTIL.getClassPath(maquina.basePath, name));
 
 		link(maquina.method_area->classes_count-1);
 		initialize(maquina.method_area->classes_count-1);
 
  		loadParentClasses(); // insere em maquina.classes todas as classes pai ainda nao carregadas em maquina.clasess
- 		loadInterfaces(cl->class); // insere em maquinas.interfaces todas as interfaces ainda nao carregadas em maquina.interfaces
+ 		loadInterfaces(maquina.method_area->classes[toReturn]); // insere em maquinas.interfaces todas as interfaces ainda nao carregadas em maquina.interfaces
 
-		// free(cl);
 	}
 
 	// printf("\nsaiu loadClass: %s; toReturn: %d", name, toReturn);
