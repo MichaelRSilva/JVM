@@ -2340,66 +2340,64 @@ static void _ret() {
 }
 
 static void _tableswitch() {
-	
-	int64_t *tabela;
-	int64_t defaultSwitch, min, max, indice;
-	uint64_t byte[12], genericByte[5],stopped;
 
-	indice = (int64_t)maquina.current_frame->pop();
-	stopped = maquina.current_frame->pc;
+	int padrao, hi, lo, index, i ,j;
+	int *tabelao;
 
-	while((maquina.current_frame->pc + 1) % 4 != 0) {
+	uint64_t locate,saltar, tableSize, desloc, bytes[5];
+
+	index = maquina.current_frame->pop();
+	locate = maquina.current_frame->pc;
+
+	while((maquina.current_frame->pc + 1) % 4 != 0)
 		maquina.current_frame->pc++;
-	}
-	
+
 	maquina.current_frame->pc++;
 
-	for(int i=0; i<12; i++){
-		byte[i] = maquina.current_frame->code_attr->code[maquina.current_frame->pc++];
-	}
-	
-	defaultSwitch = (byte[0] & 0xFF) << 24;
-	defaultSwitch = defaultSwitch | (byte[1] & 0xFF) << 16;
-	defaultSwitch = defaultSwitch | (byte[2] & 0xFF) << 8;
-	defaultSwitch = defaultSwitch | (byte[3] & 0xFF);
+	for(i = 0; i < 4; i++)
+		bytes[i] = (uint64_t)maquina.current_frame->code_attr->code[maquina.current_frame->pc++];
+
+	padrao = ( (bytes[0] & 0xFF) << 24) |((bytes[1] & 0xFF) << 16) |((bytes[2] & 0xFF) << 8) |(bytes[3] & 0xFF);
 
 
-	min = (byte[4] & 0xFF) << 24;
-	min = min | (byte[5] & 0xFF) << 16;
-	min = min | (byte[6] & 0xFF) << 8;
-	min = min | (byte[7] & 0xFF);
+	for(i = 0; i < 4; i++)
+		bytes[i] = (uint64_t)maquina.current_frame->code_attr->code[maquina.current_frame->pc++];
 
-	max = (byte[8] & 0xFF) << 24;
-	max = max | (byte[9] & 0xFF) << 16;
-	max = max | (byte[10] & 0xFF) << 8;
-	max = max | (byte[11] & 0xFF);
+	lo = ((bytes[0] & 0xFF) << 24) |((bytes[1] & 0xFF) << 16) |((bytes[2] & 0xFF) << 8) |(bytes[3] & 0xFF);
 
-	if(indice < min || indice > max) {
-		
-		maquina.current_frame->pc = defaultSwitch+stopped;
+	for(i = 0; i < 4; i++)
+		bytes[i] = (uint64_t)maquina.current_frame->code_attr->code[maquina.current_frame->pc++];
 
-	} else {
+	hi = ((bytes[0] & 0xFF) << 24) |((bytes[1] & 0xFF) << 16) |((bytes[2] & 0xFF) << 8) |(bytes[3] & 0xFF);
 
-		tabela = calloc(sizeof(uint64_t), (max-min+1));
+	tableSize = (hi-lo) + 1;
+	tabelao = calloc(sizeof(uint64_t), tableSize);
 
-		for(int i = 0; i < (max-min+1); i++) 	{
-			
-			genericByte[0] = maquina.current_frame->code_attr->code[maquina.current_frame->pc++];
-			genericByte[1] = maquina.current_frame->code_attr->code[maquina.current_frame->pc++];
-			genericByte[2] = maquina.current_frame->code_attr->code[maquina.current_frame->pc++];
-			genericByte[3] = maquina.current_frame->code_attr->code[maquina.current_frame->pc++];
-			
-			tabela[i]  = (genericByte[0] & 0xFF) << 24;
-			tabela[i]  = tabela[i]  | (genericByte[1] & 0xFF) << 16;
-			tabela[i]  = tabela[i]  | (genericByte[2] & 0xFF) << 8;
-			tabela[i]  = tabela[i]  | (genericByte[3] & 0xFF);
 
+	for(i = 0; i < tableSize; i++) 	{
+
+		for(j = 0; j < 4; j++) 	{
+			bytes[j] = (uint64_t)maquina.current_frame->code_attr->code[maquina.current_frame->pc++];
 		}
 
-		maquina.current_frame->pc = tabela[indice-min]+stopped;
+		tabelao[i] = ((bytes[0] & 0xFF) << 24) |((bytes[1] & 0xFF) << 16) |((bytes[2] & 0xFF) << 8) |(bytes[3] & 0xFF);
 	}
 
+	if(index > hi || index < lo ) {
+	
+		saltar = locate + padrao;
+	
+	} else {
+		
+		desloc = tabelao[index - lo];
+
+		saltar = locate + desloc;
+	}
+
+	maquina.current_frame->pc = saltar;
+
 }
+
 
 static void _lookupswitch() {
 	
