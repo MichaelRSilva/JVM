@@ -11,7 +11,7 @@ var searchData=
   ['initfield_5fpool',['initFIELD_POOL',['../fieldinfo_8c.html#a1bdeadd2663045b4635f9aa97fc3bd5d',1,'initFIELD_POOL(int count):&#160;fieldinfo.c'],['../fieldinfo_8h.html#ab8e9a8f3065db8a14d979d14cd9686a3',1,'initFIELD_POOL(int):&#160;fieldinfo.c']]],
   ['initframe',['initFRAME',['../frame_8c.html#a32797472df1481302fe4a1ed8b1fc75b',1,'initFRAME(CLASS *class, struct _code_attribute *code_attr):&#160;frame.c'],['../maquina_8h.html#a075414c8814f3e526a66a6159c271820',1,'initFRAME(CLASS *, struct _code_attribute *):&#160;frame.c']]],
   ['initheap',['initHEAP',['../heap_8c.html#ac8bd75b303e23dfab20cf441917f3c4a',1,'initHEAP():&#160;heap.c'],['../maquina_8h.html#ac8bd75b303e23dfab20cf441917f3c4a',1,'initHEAP():&#160;heap.c']]],
-  ['initialize',['initialize',['../struct_j_v_m.html#aa07c3d998219128b6ff2691a04accda6',1,'JVM']]],
+  ['initialize',['initialize',['../struct_j_v_m.html#aa07c3d998219128b6ff2691a04accda6',1,'JVM::initialize()'],['../maquina_8c.html#aeac212bbcdefc4d4a2687a73445a7634',1,'initialize():&#160;maquina.c']]],
   ['initjvm',['initJVM',['../maquina_8c.html#a1922d703fdf365ee00a3fd0a9e89508c',1,'initJVM(char *class_name):&#160;maquina.c'],['../maquina_8h.html#a72b9088b3d6e90cc4cd0d24952be24bd',1,'initJVM():&#160;maquina.h']]],
   ['initmethod_5farea',['initMETHOD_AREA',['../method__area_8c.html#a8ca7d2ec7784acdd23909b8ca9306300',1,'method_area.c']]],
   ['initmethod_5fpool',['initMETHOD_POOL',['../methodinfo_8c.html#abd19cd80bf6b3ed846202b11898f6fc8',1,'initMETHOD_POOL(int count):&#160;methodinfo.c'],['../methodinfo_8h.html#aa8ee180bc68d7a767036d5a0265b9837',1,'initMETHOD_POOL(int):&#160;methodinfo.c']]],

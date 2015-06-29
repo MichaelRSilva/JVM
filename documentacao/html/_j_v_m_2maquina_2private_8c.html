@@ -112,9 +112,24 @@ $(document).ready(function(){initNavTree('_j_v_m_2maquina_2private_8c.html','');
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Funções</h2></td></tr>
+<tr class="memitem:a735169edd30823b1a69edb3fcdee20fe"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_j_v_m_2maquina_2private_8c.html#a735169edd30823b1a69edb3fcdee20fe">getClassIndex</a> (char *class_name)</td></tr>
+<tr class="memdesc:a735169edd30823b1a69edb3fcdee20fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">retorna um index para o array de classes da area de metodos  <a href="#a735169edd30823b1a69edb3fcdee20fe">Mais...</a><br /></td></tr>
+<tr class="separator:a735169edd30823b1a69edb3fcdee20fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a07c601adadabcbe379447c822725f5f7"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_j_v_m_2maquina_2private_8c.html#a07c601adadabcbe379447c822725f5f7">getInterfceIndex</a> (char *interface_name)</td></tr>
+<tr class="memdesc:a07c601adadabcbe379447c822725f5f7"><td class="mdescLeft">&#160;</td><td class="mdescRight">retorna um index para o array de interfaces da area de metodos  <a href="#a07c601adadabcbe379447c822725f5f7">Mais...</a><br /></td></tr>
+<tr class="separator:a07c601adadabcbe379447c822725f5f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afe60c6d8ba56ba3c3909eb4b67e75658"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_j_v_m_2maquina_2private_8c.html#afe60c6d8ba56ba3c3909eb4b67e75658">checkIfFieldIsStatic</a> (uint16_t access_flags)</td></tr>
 <tr class="memdesc:afe60c6d8ba56ba3c3909eb4b67e75658"><td class="mdescLeft">&#160;</td><td class="mdescRight">checa se o field é estático  <a href="#afe60c6d8ba56ba3c3909eb4b67e75658">Mais...</a><br /></td></tr>
 <tr class="separator:afe60c6d8ba56ba3c3909eb4b67e75658"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aafc5bcecfd442dcb8f0a3ae9032bee54"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_j_v_m_2maquina_2private_8c.html#aafc5bcecfd442dcb8f0a3ae9032bee54">expandClassArray</a> ()</td></tr>
+<tr class="memdesc:aafc5bcecfd442dcb8f0a3ae9032bee54"><td class="mdescLeft">&#160;</td><td class="mdescRight">realoca o array de classes por 10 (precaução contra memory corruption)  <a href="#aafc5bcecfd442dcb8f0a3ae9032bee54">Mais...</a><br /></td></tr>
+<tr class="separator:aafc5bcecfd442dcb8f0a3ae9032bee54"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5ddefff7a6b33c47be1d377266a05fe8"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_j_v_m_2maquina_2private_8c.html#a5ddefff7a6b33c47be1d377266a05fe8">expandInterfaceArray</a> ()</td></tr>
+<tr class="memdesc:a5ddefff7a6b33c47be1d377266a05fe8"><td class="mdescLeft">&#160;</td><td class="mdescRight">realoca o array de interfaces por 10 (precaução contra memory corruption)  <a href="#a5ddefff7a6b33c47be1d377266a05fe8">Mais...</a><br /></td></tr>
+<tr class="separator:a5ddefff7a6b33c47be1d377266a05fe8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a242dd21142049c11ca321e224389a485"><td class="memItemLeft" align="right" valign="top">static struct <a class="el" href="struct__method__info.html">_method_info</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_j_v_m_2maquina_2private_8c.html#a242dd21142049c11ca321e224389a485">getclinit</a> (<a class="el" href="struct_c_l_a_s_s.html">CLASS</a> *class)</td></tr>
+<tr class="memdesc:a242dd21142049c11ca321e224389a485"><td class="mdescLeft">&#160;</td><td class="mdescRight">procura pela presenca do metodo clinit na classe $class  <a href="#a242dd21142049c11ca321e224389a485">Mais...</a><br /></td></tr>
+<tr class="separator:a242dd21142049c11ca321e224389a485"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7d645bf7171ac1b7b7d34a766c35dfe7"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="struct__method__info.html">_method_info</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_j_v_m_2maquina_2private_8c.html#a7d645bf7171ac1b7b7d34a766c35dfe7">getMainMethod</a> ()</td></tr>
 <tr class="separator:a7d645bf7171ac1b7b7d34a766c35dfe7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
@@ -134,6 +149,134 @@ Funções</h2></td></tr>
 </div><div class="memdoc">
 
 <p>checa se o field é estático </p>
+
+</div>
+</div>
+<a class="anchor" id="aafc5bcecfd442dcb8f0a3ae9032bee54"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void expandClassArray </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>realoca o array de classes por 10 (precaução contra memory corruption) </p>
+
+</div>
+</div>
+<a class="anchor" id="a5ddefff7a6b33c47be1d377266a05fe8"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void expandInterfaceArray </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>realoca o array de interfaces por 10 (precaução contra memory corruption) </p>
+
+</div>
+</div>
+<a class="anchor" id="a735169edd30823b1a69edb3fcdee20fe"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static int getClassIndex </td>
+          <td>(</td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>class_name</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>retorna um index para o array de classes da area de metodos </p>
+
+</div>
+</div>
+<a class="anchor" id="a242dd21142049c11ca321e224389a485"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static struct <a class="el" href="struct__method__info.html">_method_info</a>* getclinit </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_c_l_a_s_s.html">CLASS</a> *&#160;</td>
+          <td class="paramname"><em>class</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>procura pela presenca do metodo clinit na classe $class </p>
+
+</div>
+</div>
+<a class="anchor" id="a07c601adadabcbe379447c822725f5f7"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static int getInterfceIndex </td>
+          <td>(</td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>interface_name</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>retorna um index para o array de interfaces da area de metodos </p>
 
 </div>
 </div>
@@ -159,7 +302,7 @@ Funções</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_b122af4da6eec80575ec914df2532517.html">JVM</a></li><li class="navelem"><a class="el" href="dir_9a7834b574c838e53f2bd3bfa0b4c9b0.html">maquina</a></li><li class="navelem"><a class="el" href="_j_v_m_2maquina_2private_8c.html">private.c</a></li>
-    <li class="footer">Gerado em Domingo, 28 de Junho de 2015 21:23:38 para JVM por
+    <li class="footer">Gerado em Domingo, 28 de Junho de 2015 22:58:27 para JVM por
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.9.1 </li>
   </ul>

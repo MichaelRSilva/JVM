@@ -112,6 +112,16 @@ $(document).ready(function(){initNavTree('frame_8c.html','');});
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Funções</h2></td></tr>
+<tr class="memitem:a2752f2749f50fa757a68563d1fbb4be1"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="frame_8c.html#a2752f2749f50fa757a68563d1fbb4be1">printOperandStack</a> (char *func)</td></tr>
+<tr class="separator:a2752f2749f50fa757a68563d1fbb4be1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7a71b9481f88ad87d6a6b675c52bfb86"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="frame_8c.html#a7a71b9481f88ad87d6a6b675c52bfb86">push</a> (uint64_t valor)</td></tr>
+<tr class="separator:a7a71b9481f88ad87d6a6b675c52bfb86"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a32028f71c624f2553dda23a2afe0a145"><td class="memItemLeft" align="right" valign="top">static uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="frame_8c.html#a32028f71c624f2553dda23a2afe0a145">pop</a> ()</td></tr>
+<tr class="separator:a32028f71c624f2553dda23a2afe0a145"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac520c0fa3256c92e32e66dc9e97707c3"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="frame_8c.html#ac520c0fa3256c92e32e66dc9e97707c3">push2</a> (uint64_t valor)</td></tr>
+<tr class="separator:ac520c0fa3256c92e32e66dc9e97707c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a223ed5b47c9ec219094e83fe3c2dc93f"><td class="memItemLeft" align="right" valign="top">static uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="frame_8c.html#a223ed5b47c9ec219094e83fe3c2dc93f">pop2</a> ()</td></tr>
+<tr class="separator:a223ed5b47c9ec219094e83fe3c2dc93f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a32797472df1481302fe4a1ed8b1fc75b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_f_r_a_m_e.html">FRAME</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="frame_8c.html#a32797472df1481302fe4a1ed8b1fc75b">initFRAME</a> (<a class="el" href="struct_c_l_a_s_s.html">CLASS</a> *class, struct <a class="el" href="struct__code__attribute.html">_code_attribute</a> *code_attr)</td></tr>
 <tr class="separator:a32797472df1481302fe4a1ed8b1fc75b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
@@ -143,13 +153,135 @@ Funções</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="a32028f71c624f2553dda23a2afe0a145"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static uint64_t pop </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>desempilha um valor na pilha de operandos </p>
+
+</div>
+</div>
+<a class="anchor" id="a223ed5b47c9ec219094e83fe3c2dc93f"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static uint64_t pop2 </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>desempilha um valor na pilha de operandos 64 bits </p>
+
+</div>
+</div>
+<a class="anchor" id="a2752f2749f50fa757a68563d1fbb4be1"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void printOperandStack </td>
+          <td>(</td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>func</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>empilha um valor na pilha de operandos </p>
+
+</div>
+</div>
+<a class="anchor" id="a7a71b9481f88ad87d6a6b675c52bfb86"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void push </td>
+          <td>(</td>
+          <td class="paramtype">uint64_t&#160;</td>
+          <td class="paramname"><em>valor</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="ac520c0fa3256c92e32e66dc9e97707c3"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void push2 </td>
+          <td>(</td>
+          <td class="paramtype">uint64_t&#160;</td>
+          <td class="paramname"><em>valor</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>empilha um valor na pilha de operandos </p>
+
+</div>
+</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_b122af4da6eec80575ec914df2532517.html">JVM</a></li><li class="navelem"><a class="el" href="dir_9a7834b574c838e53f2bd3bfa0b4c9b0.html">maquina</a></li><li class="navelem"><a class="el" href="frame_8c.html">frame.c</a></li>
-    <li class="footer">Gerado em Domingo, 28 de Junho de 2015 21:23:38 para JVM por
+    <li class="footer">Gerado em Domingo, 28 de Junho de 2015 22:58:27 para JVM por
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.9.1 </li>
   </ul>

@@ -1,6 +1,25 @@
 var maquina_8c =
 [
+    [ "construirFrame", "maquina_8c.html#a73704bfb14209a8c41d2a0958e5db1ca", null ],
+    [ "execute", "maquina_8c.html#ab0b2c8907acf6a446ee97a1907bd70e9", null ],
+    [ "getClassByName", "maquina_8c.html#a5e2b424f723fae9949a106833df3d46f", null ],
     [ "getMethodByNameDesc", "maquina_8c.html#a8b93245c0555195acc588802f20702e5", null ],
+    [ "getNameConstants", "maquina_8c.html#ada65690cdc12779646943c66cfeee97b", null ],
+    [ "getNativeValueForStaticMethod", "maquina_8c.html#ad297807074a2804149427985d8dd217a", null ],
     [ "getNumParameters", "maquina_8c.html#af8b838d5c9cec83ec7cfb63862e0adac", null ],
-    [ "initJVM", "maquina_8c.html#a1922d703fdf365ee00a3fd0a9e89508c", null ]
+    [ "getObjectField", "maquina_8c.html#a561b95a6dc5498cf8dfe91b35406d27a", null ],
+    [ "getStaticFieldVal", "maquina_8c.html#a9c587859b52b92f9cf289400d0ebed0f", null ],
+    [ "initialize", "maquina_8c.html#aeac212bbcdefc4d4a2687a73445a7634", null ],
+    [ "initJVM", "maquina_8c.html#a1922d703fdf365ee00a3fd0a9e89508c", null ],
+    [ "link", "maquina_8c.html#a87d384a5f7530ac369b5c5920a38bba3", null ],
+    [ "loadClass", "maquina_8c.html#afabd057cbb0355529e7da74ac6359fb9", null ],
+    [ "loadInterfaces", "maquina_8c.html#a8a60dbbdcd2774adeefaf01b9f90140a", null ],
+    [ "loadParentClasses", "maquina_8c.html#a9a586c4e3938a914e6d8803b8d56235e", null ],
+    [ "prepare", "maquina_8c.html#aa8decdbae1a747c82360beb6bf244ff9", null ],
+    [ "retrieveFieldIndex", "maquina_8c.html#a74ef43e92b59989e8419fca9d4ba0c2f", null ],
+    [ "run", "maquina_8c.html#acd6594869429d3b9cd3be595049ee33f", null ],
+    [ "searchStaticFieldVal", "maquina_8c.html#a3017108418c1af5624852e1b2fbdb04e", null ],
+    [ "setObjectField", "maquina_8c.html#aa57d77fff82d509f82b3a1f83230b6d3", null ],
+    [ "setStaticFieldVal", "maquina_8c.html#a5f0424b17f8c14af21fe7d370efd87f6", null ],
+    [ "verify", "maquina_8c.html#a2edc0d6f30ce37b06f4ad028906db411", null ]
 ];

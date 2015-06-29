@@ -120,10 +120,57 @@ $(document).ready(function(){initNavTree('maquina_8c.html','');});
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Funções</h2></td></tr>
+<tr class="memitem:a73704bfb14209a8c41d2a0958e5db1ca"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="maquina_8c.html#a73704bfb14209a8c41d2a0958e5db1ca">construirFrame</a> (<a class="el" href="struct_c_l_a_s_s.html">CLASS</a> *class, struct <a class="el" href="struct__method__info.html">_method_info</a> *metodo)</td></tr>
+<tr class="memdesc:a73704bfb14209a8c41d2a0958e5db1ca"><td class="mdescLeft">&#160;</td><td class="mdescRight">constroi e coloca no topo do stack de frames o frame relacionado com $metodo e $class  <a href="#a73704bfb14209a8c41d2a0958e5db1ca">Mais...</a><br /></td></tr>
+<tr class="separator:a73704bfb14209a8c41d2a0958e5db1ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab0b2c8907acf6a446ee97a1907bd70e9"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="maquina_8c.html#ab0b2c8907acf6a446ee97a1907bd70e9">execute</a> ()</td></tr>
+<tr class="memdesc:ab0b2c8907acf6a446ee97a1907bd70e9"><td class="mdescLeft">&#160;</td><td class="mdescRight">executa o método do current frame  <a href="#ab0b2c8907acf6a446ee97a1907bd70e9">Mais...</a><br /></td></tr>
+<tr class="separator:ab0b2c8907acf6a446ee97a1907bd70e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeac212bbcdefc4d4a2687a73445a7634"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="maquina_8c.html#aeac212bbcdefc4d4a2687a73445a7634">initialize</a> (int class_index)</td></tr>
+<tr class="memdesc:aeac212bbcdefc4d4a2687a73445a7634"><td class="mdescLeft">&#160;</td><td class="mdescRight">executa clinit  <a href="#aeac212bbcdefc4d4a2687a73445a7634">Mais...</a><br /></td></tr>
+<tr class="separator:aeac212bbcdefc4d4a2687a73445a7634"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa8decdbae1a747c82360beb6bf244ff9"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="maquina_8c.html#aa8decdbae1a747c82360beb6bf244ff9">prepare</a> (uint32_t index)</td></tr>
+<tr class="memdesc:aa8decdbae1a747c82360beb6bf244ff9"><td class="mdescLeft">&#160;</td><td class="mdescRight">aloca e inicializa valores default para os fields estaticos da classe indicada por $index  <a href="#aa8decdbae1a747c82360beb6bf244ff9">Mais...</a><br /></td></tr>
+<tr class="separator:aa8decdbae1a747c82360beb6bf244ff9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2edc0d6f30ce37b06f4ad028906db411"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="maquina_8c.html#a2edc0d6f30ce37b06f4ad028906db411">verify</a> (int class_index)</td></tr>
+<tr class="memdesc:a2edc0d6f30ce37b06f4ad028906db411"><td class="mdescLeft">&#160;</td><td class="mdescRight">verificação do .class  <a href="#a2edc0d6f30ce37b06f4ad028906db411">Mais...</a><br /></td></tr>
+<tr class="separator:a2edc0d6f30ce37b06f4ad028906db411"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a87d384a5f7530ac369b5c5920a38bba3"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="maquina_8c.html#a87d384a5f7530ac369b5c5920a38bba3">link</a> (int class_index)</td></tr>
+<tr class="memdesc:a87d384a5f7530ac369b5c5920a38bba3"><td class="mdescLeft">&#160;</td><td class="mdescRight">verifica, prepara e opcionalmente resolve  <a href="#a87d384a5f7530ac369b5c5920a38bba3">Mais...</a><br /></td></tr>
+<tr class="separator:a87d384a5f7530ac369b5c5920a38bba3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9a586c4e3938a914e6d8803b8d56235e"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="maquina_8c.html#a9a586c4e3938a914e6d8803b8d56235e">loadParentClasses</a> ()</td></tr>
+<tr class="memdesc:a9a586c4e3938a914e6d8803b8d56235e"><td class="mdescLeft">&#160;</td><td class="mdescRight">carrega as classes pai da classe na posicao maquina.classes.size - 1 no array de classes da area de metodo  <a href="#a9a586c4e3938a914e6d8803b8d56235e">Mais...</a><br /></td></tr>
+<tr class="separator:a9a586c4e3938a914e6d8803b8d56235e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8a60dbbdcd2774adeefaf01b9f90140a"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="maquina_8c.html#a8a60dbbdcd2774adeefaf01b9f90140a">loadInterfaces</a> (<a class="el" href="struct_c_l_a_s_s.html">CLASS</a> *class)</td></tr>
+<tr class="memdesc:a8a60dbbdcd2774adeefaf01b9f90140a"><td class="mdescLeft">&#160;</td><td class="mdescRight">carrega as interfaces da classe na posicao maquina.classes.size - 1 no array de interfaces da area de metodo  <a href="#a8a60dbbdcd2774adeefaf01b9f90140a">Mais...</a><br /></td></tr>
+<tr class="separator:a8a60dbbdcd2774adeefaf01b9f90140a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afabd057cbb0355529e7da74ac6359fb9"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="maquina_8c.html#afabd057cbb0355529e7da74ac6359fb9">loadClass</a> (char *name)</td></tr>
+<tr class="separator:afabd057cbb0355529e7da74ac6359fb9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acd6594869429d3b9cd3be595049ee33f"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="maquina_8c.html#acd6594869429d3b9cd3be595049ee33f">run</a> ()</td></tr>
+<tr class="memdesc:acd6594869429d3b9cd3be595049ee33f"><td class="mdescLeft">&#160;</td><td class="mdescRight">executa o main  <a href="#acd6594869429d3b9cd3be595049ee33f">Mais...</a><br /></td></tr>
+<tr class="separator:acd6594869429d3b9cd3be595049ee33f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5e2b424f723fae9949a106833df3d46f"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="struct_c_l_a_s_s.html">CLASS</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="maquina_8c.html#a5e2b424f723fae9949a106833df3d46f">getClassByName</a> (char *classname)</td></tr>
+<tr class="separator:a5e2b424f723fae9949a106833df3d46f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9c587859b52b92f9cf289400d0ebed0f"><td class="memItemLeft" align="right" valign="top">static uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="maquina_8c.html#a9c587859b52b92f9cf289400d0ebed0f">getStaticFieldVal</a> (uint32_t class_index, uint32_t field_index)</td></tr>
+<tr class="separator:a9c587859b52b92f9cf289400d0ebed0f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5f0424b17f8c14af21fe7d370efd87f6"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="maquina_8c.html#a5f0424b17f8c14af21fe7d370efd87f6">setStaticFieldVal</a> (uint32_t class_index, uint32_t field_index, uint64_t value)</td></tr>
+<tr class="separator:a5f0424b17f8c14af21fe7d370efd87f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3017108418c1af5624852e1b2fbdb04e"><td class="memItemLeft" align="right" valign="top">static uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="maquina_8c.html#a3017108418c1af5624852e1b2fbdb04e">searchStaticFieldVal</a> (uint32_t class_index, char *name, char *desc)</td></tr>
+<tr class="separator:a3017108418c1af5624852e1b2fbdb04e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a561b95a6dc5498cf8dfe91b35406d27a"><td class="memItemLeft" align="right" valign="top">static uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="maquina_8c.html#a561b95a6dc5498cf8dfe91b35406d27a">getObjectField</a> (struct _object *object, uint32_t field_index)</td></tr>
+<tr class="separator:a561b95a6dc5498cf8dfe91b35406d27a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa57d77fff82d509f82b3a1f83230b6d3"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="maquina_8c.html#aa57d77fff82d509f82b3a1f83230b6d3">setObjectField</a> (struct _object *object, uint32_t field_index, uint64_t value)</td></tr>
+<tr class="separator:aa57d77fff82d509f82b3a1f83230b6d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a74ef43e92b59989e8419fca9d4ba0c2f"><td class="memItemLeft" align="right" valign="top">static uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="maquina_8c.html#a74ef43e92b59989e8419fca9d4ba0c2f">retrieveFieldIndex</a> (char *className, char *name, uint16_t nameLen, char *desc, uint16_t descLen)</td></tr>
+<tr class="separator:a74ef43e92b59989e8419fca9d4ba0c2f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ada65690cdc12779646943c66cfeee97b"><td class="memItemLeft" align="right" valign="top">static char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="maquina_8c.html#ada65690cdc12779646943c66cfeee97b">getNameConstants</a> (<a class="el" href="struct_c_l_a_s_s.html">CLASS</a> *class, uint16_t nameIndex)</td></tr>
+<tr class="separator:ada65690cdc12779646943c66cfeee97b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af8b838d5c9cec83ec7cfb63862e0adac"><td class="memItemLeft" align="right" valign="top">int32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="maquina_8c.html#af8b838d5c9cec83ec7cfb63862e0adac">getNumParameters</a> (<a class="el" href="struct_c_l_a_s_s.html">CLASS</a> *class, struct <a class="el" href="struct__method__info.html">_method_info</a> *method)</td></tr>
 <tr class="separator:af8b838d5c9cec83ec7cfb63862e0adac"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8b93245c0555195acc588802f20702e5"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="struct__method__info.html">_method_info</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="maquina_8c.html#a8b93245c0555195acc588802f20702e5">getMethodByNameDesc</a> (<a class="el" href="struct_c_l_a_s_s.html">CLASS</a> *main_class, <a class="el" href="struct_c_l_a_s_s.html">CLASS</a> *name_type_class, uint16_t name_type_index)</td></tr>
 <tr class="separator:a8b93245c0555195acc588802f20702e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad297807074a2804149427985d8dd217a"><td class="memItemLeft" align="right" valign="top">static uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="maquina_8c.html#ad297807074a2804149427985d8dd217a">getNativeValueForStaticMethod</a> (<a class="el" href="struct_c_l_a_s_s.html">CLASS</a> *class, struct <a class="el" href="struct__method__info.html">_method_info</a> *method)</td></tr>
+<tr class="separator:ad297807074a2804149427985d8dd217a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1922d703fdf365ee00a3fd0a9e89508c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_j_v_m.html">JVM</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="maquina_8c.html#a1922d703fdf365ee00a3fd0a9e89508c">initJVM</a> (char *class_name)</td></tr>
 <tr class="separator:a1922d703fdf365ee00a3fd0a9e89508c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
@@ -134,8 +181,94 @@ Funções</h2></td></tr>
 <li>Marcus da Silva Ferreira - 10/0056881</li>
 <li>Michael Rodrigues - 09/0126432</li>
 </ul>
-<p><a class="el" href="struct_j_v_m.html" title="a máquina virtual java em si ">JVM</a> - Software Basico 1/2015 </p>
+<p><a class="el" href="struct_j_v_m.html" title="A máquina virtual java em si. ">JVM</a> - Software Basico 1/2015 </p>
 </div><h2 class="groupheader">Documentação das funções</h2>
+<a class="anchor" id="a73704bfb14209a8c41d2a0958e5db1ca"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void construirFrame </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_c_l_a_s_s.html">CLASS</a> *&#160;</td>
+          <td class="paramname"><em>class</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">struct <a class="el" href="struct__method__info.html">_method_info</a> *&#160;</td>
+          <td class="paramname"><em>metodo</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>constroi e coloca no topo do stack de frames o frame relacionado com $metodo e $class </p>
+
+</div>
+</div>
+<a class="anchor" id="ab0b2c8907acf6a446ee97a1907bd70e9"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void execute </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>executa o método do current frame </p>
+
+</div>
+</div>
+<a class="anchor" id="a5e2b424f723fae9949a106833df3d46f"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static <a class="el" href="struct_c_l_a_s_s.html">CLASS</a>* getClassByName </td>
+          <td>(</td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>classname</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>procura uma class pelo nome no array de classes </p>
+
+</div>
+</div>
 <a class="anchor" id="a8b93245c0555195acc588802f20702e5"></a>
 <div class="memitem">
 <div class="memproto">
@@ -169,6 +302,75 @@ Funções</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="ada65690cdc12779646943c66cfeee97b"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static char* getNameConstants </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_c_l_a_s_s.html">CLASS</a> *&#160;</td>
+          <td class="paramname"><em>class</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint16_t&#160;</td>
+          <td class="paramname"><em>nameIndex</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>devolve um index de um nome de uma constant </p>
+
+</div>
+</div>
+<a class="anchor" id="ad297807074a2804149427985d8dd217a"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static uint64_t getNativeValueForStaticMethod </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_c_l_a_s_s.html">CLASS</a> *&#160;</td>
+          <td class="paramname"><em>class</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">struct <a class="el" href="struct__method__info.html">_method_info</a> *&#160;</td>
+          <td class="paramname"><em>method</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a class="anchor" id="af8b838d5c9cec83ec7cfb63862e0adac"></a>
 <div class="memitem">
 <div class="memproto">
@@ -196,6 +398,102 @@ Funções</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="a561b95a6dc5498cf8dfe91b35406d27a"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static uint64_t getObjectField </td>
+          <td>(</td>
+          <td class="paramtype">struct _object *&#160;</td>
+          <td class="paramname"><em>object</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t&#160;</td>
+          <td class="paramname"><em>field_index</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>dado um objeto devolve a referencia para um field desse objeto </p>
+
+</div>
+</div>
+<a class="anchor" id="a9c587859b52b92f9cf289400d0ebed0f"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static uint64_t getStaticFieldVal </td>
+          <td>(</td>
+          <td class="paramtype">uint32_t&#160;</td>
+          <td class="paramname"><em>class_index</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t&#160;</td>
+          <td class="paramname"><em>field_index</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>devolve um valor de um field estatico </p>
+
+</div>
+</div>
+<a class="anchor" id="aeac212bbcdefc4d4a2687a73445a7634"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void initialize </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>class_index</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>executa clinit </p>
+
+</div>
+</div>
 <a class="anchor" id="a1922d703fdf365ee00a3fd0a9e89508c"></a>
 <div class="memitem">
 <div class="memproto">
@@ -209,7 +507,362 @@ Funções</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>inicia a <a class="el" href="struct_j_v_m.html" title="a máquina virtual java em si ">JVM</a> </p>
+<p>inicia a <a class="el" href="struct_j_v_m.html" title="A máquina virtual java em si. ">JVM</a> </p>
+
+</div>
+</div>
+<a class="anchor" id="a87d384a5f7530ac369b5c5920a38bba3"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void link </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>class_index</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>verifica, prepara e opcionalmente resolve </p>
+
+</div>
+</div>
+<a class="anchor" id="afabd057cbb0355529e7da74ac6359fb9"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static int loadClass </td>
+          <td>(</td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>name</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>carrega uma classe que ainda nao foi carregada na memoria </p>
+
+</div>
+</div>
+<a class="anchor" id="a8a60dbbdcd2774adeefaf01b9f90140a"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static int loadInterfaces </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_c_l_a_s_s.html">CLASS</a> *&#160;</td>
+          <td class="paramname"><em>class</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>carrega as interfaces da classe na posicao maquina.classes.size - 1 no array de interfaces da area de metodo </p>
+
+</div>
+</div>
+<a class="anchor" id="a9a586c4e3938a914e6d8803b8d56235e"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static int loadParentClasses </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>carrega as classes pai da classe na posicao maquina.classes.size - 1 no array de classes da area de metodo </p>
+
+</div>
+</div>
+<a class="anchor" id="aa8decdbae1a747c82360beb6bf244ff9"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void prepare </td>
+          <td>(</td>
+          <td class="paramtype">uint32_t&#160;</td>
+          <td class="paramname"><em>index</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>aloca e inicializa valores default para os fields estaticos da classe indicada por $index </p>
+
+</div>
+</div>
+<a class="anchor" id="a74ef43e92b59989e8419fca9d4ba0c2f"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static uint32_t retrieveFieldIndex </td>
+          <td>(</td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>className</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>name</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint16_t&#160;</td>
+          <td class="paramname"><em>nameLen</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>desc</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint16_t&#160;</td>
+          <td class="paramname"><em>descLen</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>devolve o index de um field de uma classe </p>
+
+</div>
+</div>
+<a class="anchor" id="acd6594869429d3b9cd3be595049ee33f"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void run </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>executa o main </p>
+
+</div>
+</div>
+<a class="anchor" id="a3017108418c1af5624852e1b2fbdb04e"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static uint32_t searchStaticFieldVal </td>
+          <td>(</td>
+          <td class="paramtype">uint32_t&#160;</td>
+          <td class="paramname"><em>class_index</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>name</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>desc</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>pesquisa um valor de field de uma classe do method_area </p>
+
+</div>
+</div>
+<a class="anchor" id="aa57d77fff82d509f82b3a1f83230b6d3"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void setObjectField </td>
+          <td>(</td>
+          <td class="paramtype">struct _object *&#160;</td>
+          <td class="paramname"><em>object</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t&#160;</td>
+          <td class="paramname"><em>field_index</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint64_t&#160;</td>
+          <td class="paramname"><em>value</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>seta um valor a um field que estah instanciado </p>
+
+</div>
+</div>
+<a class="anchor" id="a5f0424b17f8c14af21fe7d370efd87f6"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void setStaticFieldVal </td>
+          <td>(</td>
+          <td class="paramtype">uint32_t&#160;</td>
+          <td class="paramname"><em>class_index</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t&#160;</td>
+          <td class="paramname"><em>field_index</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint64_t&#160;</td>
+          <td class="paramname"><em>value</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>atribui um valor a um field estatico </p>
+
+</div>
+</div>
+<a class="anchor" id="a2edc0d6f30ce37b06f4ad028906db411"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void verify </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>class_index</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>verificação do .class </p>
 
 </div>
 </div>
@@ -219,7 +872,7 @@ Funções</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_b122af4da6eec80575ec914df2532517.html">JVM</a></li><li class="navelem"><a class="el" href="dir_9a7834b574c838e53f2bd3bfa0b4c9b0.html">maquina</a></li><li class="navelem"><a class="el" href="maquina_8c.html">maquina.c</a></li>
-    <li class="footer">Gerado em Domingo, 28 de Junho de 2015 21:23:38 para JVM por
+    <li class="footer">Gerado em Domingo, 28 de Junho de 2015 22:58:27 para JVM por
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.9.1 </li>
   </ul>

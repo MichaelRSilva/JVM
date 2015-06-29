@@ -112,10 +112,68 @@ $(document).ready(function(){initNavTree('heap_8c.html','');});
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Funções</h2></td></tr>
+<tr class="memitem:ab1cfb9befb3941f084c4eff9020120e0"><td class="memItemLeft" align="right" valign="top">static struct _object *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="heap_8c.html#ab1cfb9befb3941f084c4eff9020120e0">addObject</a> (struct _object *obj)</td></tr>
+<tr class="separator:ab1cfb9befb3941f084c4eff9020120e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0650ca5c4d3a927d7975cf6036556be9"><td class="memItemLeft" align="right" valign="top">static struct _array *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="heap_8c.html#a0650ca5c4d3a927d7975cf6036556be9">addArray</a> (struct _array *arr)</td></tr>
+<tr class="separator:a0650ca5c4d3a927d7975cf6036556be9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9cf9c5efe38c4e94eeeed8ad7c890fd4"><td class="memItemLeft" align="right" valign="top">static struct _object *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="heap_8c.html#a9cf9c5efe38c4e94eeeed8ad7c890fd4">newObject</a> (<a class="el" href="struct_c_l_a_s_s.html">CLASS</a> *class)</td></tr>
+<tr class="separator:a9cf9c5efe38c4e94eeeed8ad7c890fd4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a49019a004dfeb57a0b3e7d14b8723244"><td class="memItemLeft" align="right" valign="top">static struct _array *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="heap_8c.html#a49019a004dfeb57a0b3e7d14b8723244">newArray</a> (uint32_t count, uint32_t tipo)</td></tr>
+<tr class="separator:a49019a004dfeb57a0b3e7d14b8723244"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac8bd75b303e23dfab20cf441917f3c4a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_h_e_a_p.html">HEAP</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="heap_8c.html#ac8bd75b303e23dfab20cf441917f3c4a">initHEAP</a> ()</td></tr>
 <tr class="separator:ac8bd75b303e23dfab20cf441917f3c4a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Documentação das funções</h2>
+<a class="anchor" id="a0650ca5c4d3a927d7975cf6036556be9"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static struct _array* addArray </td>
+          <td>(</td>
+          <td class="paramtype">struct _array *&#160;</td>
+          <td class="paramname"><em>arr</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>adiciona um array na no array de arrays para um possível Garbage Collector </p>
+
+</div>
+</div>
+<a class="anchor" id="ab1cfb9befb3941f084c4eff9020120e0"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static struct _object* addObject </td>
+          <td>(</td>
+          <td class="paramtype">struct _object *&#160;</td>
+          <td class="paramname"><em>obj</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>adiciona um objeto no array de objetos para um possível Garbage Collector </p>
+
+</div>
+</div>
 <a class="anchor" id="ac8bd75b303e23dfab20cf441917f3c4a"></a>
 <div class="memitem">
 <div class="memproto">
@@ -132,13 +190,73 @@ Funções</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="a49019a004dfeb57a0b3e7d14b8723244"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static struct _array* newArray </td>
+          <td>(</td>
+          <td class="paramtype">uint32_t&#160;</td>
+          <td class="paramname"><em>count</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t&#160;</td>
+          <td class="paramname"><em>tipo</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>devolve uma instancia de um array, do tipo passado por parametro </p>
+
+</div>
+</div>
+<a class="anchor" id="a9cf9c5efe38c4e94eeeed8ad7c890fd4"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static struct _object* newObject </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_c_l_a_s_s.html">CLASS</a> *&#160;</td>
+          <td class="paramname"><em>class</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>cria um novo objeto, alocando espaco na memoria para ele </p>
+
+</div>
+</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_b122af4da6eec80575ec914df2532517.html">JVM</a></li><li class="navelem"><a class="el" href="dir_9a7834b574c838e53f2bd3bfa0b4c9b0.html">maquina</a></li><li class="navelem"><a class="el" href="heap_8c.html">heap.c</a></li>
-    <li class="footer">Gerado em Domingo, 28 de Junho de 2015 21:23:38 para JVM por
+    <li class="footer">Gerado em Domingo, 28 de Junho de 2015 22:58:27 para JVM por
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.9.1 </li>
   </ul>

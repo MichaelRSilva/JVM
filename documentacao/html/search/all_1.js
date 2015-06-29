@@ -1,10 +1,13 @@
 var searchData=
 [
   ['access_5fflags',['access_flags',['../struct_c_l_a_s_s.html#a562525337a49b849ecf0c05031e125de',1,'CLASS::access_flags()'],['../struct__field__info.html#a7f5fd269186e4937583114c73de5acff',1,'_field_info::access_flags()'],['../struct__method__info.html#af03b1a905b342757e55e6273cee2037f',1,'_method_info::access_flags()']]],
-  ['addattribute',['addAttribute',['../struct_a_t_t_r_i_b_u_t_e___p_o_o_l.html#a1abb2686718134cffcfcf4ddedaa1690',1,'ATTRIBUTE_POOL']]],
-  ['addconstant',['addConstant',['../struct_c_o_n_s_t_a_n_t___p_o_o_l.html#a4c6240253c04833d874de35ca93a6774',1,'CONSTANT_POOL']]],
-  ['addfield',['addField',['../struct_f_i_e_l_d___p_o_o_l.html#af82eb3ce1a2c0e07299865744fdf156b',1,'FIELD_POOL']]],
-  ['addmethods',['addMethods',['../struct_m_e_t_h_o_d___p_o_o_l.html#a4f0af426be06ebf5e71775e6c36ea661',1,'METHOD_POOL']]],
+  ['addarray',['addArray',['../heap_8c.html#a0650ca5c4d3a927d7975cf6036556be9',1,'heap.c']]],
+  ['addattribute',['addAttribute',['../struct_a_t_t_r_i_b_u_t_e___p_o_o_l.html#a1abb2686718134cffcfcf4ddedaa1690',1,'ATTRIBUTE_POOL::addAttribute()'],['../attributeinfo_8c.html#abc9648b4d130c94848be1034ea875be2',1,'addAttribute():&#160;attributeinfo.c']]],
+  ['addconstant',['addConstant',['../struct_c_o_n_s_t_a_n_t___p_o_o_l.html#a4c6240253c04833d874de35ca93a6774',1,'CONSTANT_POOL::addConstant()'],['../constantpool_8c.html#a2d78a8b521235ced4e5b046b39f0f6a6',1,'addConstant():&#160;constantpool.c']]],
+  ['addextended',['addExtended',['../classloader_8c.html#a6f8879c741461b2fef274e9b15dbc088',1,'classloader.c']]],
+  ['addfield',['addField',['../struct_f_i_e_l_d___p_o_o_l.html#af82eb3ce1a2c0e07299865744fdf156b',1,'FIELD_POOL::addField()'],['../fieldinfo_8c.html#a661bd9e99eccc16046eb653258aae118',1,'addField():&#160;fieldinfo.c']]],
+  ['addmethods',['addMethods',['../struct_m_e_t_h_o_d___p_o_o_l.html#a4f0af426be06ebf5e71775e6c36ea661',1,'METHOD_POOL::addMethods()'],['../methodinfo_8c.html#aaefa6c87fc32609df929446ff948d8e8',1,'addMethods():&#160;methodinfo.c']]],
+  ['addobject',['addObject',['../heap_8c.html#ab1cfb9befb3941f084c4eff9020120e0',1,'heap.c']]],
   ['allocated',['allocated',['../struct_f_r_a_m_e_1_1__operand__stack.html#a9cfd514d63754de1b259e7610a74ccf9',1,'FRAME::_operand_stack']]],
   ['array_5fcount',['array_count',['../struct_h_e_a_p.html#ab988b28e3bb4e377131f4bcd4935e342',1,'HEAP']]],
   ['arrays',['arrays',['../struct_h_e_a_p.html#a942d318eb4e120a0ede3328875ad9b97',1,'HEAP']]],

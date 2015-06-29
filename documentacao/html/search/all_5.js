@@ -18,11 +18,13 @@ var searchData=
   ['error',['error',['../common_8c.html#a6a99c69202056e789fd253104785ddb1',1,'error(int errorcode):&#160;common.c'],['../common_8h.html#a6a99c69202056e789fd253104785ddb1',1,'error(int errorcode):&#160;common.c']]],
   ['errordesc',['errordesc',['../common_8c.html#a689f73905e587e3f0ec800857c9f7499',1,'errordesc():&#160;common.c'],['../common_8h.html#a689f73905e587e3f0ec800857c9f7499',1,'errordesc():&#160;common.c']]],
   ['errors',['ERRORS',['../struct_e_r_r_o_r_s.html',1,'']]],
-  ['escrevearquivo',['EscreveArquivo',['../struct_u_t_i_l.html#a02e94628bdc0a65743c2db957c14cadd',1,'UTIL']]],
+  ['escrevearquivo',['EscreveArquivo',['../struct_u_t_i_l.html#a02e94628bdc0a65743c2db957c14cadd',1,'UTIL::EscreveArquivo()'],['../util_8c.html#a6779821330f857c34bf85e8e3564ccfc',1,'EscreveArquivo():&#160;util.c']]],
   ['exception_5findex_5ftable',['exception_index_table',['../struct__attribute__info.html#a11f0b034f3b30f2c0e3b3d16481dc362',1,'_attribute_info']]],
   ['exception_5ftable',['exception_table',['../struct__code__attribute.html#a2e3ac0c16b52c008645f378fce706408',1,'_code_attribute']]],
   ['exception_5ftable_5flength',['exception_table_length',['../struct__code__attribute.html#a58ce72e7ee77fa06c9c218ea3f6ef521',1,'_code_attribute']]],
   ['execeptionsattribute',['ExeceptionsAttribute',['../struct__attribute__info.html#a409889d8d767e68a4e4c48c506d3e57d',1,'_attribute_info']]],
-  ['execute',['execute',['../struct_j_v_m.html#a089f1af07a2fb313dc36c268cbc073f2',1,'JVM']]],
+  ['execute',['execute',['../struct_j_v_m.html#a089f1af07a2fb313dc36c268cbc073f2',1,'JVM::execute()'],['../maquina_8c.html#ab0b2c8907acf6a446ee97a1907bd70e9',1,'execute():&#160;maquina.c']]],
+  ['expandclassarray',['expandClassArray',['../_j_v_m_2maquina_2private_8c.html#aafc5bcecfd442dcb8f0a3ae9032bee54',1,'private.c']]],
+  ['expandinterfacearray',['expandInterfaceArray',['../_j_v_m_2maquina_2private_8c.html#a5ddefff7a6b33c47be1d377266a05fe8',1,'private.c']]],
   ['extended',['Extended',['../struct__constant__info.html#a10f8c5460796c1185fd5d5655e32b8f5',1,'_constant_info']]]
 ];

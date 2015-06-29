@@ -26,4 +26,7 @@ OK:
 	- method_test.class
 	- objeto_teste.class
 	- testeHer.class
+	- testeChaObj.class
+
 NOK:
+	- testeChaMetObj.class

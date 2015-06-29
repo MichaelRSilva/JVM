@@ -1,8 +1,8 @@
 var searchData=
 [
-  ['searchstaticfieldval',['searchStaticFieldVal',['../struct_j_v_m.html#a7406b85851332449ea151f3eed3a7d2b',1,'JVM']]],
-  ['setobjectfield',['setObjectField',['../struct_j_v_m.html#aafdf6a71100830ab598667c44eed854a',1,'JVM']]],
-  ['setstaticfieldval',['setStaticFieldVal',['../struct_j_v_m.html#a92d70a835abb2e2ea77283a42548abda',1,'JVM']]],
+  ['searchstaticfieldval',['searchStaticFieldVal',['../struct_j_v_m.html#a7406b85851332449ea151f3eed3a7d2b',1,'JVM::searchStaticFieldVal()'],['../maquina_8c.html#a3017108418c1af5624852e1b2fbdb04e',1,'searchStaticFieldVal():&#160;maquina.c']]],
+  ['setobjectfield',['setObjectField',['../struct_j_v_m.html#aafdf6a71100830ab598667c44eed854a',1,'JVM::setObjectField()'],['../maquina_8c.html#aa57d77fff82d509f82b3a1f83230b6d3',1,'setObjectField():&#160;maquina.c']]],
+  ['setstaticfieldval',['setStaticFieldVal',['../struct_j_v_m.html#a92d70a835abb2e2ea77283a42548abda',1,'JVM::setStaticFieldVal()'],['../maquina_8c.html#a5f0424b17f8c14af21fe7d370efd87f6',1,'setStaticFieldVal():&#160;maquina.c']]],
   ['sourcefile_5findex',['sourcefile_index',['../struct__attribute__info.html#a10f3d79ec28125e3e4f1eeb453be08ad',1,'_attribute_info']]],
   ['sourcefileattribute',['SourceFileAttribute',['../struct__attribute__info.html#a408c864d2db0c7f83c2ec91f3189cd07',1,'_attribute_info']]],
   ['stack',['STACK',['../struct_s_t_a_c_k.html',1,'STACK'],['../struct_j_v_m.html#a81b515bf53dc4b1502dc2c9dec691f0d',1,'JVM::stack()']]],

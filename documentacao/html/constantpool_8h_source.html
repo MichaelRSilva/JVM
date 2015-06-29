@@ -161,7 +161,7 @@ $(document).ready(function(){initNavTree('constantpool_8h_source.html','');});
 <div class="line"><a name="l00072"></a><span class="lineno"><a class="line" href="struct_c_o_n_s_t_a_n_t___p_o_o_l.html">   72</a></span>&#160;    <span class="keyword">typedef</span> <span class="keyword">struct </span>_constant_pool {</div>
 <div class="line"><a name="l00073"></a><span class="lineno"><a class="line" href="struct_c_o_n_s_t_a_n_t___p_o_o_l.html#a62e3924ff6b5107debb24038524965fa">   73</a></span>&#160;        <span class="keyword">struct </span><a class="code" href="struct__constant__info.html">_constant_info</a>* <a class="code" href="struct_c_o_n_s_t_a_n_t___p_o_o_l.html#a62e3924ff6b5107debb24038524965fa">constants</a>;</div>
 <div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;</div>
-<div class="line"><a name="l00075"></a><span class="lineno"><a class="line" href="struct_c_o_n_s_t_a_n_t___p_o_o_l.html#a4c6240253c04833d874de35ca93a6774">   75</a></span>&#160;        int (*addConstant)(<span class="keyword">struct </span>_constant_pool*, int, <a class="code" href="struct_d_a_d_o_s.html">DADOS</a>* d);</div>
+<div class="line"><a name="l00075"></a><span class="lineno"><a class="line" href="struct_c_o_n_s_t_a_n_t___p_o_o_l.html#a4c6240253c04833d874de35ca93a6774">   75</a></span>&#160;        int (*<a class="code" href="constantpool_8c.html#a2d78a8b521235ced4e5b046b39f0f6a6">addConstant</a>)(<span class="keyword">struct </span>_constant_pool*, int, <a class="code" href="struct_d_a_d_o_s.html">DADOS</a>* d);</div>
 <div class="line"><a name="l00076"></a><span class="lineno"><a class="line" href="struct_c_o_n_s_t_a_n_t___p_o_o_l.html#a8dbf6a0117d99c5d7485cb91416d85a7">   76</a></span>&#160;        <span class="keywordtype">char</span>* (*getUtf8String)(<span class="keyword">struct </span>_constant_pool*, int);</div>
 <div class="line"><a name="l00077"></a><span class="lineno"><a class="line" href="struct_c_o_n_s_t_a_n_t___p_o_o_l.html#a1fcd7dabb8646704ce230a674e9e9342">   77</a></span>&#160;        <span class="keywordtype">char</span>* (*getClassName)(<span class="keyword">struct </span>_constant_pool*, int);</div>
 <div class="line"><a name="l00078"></a><span class="lineno"><a class="line" href="struct_c_o_n_s_t_a_n_t___p_o_o_l.html#a3d3e43ca1891224914864c54145bef25">   78</a></span>&#160;        <span class="keywordtype">char</span>* (*getAttributeType)(<span class="keyword">struct </span>_constant_pool*, int);</div>
@@ -212,6 +212,7 @@ $(document).ready(function(){initNavTree('constantpool_8h_source.html','');});
 <div class="ttc" id="constantpool_8h_html_a7301663a87ba31e41201e146c42e184aa366ae2947923238d4d5b82676f9c0696"><div class="ttname"><a href="constantpool_8h.html#a7301663a87ba31e41201e146c42e184aa366ae2947923238d4d5b82676f9c0696">tExtended</a></div><div class="ttdef"><b>Definition:</b> constantpool.h:20</div></div>
 <div class="ttc" id="struct__constant__info_html_a6e135ec9ed91a5bfdd6daae79b70d5ec"><div class="ttname"><a href="struct__constant__info.html#a6e135ec9ed91a5bfdd6daae79b70d5ec">_constant_info::Integer</a></div><div class="ttdeci">struct _constant_info::@9::@12 Integer</div></div>
 <div class="ttc" id="struct__constant__info_html_af58d08fe89806218002d37b0633cd84b"><div class="ttname"><a href="struct__constant__info.html#af58d08fe89806218002d37b0633cd84b">_constant_info::Long</a></div><div class="ttdeci">struct _constant_info::@9::@13 Long</div></div>
+<div class="ttc" id="constantpool_8c_html_a2d78a8b521235ced4e5b046b39f0f6a6"><div class="ttname"><a href="constantpool_8c.html#a2d78a8b521235ced4e5b046b39f0f6a6">addConstant</a></div><div class="ttdeci">static int addConstant(CONSTANT_POOL *this, int ordem, DADOS *d)</div><div class="ttdef"><b>Definition:</b> constantpool.c:6</div></div>
 <div class="ttc" id="struct__constant__info_html_a59488e2e5f464939a89225d3c8acbc8b"><div class="ttname"><a href="struct__constant__info.html#a59488e2e5f464939a89225d3c8acbc8b">_constant_info::NameType</a></div><div class="ttdeci">struct _constant_info::@9::@17 NameType</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
@@ -219,7 +220,7 @@ $(document).ready(function(){initNavTree('constantpool_8h_source.html','');});
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_aa427983f6aa32812208aea9bbd13b7a.html">ClassLoader</a></li><li class="navelem"><a class="el" href="dir_cbb3f30743b5621412a339e39082a268.html">Class</a></li><li class="navelem"><a class="el" href="dir_8e1270f85ea91b00ecd1ffb788396edf.html">ConstantPool</a></li><li class="navelem"><a class="el" href="constantpool_8h.html">constantpool.h</a></li>
-    <li class="footer">Gerado em Domingo, 28 de Junho de 2015 21:23:38 para JVM por
+    <li class="footer">Gerado em Domingo, 28 de Junho de 2015 22:58:26 para JVM por
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.9.1 </li>
   </ul>

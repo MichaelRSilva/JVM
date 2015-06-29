@@ -26,7 +26,7 @@ var searchData=
   ['constants',['constants',['../struct_c_o_n_s_t_a_n_t___p_o_o_l.html#a62e3924ff6b5107debb24038524965fa',1,'CONSTANT_POOL']]],
   ['constantvalue_5findex',['constantvalue_index',['../struct__attribute__info.html#a72bd2a1ebba6714f0682e97e121d26e9',1,'_attribute_info']]],
   ['constantvalueattribute',['ConstantValueAttribute',['../struct__attribute__info.html#a02bb67bfbb9b78ca07a464d4d38cd0d2',1,'_attribute_info']]],
-  ['construirframe',['construirFrame',['../struct_j_v_m.html#a6659e2c9a575d7436d712494eb267e2f',1,'JVM']]],
+  ['construirframe',['construirFrame',['../struct_j_v_m.html#a6659e2c9a575d7436d712494eb267e2f',1,'JVM::construirFrame()'],['../maquina_8c.html#a73704bfb14209a8c41d2a0958e5db1ca',1,'construirFrame():&#160;maquina.c']]],
   ['count',['count',['../struct_s_t_a_c_k.html#ab0a0d83d6aa686cfbcadadf6462d21d1',1,'STACK']]],
   ['current_5fclass',['current_class',['../struct_f_r_a_m_e.html#a9532d23856bceb718a4c9469cf35cafa',1,'FRAME']]],
   ['current_5fframe',['current_frame',['../struct_j_v_m.html#a76571dd772a50d3e1ac7c48ae972d979',1,'JVM']]]

@@ -37,7 +37,7 @@ static char* getClassPath(char* base_path, char* class_name) {
 }
 
 /*!
-	trata se os argumentos passados para o executavel, se esta correto
+	trata os argumentos passados para o executavel e verifica se esta correto
 */
 static int VerificaJVMCMDArgs(int argc, char** argv, char** basePath){
 	FILE *fp;
@@ -80,7 +80,7 @@ static DADOS LeArquivo(char* arqNome) {
 
 #ifdef DEBUG
 	printf("\nLENDO %s: %d", arqNome, (int)fp);
-#endif
+#endif	
 	if (fp==NULL) {
 		printf("\nClass Not Found Exception: %s", arqNome);
 		exit(-2000);

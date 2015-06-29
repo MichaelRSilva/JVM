@@ -9,7 +9,7 @@ var struct_j_v_m =
     [ "getNameConstants", "struct_j_v_m.html#accc6ffa53a0f19df61480ad40d2d2d8a", null ],
     [ "getNativeValueForStaticMethod", "struct_j_v_m.html#a2312b9da9542f4d4e7ea3b755c7b8223", null ],
     [ "getNumParameters", "struct_j_v_m.html#aa54d72e52b6aa6ddd566f2118c2a56dd", null ],
-    [ "getObjectField", "struct_j_v_m.html#ae5120eeacebc91268697a55610e92353", null ],
+    [ "getObjectField", "struct_j_v_m.html#a78ffb04b8750b93dcb22f18126395d6f", null ],
     [ "getStaticFieldVal", "struct_j_v_m.html#a6ff51a182539be5358182db44e58d94b", null ],
     [ "heap", "struct_j_v_m.html#a9574148dd37845d721902d2cde329256", null ],
     [ "initialize", "struct_j_v_m.html#aa07c3d998219128b6ff2691a04accda6", null ],
