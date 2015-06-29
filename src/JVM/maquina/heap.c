@@ -1,22 +1,22 @@
 #include "maquina.h"
 
 /*!
-	adiciona um objeto na heap
+	adiciona um objeto no array de objetos para um possível Garbage Collector
 */
-// static struct _object* addObject(struct _object* obj) {
-// 	maquina.heap->objects = realloc(maquina.heap->objects, (maquina.heap->object_count+1)*sizeof(struct _object*));
-// 	maquina.heap->objects[maquina.heap->object_count++] = obj;
-// 	return obj;
-//}
+static struct _object* addObject(struct _object* obj) {
+	maquina.heap->objects = realloc(maquina.heap->objects, (maquina.heap->object_count+1)*sizeof(struct _object*));
+	maquina.heap->objects[maquina.heap->object_count++] = obj;
+	return obj;
+}
 
 /*!
-	adiciona um array na heap
+	adiciona um array na no array de arrays para um possível Garbage Collector
 */
-// static struct _array* addArray(struct _array* arr) {
-// 	maquina.heap->arrays = realloc(maquina.heap->arrays, (maquina.heap->array_count+1)*sizeof(struct _array*));
-// 	maquina.heap->arrays[maquina.heap->array_count++] = arr;
-// 	return arr;
-// }
+static struct _array* addArray(struct _array* arr) {
+	maquina.heap->arrays = realloc(maquina.heap->arrays, (maquina.heap->array_count+1)*sizeof(struct _array*));
+	maquina.heap->arrays[maquina.heap->array_count++] = arr;
+	return arr;
+}
 
 /*!
 	cria um novo objeto, alocando espaco na memoria para ele
@@ -24,70 +24,64 @@
 static struct _object* newObject(CLASS* class) {
 	if (!class) return NULL;
 
-	struct _object* toReturn = (struct _object*)malloc(sizeof(struct _object));
-	CLASS* parentClass;
-	int index;
-	
-	toReturn->class = class;
+	struct _object* newObj = (struct _object*)malloc(sizeof(struct _object));	
+	newObj->class = class;
+	newObj->fields = (uint64_t*)malloc(class->fields_count*sizeof(uint64_t));
 
-	index = maquina.loadClass(class->getParentName(class));
+	int index = maquina.loadClass(class->getParentName(class));
 
-	if(index >0 ){
-		parentClass = maquina.method_area->classes[index];		
-
-		toReturn->super = newObject(parentClass);
-		maquina.heap->object_count++;
-
-		return toReturn;
+	if(index > -1 ){
+		CLASS* parentClass = maquina.method_area->classes[index];		
+		newObj->super = newObject(parentClass);
 	}else{
 		return NULL;
 	}
+
+	return addObject(newObj);
 }
 
 /*!
 	devolve uma instancia de um array, do tipo passado por parametro
 */
 static struct _array* newArray(uint32_t count, uint32_t tipo) {
-	struct _array* toReturn = (struct _array*)malloc(2*sizeof(struct _array));
+	struct _array* newArr = (struct _array*)malloc(2*sizeof(struct _array));
 	
-	toReturn->quantidade = count;
-	toReturn->tipo = tipo;
+	newArr->quantidade = count;
+	newArr->tipo = tipo;
 	switch(tipo) {
 		case tREFERENCIA:
-			toReturn->element_size = sizeof(uint32_t);
+			newArr->element_size = sizeof(uint32_t);
 			break;
 		case tBOOLEAN:
-			toReturn->element_size = sizeof(uint8_t);
+			newArr->element_size = sizeof(uint8_t);
 			break;
 		case tCHAR:
-			toReturn->element_size = sizeof(uint16_t);
+			newArr->element_size = sizeof(uint16_t);
 			break;
 		case tFLOAT:
-			toReturn->element_size = sizeof(uint32_t);
+			newArr->element_size = sizeof(uint32_t);
 			break;
 		case tDOUBLE:
-			toReturn->element_size = sizeof(uint64_t);
+			newArr->element_size = sizeof(uint64_t);
 			break;
 		case tBYTE:
-			toReturn->element_size = sizeof(uint8_t);
+			newArr->element_size = sizeof(uint8_t);
 			break;
 		case tSHORT:
-			toReturn->element_size = sizeof(uint16_t);
+			newArr->element_size = sizeof(uint16_t);
 			break;
 		case tINT:
-			toReturn->element_size = sizeof(uint32_t);
+			newArr->element_size = sizeof(uint32_t);
 			break;
 		case tLONG:
-			toReturn->element_size = sizeof(uint64_t);
+			newArr->element_size = sizeof(uint64_t);
 			break;
 		default:
 			break;
 	}
-	toReturn->values = malloc(count* toReturn->element_size);
-	maquina.heap->array_count++;
+	newArr->values = malloc(count* newArr->element_size);
 
-	// printf("\nnew array: %p; TIPO: %d; COUNT: %d; values: %p", toReturn,tipo,count, toReturn->values);
-	return toReturn;
+	return addArray(newArr);
 }
 
 /*!

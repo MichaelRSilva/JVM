@@ -13,7 +13,7 @@ UTIL MUTIL;
 
 /// retorna a concatenacao do nome qualificado da classe com .class
 static char* getClassPath(char* base_path, char* class_name) {
-	char* path = (char*)malloc(strlen(base_path)+strlen(class_name) + 7);
+	char* path = (char*)malloc(strlen(base_path)+strlen(class_name) + 8);
 	if (strstr(class_name,".class") != NULL) {
 		if (strlen(base_path)==0)
 			sprintf(path, "%s%s", base_path, class_name);
