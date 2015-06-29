@@ -161,10 +161,10 @@ static void run() {
 #ifdef DEBUG
 	printf("\nENTROU RUN");
 #endif
-	struct _method_info* main = getMainMethod();
-	if (main == NULL) error(E_NO_MAIN_FOUND);
+	struct _method_info* _main = getMainMethod();
+	if (_main == NULL) error(E_NO_MAIN_FOUND);
 
-	construirFrame(maquina.method_area->classes[0], main);
+	construirFrame(maquina.method_area->classes[0], _main);
 	execute();
 
 #ifdef DEBUG

@@ -3071,10 +3071,10 @@ static void _anewarray() {
 	char* className = _MCONSTANTP.getClassName(maquina.current_frame->runtime_constant_pool, indice);
 
 	void* pointer = maquina.heap->newRefArray(count,className);
-	uint64_t toPush = 0;
-	memcpy(&toPush, &pointer, sizeof(uint64_t));
+	//uint64_t toPush = 0;
+	//memcpy(&toPush, &pointer, sizeof(uint64_t));
 
-    maquina.current_frame->push(toPush);
+    maquina.current_frame->push((uint64_t)(intptr_t)pointer);
 	maquina.current_frame->pc++;
 }
 
@@ -3085,7 +3085,7 @@ static void _arraylength() {
 	for(int i=0;i < maquina.heap->array_count; i++){
 
 		// push somente a quantidade do array correto
-		if(!memcmp(&maquina.heap->arrays[i], &reference, sizeof(uint64_t))) {
+		if(!memcmp(&maquina.heap->arrays[i], &reference, sizeof(struct _array*))) {
 			maquina.current_frame->push(maquina.heap->arrays[i]->quantidade);
 			maquina.current_frame->pc++;
 			return;
