@@ -2401,77 +2401,63 @@ static void _tableswitch() {
 
 static void _lookupswitch() {
 	
-	int64_t defaultSwitch, key, count;
-	int64_t *list, *offset;
-	int k, find,i;
-	uint64_t stopped, byte[12];
+	int padrao, index, i ,j, pairs,found;
+	uint64_t locate,saltar, bytes[5];
+	int32_t *match, *offset;
 
-	key = (int64_t)maquina.current_frame->pop();
-	stopped = maquina.current_frame->pc;
+	index = maquina.current_frame->pop();
+	locate = maquina.current_frame->pc;
 
-	while((maquina.current_frame->pc + 1) % 4 != 0) {
+	while((maquina.current_frame->pc + 1) % 4 != 0)
 		maquina.current_frame->pc++;
-	}
-	
+
 	maquina.current_frame->pc++;
 
-	for(int i=0; i<8; i++){
-		byte[i] = maquina.current_frame->code_attr->code[maquina.current_frame->pc++];
+	for(i = 0; i < 4; i++)
+		bytes[i] = (uint64_t)maquina.current_frame->code_attr->code[maquina.current_frame->pc++];
+
+	padrao = ( (bytes[0] & 0xFF) << 24) |((bytes[1] & 0xFF) << 16) |((bytes[2] & 0xFF) << 8) |(bytes[3] & 0xFF);
+
+
+	for(i = 0; i < 4; i++)
+		bytes[i] = (uint64_t)maquina.current_frame->code_attr->code[maquina.current_frame->pc++];
+
+	pairs = ((bytes[0] & 0xFF) << 24) |((bytes[1] & 0xFF) << 16) |((bytes[2] & 0xFF) << 8) |(bytes[3] & 0xFF);
+
+
+	match = calloc(sizeof(int32_t), pairs);
+	offset = calloc(sizeof(int32_t), pairs);
+
+	for(i = 0; i < pairs; i++) {
+		
+		for(j = 0; j < 4; j++) 	{
+			bytes[j] = (uint64_t)maquina.current_frame->code_attr->code[maquina.current_frame->pc++];
+		}
+
+		match[i] = ((bytes[0] & 0xFF) << 24) |((bytes[1] & 0xFF) << 16) |((bytes[2] & 0xFF) << 8) | (bytes[3] & 0xFF);
+		
+		for(j = 0; j < 4; j++) 	{
+			bytes[j] = (uint64_t)maquina.current_frame->code_attr->code[maquina.current_frame->pc++];
+		}
+		offset[i] = ((bytes[0] & 0xFF) << 24) | ((bytes[1] & 0xFF) << 16) |((bytes[2] & 0xFF) << 8) | (bytes[3] & 0xFF);
+	}
+
+	i = 0;
+	found = 0;
+	while((i < pairs) &&(!found)) {
+		if(match[i] == index)
+			found = 1;
+		i++;
+	}
+	i--;
+
+	if(found) {
+		saltar = offset[i] + locate;
+	} else {
+		saltar = padrao + locate;
 	}
 	
-	defaultSwitch = (byte[0] & 0xFF) << 24;
-	defaultSwitch = defaultSwitch | (byte[1] & 0xFF) << 16;
-	defaultSwitch = defaultSwitch | (byte[2] & 0xFF) << 8;
-	defaultSwitch = defaultSwitch | (byte[3] & 0xFF);
-
-	count = (byte[4] & 0xFF) << 24;
-	count = count | (byte[5] & 0xFF) << 16;
-	count = count | (byte[6] & 0xFF) << 8;
-	count = count | (byte[7] & 0xFF);
-
-	list = calloc(sizeof(int64_t), count);
-	offset = calloc(sizeof(int64_t), count);
-
-	for(i = 0; i < count; i++) {
-
-		byte[0] = maquina.current_frame->code_attr->code[maquina.current_frame->pc++];
-		byte[1] = maquina.current_frame->code_attr->code[maquina.current_frame->pc++];
-		byte[2] = maquina.current_frame->code_attr->code[maquina.current_frame->pc++];
-		byte[3] = maquina.current_frame->code_attr->code[maquina.current_frame->pc++];
-		byte[4] = maquina.current_frame->code_attr->code[maquina.current_frame->pc++];
-		byte[5] = maquina.current_frame->code_attr->code[maquina.current_frame->pc++];
-		byte[6] = maquina.current_frame->code_attr->code[maquina.current_frame->pc++];
-		byte[7] = maquina.current_frame->code_attr->code[maquina.current_frame->pc++];
-
-		list[i]  = (byte[0] & 0xFF) << 24;
-		list[i]  = list[i]  | (byte[1] & 0xFF) << 16;
-		list[i]  = list[i]  | (byte[2] & 0xFF) << 8;
-		list[i]  = list[i]  | (byte[3] & 0xFF);
-
-		offset[i]  = (byte[4] & 0xFF) << 24;
-		offset[i]  = offset[i]  | (byte[5] & 0xFF) << 16;
-		offset[i]  = offset[i]  | (byte[6] & 0xFF) << 8;
-		offset[i]  = offset[i]  | (byte[7] & 0xFF);		
-
-	}
-
-	k = 0;
-	find = 0;
-
-	while((k < count) &&( !find)) {
-
-		if(list[k] == key)
-			find = 1;
-		k++;
-	}
-
-	k--;
-
-	if(find == 1) {
-		maquina.current_frame->pc = offset[i] + stopped;
-	} else {
-		maquina.current_frame->pc = defaultSwitch + stopped;
-	}
+	maquina.current_frame->pc = saltar;
 
 }
 
