@@ -34,6 +34,6 @@
 	} METHOD_POOL;
 	
 	METHOD_POOL* initMETHOD_POOL(int);
-	extern METHOD_POOL Mmethodpool;
+	extern METHOD_POOL _MMETHODP;
 
 #endif

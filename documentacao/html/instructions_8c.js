@@ -207,6 +207,6 @@ var instructions_8c =
     [ "Mclass", "instructions_8c.html#aa017a483ea1faf897127a339896f89f2", null ],
     [ "Mconstantpool", "instructions_8c.html#ae05a481cdf6e77710d7aae766c3784fa", null ],
     [ "Mmethodpool", "instructions_8c.html#a051c9753d03eea4c85bf4c72ed21f01f", null ],
-    [ "Mutil", "instructions_8c.html#a1365dba1632d3331791bd48585ad76dc", null ],
+    [ "_MUTIL", "instructions_8c.html#a1365dba1632d3331791bd48585ad76dc", null ],
     [ "WIDE", "instructions_8c.html#a742df3db81ef851ef55e93efd8557569", null ]
 ];

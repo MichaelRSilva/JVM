@@ -1,5 +1,6 @@
 #include "classloader.h"
-UTIL MUTIL;
+UTIL _MUTIL;
+CONSTANT_POOL _MCONSTANTP;
 
 /*!
 	verifica se eh um .class valido, para isso os primeiros 32bits tem que ser 0xCAFEBABE
@@ -104,7 +105,7 @@ static ATTRIBUTE_POOL* populateAttributePool(CLASS* this, DADOS* d) {
 */
 // funcoes somente visiveis a struct classloader
 static CLASS* load(CLASS_LOADER* this, char* fileName) {
-	DADOS d = MUTIL.LeArquivo(fileName);
+	DADOS d = _MUTIL.LeArquivo(fileName);
 	int flag = 0;
 	uint8_t* base_pointer = d.bytes;
 

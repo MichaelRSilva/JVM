@@ -10,5 +10,5 @@ var classloader_8c =
     [ "populateMethodsPool", "classloader_8c.html#aa185701a1edf5464ed32b33b479e6b4e", null ],
     [ "verifyCAFEBABE", "classloader_8c.html#a57f4db835e3e07ec9755b2caa7f201d7", null ],
     [ "verifyVersion", "classloader_8c.html#ad4d9b20710418e2537b1b8a8f890e21d", null ],
-    [ "MUTIL", "classloader_8c.html#a0a145b8e647ba88344cce4ec51b00e4d", null ]
+    [ "_MUTIL", "classloader_8c.html#a0a145b8e647ba88344cce4ec51b00e4d", null ]
 ];

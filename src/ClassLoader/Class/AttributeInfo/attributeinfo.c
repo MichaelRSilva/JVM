@@ -1,14 +1,13 @@
 #include "private.c"
 
-
 /*!
 	Adiciona um atributo no constant pool passador por parametro
 */
 static void addAttribute(ATTRIBUTE_POOL* this, CONSTANT_POOL* cp, int ordem, DADOS* d) {
-	this->attributes[ordem].attributeNameIndex = getAttributeNameIndex(d);
-	this->attributes[ordem].attributeLength = getAttributeLength(d);
+	this->attributes[ordem].attributeNameIndex = d->le2Bytes(d);
+	this->attributes[ordem].attributeLength = d->le4Bytes(d);
 
-	char* tipoNome = (char*)malloc((cp->constants[this->attributes[ordem].attributeNameIndex - 1].type.Utf8.tam + 1)* sizeof(char));
+	char* tipoNome = (char*)malloc((cp->constants[this->attributes[ordem].attributeNameIndex - 1].type.Utf8.tam + 1) * sizeof(char));
 	strcpy(tipoNome, (char*)cp->constants[this->attributes[ordem].attributeNameIndex - 1].type.Utf8.bytes);
 	
 	/*!

@@ -69,8 +69,8 @@ static void expandInterfaceArray() {
 static struct _method_info* getclinit(CLASS* class) {
 	// printf("\n\tentrou getclinit: %s", class->getName(class));
 	for (int i = 0; i < class->methods_count; i++) {
-		char* name = class->constant_pool->getUtf8String(class->constant_pool, class->methods_pool->methods[i].name_index);
-		char* desc = class->constant_pool->getUtf8String(class->constant_pool, class->methods_pool->methods[i].descriptor_index);
+		char* name = _MCONSTANTP.getUtf8String(class->constant_pool, class->methods_pool->methods[i].name_index);
+		char* desc = _MCONSTANTP.getUtf8String(class->constant_pool, class->methods_pool->methods[i].descriptor_index);
 
 		if (!strcmp(name, "<clinit>") && !strcmp(desc, "()V")) {
 			return &(class->methods_pool->methods[i]);
@@ -85,16 +85,16 @@ static struct _method_info* getclinit(CLASS* class) {
 */
 struct _method_info* getMainMethod() {
 	CLASS *main_class;
-	uint8_t *name, *desc;
+	char *name, *desc;
 
 	main_class = maquina.method_area->classes[0];
 
 	/* procura por método main ([LJava/lang/String;)V */
 	for (int i = 0; i < main_class->methods_count; i++){
-		name = main_class->constant_pool->constants[(main_class->methods_pool->methods[i].name_index-1)].type.Utf8.bytes;
-		desc = main_class->constant_pool->constants[(main_class->methods_pool->methods[i].descriptor_index-1)].type.Utf8.bytes;
+		name = _MCONSTANTP.getUtf8String(main_class->constant_pool, main_class->methods_pool->methods[i].name_index);
+		desc = _MCONSTANTP.getUtf8String(main_class->constant_pool, main_class->methods_pool->methods[i].descriptor_index);
 
-		if ((strcmp("main", (char *)name) == 0) && (strcmp("([Ljava/lang/String;)V", (char *)desc) == 0))
+		if ((strcmp("main", name) == 0) && (strcmp("([Ljava/lang/String;)V", desc) == 0))
 			return &(main_class->methods_pool->methods[i]);
 	}
 

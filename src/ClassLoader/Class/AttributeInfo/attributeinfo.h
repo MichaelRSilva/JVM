@@ -102,10 +102,13 @@
 	};
 
 	typedef struct _attributes {
-		struct _attribute_info* attributes;
-		void (*addAttribute)(struct _attributes*, CONSTANT_POOL*, int, DADOS*);
+		//campos 
+			struct _attribute_info* attributes;
+		
+		//funcoes
+			void (*addAttribute)(struct _attributes*, CONSTANT_POOL*, int, DADOS*);
 	} ATTRIBUTE_POOL;
 
 	ATTRIBUTE_POOL* initATTRIBUTE_POOL(int);
-	extern ATTRIBUTE_POOL Mattributepool;
+	extern ATTRIBUTE_POOL _MATTRIBUTEP;
 #endif

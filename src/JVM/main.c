@@ -13,7 +13,7 @@
 #include "maquina/maquina.h"
 #include "misc.c"
 
-UTIL MUTIL;
+UTIL _MUTIL;
 void imprimeHelper();
 
 /*!
@@ -21,10 +21,11 @@ void imprimeHelper();
 */
 int main(int argc, char **argv) {
 	int flag;
-	MUTIL = initUTIL();
+	_MCONSTANTP = *(initCONSTANT_POOL(0));
+	_MUTIL = initUTIL();
 	maquina = initJVM();
 
-	if((flag = MUTIL.VerificaJVMCMDArgs(argc, argv, &maquina.basePath)) >= 0) {
+	if((flag = _MUTIL.VerificaJVMCMDArgs(argc, argv, &maquina.basePath)) >= 0) {
 		if (flag > 0) {
 			switch (flag) {
 				case 1:
@@ -33,7 +34,7 @@ int main(int argc, char **argv) {
 					break;
 				case 2: {
 					CLASS_LOADER* cl = initCLASS_LOADER();
-					cl->load(cl, MUTIL.getClassPath(maquina.basePath,argv[1]));
+					cl->load(cl, _MUTIL.getClassPath(maquina.basePath,argv[1]));
 					FILE* fp = fopen("output.txt","w");
 					PrintClass(cl->class, stdout);
 					PrintClass(cl->class, fp);
@@ -43,7 +44,7 @@ int main(int argc, char **argv) {
 				}
 				case 3: {
 					CLASS_LOADER* cl = initCLASS_LOADER();
-					cl->load(cl, MUTIL.getClassPath(maquina.basePath,argv[1]));
+					cl->load(cl, _MUTIL.getClassPath(maquina.basePath,argv[1]));
 					PrintClass(cl->class, stdout);
 					return 0;
 					break;
@@ -51,7 +52,7 @@ int main(int argc, char **argv) {
 				case 4: {
 					FILE* fp = fopen("output.txt","w");
 					CLASS_LOADER* cl = initCLASS_LOADER();
-					cl->load(cl, MUTIL.getClassPath(maquina.basePath,argv[1]));
+					cl->load(cl, _MUTIL.getClassPath(maquina.basePath,argv[1]));
 					PrintClass(cl->class, fp);
 					fclose(fp);
 					return 0;

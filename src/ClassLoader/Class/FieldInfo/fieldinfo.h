@@ -15,7 +15,6 @@
 		uint16_t attributes_count;
 		uint64_t value;
 		struct _attribute_info* attributes;
-
 	};
 
 	/*!
@@ -28,5 +27,5 @@
 	} FIELD_POOL;
 	
 	FIELD_POOL* initFIELD_POOL(int);
-	extern FIELD_POOL Mfieldpool;
+	extern FIELD_POOL _MFIELDP;
 #endif

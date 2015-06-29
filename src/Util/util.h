@@ -63,5 +63,5 @@
 		@return Uma estrutura UTIL contendo os métodos auxiliares para IO
 	*/
 	UTIL initUTIL(void);
-	extern UTIL MUTIL;
+	extern UTIL _MUTIL;
 #endif

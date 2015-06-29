@@ -21,7 +21,7 @@ static void construirFrame(CLASS* class, struct _method_info* metodo) {
 	int flag = 0;
 	if (metodo->attributes_count > 0) { // indica nao ser nativo
 		for (int i = 0; i < metodo->attributes_count; i++) {
-			if (!strcmp(class->constant_pool->getAttributeType(class->constant_pool, metodo->attributes[i].attributeNameIndex), "Code")) {
+			if (!strcmp(_MCONSTANTP.getAttributeType(class->constant_pool, metodo->attributes[i].attributeNameIndex), "Code")) {
 				maquina.stack->pushFrame(class, (struct _code_attribute*)&(metodo->attributes[i].info));
 				flag = 1;
 				break;
@@ -29,7 +29,7 @@ static void construirFrame(CLASS* class, struct _method_info* metodo) {
 		}
 	} 
 	if (!flag) {
-
+		// nao constroi frame
 	}
 }
 
@@ -95,7 +95,7 @@ static int loadParentClasses() {
 		CLASS_LOADER *cl = initCLASS_LOADER();
 
 		expandClassArray();
-		cl->load(cl, MUTIL.getClassPath(maquina.basePath,parentName));
+		cl->load(cl, _MUTIL.getClassPath(maquina.basePath,parentName));
 		maquina.method_area->classes[maquina.method_area->classes_count++]= cl->class;
 
 		link(maquina.method_area->classes_count-1);
@@ -120,7 +120,7 @@ static int loadInterfaces(CLASS* class) {
 		
 		if (getInterfceIndex(name) == -1) {
 			expandInterfaceArray();
-			cl->load(cl, MUTIL.getClassPath(maquina.basePath, name));
+			cl->load(cl, _MUTIL.getClassPath(maquina.basePath, name));
 			maquina.method_area->interfaces[maquina.method_area->interfaces_count++] = cl->class;
 		}
 		
@@ -145,7 +145,7 @@ static int loadClass(char* name) {
 	if ((toReturn = getClassIndex(name)) <= -1) {
 		CLASS_LOADER* cl = initCLASS_LOADER();
 
-		cl->load(cl, MUTIL.getClassPath(maquina.basePath, name));
+		cl->load(cl, _MUTIL.getClassPath(maquina.basePath, name));
 
 		toReturn = maquina.method_area->classes_count;
 		expandClassArray();
@@ -212,8 +212,8 @@ static uint32_t searchStaticFieldVal(uint32_t class_index, char* name,char* desc
 	for(int i =0; i<maquina.method_area->classes[class_index]->fields_count; i++){
 
 		struct _field_info* var = &(maquina.method_area->classes[class_index]->fields_pool->fields[i]);
-		char* fieldName = maquina.method_area->classes[class_index]->constant_pool->getUtf8String(maquina.method_area->classes[class_index]->constant_pool,var->name_index);
-		char* fieldDesc = maquina.method_area->classes[class_index]->constant_pool->getUtf8String(maquina.method_area->classes[class_index]->constant_pool,var->descriptor_index);
+		char* fieldName = _MCONSTANTP.getUtf8String(maquina.method_area->classes[class_index]->constant_pool,var->name_index);
+		char* fieldDesc = _MCONSTANTP.getUtf8String(maquina.method_area->classes[class_index]->constant_pool,var->descriptor_index);
 
 		if ((strcmp(name,fieldName) == 0) && (strcmp(desc,fieldDesc) == 0)) {
 			return i;
@@ -269,7 +269,7 @@ static uint32_t retrieveFieldIndex(char *className, char *name, uint16_t nameLen
 	devolve um index de um nome de uma constant
 */
 static char * getNameConstants(CLASS *class, uint16_t nameIndex) {
-	return  class->constant_pool->getUtf8String(class->constant_pool, nameIndex);
+	return _MCONSTANTP.getUtf8String(class->constant_pool, nameIndex);
 }
 
 /*!
@@ -341,8 +341,8 @@ struct _method_info *getMethodByNameDesc(CLASS *main_class, CLASS *name_type_cla
 }
 
 static uint64_t getNativeValueForStaticMethod(CLASS* class, struct _method_info* method) {
-	char* method_name = class->constant_pool->getUtf8String(class->constant_pool, method->name_index);
-	char* type_desc = class->constant_pool->getUtf8String(class->constant_pool, method->descriptor_index);
+	char* method_name = _MCONSTANTP.getUtf8String(class->constant_pool, method->name_index);
+	char* type_desc = _MCONSTANTP.getUtf8String(class->constant_pool, method->descriptor_index);
 	
 	if (!strcmp(class->getName(class), "java/lang/System") && !(strcmp(method_name, "currentTimeMillis"))
 		&& !(strcmp(type_desc, "()J"))) {

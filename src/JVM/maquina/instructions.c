@@ -13,11 +13,11 @@
 
 #include "maquina.h"
 
-UTIL Mutil;
-CLASS Mclass;
-METHOD_POOL Mmethodpool;
-ATTRIBUTE_POOL Mattributepool;
-CONSTANT_POOL Mconstantpool;
+UTIL _MUTIL;
+CLASS _MCLASS;
+METHOD_POOL _MMETHODP;
+ATTRIBUTE_POOL _MATTRIBUTEP;
+CONSTANT_POOL _MCONSTANTP;
 JVM maquina;
 
 uint8_t WIDE = 0;
@@ -3025,7 +3025,7 @@ static void _new() {
 
 
 	if (!indice) error(E_NOTVALID_CP_INDEX);
-	className = maquina.current_frame->runtime_constant_pool->getClassName(maquina.current_frame->runtime_constant_pool, indice);
+	className = _MCONSTANTP.getClassName(maquina.current_frame->runtime_constant_pool, indice);
 
 	classIndex = maquina.loadClass(className);
 
@@ -3104,7 +3104,7 @@ static void _checkcast() {
 	reference = (struct _object *)(intptr_t)maquina.current_frame->pop();
 	
 	char* className1 = maquina.current_frame->current_class->getName(maquina.current_frame->current_class);
-	char* className2 = maquina.current_frame->runtime_constant_pool->getClassName(reference->class->constant_pool,indice);
+	char* className2 = _MCONSTANTP.getClassName(reference->class->constant_pool,indice);
 
 	if(reference == NULL) {
 		printf("Erro: Null Reference\n");
@@ -3134,7 +3134,7 @@ static void _instanceof() {
 	}
 
 	char* className1 = maquina.current_frame->current_class->getName(maquina.current_frame->current_class);
-	char* className2 = maquina.current_frame->runtime_constant_pool->getClassName(reference->class->constant_pool,indice);
+	char* className2 = _MCONSTANTP.getClassName(reference->class->constant_pool,indice);
 
 	if(strcmp(className1, className2) == 0) {
 		maquina.current_frame->push(1);

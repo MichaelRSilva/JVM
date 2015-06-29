@@ -9,7 +9,7 @@
 	JVM - Software Basico 1/2015
 */
 #include "util.h"
-UTIL MUTIL;
+UTIL _MUTIL;
 
 /*! 
 	retorna a concatenacao do nome qualificado da classe com base_path e com .class

@@ -1,28 +1,28 @@
 #include "class.h"
-ATTRIBUTE_POOL Mattributepool;
-CONSTANT_POOL Mconstantpool;
-FIELD_POOL Mfieldpool;
-METHOD_POOL Mmethodpool;
+ATTRIBUTE_POOL _MATTRIBUTEP;
+CONSTANT_POOL _MCONSTANTP;
+FIELD_POOL _MFIELDP;
+METHOD_POOL _MMETHODP;
 
 /*!
 	devolve o nome de uma classe recebida
 */
 static char* getName(CLASS* this) {
-	return this->constant_pool->getClassName(this->constant_pool, this->this_class);
+	return _MCONSTANTP.getClassName(this->constant_pool, this->this_class);
 }
 
 /*!
 	devolve o nome de uma classe pai
 */
 static char* getParentName(CLASS* this) {
-	return this->constant_pool->getClassName(this->constant_pool, this->super_class);
+	return _MCONSTANTP.getClassName(this->constant_pool, this->super_class);
 }
 
 /*!
 	devolve o nome de uma interface recebida
 */
 static char* getInterfaceName(CLASS* this, int interface_index) {
-	return this->constant_pool->getClassName(this->constant_pool, this->interfaces[interface_index]);
+	return _MCONSTANTP.getClassName(this->constant_pool, this->interfaces[interface_index]);
 }
 
 /*!

@@ -1,24 +1,9 @@
 #include "attributeinfo.h"
 
 /*!
-	devolve o indice do nome do atributo que estara no constant_pool
-*/
-static uint16_t getAttributeNameIndex(DADOS* d) {
-	return d->le2Bytes(d);
-}
-
-/*!
-	devolve o tamanho do atributo
-*/
-static uint32_t getAttributeLength(DADOS* d ) {
-	return d->le4Bytes(d);
-}
-
-/*!
 	atribue o valor de uma const
 */
 static void populateConstantValueAttribute(struct _attribute_info* a, DADOS* d) {
-
 	a->info.ConstantValueAttribute.constantvalue_index = d->le2Bytes(d);
 }
 
