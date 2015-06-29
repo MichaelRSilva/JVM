@@ -8,6 +8,7 @@ var searchData=
   ['e_5finvalid_5fnum_5fargs',['E_INVALID_NUM_ARGS',['../common_8h.html#a34753b0bbe7e878508c8338f40433fe4a1b7ea43957a152b7b32d7d21a6fb8ad1',1,'common.h']]],
   ['e_5fno_5fmain_5ffound',['E_NO_MAIN_FOUND',['../common_8h.html#a34753b0bbe7e878508c8338f40433fe4a3f13f4a9345a0967705497ccadcec805',1,'common.h']]],
   ['e_5fnotsupported_5fversion',['E_NOTSUPPORTED_VERSION',['../common_8h.html#a34753b0bbe7e878508c8338f40433fe4a8fb2003b872b20668cc1beffa11fd93a',1,'common.h']]],
+  ['e_5fnotvalid_5fcp_5findex',['E_NOTVALID_CP_INDEX',['../common_8h.html#a34753b0bbe7e878508c8338f40433fe4af30712e2c90bb569b0c12130a6666d7d',1,'common.h']]],
   ['e_5fopcao_5fnao_5fexistente',['E_OPCAO_NAO_EXISTENTE',['../common_8h.html#a34753b0bbe7e878508c8338f40433fe4a9ede723d00e28e6034ad8591e2864c07',1,'common.h']]],
   ['e_5fstack_5foverflow',['E_STACK_OVERFLOW',['../common_8h.html#a34753b0bbe7e878508c8338f40433fe4a3d8b96b82b0cbde16c0b7e172d6b7e89',1,'common.h']]],
   ['e_5fsuccess',['E_SUCCESS',['../common_8h.html#a34753b0bbe7e878508c8338f40433fe4ac3121e429a129b2ccb51a92b7c78c4b4',1,'common.h']]],

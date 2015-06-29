@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.9.1"/>
-<title>JVM: Referência à estrutura _exception_table</title>
+<title>JVM: Referência ao ficheiro src/JVM/main.c</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -46,8 +46,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Localizar');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Página&#160;principal</span></a></li>
-      <li class="current"><a href="annotated.html"><span>Estruturas&#160;de&#160;dados</span></a></li>
-      <li><a href="files.html"><span>Ficheiros</span></a></li>
+      <li><a href="annotated.html"><span>Estruturas&#160;de&#160;dados</span></a></li>
+      <li class="current"><a href="files.html"><span>Ficheiros</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
         <span class="left">
@@ -68,9 +68,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Localizar');
   </div>
   <div id="navrow2" class="tabs2">
     <ul class="tablist">
-      <li><a href="annotated.html"><span>Estruturas&#160;de&#160;dados</span></a></li>
-      <li><a href="classes.html"><span>Índice&#160;das&#160;estruturas&#160;de&#160;dados</span></a></li>
-      <li><a href="functions.html"><span>Campos&#160;de&#160;dados</span></a></li>
+      <li><a href="files.html"><span>Lista&#160;de&#160;ficheiros</span></a></li>
+      <li><a href="globals.html"><span>Globais</span></a></li>
     </ul>
   </div>
 </div><!-- top -->
@@ -85,7 +84,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Localizar');
   </div>
 </div>
 <script type="text/javascript">
-$(document).ready(function(){initNavTree('struct__exception__table.html','');});
+$(document).ready(function(){initNavTree('main_8c.html','');});
 </script>
 <div id="doc-content">
 <!-- window showing the filter options -->
@@ -104,85 +103,102 @@ $(document).ready(function(){initNavTree('struct__exception__table.html','');});
 
 <div class="header">
   <div class="summary">
-<a href="#pub-attribs">Campos de Dados</a>  </div>
+<a href="#func-members">Funções</a> &#124;
+<a href="#var-members">Variáveis</a>  </div>
   <div class="headertitle">
-<div class="title">Referência à estrutura _exception_table</div>  </div>
+<div class="title">Referência ao ficheiro main.c</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p><code>#include &lt;<a class="el" href="attributeinfo_8h_source.html">attributeinfo.h</a>&gt;</code></p>
-<table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
-Campos de Dados</h2></td></tr>
-<tr class="memitem:a3d62cdb245ee1387dc137b06742b472c"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__exception__table.html#a3d62cdb245ee1387dc137b06742b472c">start_pc</a></td></tr>
-<tr class="separator:a3d62cdb245ee1387dc137b06742b472c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a469f4906a109e027cd16a26149038492"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__exception__table.html#a469f4906a109e027cd16a26149038492">end_pc</a></td></tr>
-<tr class="separator:a469f4906a109e027cd16a26149038492"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3e1d794f92977c6474f41828bee68d24"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__exception__table.html#a3e1d794f92977c6474f41828bee68d24">handler_pc</a></td></tr>
-<tr class="separator:a3e1d794f92977c6474f41828bee68d24"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aef2a00af919a009828c0a2a1e6cc2146"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__exception__table.html#aef2a00af919a009828c0a2a1e6cc2146">catch_type</a></td></tr>
-<tr class="separator:aef2a00af919a009828c0a2a1e6cc2146"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<p>Define entry point da maquina virtual java.  
+<a href="#details">Mais...</a></p>
+<div class="textblock"><code>#include &quot;<a class="el" href="common_8h_source.html">../Common/common.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="util_8h_source.html">../Util/util.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="maquina_8h_source.html">maquina/maquina.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="misc_8c.html">misc.c</a>&quot;</code><br />
+</div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Funções</h2></td></tr>
+<tr class="memitem:adfecc763d8f2fab3bef1c05aa59a8dfe"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="main_8c.html#adfecc763d8f2fab3bef1c05aa59a8dfe">imprimeHelper</a> ()</td></tr>
+<tr class="separator:adfecc763d8f2fab3bef1c05aa59a8dfe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3c04138a5bfe5d72780bb7e82a18e627"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="main_8c.html#a3c04138a5bfe5d72780bb7e82a18e627">main</a> (int argc, char **argv)</td></tr>
+<tr class="separator:a3c04138a5bfe5d72780bb7e82a18e627"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
+Variáveis</h2></td></tr>
+<tr class="memitem:a0a145b8e647ba88344cce4ec51b00e4d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_u_t_i_l.html">UTIL</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="main_8c.html#a0a145b8e647ba88344cce4ec51b00e4d">MUTIL</a></td></tr>
+<tr class="separator:a0a145b8e647ba88344cce4ec51b00e4d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Descrição detalhada</h2>
-<div class="textblock"><p>especificacoes de um provavel funcoes try e catch no codigo java </p>
-</div><h2 class="groupheader">Documentação dos campos e atributos</h2>
-<a class="anchor" id="aef2a00af919a009828c0a2a1e6cc2146"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint16_t _exception_table::catch_type</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a class="anchor" id="a469f4906a109e027cd16a26149038492"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint16_t _exception_table::end_pc</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a class="anchor" id="a3e1d794f92977c6474f41828bee68d24"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint16_t _exception_table::handler_pc</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a class="anchor" id="a3d62cdb245ee1387dc137b06742b472c"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint16_t _exception_table::start_pc</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<hr/>A documentação para esta estrutura foi gerada a partir do seguinte ficheiro:<ul>
-<li>src/ClassLoader/Class/AttributeInfo/<a class="el" href="attributeinfo_8h_source.html">attributeinfo.h</a></li>
+<div class="textblock"><p>Define entry point da maquina virtual java. </p>
+<p>Autores:</p><ul>
+<li>Abilio Esteves Calegario de Oliveira - 10/0006132</li>
+<li>Marcus da Silva Ferreira - 10/0056881</li>
+<li>Michael Rodrigues - 09/0126432</li>
 </ul>
+<p><a class="el" href="struct_j_v_m.html" title="a máquina virtual java em si ">JVM</a> - Software Basico 1/2015 </p>
+</div><h2 class="groupheader">Documentação das funções</h2>
+<a class="anchor" id="adfecc763d8f2fab3bef1c05aa59a8dfe"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void imprimeHelper </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a3c04138a5bfe5d72780bb7e82a18e627"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int main </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>argc</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char **&#160;</td>
+          <td class="paramname"><em>argv</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>cria o executavel da maquina virtual, e chama todas as funcoes para finalmente executar os codes (bytecode) </p>
+
+</div>
+</div>
+<h2 class="groupheader">Documentação das variáveis</h2>
+<a class="anchor" id="a0a145b8e647ba88344cce4ec51b00e4d"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct_u_t_i_l.html">UTIL</a> MUTIL</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="struct__exception__table.html">_exception_table</a></li>
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_b122af4da6eec80575ec914df2532517.html">JVM</a></li><li class="navelem"><a class="el" href="main_8c.html">main.c</a></li>
     <li class="footer">Gerado em Domingo, 28 de Junho de 2015 21:23:38 para JVM por
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.9.1 </li>

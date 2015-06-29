@@ -27,7 +27,30 @@ var common_8h =
       [ "E_STACK_OVERFLOW", "common_8h.html#a34753b0bbe7e878508c8338f40433fe4a3d8b96b82b0cbde16c0b7e172d6b7e89", null ],
       [ "E_NO_MAIN_FOUND", "common_8h.html#a34753b0bbe7e878508c8338f40433fe4a3f13f4a9345a0967705497ccadcec805", null ],
       [ "E_EMPTY_STACK", "common_8h.html#a34753b0bbe7e878508c8338f40433fe4a4e63e2d4bab8e8674b5cdd51a8f64fbe", null ],
-      [ "E_NOTSUPPORTED_VERSION", "common_8h.html#a34753b0bbe7e878508c8338f40433fe4a8fb2003b872b20668cc1beffa11fd93a", null ]
+      [ "E_NOTSUPPORTED_VERSION", "common_8h.html#a34753b0bbe7e878508c8338f40433fe4a8fb2003b872b20668cc1beffa11fd93a", null ],
+      [ "E_NOTVALID_CP_INDEX", "common_8h.html#a34753b0bbe7e878508c8338f40433fe4af30712e2c90bb569b0c12130a6666d7d", null ]
+    ] ],
+    [ "_JVM_TIPO_SIZE", "common_8h.html#a961638e005c90e886ad44cc033bae9c1", [
+      [ "tREFERENCIA_SIZE", "common_8h.html#a961638e005c90e886ad44cc033bae9c1a63c689f454c8e787dcba33870a5eeda3", null ],
+      [ "tBOOLEAN_SIZE", "common_8h.html#a961638e005c90e886ad44cc033bae9c1a53f9ec117c44091f0389d947f6885063", null ],
+      [ "tCHAR_SIZE", "common_8h.html#a961638e005c90e886ad44cc033bae9c1add58d5c95741d282b4bd499b8b45e353", null ],
+      [ "tFLOAT_SIZE", "common_8h.html#a961638e005c90e886ad44cc033bae9c1af4be042d4ef96f4159dbb2f93045ddc9", null ],
+      [ "tDOUBLE_SIZE", "common_8h.html#a961638e005c90e886ad44cc033bae9c1a03c0c50fc3e5a5f7e7579fa94360ec4f", null ],
+      [ "tBYTE_SIZE", "common_8h.html#a961638e005c90e886ad44cc033bae9c1adbe6ae36b17cce6f2d38e1daf6e1232b", null ],
+      [ "tSHORT_SIZE", "common_8h.html#a961638e005c90e886ad44cc033bae9c1a65d5b5dc89fdd697d8320e1763f53314", null ],
+      [ "tINT_SIZE", "common_8h.html#a961638e005c90e886ad44cc033bae9c1a361e289edd95f3dfe454367a9e02e5b4", null ],
+      [ "tLONG_SIZE", "common_8h.html#a961638e005c90e886ad44cc033bae9c1a4817d209fa53f322549ed27977ed7d87", null ]
+    ] ],
+    [ "_JVM_TIPOS", "common_8h.html#ae9fc71b01cdfbae844dbcf9dc65cd361", [
+      [ "tREFERENCIA", "common_8h.html#ae9fc71b01cdfbae844dbcf9dc65cd361ac53539ea5db1ef2236363a3155a90051", null ],
+      [ "tBOOLEAN", "common_8h.html#ae9fc71b01cdfbae844dbcf9dc65cd361aa0db27e3f024cd2ef542cc80f47588e0", null ],
+      [ "tCHAR", "common_8h.html#ae9fc71b01cdfbae844dbcf9dc65cd361a1fbef0abbb2fbf1fc038b4a6f9649862", null ],
+      [ "tFLOAT", "common_8h.html#ae9fc71b01cdfbae844dbcf9dc65cd361a25e66b7c961529db56f25e58c2f20c32", null ],
+      [ "tDOUBLE", "common_8h.html#ae9fc71b01cdfbae844dbcf9dc65cd361ab692ac2f5595a1fd1d40ac0d97ec7a8f", null ],
+      [ "tBYTE", "common_8h.html#ae9fc71b01cdfbae844dbcf9dc65cd361a548557bb792a8335b3f75a5b4f70b962", null ],
+      [ "tSHORT", "common_8h.html#ae9fc71b01cdfbae844dbcf9dc65cd361ab1fb890a5b2ae1a1c73e2ee3d50bbf3c", null ],
+      [ "tINT", "common_8h.html#ae9fc71b01cdfbae844dbcf9dc65cd361a89e1ce344e702f63d1562f44cf691191", null ],
+      [ "tLONG", "common_8h.html#ae9fc71b01cdfbae844dbcf9dc65cd361a86075c9069bada2dc6ca5b4f7e30d424", null ]
     ] ],
     [ "debug", "common_8h.html#a9c69211b9164a589c738e58c5d44b957", null ],
     [ "error", "common_8h.html#a6a99c69202056e789fd253104785ddb1", null ],

@@ -1,7 +1,6 @@
 var searchData=
 [
   ['getattributetype',['getAttributeType',['../struct_c_o_n_s_t_a_n_t___p_o_o_l.html#a3d3e43ca1891224914864c54145bef25',1,'CONSTANT_POOL']]],
-  ['getbasepath',['getBasePath',['../util_8h.html#a428f86cf27c17d78fe1ba07f934d825b',1,'util.h']]],
   ['getclassbyname',['getClassByName',['../struct_j_v_m.html#ac95ef4064ec308ea5097891988d1db2f',1,'JVM']]],
   ['getclassname',['getClassName',['../struct_c_o_n_s_t_a_n_t___p_o_o_l.html#a1fcd7dabb8646704ce230a674e9e9342',1,'CONSTANT_POOL']]],
   ['getclasspath',['getClassPath',['../struct_u_t_i_l.html#a00f07c12e1a585bb80f243088f23cefb',1,'UTIL']]],

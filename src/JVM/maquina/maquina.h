@@ -2,141 +2,154 @@
 	#define MODULE_JVM
 	#include "../../ClassLoader/classloader.h"
 
-	#define tREFERENCIA 	0
-	#define	tBOOLEAN	 	4
-	#define	tCHAR 			5
-	#define	tFLOAT 			6
-	#define	tDOUBLE		 	7
-	#define	tBYTE	 		8
-	#define	tSHORT	 		9
-	#define	tINT	 		10
-	#define	tLONG	 		11
-
-	#define tREFERENCIA_SIZE	4
-	#define	tBOOLEAN_SIZE		1
-	#define	tCHAR_SIZE			2
-	#define	tFLOAT_SIZE			4
-	#define	tDOUBLE_SIZE		8
-	#define	tBYTE_SIZE			1	
-	#define	tSHORT_SIZE			2	
-	#define	tINT_SIZE 			4	
-	#define	tLONG_SIZE			8
-
 	// heap
+		/// Área de armazenamento de objetos e arrays da JVM: capítulo 3, seçnao 3.5.3 da especificação
+		/*!
+			HEAP define a estutura de objetos e arrays;
+			Especifica funções para lidar com tais estruturas;
+			E delimita a área onde os mesmos são armazenados,
+			caso Garbage Collector seja utilizado
+		*/
 		typedef struct _heap {
-			struct _object {
-				CLASS* class;
-				struct _object* super;
-			}** objects;
-			struct _array {
-				uint32_t quantidade;
-				uint32_t tipo;
-				uint32_t element_size;	
-				uint64_t* values;
-			}** arrays;
+			// campos
+				struct _object {
+					CLASS* class;
+					struct _object* super;
+					uint64_t* fields;
+				}** objects;
 
-			uint32_t object_count;
-			uint32_t array_count;
+				struct _array {
+					uint32_t quantidade;
+					uint32_t tipo;
+					uint32_t element_size;	
+					uint64_t* values;
+				}** arrays;
 
-			struct _object* (*newObject)(CLASS*);
-			struct _array* (*newArray)(uint32_t, uint32_t);
+				uint32_t object_count;
+				uint32_t array_count;
+
+			// funções associadas
+				struct _object* (*newObject)(CLASS*);
+				struct _array* (*newArray)(uint32_t, uint32_t);
 		} HEAP;
 
 	// stack
+		/// Pilha de frames da JVM: capítulo 3, seção 3.5.2 da especificação
+		/*!
+			STACK define a estrutura do stack de frames
+			e provê funções para lidar com a stack da JVM
+		*/
 		typedef struct _stack {
 			//campos
-			struct _frame_pilha {
-				struct _frame* value;
-				struct _frame_pilha* next;
-			} *topo;
+				struct _frame_pilha {
+					struct _frame* value;
+					struct _frame_pilha* next;
+				} *topo;
 
-			uint32_t count;
-			uint8_t have_returned;
+				uint32_t count;
+				uint8_t have_returned;
 
 			//funcoes
-			void (*pushFrame)(CLASS*, struct _code_attribute*);
-			void (*popFrame)();
+				void (*pushFrame)(CLASS*, struct _code_attribute*);
+				void (*popFrame)();
 		} STACK;
 
-	// frame: capítulo 3, seção 3.6 da especificação
+	// frame
+		/// Contexto de operação da JVM: capítulo 3, seção 3.6 da especificação
+		/*!
+			FRAME define a estrutura de um frame e provê funções para manuseio de um frame da JVM
+		*/
 		typedef struct _frame {
 			// campos
-			uint64_t* local_variables;
+				uint64_t* local_variables;
 
-			struct _operand_stack {
-				uint32_t allocated;
-				struct _u4pilha {
-					uint64_t value;
-					struct _u4pilha* next; 
-				}* topo;
-			} operand_stack;
+				struct _operand_stack {
+					uint32_t allocated;
+					struct _u4pilha {
+						uint64_t value;
+						struct _u4pilha* next; 
+					}* topo;
+				} operand_stack;
 
-			CONSTANT_POOL* runtime_constant_pool;
-			struct _code_attribute* code_attr;
-			CLASS* current_class;
-			uint32_t pc;
+				CONSTANT_POOL* runtime_constant_pool;
+				struct _code_attribute* code_attr;
+				CLASS* current_class;
+				uint32_t pc;
 
 			// funcoes
-			void (*push)(uint64_t);
-			uint64_t (*pop)();
-			void (*push2)(uint64_t);
-			uint64_t (*pop2)();
-			void (*printOperandStack)(char*);
+				void (*push)(uint64_t);
+				uint64_t (*pop)();
+				void (*push2)(uint64_t);
+				uint64_t (*pop2)();
+				void (*printOperandStack)(char*);
 		} FRAME;		
 
 	// method_area
+		/// Local de armazenamento dos .class carregados em memória.
+		/*!
+			METHOD_AREA define a estutura dos armazenamento em memória
+			dos bytecodes que foram dinamicamente carregados
+		*/
 		typedef struct _method_area {
 			CLASS **classes, **interfaces;
 			uint32_t classes_count, interfaces_count;
 		} METHOD_AREA;
 
 	// instructions
+		/// Instruções da JVM.
+		/*!
+			JVM_INSTRUCTION define um array para acesso a metadados das instruções
+			assim como a execução das próprias a partir do ponteiro para função call
+		*/
 		typedef struct _jvminstruction {
 			uint16_t qtd_operandos;
 			char *nome;
 			void (*call)();
 		} JVM_INSTRUCTION;
 
-		/// Variável global para acessar as instruções da JVM
-		extern const JVM_INSTRUCTION instructions[];
-
 	// JVM
+		/// A máquina virtual java em si.
+		/*!
+			JVM define a maquina virtual em si, provendo funções para manipulação de seus dados
+		*/
 		typedef struct _maquina_java {
 			// campos
-			METHOD_AREA* method_area;
-			HEAP* heap;
-			STACK* stack;
-			FRAME* current_frame;
-			char* basePath;
+				METHOD_AREA* method_area;
+				HEAP* heap;
+				STACK* stack;
+				FRAME* current_frame;
+				char* basePath;
 
-			// funcoes
-			int (*loadClass)(char*);
-			void (*verify)(int);
-			void (*prepare)(uint32_t);
-			void (*link)(int);
-			void (*initialize)(int);
-			void (*execute)();
-			uint32_t (*retrieveFieldIndex)(char*,char*,uint16_t,char*,uint16_t);
-			CLASS* (*getClassByName)(char*);
-			uint64_t (*getStaticFieldVal)(uint32_t, uint32_t);
-			void (*setStaticFieldVal)(uint32_t, uint32_t,uint64_t);
-			struct _field_info* (*getObjectField)(struct _object*, uint32_t);
-			void (*setObjectField)(struct _object*, uint32_t,uint64_t);
-			char* (*getNameConstants)(CLASS*, uint16_t);
-			struct _method_info* (*getMethodByNameDesc)(CLASS*, CLASS*, uint16_t);
-			int32_t (*getNumParameters)(CLASS*, struct _method_info*) ;
-			void (*construirFrame)(CLASS*, struct _method_info*);
-			void (*run)();
-			int (*loadParentClasses)();
-			int (*loadInterfaces)(CLASS*);
-			uint64_t (*getNativeValueForStaticMethod)(CLASS*, struct _method_info*);
-			uint32_t (*searchStaticFieldVal)(uint32_t,char*,char*);
+			// funções
+				int (*loadClass)(char*);
+				void (*verify)(int);
+				void (*prepare)(uint32_t);
+				void (*link)(int);
+				void (*initialize)(int);
+				void (*execute)();
+				uint32_t (*retrieveFieldIndex)(char*,char*,uint16_t,char*,uint16_t);
+				CLASS* (*getClassByName)(char*);
+				uint64_t (*getStaticFieldVal)(uint32_t, uint32_t);
+				void (*setStaticFieldVal)(uint32_t, uint32_t,uint64_t);
+				struct _field_info* (*getObjectField)(struct _object*, uint32_t);
+				void (*setObjectField)(struct _object*, uint32_t,uint64_t);
+				char* (*getNameConstants)(CLASS*, uint16_t);
+				struct _method_info* (*getMethodByNameDesc)(CLASS*, CLASS*, uint16_t);
+				int32_t (*getNumParameters)(CLASS*, struct _method_info*) ;
+				void (*construirFrame)(CLASS*, struct _method_info*);
+				void (*run)();
+				int (*loadParentClasses)();
+				int (*loadInterfaces)(CLASS*);
+				uint64_t (*getNativeValueForStaticMethod)(CLASS*, struct _method_info*);
+				uint32_t (*searchStaticFieldVal)(uint32_t,char*,char*);
 		} JVM;
 	
-	HEAP* initHEAP();
-	STACK* initSTACK();
-	FRAME* initFRAME(CLASS*, struct _code_attribute*);
-	JVM initJVM();
+	// inicializadores
+		HEAP* initHEAP();
+		STACK* initSTACK();
+		FRAME* initFRAME(CLASS*, struct _code_attribute*);
+		JVM initJVM();
 
-	extern JVM maquina;
+	extern const JVM_INSTRUCTION instructions[];/// Variável global para acessar as instruções da JVM
+	extern JVM maquina;/// variável global para acesso a JVM em si
 #endif

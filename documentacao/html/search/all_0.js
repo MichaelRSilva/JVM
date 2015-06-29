@@ -10,6 +10,8 @@ var searchData=
   ['_5fexception_5ftable',['_exception_table',['../struct__exception__table.html',1,'']]],
   ['_5ffield_5finfo',['_field_info',['../struct__field__info.html',1,'']]],
   ['_5fframe_5fpilha',['_frame_pilha',['../struct_s_t_a_c_k_1_1__frame__pilha.html',1,'STACK']]],
+  ['_5fjvm_5ftipo_5fsize',['_JVM_TIPO_SIZE',['../common_8h.html#a961638e005c90e886ad44cc033bae9c1',1,'common.h']]],
+  ['_5fjvm_5ftipos',['_JVM_TIPOS',['../common_8h.html#ae9fc71b01cdfbae844dbcf9dc65cd361',1,'common.h']]],
   ['_5fline_5fnumber_5ftable',['_line_number_table',['../struct__line__number__table.html',1,'']]],
   ['_5flocal_5fvariable_5ftable',['_local_variable_table',['../struct__local__variable__table.html',1,'']]],
   ['_5fmethod_5finfo',['_method_info',['../struct__method__info.html',1,'']]],

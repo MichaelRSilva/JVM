@@ -19,7 +19,8 @@
 	// #define DEBUG
 
 	/*!
-		facilitar o uso para comparacao de access flags
+		Enumeração dos valores das access flags assim como definido no capítulo 4 da especificação;
+		Facilita o uso para comparacao de access flags
 	*/
 	enum _ACCESS_FLAGS {
 		mask_public = 0x0001,
@@ -32,6 +33,36 @@
 		mask_volatile = 0x0040,
    		mask_transient = 0x0080,
    		mask_native  = 0x0100
+	};
+
+	/*!
+		Enumeração dos possíveis tipos definidos pela JVM para newArray
+	*/
+	enum _JVM_TIPOS {
+		tREFERENCIA = 0,
+		tBOOLEAN = 4,
+		tCHAR = 5,
+		tFLOAT = 6,
+		tDOUBLE	= 7,
+		tBYTE = 8,
+		tSHORT = 9,
+		tINT = 10,
+		tLONG = 11
+	};
+
+	/*!
+		Enumeração do tamanho em bytes dos tipos definidos pela JVM
+	*/
+	enum _JVM_TIPO_SIZE {
+		tREFERENCIA_SIZE = 4,
+		tBOOLEAN_SIZE = 1,
+		tCHAR_SIZE = 2,
+		tFLOAT_SIZE = 4,
+		tDOUBLE_SIZE = 8,
+		tBYTE_SIZE = 1,
+		tSHORT_SIZE = 2,
+		tINT_SIZE = 4,
+		tLONG_SIZE = 8
 	};
 
 	// estruturas para propagacao de erros ao usuario.
