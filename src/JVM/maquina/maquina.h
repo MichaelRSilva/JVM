@@ -32,6 +32,7 @@
 				struct _object* (*newObject)(CLASS*);
 				struct _array* (*newArray)(uint32_t, uint32_t);
 				struct _array* (*newRefArray)(uint32_t, char*);
+				struct _array* (*newMultiArray)(int, int, int*, uint32_t);
 		} HEAP;
 
 	// stack

@@ -137,6 +137,10 @@ Campos de Dados</h2></td></tr>
 <tr class="separator:add5a1c220918c16649cc66d9f3641de1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af8fa67fb3dc90a64c90478f90c5d4e6e"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="struct_h_e_a_p_1_1__array.html">_array</a> *(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_h_e_a_p.html#af8fa67fb3dc90a64c90478f90c5d4e6e">newArray</a> )(uint32_t, uint32_t)</td></tr>
 <tr class="separator:af8fa67fb3dc90a64c90478f90c5d4e6e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa14a3a31a03b7e7c98a76ea403b63769"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="struct_h_e_a_p_1_1__array.html">_array</a> *(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_h_e_a_p.html#aa14a3a31a03b7e7c98a76ea403b63769">newRefArray</a> )(uint32_t, char *)</td></tr>
+<tr class="separator:aa14a3a31a03b7e7c98a76ea403b63769"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad8cf7f470b11e36636dcc41bb3d4a06a"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="struct_h_e_a_p_1_1__array.html">_array</a> *(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_h_e_a_p.html#ad8cf7f470b11e36636dcc41bb3d4a06a">newMultiArray</a> )(int, int, int *, uint32_t)</td></tr>
+<tr class="separator:ad8cf7f470b11e36636dcc41bb3d4a06a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Descrição detalhada</h2>
 <div class="textblock"><p>Área de armazenamento de objetos e arrays da <a class="el" href="struct_j_v_m.html" title="A máquina virtual java em si. ">JVM</a>: capítulo 3, seçnao 3.5.3 da especificação. </p>
@@ -178,12 +182,36 @@ Campos de Dados</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="ad8cf7f470b11e36636dcc41bb3d4a06a"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">struct <a class="el" href="struct_h_e_a_p_1_1__array.html">_array</a>*(* HEAP::newMultiArray) (int, int, int *, uint32_t)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a class="anchor" id="add5a1c220918c16649cc66d9f3641de1"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname">struct <a class="el" href="struct_h_e_a_p_1_1__object.html">_object</a>*(* HEAP::newObject) (<a class="el" href="struct_c_l_a_s_s.html">CLASS</a> *)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="aa14a3a31a03b7e7c98a76ea403b63769"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">struct <a class="el" href="struct_h_e_a_p_1_1__array.html">_array</a>*(* HEAP::newRefArray) (uint32_t, char *)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -223,7 +251,7 @@ Campos de Dados</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="struct_h_e_a_p.html">HEAP</a></li>
-    <li class="footer">Gerado em Segunda, 29 de Junho de 2015 00:16:36 para JVM por
+    <li class="footer">Gerado em Terça, 30 de Junho de 2015 12:18:01 para JVM por
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.9.1 </li>
   </ul>

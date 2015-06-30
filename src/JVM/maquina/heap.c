@@ -84,12 +84,40 @@ static struct _array* newArray(uint32_t count, uint32_t tipo) {
 	return addArray(newArr);
 }
 
+/*!
+	Cria uma instancia de array de referencia
+*/
 static struct _array* newRefArray(uint32_t count, char* className) {
 	struct _array* newArr = newArray(count, tREFERENCIA);
 
 	maquina.loadClass(className);
 
 	return newArr;
+}
+
+/*!
+	A partir da dimension 0, para cada dimension de um array de multiplas dimensions,
+	intancia um novo array para cada campo valor disponível na dimension indicada por $dimension.
+	A instância é dada de forma recursiva, e a condição de parada é quando o número da dimensão for igual ao número total de dimensões do array.
+	@param dimension: dimensão atual
+	@param dimensionCount: número total de dimensions
+	@param qtdByDimension: tamanho do array de cada dimensão
+	@param tipo: o tipo do array
+	@return um array de múltiplas dimensões 
+*/
+static struct _array* newMultiArray(int dimension, int dimensionCount, int* qtdByDimension, uint32_t tipo){
+	if (dimension == dimensionCount - 1) {
+		return newArray(qtdByDimension[dimension], tipo);
+	} else if (dimension < dimensionCount) {
+		struct _array* toReturn = newArray(qtdByDimension[dimension], tipo);
+		for (int i = 0; i < qtdByDimension[dimension]; i++) {
+			toReturn->values[i] = (uint64_t)(intptr_t)newMultiArray(dimension+1, dimensionCount, qtdByDimension, tipo);
+		}
+		return toReturn;
+	} else {
+		error(E_BAD_INPUT);
+		return NULL;
+	}
 }
 
 /*!
@@ -108,5 +136,6 @@ HEAP* initHEAP() {
 	toReturn->newObject = newObject;
 	toReturn->newArray = newArray;
 	toReturn->newRefArray = newRefArray;
+	toReturn->newMultiArray = newMultiArray;
 	return toReturn;
 }

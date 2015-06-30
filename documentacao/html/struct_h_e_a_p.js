@@ -5,7 +5,9 @@ var struct_h_e_a_p =
     [ "array_count", "struct_h_e_a_p.html#ab988b28e3bb4e377131f4bcd4935e342", null ],
     [ "arrays", "struct_h_e_a_p.html#a942d318eb4e120a0ede3328875ad9b97", null ],
     [ "newArray", "struct_h_e_a_p.html#af8fa67fb3dc90a64c90478f90c5d4e6e", null ],
+    [ "newMultiArray", "struct_h_e_a_p.html#ad8cf7f470b11e36636dcc41bb3d4a06a", null ],
     [ "newObject", "struct_h_e_a_p.html#add5a1c220918c16649cc66d9f3641de1", null ],
+    [ "newRefArray", "struct_h_e_a_p.html#aa14a3a31a03b7e7c98a76ea403b63769", null ],
     [ "object_count", "struct_h_e_a_p.html#a432d8e32c301467baf54920b1e1e08a4", null ],
     [ "objects", "struct_h_e_a_p.html#af9f412b33fe51e4d3d52ef0cb19691ce", null ]
 ];

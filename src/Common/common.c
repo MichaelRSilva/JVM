@@ -28,7 +28,13 @@ const ERRORS errordesc[] = {
 	{ E_NOTVALID_CP_INDEX, "ERRO: Indice para constante pool nao valido!"},
 	{ E_NEG_ARR_SIZE, "ERRO: NegativeArraySizeException"},
 	{ E_NULL_POINTER, "ERRO: NullPointerException"},
-	{ E_ARR_NOT_FOUND, "ERRO: Array não encontrado" }
+	{ E_ARR_NOT_FOUND, "ERRO: Array não encontrado" },
+	{ E_NOT_VALID_MARRAY_INFO, "ERRO: Informacao Incorreta de um Multiarray"},
+	{ E_NOT_SUPPORTED_ARRAY_TYPE, "ERRO: Tipo de array nao suportado"},
+	{ E_DISTINCT_MARRAY_DIMENSIONS, "ERRO: Multi array: Dimensoes do constant pool e do operando diferentes"},
+	{ E_NOT_SUPPORTED_INSTRUCTION, "ERRO: Instrucao nao suportada"},
+	{ E_BAD_INPUT, "ERRO: Valores inválidos de input para a instrução newMultiArray"},
+	{ E_NEGATIVE_ARRAY_SIZE, "ERRO: Arrays não podem ter tamanho vazio"}
 };
 
 void error(int errorcode) {

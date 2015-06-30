@@ -28,7 +28,16 @@ var common_8h =
       [ "E_NO_MAIN_FOUND", "common_8h.html#a34753b0bbe7e878508c8338f40433fe4a3f13f4a9345a0967705497ccadcec805", null ],
       [ "E_EMPTY_STACK", "common_8h.html#a34753b0bbe7e878508c8338f40433fe4a4e63e2d4bab8e8674b5cdd51a8f64fbe", null ],
       [ "E_NOTSUPPORTED_VERSION", "common_8h.html#a34753b0bbe7e878508c8338f40433fe4a8fb2003b872b20668cc1beffa11fd93a", null ],
-      [ "E_NOTVALID_CP_INDEX", "common_8h.html#a34753b0bbe7e878508c8338f40433fe4af30712e2c90bb569b0c12130a6666d7d", null ]
+      [ "E_NOTVALID_CP_INDEX", "common_8h.html#a34753b0bbe7e878508c8338f40433fe4af30712e2c90bb569b0c12130a6666d7d", null ],
+      [ "E_NEG_ARR_SIZE", "common_8h.html#a34753b0bbe7e878508c8338f40433fe4af0b76552d5aaeb6ae21f23776e23a280", null ],
+      [ "E_NULL_POINTER", "common_8h.html#a34753b0bbe7e878508c8338f40433fe4ae7ca2f54db67751aa6de692edeb4a979", null ],
+      [ "E_ARR_NOT_FOUND", "common_8h.html#a34753b0bbe7e878508c8338f40433fe4a38e832f0730726d1f3c129eace2eeb6a", null ],
+      [ "E_NOT_VALID_MARRAY_INFO", "common_8h.html#a34753b0bbe7e878508c8338f40433fe4a999c4cd4804f58593de9f518c5ef06ff", null ],
+      [ "E_NOT_SUPPORTED_ARRAY_TYPE", "common_8h.html#a34753b0bbe7e878508c8338f40433fe4ae6f5749b7e5feb1b96db95abbb6ab2e3", null ],
+      [ "E_DISTINCT_MARRAY_DIMENSIONS", "common_8h.html#a34753b0bbe7e878508c8338f40433fe4a9f3743397150926b49a5a520b500bc52", null ],
+      [ "E_NOT_SUPPORTED_INSTRUCTION", "common_8h.html#a34753b0bbe7e878508c8338f40433fe4ae70c370258f91f05753063cbc43a643f", null ],
+      [ "E_BAD_INPUT", "common_8h.html#a34753b0bbe7e878508c8338f40433fe4a923705a47eaf98d04af8c524d78c742c", null ],
+      [ "E_NEGATIVE_ARRAY_SIZE", "common_8h.html#a34753b0bbe7e878508c8338f40433fe4a15d797f54847bbd2dc7cf6da79677074", null ]
     ] ],
     [ "_JVM_TIPO_SIZE", "common_8h.html#a961638e005c90e886ad44cc033bae9c1", [
       [ "tREFERENCIA_SIZE", "common_8h.html#a961638e005c90e886ad44cc033bae9c1a63c689f454c8e787dcba33870a5eeda3", null ],

@@ -120,6 +120,10 @@ Funções</h2></td></tr>
 <tr class="separator:a9cf9c5efe38c4e94eeeed8ad7c890fd4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a49019a004dfeb57a0b3e7d14b8723244"><td class="memItemLeft" align="right" valign="top">static struct _array *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="heap_8c.html#a49019a004dfeb57a0b3e7d14b8723244">newArray</a> (uint32_t count, uint32_t tipo)</td></tr>
 <tr class="separator:a49019a004dfeb57a0b3e7d14b8723244"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab217a5d53488069e3d6f450df3c38745"><td class="memItemLeft" align="right" valign="top">static struct _array *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="heap_8c.html#ab217a5d53488069e3d6f450df3c38745">newRefArray</a> (uint32_t count, char *className)</td></tr>
+<tr class="separator:ab217a5d53488069e3d6f450df3c38745"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5ebf286191b56339d1a17ecdd743c782"><td class="memItemLeft" align="right" valign="top">static struct _array *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="heap_8c.html#a5ebf286191b56339d1a17ecdd743c782">newMultiArray</a> (int dimension, int dimensionCount, int *qtdByDimension, uint32_t tipo)</td></tr>
+<tr class="separator:a5ebf286191b56339d1a17ecdd743c782"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac8bd75b303e23dfab20cf441917f3c4a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_h_e_a_p.html">HEAP</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="heap_8c.html#ac8bd75b303e23dfab20cf441917f3c4a">initHEAP</a> ()</td></tr>
 <tr class="separator:ac8bd75b303e23dfab20cf441917f3c4a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
@@ -225,6 +229,62 @@ Funções</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="a5ebf286191b56339d1a17ecdd743c782"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static struct _array* newMultiArray </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>dimension</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>dimensionCount</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int *&#160;</td>
+          <td class="paramname"><em>qtdByDimension</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t&#160;</td>
+          <td class="paramname"><em>tipo</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>A partir da dimension 0, para cada dimension de um array de multiplas dimensions, intancia um novo array para cada campo valor disponível na dimension indicada por $dimension. A instância é dada de forma recursiva, e a condição de parada é quando o número da dimensão for igual ao número total de dimensões do array. </p><dl class="params"><dt>Parâmetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">dimension</td><td>dimensão atual </td></tr>
+    <tr><td class="paramname">dimensionCount</td><td>número total de dimensions </td></tr>
+    <tr><td class="paramname">qtdByDimension</td><td>tamanho do array de cada dimensão </td></tr>
+    <tr><td class="paramname">tipo</td><td>o tipo do array </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Retorna</dt><dd>um array de múltiplas dimensões </dd></dl>
+
+</div>
+</div>
 <a class="anchor" id="a9cf9c5efe38c4e94eeeed8ad7c890fd4"></a>
 <div class="memitem">
 <div class="memproto">
@@ -250,13 +310,48 @@ Funções</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="ab217a5d53488069e3d6f450df3c38745"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static struct _array* newRefArray </td>
+          <td>(</td>
+          <td class="paramtype">uint32_t&#160;</td>
+          <td class="paramname"><em>count</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>className</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Cria uma instancia de array de referencia </p>
+
+</div>
+</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_b122af4da6eec80575ec914df2532517.html">JVM</a></li><li class="navelem"><a class="el" href="dir_9a7834b574c838e53f2bd3bfa0b4c9b0.html">maquina</a></li><li class="navelem"><a class="el" href="heap_8c.html">heap.c</a></li>
-    <li class="footer">Gerado em Segunda, 29 de Junho de 2015 00:16:35 para JVM por
+    <li class="footer">Gerado em Terça, 30 de Junho de 2015 12:18:01 para JVM por
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.9.1 </li>
   </ul>

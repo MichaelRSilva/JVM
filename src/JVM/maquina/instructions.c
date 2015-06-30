@@ -3055,8 +3055,6 @@ static void _anewarray() {
 	char* className = _MCONSTANTP.getClassName(maquina.current_frame->runtime_constant_pool, indice);
 
 	void* pointer = maquina.heap->newRefArray(count,className);
-	//uint64_t toPush = 0;
-	//memcpy(&toPush, &pointer, sizeof(uint64_t));
 
     maquina.current_frame->push((uint64_t)(intptr_t)pointer);
 	maquina.current_frame->pc++;
@@ -3138,10 +3136,12 @@ static void _instanceof() {
 }
 
 static void _monitorenter() {
+	printf("monitorenter: Instrucao nao suportada");
 	exit(1);
 }
 
 static void _monitorexit() {
+	printf("monitorexit: Instrucao nao suportada");
 	exit(1);
 }
 
@@ -3151,86 +3151,71 @@ static void _wide() {
 }
 
 static void _multianewarray() {
-	uint8_t indexByte1 = 0, indexByte2 = 0, dimensions = 0;
-	uint16_t indice, type, size;
-	uint64_t i, quantidade, tamanho;
-	void *array_reference;
-	char *array_type;
+	// error(E_NOT_SUPPORTED_INSTRUCTION);
+	uint16_t indice = maquina.current_frame->code_attr->code[++maquina.current_frame->pc];
+	indice = indice << 8 | maquina.current_frame->code_attr->code[++maquina.current_frame->pc];
+	int dimensionCount = maquina.current_frame->code_attr->code[++maquina.current_frame->pc];
+	char* marrayInfo = _MCONSTANTP.getClassName(maquina.current_frame->runtime_constant_pool, indice);
 
+	// multianewarray apenas para arrays de dimensão >= 2
+	if (dimensionCount < 1 || marrayInfo == NULL || (marrayInfo[0] != '[' && marrayInfo[1] != '[')) error(E_NOT_VALID_MARRAY_INFO);
 
-	indexByte1 = maquina.current_frame->code_attr->code[++maquina.current_frame->pc];	  
-	indexByte2 = maquina.current_frame->code_attr->code[++maquina.current_frame->pc];
-	dimensions = maquina.current_frame->code_attr->code[++maquina.current_frame->pc];
+	int* qtdByDimension = (int*)malloc(dimensionCount*sizeof(int));
 
-	indice = ((indexByte1 << 8) | indexByte2);
-
-	quantidade = maquina.current_frame->pop();
-	array_reference = maquina.heap->newArray(quantidade,tREFERENCIA);
-	array_type = maquina.current_frame->current_class->getName(maquina.current_frame->current_class);
-	i = 0;
-
-	while(array_type[i] == '[') {
-		i++;
+	for (int i = 0; i < dimensionCount; i++) {
+		int aux = maquina.current_frame->pop();
+		if (aux > 0) {
+			qtdByDimension[i] = aux;
+		}else {
+			error(E_NEGATIVE_ARRAY_SIZE);
+		}
 	}
 
-	switch(array_type[i]) {
-		case 'L':
-			type = tREFERENCIA;
-			size = tREFERENCIA_SIZE;
+	uint32_t tipo = 0;
+	switch(marrayInfo[dimensionCount]) {
+		case 'L': // seta o tipo e carrega classe para method_area
+			tipo = tREFERENCIA;
+			char* className = (char*)malloc(strlen(marrayInfo)*sizeof(char));
+			for (int i = dimensionCount+1; i < strlen(marrayInfo); i++) {
+				className[i - dimensionCount -1] = marrayInfo[i];
+				className[i - dimensionCount] = '\0';
+			}
+			maquina.loadClass(className);
 			break;
 		case 'Z':
-			type = tBOOLEAN;
-			size = tBOOLEAN_SIZE;
+			tipo = tBOOLEAN;
 			break;
 		case 'C':
-			type = tCHAR;
-			size = tCHAR_SIZE;
+			tipo = tCHAR;
 			break;
 		case 'F':
-			type = tFLOAT;
-			size = tFLOAT_SIZE;
+			tipo = tFLOAT;
 			break;
 		case 'D':
-			type = tDOUBLE;
-			size = tDOUBLE_SIZE;
+			tipo = tDOUBLE;
 			break;
 		case 'B':
-			type = tBYTE;
-			size = tBYTE_SIZE;
+			tipo = tBYTE;
 			break;
 		case 'S':
-			type = tSHORT;
-			size = tSHORT_SIZE;
+			tipo = tSHORT;
 			break;
 		case 'I':
-			type = tINT;
-			size = tINT_SIZE;
+			tipo = tINT;
 			break;
 		case 'J':
-			type = tLONG;
-			size = tLONG_SIZE;
+			tipo = tLONG;
+			break;
+		case '[':
+			error(E_DISTINCT_MARRAY_DIMENSIONS);
 			break;
 		default:
-			type = tREFERENCIA;
-			size = tREFERENCIA_SIZE;
+			error(E_NOT_SUPPORTED_ARRAY_TYPE);
+			break;
 	}
 
-	for(i = 0; i < dimensions; i++)	{
-		tamanho = maquina.current_frame->pop();
-		if(tamanho == 0) {
-			break;
-		}
-		if(size == 1) {
-			((uint8_t**)array_reference)[i] = (uint8_t*) maquina.heap->newArray(type,tamanho);
-		} else if(size == 2) {
-			((uint16_t**)array_reference)[i] = (uint16_t*) maquina.heap->newArray(type,tamanho);
-		} else if(size == 4) {
-			((uint64_t**)array_reference)[i] = (uint64_t*) maquina.heap->newArray(type,tamanho);
-		} else {
-			((uint64_t**)array_reference)[i] = (uint64_t*) maquina.heap->newArray(type,tamanho);
-		}
-	}
-	maquina.current_frame->push((uint64_t)(intptr_t) array_reference);
+	void *pointer = maquina.heap->newMultiArray(0, dimensionCount, qtdByDimension, tipo);
+	maquina.current_frame->push((uint64_t)(intptr_t)pointer);
 	maquina.current_frame->pc++;
 }
 

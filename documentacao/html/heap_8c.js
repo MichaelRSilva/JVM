@@ -4,5 +4,7 @@ var heap_8c =
     [ "addObject", "heap_8c.html#ab1cfb9befb3941f084c4eff9020120e0", null ],
     [ "initHEAP", "heap_8c.html#ac8bd75b303e23dfab20cf441917f3c4a", null ],
     [ "newArray", "heap_8c.html#a49019a004dfeb57a0b3e7d14b8723244", null ],
-    [ "newObject", "heap_8c.html#a9cf9c5efe38c4e94eeeed8ad7c890fd4", null ]
+    [ "newMultiArray", "heap_8c.html#a5ebf286191b56339d1a17ecdd743c782", null ],
+    [ "newObject", "heap_8c.html#a9cf9c5efe38c4e94eeeed8ad7c890fd4", null ],
+    [ "newRefArray", "heap_8c.html#ab217a5d53488069e3d6f450df3c38745", null ]
 ];
