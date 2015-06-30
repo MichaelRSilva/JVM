@@ -38,4 +38,4 @@ Util.o: src/Util/util.c
 	$(parmes) -c src/Util/util.c -o util.o $(final)
 
 limpa: 
-	rm *.o
+	del *.o
